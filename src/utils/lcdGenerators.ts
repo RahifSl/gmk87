@@ -642,20 +642,21 @@ export function drawProceduralAnimationFrame(
         }
       }
 
-      const leftDown = frameIndex % 2 === 0;
-      const rightDown = !leftDown;
+      const step = Math.floor(frameIndex / 4);
+      const leftDown = step % 3 === 0;
+      const rightDown = step % 3 === 1;
 
       ctx.fillStyle = '#f8fafc';
       ctx.strokeStyle = '#0f172a';
       ctx.lineWidth = 2;
 
       ctx.beginPath();
-      ctx.ellipse(86, leftDown ? 98 : 74, 11, 8, -0.3, 0, Math.PI * 2);
+      ctx.ellipse(86, leftDown ? 96 : 76, 11, 8, -0.3, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 
       ctx.beginPath();
-      ctx.ellipse(148, rightDown ? 100 : 75, 11, 8, 0.3, 0, Math.PI * 2);
+      ctx.ellipse(148, rightDown ? 97 : 77, 11, 8, 0.3, 0, Math.PI * 2);
       ctx.fill();
       ctx.stroke();
 

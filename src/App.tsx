@@ -28,6 +28,9 @@ import {
   FlaskConical,
   Timer,
   Gauge,
+  Download,
+  Palette,
+  PictureInPicture2,
 } from 'lucide-react';
 import {
   Gmk87HidEngine,
@@ -70,6 +73,141 @@ import {
   decodeImageOrGifBuffer,
   fetchAndDecodeExternalGif,
 } from './utils/gifDecoder';
+import RgbUnderglowStudio from './components/RgbUnderglowStudio';
+import TftScreenPainterAndTimeline from './components/TftScreenPainterAndTimeline';
+import InteractiveShortcutTrainer from './components/InteractiveShortcutTrainer';
+
+type KeycapThemeId = 'cyberpunk' | 'olivia' | 'laser' | 'botanical' | 'dolch';
+
+const KATAKANA_SUBLEGENDS: Record<string, string> = {
+  '`': 'ろ',
+  '~': 'ろ',
+  '~ `': 'ろ',
+  '1': 'ヌ',
+  '2': 'フ',
+  '3': 'ア',
+  '4': 'ウ',
+  '5': 'エ',
+  '6': 'オ',
+  '7': 'ヤ',
+  '8': 'ユ',
+  '9': 'ヨ',
+  '0': 'ワ',
+  '-': 'ホ',
+  '=': 'ヘ',
+  'Q': 'タ',
+  'W': 'テ',
+  'E': 'イ',
+  'R': 'ス',
+  'T': 'カ',
+  'Y': 'ン',
+  'U': 'ナ',
+  'I': 'ニ',
+  'O': 'ラ',
+  'P': 'セ',
+  '[': '゛',
+  ']': '゜',
+  '\\': 'ム',
+  'A': 'チ',
+  'S': 'ト',
+  'D': 'シ',
+  'F': 'ハ',
+  'G': 'キ',
+  'H': 'ク',
+  'J': 'マ',
+  'K': 'ノ',
+  'L': 'リ',
+  ';': 'レ',
+  "'": 'ケ',
+  'Z': 'ツ',
+  'X': 'サ',
+  'C': 'ソ',
+  'V': 'ヒ',
+  'B': 'コ',
+  'N': 'ミ',
+  'M': 'モ',
+  ',': 'ネ',
+  '.': 'ル',
+  '/': 'メ',
+};
+
+const CYBER_MOD_GLYPHS: Record<string, string> = {
+  r0c0: '△', // Esc - Red Tech Triangle
+  r0c13: '⊕', // PrtSc - Crosshair Target
+  r1c13: '<<<<<<', // Backspace - Cyan Chevron Gauge
+  r2c0: '[-==--]', // Tab
+  r3c0: '[++++]', // Caps Lock
+  r3c13: '∿∿∿∿∿', // Enter - Red Waveform
+  r4c0: '[==---]', // LShift
+  r4c12: '[+ ++ ---]', // RShift
+  r5c0: '☵', // LCtrl
+  r5c1: '❖', // Win
+  r5c2: '▲▼', // LAlt
+  r5c9: '▲▼', // RAlt
+  r5c10: 'FN', // Fn
+  r5c11: '🗲', // Menu
+  r5c12: '☵', // RCtrl
+  // Nav Cluster
+  r1c14: '⤾', // Ins
+  r3c14: '☊', // Home
+  r5c14: '⤿', // PgUp
+  r2c14: '※', // Del
+  r4c14: '≈', // End
+  r6c14: '⛶', // PgDn
+};
+
+const GMK_KEYCAP_THEMES: Record<
+  KeycapThemeId,
+  {
+    name: string;
+    badge: string;
+    alphaClass: string;
+    modClass: string;
+    accentClass: string;
+    legendColor: string;
+  }
+> = {
+  cyberpunk: {
+    name: 'GMK Awaken (Yellow Space)',
+    badge: '#facc15',
+    alphaClass: 'bg-gradient-to-b from-[#141824] via-[#0d111c] to-[#070a12] border border-[#232c40] text-yellow-300',
+    modClass: 'bg-gradient-to-b from-[#101522] via-[#0b0e18] to-[#060810] border border-[#1b253b] text-cyan-400',
+    accentClass: 'bg-gradient-to-b from-[#ef4444] to-[#b91c1c] border border-red-400 text-white font-bold',
+    legendColor: 'text-yellow-300',
+  },
+  olivia: {
+    name: 'GMK Olivia++',
+    badge: '#e8b4b8',
+    alphaClass: 'bg-gradient-to-b from-[#332f31] via-[#262325] to-[#1c1a1b] border border-[#474144] text-[#f7ecec]',
+    modClass: 'bg-gradient-to-b from-[#1f1d1e] via-[#161415] to-[#0e0d0e] border border-[#332f31] text-[#f4bcc0]',
+    accentClass: 'bg-gradient-to-b from-[#e8b4b8] to-[#d69fa4] border border-[#fce4e6] text-[#1a1718] font-bold',
+    legendColor: 'text-[#f7ecec]',
+  },
+  laser: {
+    name: 'GMK Laser Synth',
+    badge: '#f43f5e',
+    alphaClass: 'bg-gradient-to-b from-[#261854] via-[#1a0f3d] to-[#10072b] border border-[#442c94] text-[#22d3ee]',
+    modClass: 'bg-gradient-to-b from-[#170a36] via-[#0e0524] to-[#080217] border border-[#331773] text-[#f43f5e]',
+    accentClass: 'bg-gradient-to-b from-[#f43f5e] to-[#be123c] border border-[#fda4af] text-white font-bold',
+    legendColor: 'text-[#22d3ee]',
+  },
+  botanical: {
+    name: 'GMK Botanical',
+    badge: '#10b981',
+    alphaClass: 'bg-gradient-to-b from-[#223d34] via-[#172c25] to-[#0f1f1a] border border-[#355c4f] text-[#ecfdf5]',
+    modClass: 'bg-gradient-to-b from-[#13241e] via-[#0b1814] to-[#06100d] border border-[#203a31] text-[#6ee7b7]',
+    accentClass: 'bg-gradient-to-b from-[#10b981] to-[#047857] border border-[#6ee7b7] text-slate-950 font-bold',
+    legendColor: 'text-[#ecfdf5]',
+  },
+  dolch: {
+    name: 'GMK Retro Dolch',
+    badge: '#f59e0b',
+    alphaClass: 'bg-gradient-to-b from-[#3c434d] via-[#2c323b] to-[#1f242b] border border-[#535c69] text-slate-100',
+    modClass: 'bg-gradient-to-b from-[#22272e] via-[#171b21] to-[#0f1216] border border-[#373e4a] text-amber-300',
+    accentClass: 'bg-gradient-to-b from-[#ef4444] to-[#b91c1c] border border-[#fca5a5] text-white font-bold',
+    legendColor: 'text-slate-100',
+  },
+};
 
 interface WebGifItem {
   id: string;
@@ -145,19 +283,6 @@ function MiniLcdCardCanvas({
   );
 }
 
-const RGB_EFFECTS = [
-  { id: 1, name: 'Wave', desc: 'Continuous horizontal rainbow wave across 87 keys' },
-  { id: 2, name: 'Colour Cloud', desc: 'Soft drifting pastel & neon nebula clouds' },
-  { id: 3, name: 'Vortex', desc: 'Spiral radial colour vortex centered on G/H keys' },
-  { id: 4, name: 'Mix Colour', desc: 'Multi-zone shifting cyber palette' },
-  { id: 5, name: 'Breathe', desc: 'Smooth sinusoidal fade in/out in selected hue' },
-  { id: 6, name: 'Solid', desc: 'Static calibrated per-key RGB colour' },
-  { id: 7, name: 'Starry Night', desc: 'Random twinkling keys over deep dark backdrop' },
-  { id: 8, name: 'Meteor', desc: 'High-speed shooting light trails across rows' },
-  { id: 9, name: 'Matrix Rain', desc: 'Vertical cascading droplets down key columns' },
-  { id: 0, name: 'Off', desc: 'Disable all per-key & underglow LEDs (battery saver)' },
-];
-
 const SMART_KNOB_MODES = [
   {
     id: 'volume',
@@ -218,6 +343,8 @@ export default function App() {
     lightingEffect: 1, // Wave
     brightness: 9, // 0-9 hardware slider
     speed: 2, // 0-4 hardware slider
+    effectDirection: 0, // 0 = Forward, 1 = Reverse
+    rainbowMode: 0, // 0 = Single Hue, 1 = Rainbow
     rgbHueR: 6,
     rgbHueG: 182,
     rgbHueB: 212,
@@ -249,8 +376,12 @@ export default function App() {
   // Live 240x135 Hardware LCD Mini-Monitor state + Embedded In-Chassis TFT Canvas
   const monitorCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const inChassisCanvasRef = useRef<HTMLCanvasElement | null>(null);
-  const [monitorExpanded, setMonitorExpanded] = useState(true);
-  const [activePreviewAnim, setActivePreviewAnim] = useState<ProceduralAnimId>('bongo-cat');
+  const headerMiniCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const pipCanvasRef = useRef<HTMLCanvasElement | null>(null);
+  const [monitorExpanded, setMonitorExpanded] = useState(false);
+  const [floatingPipMonitor, setFloatingPipMonitor] = useState(false);
+  const [isAnimPaused, setIsAnimPaused] = useState(false);
+  const [activePreviewAnim, setActivePreviewAnim] = useState<ProceduralAnimId>('cyber-hud');
   const [customPreviewImageData, setCustomPreviewImageData] = useState<ImageData | null>(null);
   const [customPreviewFrames, setCustomPreviewFrames] = useState<ImageData[]>([]);
   const [useFloydSteinbergDither, setUseFloydSteinbergDither] = useState(true);
@@ -265,16 +396,21 @@ export default function App() {
     message: 'Idle — 240×135 RGB565 (65,536B padded frame buffer)',
   });
 
-  // Tab 1: Key Remapper Studio State + Live NKRO Physical Key Press Tester + CNC Knob Dial
+  // Tab 1: Key Remapper Studio State + Live NKRO Physical Key Press Tester + CNC Knob Dial + GMK Themes
   const [keymap, setKeymap] = useState<number[][][]>(() => createDefaultKeymap());
+  const defaultKeymapRef = useRef<number[][][]>(createDefaultKeymap());
   const [activeLayer, setActiveLayer] = useState<number>(0);
   const [selectedKeyId, setSelectedKeyId] = useState<string>('r7c0'); // Default highlight CCW Knob
   const [activeKeyCategory, setActiveKeyCategory] =
     useState<KeycodeItem['category']>('Media & Knob');
+  const [keycodeSearchQuery, setKeycodeSearchQuery] = useState<string>('');
   const [pressedKeyIds, setPressedKeyIds] = useState<Set<string>>(() => new Set());
   const [actuationCount, setActuationCount] = useState<number>(0);
   const [knobAngleDeg, setKnobAngleDeg] = useState<number>(0);
   const [rgbPreviewEnabled, setRgbPreviewEnabled] = useState<boolean>(true);
+  const [keycapThemeId, setKeycapThemeId] = useState<KeycapThemeId>('cyberpunk');
+  const [dragOverKeyId, setDragOverKeyId] = useState<string | null>(null);
+  const [showInlinePainterInGifs, setShowInlinePainterInGifs] = useState<boolean>(false);
 
   // Tab 2: GIF Library, Endless Web GIF Search, 240x135 Screen Customizer & Pokémon State
   const [gifCategoryFilter, setGifCategoryFilter] = useState<GifCategory>('All');
@@ -293,10 +429,6 @@ export default function App() {
   const pokemonImagesCache = useRef<Map<string, HTMLImageElement>>(new Map());
   const webGifReqIdRef = useRef<number>(0);
   const webGifAbortRef = useRef<AbortController | null>(null);
-
-  // Tab 3: Keyboard Shortcuts Search & Filter
-  const [shortcutQuery, setShortcutQuery] = useState('');
-  const [shortcutCat, setShortcutCat] = useState<'All' | 'Screen' | 'Wireless' | 'Lighting' | 'System'>('All');
 
   // Tab 4: Clock & Profiles
   const [pcNow, setPcNow] = useState<Date>(() => new Date());
@@ -681,6 +813,16 @@ export default function App() {
           return next;
         });
         setActuationCount((c) => c + 1);
+        const now = performance.now();
+        keystrokeTimestampsRef.current.push(now);
+        keystrokeTimestampsRef.current = keystrokeTimestampsRef.current.filter(
+          (t) => now - t < 10000
+        );
+        const computedWpm = Math.min(
+          220,
+          Math.max(15, Math.round((keystrokeTimestampsRef.current.length / 5) * 6))
+        );
+        setLiveWpm(computedWpm);
       }
     };
 
@@ -707,7 +849,9 @@ export default function App() {
   useEffect(() => {
     let frameCount = 0;
     const interval = setInterval(() => {
-      frameCount++;
+      if (!isAnimPaused) {
+        frameCount++;
+      }
 
       let quantized: ImageData;
       if (customPreviewFrames.length > 0) {
@@ -737,7 +881,9 @@ export default function App() {
 
       monitorCanvasRef.current?.getContext('2d')?.putImageData(quantized, 0, 0);
       inChassisCanvasRef.current?.getContext('2d')?.putImageData(quantized, 0, 0);
-    }, 95);
+      headerMiniCanvasRef.current?.getContext('2d')?.putImageData(quantized, 0, 0);
+      pipCanvasRef.current?.getContext('2d')?.putImageData(quantized, 0, 0);
+    }, 110);
 
     return () => clearInterval(interval);
   }, [
@@ -747,6 +893,7 @@ export default function App() {
     telemetry,
     useFloydSteinbergDither,
     lcdCustom,
+    isAnimPaused,
   ]);
 
   // Auto-stream Telemetry HUD every 5s when enabled
@@ -1097,9 +1244,13 @@ export default function App() {
     }
   };
 
-  // Assign Keycode in Tab 1 (VIA Command 0x05)
-  const handleAssignKeycode = async (code: number) => {
-    const keyDef = GMK87_PHYSICAL_KEYS.find((k) => k.id === selectedKeyId);
+  // Assign Keycode in Tab 1 (VIA Command 0x05) — supports click or drag-and-drop onto any key
+  const handleAssignKeycode = async (code: number, targetKeyIdOverride?: string) => {
+    const resolvedKeyId = targetKeyIdOverride || selectedKeyId;
+    if (targetKeyIdOverride) {
+      setSelectedKeyId(targetKeyIdOverride);
+    }
+    const keyDef = GMK87_PHYSICAL_KEYS.find((k) => k.id === resolvedKeyId);
     if (!keyDef) return;
 
     setKeymap((prev) => {
@@ -1122,6 +1273,48 @@ export default function App() {
           viaProtocol
         )} (0x${code.toString(16).toUpperCase().padStart(4, '0')})`
       );
+    }
+  };
+
+  // Export 4-Layer VIA Keymap + RGB Config as .gmk87.json
+  const handleExportKeymapProfile = () => {
+    const payload = {
+      app: 'GMK87 Master Control Center',
+      device: 'Zuoya GMK87 (0x320F:0x5055)',
+      exportedAt: new Date().toISOString(),
+      viaProtocol,
+      keycapThemeId,
+      keymap,
+      configState,
+    };
+    const blob = new Blob([JSON.stringify(payload, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `zuoya-gmk87-profile-${new Date().toISOString().slice(0, 10)}.gmk87.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    setStatusLog('Exported 4-layer VIA keymap & hardware lighting profile (.gmk87.json).');
+  };
+
+  // Import .gmk87.json Profile
+  const handleImportKeymapProfile = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    try {
+      const text = await file.text();
+      const parsed = JSON.parse(text);
+      if (Array.isArray(parsed.keymap) && parsed.keymap.length === 4) {
+        setKeymap(parsed.keymap);
+        if (parsed.keycapThemeId && GMK_KEYCAP_THEMES[parsed.keycapThemeId as KeycapThemeId]) {
+          setKeycapThemeId(parsed.keycapThemeId as KeycapThemeId);
+        }
+        setStatusLog(`Imported 4-layer keymap profile from "${file.name}".`);
+      } else {
+        setStatusLog(`Invalid .gmk87.json file "${file.name}" — missing 4-layer keymap matrix.`);
+      }
+    } catch (err: any) {
+      setStatusLog(`Failed to parse profile "${file.name}": ${err?.message || 'Invalid JSON'}`);
     }
   };
 
@@ -1233,7 +1426,11 @@ export default function App() {
         setUploadProgress((prev) => ({
           ...prev,
           lastPacketHex: pktHex,
-          message: `Updated Config: Mode=${next.activeScreenMode}, Effect=${next.lightingEffect}, Bri=${next.brightness}, Spd=${next.speed}`,
+          message: `Updated Config: Mode=${next.activeScreenMode}, Effect=0x${next.lightingEffect
+            .toString(16)
+            .padStart(2, '0')}, Bri=${next.brightness}, Spd=${next.speed}, Dir=${
+            next.effectDirection ?? 0
+          }, Rnbw=${next.rainbowMode ?? 0}`,
         }));
         if (partial.activeScreenMode !== undefined) {
           const modeNames = [
@@ -1389,16 +1586,6 @@ export default function App() {
     keymap[activeLayer]?.[selectedKeyDef.row]?.[selectedKeyDef.col] ?? 0;
 
   const hwClockDisplay = new Date(pcNow.getTime() + hwClockOffsetMs);
-  const filteredShortcuts = GMK87_SHORTCUTS.filter((s) => {
-    const matchesCat = shortcutCat === 'All' || s.category === shortcutCat;
-    const q = shortcutQuery.toLowerCase();
-    const matchesQuery =
-      !q ||
-      s.action.toLowerCase().includes(q) ||
-      s.details.toLowerCase().includes(q) ||
-      s.keys.some((k) => k.toLowerCase().includes(q));
-    return matchesCat && matchesQuery;
-  });
 
   const progressPercent =
     uploadProgress.totalBytes > 0
@@ -1409,41 +1596,160 @@ export default function App() {
     .toString(16)
     .padStart(2, '0')}${configState.rgbHueB.toString(16).padStart(2, '0')}`;
 
+  // Count how many keys on the active layer differ from the factory default keymap
+  const activeLayerModifiedCount = GMK87_PHYSICAL_KEYS.reduce((acc, k) => {
+    const cur = keymap[activeLayer]?.[k.row]?.[k.col] ?? 0;
+    const def = defaultKeymapRef.current[activeLayer]?.[k.row]?.[k.col] ?? 0;
+    return cur !== def ? acc + 1 : acc;
+  }, 0);
+
+  const activeKeycapTheme = GMK_KEYCAP_THEMES[keycapThemeId];
+
+  const STUDIO_PILLARS: {
+    id: string;
+    title: string;
+    subtitle: string;
+    tabs: TabId[];
+    defaultTab: TabId;
+  }[] = [
+    {
+      id: 'pillar-input',
+      title: '1. Keymap & Rotary',
+      subtitle: '87-Key VIA + Smart Knob',
+      tabs: ['keymap', 'knob'],
+      defaultTab: 'keymap',
+    },
+    {
+      id: 'pillar-screen',
+      title: '2. 240×135 TFT Studio',
+      subtitle: 'GIFs, Sprites & Painter',
+      tabs: ['gifs', 'uploader'],
+      defaultTab: 'gifs',
+    },
+    {
+      id: 'pillar-lighting',
+      title: '3. RGB & Underglow',
+      subtitle: '19 Modes + 360° Halo',
+      tabs: ['rgb'],
+      defaultTab: 'rgb',
+    },
+    {
+      id: 'pillar-live',
+      title: '4. Live HUD & Clock',
+      subtitle: 'RTC, Audio & Telemetry',
+      tabs: ['telemetry', 'clock', 'ecosystem'],
+      defaultTab: 'telemetry',
+    },
+    {
+      id: 'pillar-diag',
+      title: '5. Hardware & Shortcuts',
+      subtitle: 'Fn Trainer & HID Packets',
+      tabs: ['shortcuts'],
+      defaultTab: 'shortcuts',
+    },
+  ];
+
   return (
-    <div className="min-h-screen bg-[#0b0f19] text-slate-100 flex flex-col">
-      {/* Top Bar */}
-      <header className="sticky top-0 z-30 bg-[#0b0f19]/95 backdrop-blur-md border-b border-[#1e293b] px-6 py-3.5">
-        <div className="max-w-[1440px] mx-auto flex items-center justify-between gap-6">
-          {/* Brand Lockup */}
+    <div className="min-h-screen bg-[#06080d] text-slate-100 flex flex-col font-sans">
+      {/* Precision Industrial Command Ribbon with Embedded 240x135 RGB565 Mini-HUD */}
+      <header className="sticky top-0 z-30 bg-[#080b12]/98 backdrop-blur-md border-b border-[#151d2b] px-4 sm:px-6 py-2 shadow-[0_4px_24px_rgba(0,0,0,0.6)]">
+        <div className="max-w-[1600px] mx-auto flex flex-wrap items-center justify-between gap-4">
+          {/* Left: Industrial Instrument Brand Lockup */}
           <div className="flex items-center gap-3 shrink-0">
-            <div className="w-9 h-9 rounded-lg bg-[#131b2e] border border-[#06b6d4]/50 flex items-center justify-center text-[#06b6d4] font-mono font-bold text-sm">
+            <div className="w-8 h-8 rounded-md bg-[#0e1422] border border-[#1f2e47] flex items-center justify-center text-[#06b6d4] font-mono font-black text-xs shadow-[inset_0_1px_0_rgba(255,255,255,0.15)]">
               87
             </div>
             <div>
-              <h1 className="text-base font-bold tracking-tight text-white whitespace-nowrap">
-                GMK87 Master Control Center
-              </h1>
-              <p className="text-xs text-slate-400 font-mono">
-                VID 0x320F · PID 0x5055 · LCD 0xFF1C · VIA 0xFF60
+              <div className="flex items-center gap-2">
+                <h1 className="text-xs sm:text-sm font-bold tracking-tight text-white whitespace-nowrap uppercase">
+                  GMK87 Master Control Center
+                </h1>
+                <span className="hidden md:inline-block px-1.5 py-0.2 text-[9px] font-mono font-bold rounded bg-[#06b6d4]/10 border border-[#06b6d4]/40 text-[#06b6d4]">
+                  STUDIO v2.5
+                </span>
+              </div>
+              <p className="text-[10px] text-slate-400 font-mono tracking-tight">
+                VID 0x320F · PID 0x5055 · VIA P{viaProtocol} · TFT 0xFF1C
               </p>
             </div>
           </div>
 
-          {/* Connection Status & Primary Action */}
-          <div className="flex items-center gap-4 shrink-0">
-            <div className="hidden sm:flex items-center gap-2 text-xs font-mono text-slate-300">
+          {/* Center-Right: Inline Docked 240x135 Hardware LCD Mini-Monitor + Upload Progress */}
+          <div className="hidden xl:flex items-center gap-3 bg-[#0a0e17] border border-[#1a2538] rounded-lg px-3 py-1.5 shadow-[inset_0_1px_2px_rgba(0,0,0,0.8)]">
+            <div
+              onClick={() => setMonitorExpanded((v) => !v)}
+              title="Click to expand 1:1 240×135 Hardware Framebuffer Inspector"
+              className="relative rounded border border-[#06b6d4]/60 bg-black overflow-hidden cursor-pointer shrink-0"
+            >
+              <canvas
+                ref={headerMiniCanvasRef}
+                width={LCD_WIDTH}
+                height={LCD_HEIGHT}
+                className="w-[88px] h-[50px] pixelated-canvas block"
+              />
+              <span className="absolute bottom-0 right-0 px-1 bg-black/85 text-[8px] font-mono text-[#06b6d4]">
+                240×135
+              </span>
+            </div>
+
+            <div className="w-56 space-y-1">
+              <div className="flex items-center justify-between text-[10px] font-mono">
+                <span className="text-cyan-300 font-semibold truncate max-w-[165px]">
+                  {uploadProgress.phase === 'idle'
+                    ? `TFT FRAMEBUFFER · SLOT ${targetSlot}`
+                    : uploadProgress.message}
+                </span>
+                <span className="text-[#10b981] font-bold">{progressPercent}%</span>
+              </div>
+              <div className="w-full h-1.5 bg-[#06080d] rounded-full overflow-hidden border border-[#151d2b]">
+                <div
+                  className="h-full bg-gradient-to-r from-[#06b6d4] via-[#8b5cf6] to-[#10b981] transition-all duration-150"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+              <div className="flex items-center justify-between text-[9px] font-mono text-slate-400">
+                <div className="inline-flex items-center gap-1">
+                  <button
+                    type="button"
+                    onClick={() => setTargetSlot(0)}
+                    className={`px-1.5 py-0.2 rounded cursor-pointer ${
+                      targetSlot === 0 ? 'bg-[#06b6d4] text-slate-950 font-bold' : 'hover:text-white'
+                    }`}
+                  >
+                    Slot 0
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setTargetSlot(1)}
+                    className={`px-1.5 py-0.2 rounded cursor-pointer ${
+                      targetSlot === 1 ? 'bg-[#8b5cf6] text-white font-bold' : 'hover:text-white'
+                    }`}
+                  >
+                    Slot 1
+                  </button>
+                </div>
+                <span>
+                  {uploadProgress.currentFrame}/{uploadProgress.totalFrames}f · RGB565
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Connection Status & Tactile Action Buttons */}
+          <div className="flex items-center gap-2 shrink-0">
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-md bg-[#0a0e17] border border-[#182233] text-xs font-mono">
               {isConnected ? (
                 <>
-                  <CheckCircle2 className="w-4 h-4 text-[#10b981]" />
-                  <span className="text-[#10b981] font-semibold">
-                    Connected ({transportMode === 'bridge' ? `USB Bridge · ${connectedDeviceLabel}` : 'WebHID'})
+                  <span className="w-2 h-2 rounded-full bg-[#10b981] animate-pulse" />
+                  <span className="text-[#10b981] font-bold">
+                    {transportMode === 'bridge' ? `USB: ${connectedDeviceLabel}` : 'WEBHID LIVE'}
                   </span>
                 </>
               ) : (
                 <>
-                  <AlertTriangle className="w-4 h-4 text-[#f59e0b]" />
-                  <span className="text-[#f59e0b] font-semibold">
-                    {bridgeAvailable ? 'USB Bridge Ready (Keyboard Detached)' : 'Simulation / Disconnected'}
+                  <span className="w-2 h-2 rounded-full bg-[#f59e0b]" />
+                  <span className="text-[#f59e0b] font-medium">
+                    {bridgeAvailable ? 'USB STANDBY' : 'SIMULATION'}
                   </span>
                 </>
               )}
@@ -1452,214 +1758,552 @@ export default function App() {
             {(window as any).gmk87Electron?.isDesktopApp && (
               <button
                 onClick={() => (window as any).gmk87Electron?.minimizeToTray()}
-                className="px-3 py-2 text-xs font-medium rounded-lg bg-[#131b2e] border border-[#1e293b] text-slate-200 hover:border-[#8b5cf6] transition-colors whitespace-nowrap cursor-pointer"
+                className="px-2.5 py-1.5 text-xs font-mono rounded-md bg-[#0c121e] border border-[#1b273b] text-slate-200 hover:border-[#8b5cf6] transition-colors whitespace-nowrap cursor-pointer"
               >
-                Send to Tray
+                TRAY
               </button>
             )}
 
             <button
+              type="button"
+              onClick={() => setIsAnimPaused((p) => !p)}
+              title={isAnimPaused ? 'Resume screen animation' : 'Pause screen animation (calm display)'}
+              className={`px-2.5 py-1.5 text-xs font-mono rounded-md border transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                isAnimPaused
+                  ? 'bg-amber-500/20 border-amber-500/60 text-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.25)]'
+                  : 'bg-[#0c121e] border-[#1b273b] text-slate-300 hover:text-white hover:border-slate-500'
+              }`}
+            >
+              {isAnimPaused ? (
+                <Play className="w-3.5 h-3.5 fill-current text-amber-400" />
+              ) : (
+                <Pause className="w-3.5 h-3.5 text-slate-400" />
+              )}
+              <span>{isAnimPaused ? 'PAUSED' : 'LIVE'}</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setFloatingPipMonitor((v) => !v)}
+              title="Pin floating bottom-right 240×135 Picture-in-Picture Monitor"
+              className={`px-2.5 py-1.5 text-xs font-mono rounded-md border transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                floatingPipMonitor
+                  ? 'bg-[#8b5cf6]/20 border-[#8b5cf6] text-purple-200 shadow-[0_0_12px_rgba(139,92,246,0.3)]'
+                  : 'bg-[#0c121e] border-[#1b273b] text-slate-300 hover:border-[#8b5cf6]'
+              }`}
+            >
+              <PictureInPicture2 className="w-3.5 h-3.5 text-[#8b5cf6]" />
+              <span className="hidden md:inline">PIP HUD</span>
+            </button>
+
+            <button
+              type="button"
               onClick={() => setMonitorExpanded((v) => !v)}
-              className="px-3 py-2 text-xs font-medium rounded-lg bg-[#131b2e] border border-[#1e293b] text-slate-200 hover:border-[#06b6d4] transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+              className={`px-2.5 py-1.5 text-xs font-mono rounded-md border transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                monitorExpanded
+                  ? 'bg-[#06b6d4]/20 border-[#06b6d4] text-[#06b6d4] shadow-[0_0_12px_rgba(6,182,212,0.3)]'
+                  : 'bg-[#0c121e] border-[#1b273b] text-slate-200 hover:border-[#06b6d4]'
+              }`}
             >
               <Eye className="w-3.5 h-3.5 text-[#06b6d4]" />
-              {monitorExpanded ? 'Hide 240×135 Monitor' : 'Show 240×135 Monitor'}
+              {monitorExpanded ? 'HIDE 1:1' : '1:1 MONITOR'}
             </button>
 
             <button
               onClick={handleConnectWebHid}
-              className={`px-4 py-2 text-xs font-semibold rounded-lg transition-colors flex items-center gap-2 whitespace-nowrap cursor-pointer ${
+              className={`px-3 py-1.5 text-xs font-mono font-bold rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
                 isConnected
                   ? 'bg-[#10b981]/20 border border-[#10b981] text-[#10b981] hover:bg-[#10b981]/30'
-                  : 'bg-[#06b6d4] text-slate-950 hover:bg-cyan-400'
+                  : 'bg-[#06b6d4] text-slate-950 hover:bg-cyan-300 shadow-[0_0_15px_rgba(6,182,212,0.35)]'
               }`}
             >
-              <Usb className="w-4 h-4" />
+              <Usb className="w-3.5 h-3.5" />
               {isConnected
-                ? 'Disconnect GMK87'
+                ? 'DISCONNECT'
                 : bridgeAvailable
-                ? 'Refresh USB Bridge / Connect'
-                : 'Connect GMK87 (WebHID)'}
+                ? 'CONNECT USB'
+                : 'CONNECT GMK87'}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Main Workspace Container */}
-      <div className="max-w-[1440px] w-full mx-auto px-6 py-6 flex-1 flex flex-col gap-6">
-        {/* Persistent / Toggleable Live 240x135 Hardware LCD Mini-Monitor Dock */}
-        {monitorExpanded && (
-          <section className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-5">
-            <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
-              {/* Left: Physical 240x135 TFT Bezel Replica */}
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 shrink-0">
-                <div className="relative p-2.5 rounded-xl bg-[#070a12] border-2 border-[#1e293b] shadow-inner">
-                  <div className="flex items-center justify-between mb-1.5 px-1 text-[10px] font-mono text-slate-400">
-                    <span>TFT LCD · 240×135 RGB565</span>
-                    <span className="text-[#06b6d4]">SLOT {targetSlot}</span>
-                  </div>
-                  <canvas
-                    ref={monitorCanvasRef}
-                    width={LCD_WIDTH}
-                    height={LCD_HEIGHT}
-                    className="w-[240px] h-[135px] rounded border border-[#1e293b] pixelated-canvas bg-black block"
-                  />
-                </div>
-
-                {/* Monitor Controls & Quantization Info */}
-                <div className="space-y-2.5">
-                  <div className="text-xs font-mono text-[#06b6d4]">
-                    LIVE HARDWARE FRAMEBUFFER MONITOR
-                  </div>
-                  <p className="text-xs text-slate-300 max-w-md leading-relaxed">
-                    Displays the exact 16-bit big-endian{' '}
-                    <code className="text-cyan-300">RGB565</code> pixel stream (64,800B payload
-                    padded to 65,536B flash boundary) sent via Report <code className="text-cyan-300">0x04</code>.
-                  </p>
-
-                  <div className="flex flex-wrap items-center gap-2 pt-1">
-                    <div className="inline-flex rounded-lg bg-[#0b0f19] p-1 border border-[#1e293b]">
-                      <button
-                        onClick={() => setTargetSlot(0)}
-                        className={`px-2.5 py-1 text-xs font-mono rounded-md transition-colors cursor-pointer ${
-                          targetSlot === 0
-                            ? 'bg-[#06b6d4] text-slate-950 font-semibold'
-                            : 'text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        Target: Slot 0
-                      </button>
-                      <button
-                        onClick={() => setTargetSlot(1)}
-                        className={`px-2.5 py-1 text-xs font-mono rounded-md transition-colors cursor-pointer ${
-                          targetSlot === 1
-                            ? 'bg-[#8b5cf6] text-white font-semibold'
-                            : 'text-slate-400 hover:text-white'
-                        }`}
-                      >
-                        Target: Slot 1
-                      </button>
-                    </div>
-
-                    <button
-                      onClick={() => setUseFloydSteinbergDither((v) => !v)}
-                      className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors cursor-pointer ${
-                        useFloydSteinbergDither
-                          ? 'bg-[#10b981]/15 border-[#10b981]/60 text-[#10b981]'
-                          : 'bg-[#0b0f19] border-[#1e293b] text-slate-400'
-                      }`}
-                    >
-                      Floyd-Steinberg RGB565 Dither: {useFloydSteinbergDither ? 'ON' : 'OFF'}
-                    </button>
-
-                    {(customPreviewImageData || customPreviewFrames.length > 0) && (
-                      <button
-                        onClick={() => {
-                          setCustomPreviewFrames([]);
-                          setCustomPreviewImageData(null);
-                        }}
-                        className="px-2.5 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-300 hover:border-[#06b6d4] cursor-pointer"
-                      >
-                        Resume Live Anim
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </div>
-
-              {/* Right: 56-Byte Chunk Upload Progress & Packet Telemetry */}
-              <div className="w-full lg:max-w-md bg-[#0b0f19] border border-[#1e293b] rounded-lg p-4 space-y-3">
-                <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="text-slate-300 font-semibold">{uploadProgress.message}</span>
-                  <span className="text-[#06b6d4] font-bold">{progressPercent}%</span>
-                </div>
-
-                {/* Progress Bar */}
-                <div className="w-full h-2.5 bg-[#131b2e] rounded-full overflow-hidden border border-[#1e293b]">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#06b6d4] via-[#8b5cf6] to-[#10b981] transition-all duration-150"
-                    style={{ width: `${progressPercent}%` }}
-                  />
-                </div>
-
-                <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-slate-400 pt-0.5">
-                  <div>
-                    CHUNK STREAM:{' '}
-                    <span className="text-slate-200">
-                      {uploadProgress.bytesSent.toLocaleString()} /{' '}
-                      {uploadProgress.totalBytes.toLocaleString()} B
-                    </span>
-                  </div>
-                  <div className="text-right">
-                    FRAME:{' '}
-                    <span className="text-slate-200">
-                      {uploadProgress.currentFrame}/{uploadProgress.totalFrames} (56B/pkt)
-                    </span>
-                  </div>
-                </div>
-
-                <div className="pt-1 border-t border-[#1e293b] flex items-center justify-between gap-2 text-[11px] font-mono">
-                  <span className="text-slate-400">0xFF1C PKT:</span>
-                  <code className="text-cyan-300 truncate">{uploadProgress.lastPacketHex}</code>
-                </div>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Navigation Tabs Bar */}
-        <nav className="flex items-center gap-1.5 overflow-x-auto pb-1 border-b border-[#1e293b]">
-          {[
-            { id: 'keymap', label: '⌨️ Key Remapper Studio', icon: Keyboard },
-            { id: 'gifs', label: '🎁 GMK87 GIF Library', icon: Film },
-            { id: 'shortcuts', label: '📖 Keyboard Shortcuts', icon: BookOpen },
-            { id: 'clock', label: '⏱️ Clock & Profiles', icon: Clock },
-            { id: 'telemetry', label: '🎵 Media & Telemetry HUD', icon: Cpu },
-            { id: 'uploader', label: '🎨 Custom GIF Uploader', icon: Upload },
-            { id: 'rgb', label: '💡 RGB & Underglow', icon: Sliders },
-            { id: 'knob', label: '🎛️ Smart Knob Multi-Engine', icon: Disc },
-            { id: 'ecosystem', label: '🔬 Ecosystem vs. GMK87 Lab', icon: FlaskConical },
-          ].map((tab) => {
-            const active = activeTab === tab.id;
-            return (
+      {/* Floating Bottom-Right Picture-in-Picture (PiP) 240x135 Hardware LCD Monitor */}
+      {floatingPipMonitor && (
+        <div className="fixed bottom-5 right-5 z-50 bg-[#0b0f19]/95 backdrop-blur-md border-2 border-[#06b6d4] rounded-2xl p-3 shadow-[0_12px_40px_rgba(0,0,0,0.75)] w-[272px] space-y-2">
+          <div className="flex items-center justify-between text-[10px] font-mono">
+            <span className="text-[#06b6d4] font-bold">LIVE 240×135 TFT PiP</span>
+            <div className="flex items-center gap-1.5">
               <button
-                key={tab.id}
-                onClick={() => setActiveTab(tab.id as TabId)}
-                className={`px-3.5 py-2.5 text-xs font-semibold rounded-t-lg border-b-2 transition-colors whitespace-nowrap shrink-0 cursor-pointer ${
-                  active
-                    ? 'bg-[#131b2e] text-[#06b6d4] border-[#06b6d4]'
-                    : 'text-slate-400 border-transparent hover:text-slate-200 hover:bg-[#131b2e]/50'
-                }`}
+                type="button"
+                onClick={() => setTargetSlot(targetSlot === 0 ? 1 : 0)}
+                className="px-1.5 py-0.5 rounded bg-[#131b2e] border border-[#1e293b] text-slate-300 hover:text-white cursor-pointer"
               >
-                {tab.label}
+                Slot {targetSlot}
               </button>
-            );
-          })}
-        </nav>
-
-        {/* Status Bar Strip */}
-        <div className="flex flex-wrap items-center justify-between gap-4 px-4 py-2.5 rounded-lg bg-[#131b2e] border border-[#1e293b] text-xs font-mono">
-          <div className="flex items-center gap-2 text-slate-300">
-            <Zap className="w-3.5 h-3.5 text-[#06b6d4] shrink-0" />
-            <span>{statusLog}</span>
+              <button
+                type="button"
+                onClick={() => setFloatingPipMonitor(false)}
+                className="px-1.5 py-0.5 rounded bg-[#131b2e] text-slate-400 hover:text-white cursor-pointer"
+              >
+                ✕
+              </button>
+            </div>
           </div>
-          <div className="text-slate-400">
-            LAST VIA 0xFF60:{' '}
-            <code className="text-[#8b5cf6] font-semibold">{lastViaPacketHex}</code>
+          <canvas
+            ref={pipCanvasRef}
+            width={LCD_WIDTH}
+            height={LCD_HEIGHT}
+            className="w-[240px] h-[135px] mx-auto rounded border border-[#1e293b] bg-black pixelated-canvas block"
+          />
+          <div className="w-full h-1.5 bg-[#131b2e] rounded-full overflow-hidden">
+            <div
+              className="h-full bg-gradient-to-r from-[#06b6d4] to-[#10b981]"
+              style={{ width: `${progressPercent}%` }}
+            />
           </div>
         </div>
+      )}
+
+      {/* Industrial Cockpit Workspace: Left Sidebar + Fluid Main Canvas */}
+      <div className="flex-1 flex flex-col md:flex-row min-h-0 overflow-hidden">
+        {/* Left Vertical Industrial Hardware Cockpit Sidebar */}
+        <aside className="w-full md:w-72 lg:w-80 shrink-0 bg-[#090d16] border-r border-[#1a2333] flex flex-col justify-between overflow-y-auto z-20">
+          <div className="p-4 space-y-5">
+            {/* Studio Header Brand */}
+            <div className="flex items-center justify-between pb-3 border-b border-[#1a2333]">
+              <div className="flex items-center gap-2.5">
+                <div className="w-7 h-7 rounded-md bg-[#06b6d4]/10 border border-[#06b6d4]/50 flex items-center justify-center text-[#06b6d4] font-mono font-bold text-xs">
+                  87
+                </div>
+                <div>
+                  <div className="text-xs font-mono font-bold text-white tracking-wider">
+                    STUDIO SUITE
+                  </div>
+                  <div className="text-[10px] font-mono text-slate-400">
+                    VIA P9 · 1000Hz USB
+                  </div>
+                </div>
+              </div>
+              <span className="px-1.5 py-0.5 text-[9px] font-mono font-semibold rounded bg-[#10b981]/15 border border-[#10b981]/40 text-[#10b981]">
+                ONLINE
+              </span>
+            </div>
+
+            {/* Studio Navigation Groups */}
+            <div className="space-y-4">
+              {/* Group 1: CORE HARDWARE */}
+              <div className="space-y-1">
+                <div className="text-[10px] font-mono font-bold tracking-wider text-slate-400 px-2 uppercase">
+                  Core Hardware
+                </div>
+                {[
+                  {
+                    id: 'keymap' as TabId,
+                    label: 'Key Remapper',
+                    subtitle: '87-Key TKL Matrix',
+                    icon: Keyboard,
+                    badge: activeLayerModifiedCount > 0 ? `${activeLayerModifiedCount} mod` : undefined,
+                    badgeColor: 'bg-[#10b981]/20 text-[#10b981] border-[#10b981]/40',
+                  },
+                  {
+                    id: 'knob' as TabId,
+                    label: 'Smart Knob',
+                    subtitle: 'Rotary Encoder OSD',
+                    icon: Sliders,
+                    badge: activeKnobModeId.toUpperCase(),
+                    badgeColor: 'bg-[#8b5cf6]/20 text-purple-200 border-[#8b5cf6]/40',
+                  },
+                  {
+                    id: 'rgb' as TabId,
+                    label: 'RGB & Underglow',
+                    subtitle: '19 HW Modes & Sync',
+                    icon: Sparkles,
+                    badge: '19 MODES',
+                    badgeColor: 'bg-[#06b6d4]/20 text-[#06b6d4] border-[#06b6d4]/40',
+                  },
+                ].map((item) => {
+                  const isActive = activeTab === item.id;
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveTab(item.id)}
+                      className={`w-full px-3 py-2.5 rounded-lg border text-left transition-all cursor-pointer flex items-center justify-between group ${
+                        isActive
+                          ? 'bg-[#06b6d4]/15 border-[#06b6d4] text-white shadow-[0_0_15px_rgba(6,182,212,0.15)]'
+                          : 'bg-[#0c111d]/60 border-[#1a2333] text-slate-300 hover:text-white hover:bg-[#121927] hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Icon
+                          className={`w-4 h-4 shrink-0 transition-colors ${
+                            isActive ? 'text-[#06b6d4]' : 'text-slate-400 group-hover:text-slate-200'
+                          }`}
+                        />
+                        <div className="min-w-0">
+                          <div className={`text-xs font-semibold truncate ${isActive ? 'text-white' : 'text-slate-200'}`}>
+                            {item.label}
+                          </div>
+                          <div className="text-[10px] font-mono text-slate-400 truncate">
+                            {item.subtitle}
+                          </div>
+                        </div>
+                      </div>
+                      {item.badge && (
+                        <span className={`px-1.5 py-0.5 text-[9px] font-mono font-bold rounded border shrink-0 ml-1.5 ${item.badgeColor}`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Group 2: TFT 240x135 SCREEN */}
+              <div className="space-y-1">
+                <div className="text-[10px] font-mono font-bold tracking-wider text-slate-400 px-2 uppercase">
+                  TFT Screen Studio
+                </div>
+                {[
+                  {
+                    id: 'gifs' as TabId,
+                    label: 'GIF & Sprite Vault',
+                    subtitle: '50+ Built-in & Web',
+                    icon: Film,
+                    badge: 'VAULT',
+                    badgeColor: 'bg-emerald-500/15 text-emerald-300 border-emerald-500/30',
+                  },
+                  {
+                    id: 'uploader' as TabId,
+                    label: 'Pixel & Custom GIF',
+                    subtitle: 'Canvas Editor & Dither',
+                    icon: Palette,
+                    badge: '240×135',
+                    badgeColor: 'bg-amber-500/15 text-amber-300 border-amber-500/30',
+                  },
+                  {
+                    id: 'clock' as TabId,
+                    label: 'RTC Clock & Slots',
+                    subtitle: 'BCD Sync & Profiles',
+                    icon: Clock,
+                    badge: `SLOT ${targetSlot}`,
+                    badgeColor: 'bg-cyan-500/15 text-cyan-300 border-cyan-500/30',
+                  },
+                ].map((item) => {
+                  const isActive = activeTab === item.id;
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveTab(item.id)}
+                      className={`w-full px-3 py-2.5 rounded-lg border text-left transition-all cursor-pointer flex items-center justify-between group ${
+                        isActive
+                          ? 'bg-[#06b6d4]/15 border-[#06b6d4] text-white shadow-[0_0_15px_rgba(6,182,212,0.15)]'
+                          : 'bg-[#0c111d]/60 border-[#1a2333] text-slate-300 hover:text-white hover:bg-[#121927] hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Icon
+                          className={`w-4 h-4 shrink-0 transition-colors ${
+                            isActive ? 'text-[#06b6d4]' : 'text-slate-400 group-hover:text-slate-200'
+                          }`}
+                        />
+                        <div className="min-w-0">
+                          <div className={`text-xs font-semibold truncate ${isActive ? 'text-white' : 'text-slate-200'}`}>
+                            {item.label}
+                          </div>
+                          <div className="text-[10px] font-mono text-slate-400 truncate">
+                            {item.subtitle}
+                          </div>
+                        </div>
+                      </div>
+                      {item.badge && (
+                        <span className={`px-1.5 py-0.5 text-[9px] font-mono font-bold rounded border shrink-0 ml-1.5 ${item.badgeColor}`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Group 3: TELEMETRY & LAB */}
+              <div className="space-y-1">
+                <div className="text-[10px] font-mono font-bold tracking-wider text-slate-400 px-2 uppercase">
+                  Telemetry & Lab
+                </div>
+                {[
+                  {
+                    id: 'telemetry' as TabId,
+                    label: 'Live HUD & Audio',
+                    subtitle: 'Realtime Hardware Telemetry',
+                    icon: Gauge,
+                    badge: `${liveWpm} WPM`,
+                    badgeColor: 'bg-rose-500/15 text-rose-300 border-rose-500/30',
+                  },
+                  {
+                    id: 'ecosystem' as TabId,
+                    label: 'Beyond-Zuoya Lab',
+                    subtitle: 'OSDs, Benchmark & Fixes',
+                    icon: FlaskConical,
+                    badge: 'OSD',
+                    badgeColor: 'bg-indigo-500/15 text-indigo-300 border-indigo-500/30',
+                  },
+                  {
+                    id: 'shortcuts' as TabId,
+                    label: 'Fn Shortcuts & VIA',
+                    subtitle: 'Cheatsheet & HID Raw',
+                    icon: BookOpen,
+                    badge: 'HID',
+                    badgeColor: 'bg-slate-500/15 text-slate-300 border-slate-500/30',
+                  },
+                ].map((item) => {
+                  const isActive = activeTab === item.id;
+                  const Icon = item.icon;
+                  return (
+                    <button
+                      key={item.id}
+                      type="button"
+                      onClick={() => setActiveTab(item.id)}
+                      className={`w-full px-3 py-2.5 rounded-lg border text-left transition-all cursor-pointer flex items-center justify-between group ${
+                        isActive
+                          ? 'bg-[#06b6d4]/15 border-[#06b6d4] text-white shadow-[0_0_15px_rgba(6,182,212,0.15)]'
+                          : 'bg-[#0c111d]/60 border-[#1a2333] text-slate-300 hover:text-white hover:bg-[#121927] hover:border-slate-700'
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Icon
+                          className={`w-4 h-4 shrink-0 transition-colors ${
+                            isActive ? 'text-[#06b6d4]' : 'text-slate-400 group-hover:text-slate-200'
+                          }`}
+                        />
+                        <div className="min-w-0">
+                          <div className={`text-xs font-semibold truncate ${isActive ? 'text-white' : 'text-slate-200'}`}>
+                            {item.label}
+                          </div>
+                          <div className="text-[10px] font-mono text-slate-400 truncate">
+                            {item.subtitle}
+                          </div>
+                        </div>
+                      </div>
+                      {item.badge && (
+                        <span className={`px-1.5 py-0.5 text-[9px] font-mono font-bold rounded border shrink-0 ml-1.5 ${item.badgeColor}`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Docked Cockpit Telemetry Box */}
+          <div className="p-4 border-t border-[#1a2333] bg-[#070b13] space-y-3">
+            <div className="flex items-center justify-between text-[10px] font-mono">
+              <span className="text-slate-400">HARDWARE TRANSPORT</span>
+              <span className="text-[#10b981] font-bold">
+                {transportMode === 'bridge' ? 'NODE-HID' : isConnected ? 'WEBHID' : 'SIMULATION'}
+              </span>
+            </div>
+
+            {/* Quick TFT Slot switch & status */}
+            <div className="flex items-center justify-between gap-2 p-2 rounded-lg bg-[#0c111d] border border-[#1a2333]">
+              <div className="flex items-center gap-2">
+                <div className="w-2 h-2 rounded-full bg-[#06b6d4] animate-pulse" />
+                <span className="text-[10px] font-mono text-slate-300">Target Slot:</span>
+              </div>
+              <div className="inline-flex rounded bg-[#070a10] p-0.5 border border-[#1a2333]">
+                <button
+                  type="button"
+                  onClick={() => setTargetSlot(0)}
+                  className={`px-2 py-0.5 text-[10px] font-mono rounded cursor-pointer ${
+                    targetSlot === 0 ? 'bg-[#06b6d4] text-slate-950 font-bold' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  0
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setTargetSlot(1)}
+                  className={`px-2 py-0.5 text-[10px] font-mono rounded cursor-pointer ${
+                    targetSlot === 1 ? 'bg-[#8b5cf6] text-white font-bold' : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  1
+                </button>
+              </div>
+            </div>
+
+            <div className="text-[9px] font-mono text-slate-400 flex items-center justify-between">
+              <span>VID: 0x320F PID: 0x5055</span>
+              <span>1000Hz POLLING</span>
+            </div>
+          </div>
+        </aside>
+
+        {/* Fluid Hardware Workspace Canvas */}
+        <main className="flex-1 min-w-0 overflow-y-auto hardware-grid-bg p-4 sm:p-6 flex flex-col gap-5">
+          {/* Expandable 1:1 240x135 Hardware LCD Monitor & 56-Byte Chunk Inspector Dock */}
+          {monitorExpanded && (
+            <section className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-5">
+              <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-6">
+                {/* Left: Physical 240x135 TFT Bezel Replica */}
+                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-5 shrink-0">
+                  <div className="relative p-2.5 rounded-xl bg-[#070a12] border-2 border-[#1e293b] shadow-inner">
+                    <div className="flex items-center justify-between mb-1.5 px-1 text-[10px] font-mono text-slate-400">
+                      <span>TFT LCD · 240×135 RGB565</span>
+                      <span className="text-[#06b6d4]">SLOT {targetSlot}</span>
+                    </div>
+                    <canvas
+                      ref={monitorCanvasRef}
+                      width={LCD_WIDTH}
+                      height={LCD_HEIGHT}
+                      className="w-[240px] h-[135px] rounded border border-[#1e293b] pixelated-canvas bg-black block"
+                    />
+                  </div>
+
+                  {/* Monitor Controls & Quantization Info */}
+                  <div className="space-y-2.5">
+                    <div className="text-xs font-mono text-[#06b6d4]">
+                      LIVE HARDWARE FRAMEBUFFER MONITOR (1:1 PIXEL SCALE)
+                    </div>
+                    <p className="text-xs text-slate-300 max-w-md leading-relaxed">
+                      Displays the exact 16-bit big-endian{' '}
+                      <code className="text-cyan-300">RGB565</code> pixel stream (64,800B payload
+                      padded to 65,536B flash boundary) sent via Report{' '}
+                      <code className="text-cyan-300">0x04</code>.
+                    </p>
+
+                    <div className="flex flex-wrap items-center gap-2 pt-1">
+                      <div className="inline-flex rounded-lg bg-[#0b0f19] p-1 border border-[#1e293b]">
+                        <button
+                          onClick={() => setTargetSlot(0)}
+                          className={`px-2.5 py-1 text-xs font-mono rounded-md transition-colors cursor-pointer ${
+                            targetSlot === 0
+                              ? 'bg-[#06b6d4] text-slate-950 font-semibold'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Target: Slot 0
+                        </button>
+                        <button
+                          onClick={() => setTargetSlot(1)}
+                          className={`px-2.5 py-1 text-xs font-mono rounded-md transition-colors cursor-pointer ${
+                            targetSlot === 1
+                              ? 'bg-[#8b5cf6] text-white font-semibold'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Target: Slot 1
+                        </button>
+                      </div>
+
+                      <button
+                        onClick={() => setUseFloydSteinbergDither((v) => !v)}
+                        className={`px-3 py-1.5 text-xs font-mono rounded-lg border transition-colors cursor-pointer ${
+                          useFloydSteinbergDither
+                            ? 'bg-[#10b981]/15 border-[#10b981]/60 text-[#10b981]'
+                            : 'bg-[#0b0f19] border-[#1e293b] text-slate-400'
+                        }`}
+                      >
+                        Floyd-Steinberg RGB565 Dither: {useFloydSteinbergDither ? 'ON' : 'OFF'}
+                      </button>
+
+                      {(customPreviewImageData || customPreviewFrames.length > 0) && (
+                        <button
+                          onClick={() => {
+                            setCustomPreviewFrames([]);
+                            setCustomPreviewImageData(null);
+                          }}
+                          className="px-2.5 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-300 hover:border-[#06b6d4] cursor-pointer"
+                        >
+                          Resume Live Anim
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                {/* Right: 56-Byte Chunk Upload Progress & Packet Telemetry */}
+                <div className="w-full lg:max-w-md bg-[#0b0f19] border border-[#1e293b] rounded-lg p-4 space-y-3">
+                  <div className="flex items-center justify-between text-xs font-mono">
+                    <span className="text-slate-300 font-semibold">{uploadProgress.message}</span>
+                    <span className="text-[#06b6d4] font-bold">{progressPercent}%</span>
+                  </div>
+
+                  <div className="w-full h-2.5 bg-[#131b2e] rounded-full overflow-hidden border border-[#1e293b]">
+                    <div
+                      className="h-full bg-gradient-to-r from-[#06b6d4] via-[#8b5cf6] to-[#10b981] transition-all duration-150"
+                      style={{ width: `${progressPercent}%` }}
+                    />
+                  </div>
+
+                  <div className="grid grid-cols-2 gap-2 text-[11px] font-mono text-slate-400 pt-0.5">
+                    <div>
+                      CHUNK STREAM:{' '}
+                      <span className="text-slate-200">
+                        {uploadProgress.bytesSent.toLocaleString()} /{' '}
+                        {uploadProgress.totalBytes.toLocaleString()} B
+                      </span>
+                    </div>
+                    <div className="text-right">
+                      FRAME:{' '}
+                      <span className="text-slate-200">
+                        {uploadProgress.currentFrame}/{uploadProgress.totalFrames} (56B/pkt)
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="pt-1 border-t border-[#1e293b] flex items-center justify-between gap-2 text-[11px] font-mono">
+                    <span className="text-slate-400">0xFF1C PKT:</span>
+                    <code className="text-cyan-300 truncate">{uploadProgress.lastPacketHex}</code>
+                  </div>
+                </div>
+              </div>
+            </section>
+          )}
+
+          {/* Top Ticker & Breadcrumb Bar */}
+          <div className="bg-[#0c111d]/90 backdrop-blur border border-[#1a2333] rounded-xl px-4 py-2.5 flex flex-wrap items-center justify-between gap-3 shadow-sm">
+            <div className="flex items-center gap-2 text-xs font-mono">
+              <span className="text-[#06b6d4] font-bold tracking-wider uppercase">
+                STUDIO // {activeTab.toUpperCase()}
+              </span>
+              <span className="text-slate-600">/</span>
+              <span className="text-slate-400 text-[11px]">
+                {activeTab === 'keymap' && '87-Key TKL Switch Matrix & VIA Dynamic Key Remapper'}
+                {activeTab === 'knob' && 'Programmable CNC Rotary Encoder Action Mapping & OSD'}
+                {activeTab === 'rgb' && '19 Hardware Light Modes, HSV Wheel & Underglow Halo'}
+                {activeTab === 'gifs' && '240×135 RGB565 Curated Animation & Sprite Vault'}
+                {activeTab === 'uploader' && 'Pixel-Precise Canvas Painter & Custom GIF Quantizer'}
+                {activeTab === 'clock' && 'BCD Hardware Real-Time Clock Sync & Flash Slot 0/1'}
+                {activeTab === 'telemetry' && 'Real-Time Hardware Telemetry, CPU, Temp & Audio HUD'}
+                {activeTab === 'ecosystem' && 'Beyond-Zuoya Architectural Innovations & OSD Engine'}
+                {activeTab === 'shortcuts' && 'Factory Fn Shortcut Keycodes & Raw VIA HID Packets'}
+              </span>
+            </div>
+
+            <div className="flex items-center gap-2 text-[11px] font-mono text-slate-400 px-2.5 py-1 rounded bg-[#070a10] border border-[#1a2333] max-w-full lg:max-w-md truncate">
+              <Zap className="w-3 h-3 text-[#06b6d4] shrink-0" />
+              <span className="truncate text-slate-300">{statusLog}</span>
+            </div>
+          </div>
 
         {/* =====================================================================
-            TAB 1: ⌨️ KEY REMAPPER STUDIO (87-Key TKL + 3 Rotary Knob Controls)
+            TAB 1: ⌨️ KEY REMAPPER STUDIO (87-Key TKL + GMK Themes + Drag & Drop + Rotary Knob)
            ===================================================================== */}
         {activeTab === 'keymap' && (
-          <div className="space-y-6">
-            {/* Layer Switcher & VIA Buffer Actions */}
-            <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-5 flex flex-wrap items-center justify-between gap-4">
+          <div className="space-y-5">
+            {/* Top Bar: Layer Switcher, GMK Keycap Themes & Profile Export/Import */}
+            <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
               <div className="flex flex-wrap items-center gap-2">
-                <span className="text-xs font-mono text-slate-400 mr-2 flex items-center gap-1.5">
+                <span className="text-xs font-mono text-slate-400 mr-1 flex items-center gap-1.5">
                   <Layers className="w-4 h-4 text-[#06b6d4]" />
-                  VIA LAYER:
+                  LAYER:
                 </span>
                 {[
                   { idx: 0, name: 'Layer 0 Win Base' },
@@ -1670,7 +2314,7 @@ export default function App() {
                   <button
                     key={layer.idx}
                     onClick={() => setActiveLayer(layer.idx)}
-                    className={`px-3.5 py-2 text-xs font-semibold rounded-lg border transition-colors whitespace-nowrap cursor-pointer ${
+                    className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-colors whitespace-nowrap cursor-pointer ${
                       activeLayer === layer.idx
                         ? 'bg-[#06b6d4] text-slate-950 border-[#06b6d4]'
                         : 'bg-[#0b0f19] text-slate-300 border-[#1e293b] hover:border-[#06b6d4]/60'
@@ -1679,28 +2323,110 @@ export default function App() {
                     {layer.name}
                   </button>
                 ))}
+
+                {activeLayerModifiedCount > 0 && (
+                  <span className="px-2.5 py-1 text-[11px] font-mono rounded-lg bg-[#10b981]/15 border border-[#10b981]/50 text-[#10b981]">
+                    {activeLayerModifiedCount} Modified Key{activeLayerModifiedCount > 1 ? 's' : ''}
+                  </span>
+                )}
               </div>
 
-              <div className="flex items-center gap-2.5">
+              <div className="flex flex-wrap items-center gap-2">
                 <span className="px-2.5 py-1.5 text-[11px] font-mono rounded-lg bg-[#8b5cf6]/15 border border-[#8b5cf6]/40 text-purple-200">
-                  VIA PROTOCOL P{viaProtocol}
+                  VIA P{viaProtocol}
                 </span>
                 <button
                   onClick={handleReadViaBuffer}
-                  className="px-3.5 py-2 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-200 hover:border-[#06b6d4] transition-colors flex items-center gap-1.5 cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-200 hover:border-[#06b6d4] transition-colors flex items-center gap-1.5 cursor-pointer"
                 >
                   <RefreshCw className="w-3.5 h-3.5 text-[#06b6d4]" />
-                  Read 960B Keymap (0x12)
+                  Read 960B (0x12)
                 </button>
+                <button
+                  onClick={handleExportKeymapProfile}
+                  className="px-3 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-cyan-300 hover:border-[#06b6d4] transition-colors flex items-center gap-1.5 cursor-pointer"
+                >
+                  <Download className="w-3.5 h-3.5" />
+                  Export .gmk87.json
+                </button>
+                <label className="px-3 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-200 hover:border-[#8b5cf6] transition-colors flex items-center gap-1.5 cursor-pointer">
+                  <Upload className="w-3.5 h-3.5 text-[#8b5cf6]" />
+                  Import Profile
+                  <input
+                    type="file"
+                    accept=".json,application/json"
+                    onChange={handleImportKeymapProfile}
+                    className="hidden"
+                  />
+                </label>
                 <button
                   onClick={() => {
                     setKeymap(createDefaultKeymap());
                     setStatusLog('Restored factory default 4-layer GMK87 VIA keymap.');
                   }}
-                  className="px-3.5 py-2 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-400 hover:text-white transition-colors cursor-pointer"
+                  className="px-3 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-400 hover:text-white transition-colors cursor-pointer"
                 >
-                  Reset Default Layout
+                  Reset Default
                 </button>
+              </div>
+            </div>
+
+            {/* Keycap Colorway Theme Selector + Embedded Quick Smart Rotary Knob Mode Bar */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-4">
+              {/* Left 7 Cols: 5 Curated GMK Keycap Colorways */}
+              <div className="lg:col-span-7 bg-[#131b2e] border border-[#1e293b] rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-2">
+                <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                  <Palette className="w-3.5 h-3.5 text-[#06b6d4]" />
+                  GMK KEYCAP COLORWAY:
+                </span>
+                <div className="flex flex-wrap items-center gap-1.5">
+                  {(Object.keys(GMK_KEYCAP_THEMES) as KeycapThemeId[]).map((tid) => {
+                    const th = GMK_KEYCAP_THEMES[tid];
+                    const active = keycapThemeId === tid;
+                    return (
+                      <button
+                        key={tid}
+                        type="button"
+                        onClick={() => setKeycapThemeId(tid)}
+                        className={`px-2.5 py-1 text-xs font-semibold rounded-lg border flex items-center gap-1.5 transition-colors cursor-pointer ${
+                          active
+                            ? 'bg-[#0b0f19] border-[#06b6d4] text-white'
+                            : 'bg-[#0b0f19]/60 border-[#1e293b] text-slate-400 hover:text-white'
+                        }`}
+                      >
+                        <span
+                          className="w-2.5 h-2.5 rounded-full"
+                          style={{ backgroundColor: th.badge }}
+                        />
+                        {th.name}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+
+              {/* Right 5 Cols: Quick Rotary Encoder Mode Switcher */}
+              <div className="lg:col-span-5 bg-[#131b2e] border border-[#1e293b] rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-2">
+                <span className="text-xs font-mono text-slate-400 flex items-center gap-1.5">
+                  <Disc className="w-3.5 h-3.5 text-[#8b5cf6]" />
+                  ROTARY KNOB ENGINE:
+                </span>
+                <div className="flex flex-wrap items-center gap-1">
+                  {SMART_KNOB_MODES.map((m) => (
+                    <button
+                      key={m.id}
+                      type="button"
+                      onClick={() => handleSelectSmartKnobMode(m)}
+                      className={`px-2 py-1 text-[11px] font-mono rounded-lg border transition-colors cursor-pointer ${
+                        activeKnobModeId === m.id
+                          ? 'bg-[#8b5cf6] border-[#8b5cf6] text-white font-bold'
+                          : 'bg-[#0b0f19] border-[#1e293b] text-slate-300 hover:border-[#8b5cf6]'
+                      }`}
+                    >
+                      {m.title}
+                    </button>
+                  ))}
+                </div>
               </div>
             </div>
 
@@ -1709,11 +2435,11 @@ export default function App() {
               <div className="flex flex-wrap items-center justify-between gap-4 mb-4">
                 <div>
                   <h2 className="text-sm font-bold text-white flex items-center gap-2">
-                    Zuoya GMK87 Physical Chassis (8 Rows × 15 Cols + Live NKRO Switch Tester)
+                    Zuoya GMK87 Physical Chassis (8 Rows × 15 Cols · Click or Drag-and-Drop Keycodes)
                   </h2>
                   <p className="text-xs text-slate-400">
-                    Press keys on your physical keyboard to test matrix actuation live, click any
-                    keycap to remap, or spin the CNC Rotary Knob (`7,0` CCW, `0,14` Push, `7,1` CW).
+                    Press keys on your physical keyboard for live NKRO switch testing, click or drag
+                    any keycode onto a keycap, or click the embedded 240×135 TFT screen.
                   </p>
                 </div>
 
@@ -1731,7 +2457,8 @@ export default function App() {
 
                   <div className="text-xs font-mono bg-[#0b0f19] border border-[#1e293b] px-3 py-1.5 rounded-lg text-slate-300">
                     NKRO Tester:{' '}
-                    <span className="text-[#10b981] font-bold">{actuationCount} presses</span>
+                    <span className="text-[#10b981] font-bold">{actuationCount} presses</span> ·{' '}
+                    <span className="text-[#06b6d4] font-bold">{liveWpm} WPM</span>
                   </div>
 
                   <div className="text-xs font-mono bg-[#0b0f19] border border-[#1e293b] px-3.5 py-1.5 rounded-lg">
@@ -1750,7 +2477,7 @@ export default function App() {
 
               {/* Physical Gasket-Mount Keyboard Chassis with Dynamic RGB Underglow */}
               <div
-                className="relative mx-auto bg-[#070a12] border-2 rounded-2xl p-4 transition-all duration-300"
+                className="relative mx-auto bg-gradient-to-b from-[#0a0e18] via-[#070910] to-[#04060b] border-2 rounded-2xl p-4 transition-all duration-300 shadow-[0_20px_50px_rgba(0,0,0,0.9)] select-none"
                 style={{
                   width: '1040px',
                   height: '386px',
@@ -1760,41 +2487,89 @@ export default function App() {
                       : '#1e293b',
                   boxShadow:
                     rgbPreviewEnabled && configState.lightingEffect !== 0
-                      ? `0 0 34px -6px ${rgbHexColor}55, inset 0 0 18px -8px ${rgbHexColor}44`
-                      : 'none',
+                      ? `0 0 38px -4px ${rgbHexColor}66, inset 0 0 20px -8px ${rgbHexColor}44, 0 24px 60px rgba(0,0,0,0.95)`
+                      : '0 20px 50px rgba(0,0,0,0.95), inset 0 1px 0 rgba(255,255,255,0.08)',
                 }}
               >
+                {/* 4 CNC Gasket Mounting Hex Bolts in Plate Corners */}
+                <div className="absolute top-2.5 left-2.5 w-4 h-4 rounded-full bg-[#182030] gasket-screw border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono select-none" title="Anodized Gasket Mount Bolt">⬡</div>
+                <div className="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-[#182030] gasket-screw border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono select-none" title="Anodized Gasket Mount Bolt">⬡</div>
+                <div className="absolute bottom-2.5 left-2.5 w-4 h-4 rounded-full bg-[#182030] gasket-screw border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono select-none" title="Anodized Gasket Mount Bolt">⬡</div>
+                <div className="absolute bottom-2.5 right-2.5 w-4 h-4 rounded-full bg-[#182030] gasket-screw border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono select-none" title="Anodized Gasket Mount Bolt">⬡</div>
+
+                {/* Technical Engraved Legend on Lower Plate */}
+                <div className="absolute bottom-2.5 right-12 text-[8px] font-mono tracking-widest text-slate-600 select-none uppercase pointer-events-none">
+                  ZUOYA GMK87 // GASKET FR4 // 1000HZ NKRO // VIA P{viaProtocol} // 0xFF1C TFT
+                </div>
+
                 {/* Interactive Metallic CNC Rotary Knob Dial Overlay at Top-Right */}
                 <div
-                  className="absolute flex items-center gap-1.5 z-20 pointer-events-none"
+                  className="absolute flex flex-col items-center gap-1 z-20"
                   style={{
-                    left: `${16 + 14.35 * 54}px`,
-                    top: '14px',
+                    left: `${16 + 17.3 * 54}px`,
+                    top: '12px',
                   }}
                 >
-                  <div
-                    onClick={() => {
-                      setKnobAngleDeg((a) => a - 24);
-                      setSelectedKeyId('r0c14');
-                    }}
-                    title="CNC Aluminum Rotary Encoder"
-                    className="w-11 h-11 rounded-full bg-gradient-to-br from-slate-600 via-slate-800 to-slate-950 border-2 border-[#06b6d4] shadow-lg flex items-center justify-center pointer-events-auto cursor-pointer"
-                    style={{ transform: `rotate(${knobAngleDeg}deg)` }}
-                  >
-                    <div className="w-1.5 h-3.5 bg-[#06b6d4] rounded-full -translate-y-2" />
+                  <div className="relative group flex items-center justify-center">
+                    <div
+                      onClick={() => {
+                        setSelectedKeyId('r0c14');
+                      }}
+                      title="Zuoya GMK87 CNC Knurled Aluminum Rotary Encoder (Push Click: MUTE / Rotate: VOL)"
+                      className="w-12 h-12 rounded-full knurled-dial border-2 border-[#06b6d4] shadow-[0_6px_20px_rgba(0,0,0,0.85)] flex items-center justify-center cursor-pointer active:scale-95 transition-transform duration-75"
+                      style={{ transform: `rotate(${knobAngleDeg}deg)` }}
+                    >
+                      <div className="absolute inset-1 rounded-full border border-slate-600/40 flex items-center justify-center">
+                        <div className="w-1.5 h-3.5 bg-[#06b6d4] rounded-full shadow-[0_0_8px_rgba(6,182,212,0.9)] -translate-y-2.5" />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-1">
+                    <button
+                      type="button"
+                      title="Rotate Counter-Clockwise (Vol -)"
+                      onClick={() => {
+                        setKnobAngleDeg((a) => a - 24);
+                        setSelectedKeyId('r7c0');
+                      }}
+                      className="px-1.5 py-0.5 text-[9px] font-mono rounded bg-[#0b0f19] border border-[#1e293b] text-cyan-300 hover:border-[#06b6d4] cursor-pointer"
+                    >
+                      ↺
+                    </button>
+                    <button
+                      type="button"
+                      title="Push Encoder Switch (Mute)"
+                      onClick={() => {
+                        setSelectedKeyId('r0c14');
+                      }}
+                      className="px-1.5 py-0.5 text-[9px] font-mono rounded bg-[#0b0f19] border border-[#1e293b] text-slate-300 hover:text-white cursor-pointer"
+                    >
+                      ●
+                    </button>
+                    <button
+                      type="button"
+                      title="Rotate Clockwise (Vol +)"
+                      onClick={() => {
+                        setKnobAngleDeg((a) => a + 24);
+                        setSelectedKeyId('r7c1');
+                      }}
+                      className="px-1.5 py-0.5 text-[9px] font-mono rounded bg-[#0b0f19] border border-[#1e293b] text-cyan-300 hover:border-[#06b6d4] cursor-pointer"
+                    >
+                      ↻
+                    </button>
                   </div>
                 </div>
 
-                {/* Live Synchronized 240×135 TFT LCD Screen Embedded Inside the GMK87 Chassis (x:15.25..17.25, y:3.35) */}
+                {/* Live Synchronized 240×135 TFT LCD Screen Embedded Inside the GMK87 Chassis */}
                 <div
                   onClick={() => setActiveTab('gifs')}
-                  title="Live Embedded 240x135 RGB565 TFT Screen — Click to open GIF Library"
-                  className="absolute rounded-lg bg-black border-2 border-[#06b6d4] overflow-hidden cursor-pointer group z-10 shadow-md"
+                  title="Embedded 240×135 RGB565 Color TFT Screen — Click to open 240×135 Screen Studio"
+                  className="absolute rounded-lg bg-black border-2 border-[#06b6d4]/80 overflow-hidden cursor-pointer group z-10 shadow-lg ring-1 ring-cyan-500/30"
                   style={{
-                    left: `${16 + 15.25 * 54}px`,
-                    top: `${16 + 3.35 * 54}px`,
-                    width: `${2 * 54 - 5}px`,
-                    height: `${54 - 5}px`,
+                    left: `${16 + 15.35 * 54}px`,
+                    top: '12px',
+                    width: '96px',
+                    height: '54px',
                   }}
                 >
                   <canvas
@@ -1803,71 +2578,277 @@ export default function App() {
                     height={LCD_HEIGHT}
                     className="w-full h-full object-cover pixelated-canvas block"
                   />
-                  <div className="absolute inset-0 bg-black/65 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[9px] font-mono text-[#06b6d4] font-bold">
-                    EDIT 240×135 TFT
+                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-[8px] font-mono text-[#06b6d4] font-bold">
+                    240×135 TFT
                   </div>
                 </div>
 
+                {/* GMK87 Signature Hardware RGB LED Strip Bar in Nav Cluster (Matches Physical Keyboard) */}
+                <div
+                  className="absolute flex items-center justify-center select-none"
+                  style={{
+                    left: `${16 + 15.25 * 54}px`,
+                    top: `${16 + 3.45 * 54}px`,
+                    width: `${3 * 54 - 5}px`,
+                    height: '24px',
+                  }}
+                >
+                  <div
+                    className="w-full h-3.5 rounded-full bg-gradient-to-r from-cyan-400 via-indigo-300 to-purple-400 border border-white/60 shadow-[0_0_18px_rgba(168,85,247,0.95),0_0_30px_rgba(6,182,212,0.85)] animate-pulse"
+                    title="GMK87 Signature Hardware RGB Light Bar (FN + PGUP to toggle modes, FN + PGDN to change color)"
+                  />
+                </div>
+
                 {GMK87_PHYSICAL_KEYS.map((k) => {
+                  if (k.isKnob) return null;
                   const assignedCode = keymap[activeLayer]?.[k.row]?.[k.col] ?? 0;
+                  const defaultCode =
+                    defaultKeymapRef.current[activeLayer]?.[k.row]?.[k.col] ?? 0;
+                  const isModifiedFromDefault = assignedCode !== defaultCode;
                   const codeLabel = getKeycodeLabel(assignedCode, viaProtocol);
                   const isSelected = selectedKeyId === k.id;
                   const isPhysicallyPressed = pressedKeyIds.has(k.id);
+                  const isDragTarget = dragOverKeyId === k.id;
                   const unitPx = 54;
                   const gapPx = 5;
+
+                  const isCyberpunk = keycapThemeId === 'cyberpunk';
+                  const isSpacebar = k.id === 'r5c6';
+                  const isEnter = k.id === 'r3c13';
+                  const isBackspace = k.id === 'r1c13';
+                  const isEsc = k.id === 'r0c0';
+                  const isPrtSc = k.id === 'r0c13';
+                  const isArrow =
+                    k.id === 'r4c13' || // Up
+                    k.id === 'r6c12' || // Down
+                    k.id === 'r5c13' || // Left
+                    k.id === 'r6c13'; // Right
+                  const isFRowYellow =
+                    k.id === 'r0c1' || k.id === 'r0c2' || k.id === 'r0c3' || k.id === 'r0c4' || // F1-F4
+                    k.id === 'r0c9' || k.id === 'r0c10' || k.id === 'r0c11' || k.id === 'r0c12'; // F9-F12
+                  const isFRowCyan =
+                    k.id === 'r0c5' || k.id === 'r0c6' || k.id === 'r0c7' || k.id === 'r0c8'; // F5-F8
+                  const isModKey = k.w > 1.15 || k.row === 0 || k.col >= 13;
+
+                  // Cyberpunk custom palette matching user physical keycaps
+                  let themeCapClass = activeKeycapTheme.alphaClass;
+                  if (isCyberpunk) {
+                    if (isSpacebar) {
+                      themeCapClass = 'bg-[#facc15] border border-[#fde047] text-slate-950 font-black shadow-[0_2px_12px_rgba(250,204,21,0.5)]';
+                    } else if (isEnter) {
+                      themeCapClass = 'bg-gradient-to-b from-[#dc2626] to-[#991b1b] border border-red-400 text-white font-black shadow-[0_2px_12px_rgba(239,68,68,0.45)]';
+                    } else if (isBackspace) {
+                      themeCapClass = 'bg-gradient-to-b from-[#0891b2] to-[#0e7490] border border-cyan-300 text-cyan-100 font-bold shadow-[0_2px_10px_rgba(6,182,212,0.4)]';
+                    } else if (isEsc) {
+                      themeCapClass = 'bg-gradient-to-b from-[#dc2626] to-[#991b1b] border border-red-400 text-white font-bold shadow-[0_0_10px_rgba(239,68,68,0.5)]';
+                    } else if (isArrow) {
+                      themeCapClass = 'bg-[#0a0d16] border border-[#232c40] text-red-500 font-black';
+                    } else if (isFRowCyan || isPrtSc) {
+                      themeCapClass = 'bg-[#0d121e] border border-[#1e2a3e] text-cyan-400 font-bold';
+                    } else if (isFRowYellow) {
+                      themeCapClass = 'bg-[#0d121e] border border-[#1e2a3e] text-yellow-400 font-bold';
+                    } else if (isModKey) {
+                      themeCapClass = activeKeycapTheme.modClass;
+                    }
+                  } else {
+                    const isAccentKey = isEsc || isEnter || isArrow;
+                    themeCapClass = isAccentKey
+                      ? activeKeycapTheme.accentClass
+                      : isModKey
+                      ? activeKeycapTheme.modClass
+                      : activeKeycapTheme.alphaClass;
+                  }
+
+                  const katakanaChar = KATAKANA_SUBLEGENDS[k.label];
+                  const cyberGlyph = CYBER_MOD_GLYPHS[k.id];
 
                   return (
                     <button
                       key={k.id}
                       onClick={() => {
                         setSelectedKeyId(k.id);
-                        if (k.id === 'r7c0') setKnobAngleDeg((a) => a - 25);
-                        if (k.id === 'r7c1') setKnobAngleDeg((a) => a + 25);
+                      }}
+                      onDragOver={(e) => {
+                        e.preventDefault();
+                        if (dragOverKeyId !== k.id) setDragOverKeyId(k.id);
+                      }}
+                      onDragLeave={() => {
+                        if (dragOverKeyId === k.id) setDragOverKeyId(null);
+                      }}
+                      onDrop={(e) => {
+                        e.preventDefault();
+                        setDragOverKeyId(null);
+                        const rawCode = Number(e.dataTransfer.getData('text/plain'));
+                        if (Number.isFinite(rawCode) && rawCode >= 0) {
+                          handleAssignKeycode(rawCode, k.id);
+                        }
                       }}
                       style={{
                         left: `${16 + k.x * unitPx}px`,
                         top: `${16 + k.y * unitPx}px`,
                         width: `${k.w * unitPx - gapPx}px`,
-                        height: `${(k.h || 1) * unitPx - gapPx}px`,
+                        height: `${(k.h ?? 1) * unitPx - gapPx}px`,
+                        boxShadow:
+                          rgbPreviewEnabled && configState.lightingEffect !== 0
+                            ? `${isPhysicallyPressed ? '0 1px 0 #05080f' : '0 4px 0 #05080f, 0 7px 14px rgba(0,0,0,0.7)'}, 0 4px 12px ${rgbHexColor}35`
+                            : undefined,
                       }}
-                      className={`absolute rounded-lg p-1.5 flex flex-col justify-between text-left transition-all duration-100 cursor-pointer select-none ${
-                        isPhysicallyPressed
-                          ? 'bg-[#10b981]/30 border-2 border-[#10b981] text-white translate-y-0.5 z-20'
+                      className={`absolute rounded-[6px] p-1.5 flex flex-col justify-between text-left transition-all duration-75 cursor-pointer select-none border border-b-2 ${
+                        isPhysicallyPressed ? 'keycap-dish-pressed' : 'keycap-dish-3d'
+                      } ${
+                        isDragTarget
+                          ? 'bg-[#06b6d4]/40 border-2 border-white scale-105 z-30'
+                          : isPhysicallyPressed
+                          ? 'bg-[#10b981]/30 border-2 border-[#10b981] text-white z-20'
                           : isSelected
-                          ? 'bg-[#06b6d4]/20 border-2 border-[#06b6d4] border-b-4 text-white ring-2 ring-[#06b6d4]/40 z-10'
-                          : k.isKnob
-                          ? 'bg-[#8b5cf6]/15 border border-[#8b5cf6]/60 border-b-4 text-purple-200 hover:border-[#8b5cf6]'
-                          : 'bg-[#131b2e] border border-[#1e293b] border-b-4 border-b-[#090d16] text-slate-200 hover:border-slate-500'
+                          ? 'bg-[#06b6d4]/20 border-2 border-[#06b6d4] text-white ring-2 ring-[#06b6d4]/40 z-10'
+                          : `${themeCapClass} hover:brightness-110`
                       }`}
                     >
-                      <div className="flex items-center justify-between w-full text-[9px] font-mono text-slate-400 leading-none">
-                        <span className="truncate">{k.label}</span>
-                        <span>
-                          {k.row},{k.col}
-                        </span>
-                      </div>
-                      <div
-                        className={`text-[11px] font-mono font-bold truncate w-full ${
-                          isPhysicallyPressed
-                            ? 'text-[#10b981]'
-                            : isSelected
-                            ? 'text-[#06b6d4]'
-                            : k.isKnob
-                            ? 'text-[#8b5cf6]'
-                            : 'text-slate-100'
-                        }`}
-                      >
-                        {codeLabel}
-                      </div>
+                      {/* Key Face Legends */}
+                      {isCyberpunk && isEsc ? (
+                        <div className="flex items-center justify-center w-full h-full text-base font-black text-red-200">
+                          △
+                        </div>
+                      ) : isCyberpunk && isPrtSc ? (
+                        <div className="flex items-center justify-center w-full h-full text-base font-black text-cyan-300">
+                          ⊕
+                        </div>
+                      ) : isCyberpunk && isEnter ? (
+                        <div className="flex flex-col justify-between w-full h-full">
+                          <span className="text-[10px] font-mono font-black text-white/90">ENTER</span>
+                          <span className="text-[9px] font-mono font-bold text-red-200 truncate">∿∿∿∿∿</span>
+                        </div>
+                      ) : isCyberpunk && isBackspace ? (
+                        <div className="flex flex-col justify-between w-full h-full">
+                          <span className="text-[10px] font-mono font-black text-cyan-100">BKSP</span>
+                          <span className="text-[8px] font-mono font-bold text-cyan-200 truncate">&lt;&lt;&lt;&lt;&lt;&lt;</span>
+                        </div>
+                      ) : isCyberpunk && isSpacebar ? (
+                        <div className="flex items-center justify-center w-full h-full text-[10px] font-mono font-black text-slate-900 tracking-widest">
+                          SPACE
+                        </div>
+                      ) : isCyberpunk && isArrow ? (
+                        <div className="flex items-center justify-center w-full h-full text-base font-black text-red-500">
+                          {k.label}
+                        </div>
+                      ) : isCyberpunk && katakanaChar ? (
+                        <div className="flex flex-col justify-between w-full h-full leading-none">
+                          <div className="flex items-center justify-between w-full">
+                            <span className="font-black text-xs font-mono text-yellow-300">{k.label}</span>
+                            {isModifiedFromDefault && (
+                              <span
+                                className="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"
+                                title="Modified from factory default"
+                              />
+                            )}
+                          </div>
+                          <span className="font-bold text-[10px] font-mono text-yellow-500/90 self-end">
+                            {katakanaChar}
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="flex flex-col justify-between w-full h-full leading-none">
+                          <div className="flex items-center justify-between w-full">
+                            <span className="font-bold text-[11px] sm:text-xs font-mono truncate">{k.label}</span>
+                            {isModifiedFromDefault && (
+                              <span
+                                className="w-1.5 h-1.5 rounded-full bg-[#10b981] shadow-[0_0_6px_#10b981]"
+                                title="Modified from factory default"
+                              />
+                            )}
+                          </div>
+                          {cyberGlyph && isCyberpunk && (
+                            <span className="text-[9px] font-mono text-cyan-400 truncate opacity-80">
+                              {cyberGlyph}
+                            </span>
+                          )}
+                          {isModifiedFromDefault && (
+                            <div className="text-[10px] font-mono font-bold text-[#10b981] truncate w-full">
+                              {codeLabel}
+                            </div>
+                          )}
+                        </div>
+                      )}
                     </button>
                   );
                 })}
               </div>
             </div>
 
-            {/* Bottom Categorized QMK/VIA Keycode Palette */}
+            {/* Selected Key Remapping Drawer & Categorized Keycode Palette */}
             <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-5 space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3">
+              {/* Top Row: Selected Key Inspector & Quick Search */}
+              <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 p-4 rounded-xl bg-[#0b0f19] border border-[#1e293b]">
+                <div className="flex flex-wrap items-center gap-3">
+                  <div className="px-3 py-1.5 rounded-lg bg-[#06b6d4]/20 border border-[#06b6d4] text-[#06b6d4] font-mono font-bold text-sm">
+                    {selectedKeyDef.label}
+                  </div>
+                  <div>
+                    <div className="text-xs text-slate-300 font-semibold flex items-center gap-2">
+                      <span>Action:</span>
+                      <span className="text-[#10b981] font-mono font-bold">
+                        {getKeycodeLabel(currentSelectedKeycode, viaProtocol)}
+                      </span>
+                      <span className="text-slate-500 font-mono text-[11px]">
+                        (0x{currentSelectedKeycode.toString(16).toUpperCase().padStart(4, '0')})
+                      </span>
+                    </div>
+                    <div className="text-[11px] font-mono text-slate-500">
+                      Switch: Row {selectedKeyDef.row}, Col {selectedKeyDef.col} · Layer {activeLayer}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  {selectedKeyDef.isKnob && (
+                    <div className="flex items-center gap-1.5 mr-2">
+                      <span className="text-xs font-mono text-purple-300">Knob Action:</span>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedKeyId('r7c0')}
+                        className={`px-2 py-1 text-xs font-mono rounded cursor-pointer ${
+                          selectedKeyId === 'r7c0' ? 'bg-[#8b5cf6] text-white font-bold' : 'bg-[#131b2e] text-slate-300'
+                        }`}
+                      >
+                        CCW (Vol -)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedKeyId('r0c14')}
+                        className={`px-2 py-1 text-xs font-mono rounded cursor-pointer ${
+                          selectedKeyId === 'r0c14' ? 'bg-[#8b5cf6] text-white font-bold' : 'bg-[#131b2e] text-slate-300'
+                        }`}
+                      >
+                        Click (Mute)
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSelectedKeyId('r7c1')}
+                        className={`px-2 py-1 text-xs font-mono rounded cursor-pointer ${
+                          selectedKeyId === 'r7c1' ? 'bg-[#8b5cf6] text-white font-bold' : 'bg-[#131b2e] text-slate-300'
+                        }`}
+                      >
+                        CW (Vol +)
+                      </button>
+                    </div>
+                  )}
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      const def = defaultKeymapRef.current[activeLayer]?.[selectedKeyDef.row]?.[selectedKeyDef.col] ?? 0;
+                      handleAssignKeycode(def, selectedKeyDef.id);
+                    }}
+                    className="px-3 py-1.5 text-xs font-mono rounded-lg bg-[#131b2e] border border-[#1e293b] text-slate-300 hover:text-white hover:border-[#06b6d4] transition-colors cursor-pointer"
+                  >
+                    Reset This Key
+                  </button>
+                </div>
+              </div>
+
+              {/* Category Pills & Keycode Search Input */}
+              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
                 <div className="flex flex-wrap items-center gap-1.5">
                   {(
                     [
@@ -1884,9 +2865,12 @@ export default function App() {
                   ).map((cat) => (
                     <button
                       key={cat}
-                      onClick={() => setActiveKeyCategory(cat)}
+                      onClick={() => {
+                        setActiveKeyCategory(cat);
+                        setKeycodeSearchQuery('');
+                      }}
                       className={`px-3 py-1.5 text-xs font-semibold rounded-lg transition-colors cursor-pointer ${
-                        activeKeyCategory === cat
+                        activeKeyCategory === cat && !keycodeSearchQuery
                           ? 'bg-[#8b5cf6] text-white'
                           : 'bg-[#0b0f19] text-slate-400 border border-[#1e293b] hover:text-white'
                       }`}
@@ -1895,40 +2879,68 @@ export default function App() {
                     </button>
                   ))}
                 </div>
-                <span className="text-xs font-mono text-slate-400">
-                  Click any keycode below to write VIA <code className="text-cyan-300">0x05</code> to{' '}
-                  <strong className="text-white">{selectedKeyDef.label}</strong> [{selectedKeyDef.row},
-                  {selectedKeyDef.col}]
-                </span>
+
+                <div className="relative w-full sm:w-64">
+                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <input
+                    type="text"
+                    value={keycodeSearchQuery}
+                    onChange={(e) => setKeycodeSearchQuery(e.target.value)}
+                    placeholder="Search keycodes (e.g. Mute, Vol, Calc, Play)..."
+                    className="w-full bg-[#0b0f19] border border-[#1e293b] rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#06b6d4]"
+                  />
+                  {keycodeSearchQuery && (
+                    <button
+                      type="button"
+                      onClick={() => setKeycodeSearchQuery('')}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 text-slate-400 hover:text-white text-xs px-1"
+                    >
+                      ✕
+                    </button>
+                  )}
+                </div>
               </div>
 
+              {/* Keycode Items Grid */}
               <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-2.5">
-                {KEYCODE_CATALOG.filter((item) => item.category === activeKeyCategory).map(
-                  (item) => {
-                    const isCurrent = currentSelectedKeycode === item.code;
+                {KEYCODE_CATALOG.filter((item) => {
+                  if (keycodeSearchQuery) {
+                    const q = keycodeSearchQuery.toLowerCase();
                     return (
-                      <button
-                        key={item.code}
-                        onClick={() => handleAssignKeycode(item.code)}
-                        className={`p-2.5 rounded-lg border text-left transition-colors cursor-pointer flex flex-col justify-between ${
-                          isCurrent
-                            ? 'bg-[#10b981]/20 border-[#10b981] text-white'
-                            : 'bg-[#0b0f19] border-[#1e293b] hover:border-[#06b6d4] text-slate-200'
-                        }`}
-                      >
-                        <div className="flex items-center justify-between w-full mb-1">
-                          <span className="text-xs font-mono font-bold text-[#06b6d4]">
-                            {item.shortLabel}
-                          </span>
-                          <span className="text-[10px] font-mono text-slate-500">
-                            0x{item.code.toString(16).toUpperCase().padStart(4, '0')}
-                          </span>
-                        </div>
-                        <div className="text-[11px] text-slate-400 truncate">{item.name}</div>
-                      </button>
+                      item.name.toLowerCase().includes(q) ||
+                      item.shortLabel.toLowerCase().includes(q) ||
+                      item.category.toLowerCase().includes(q)
                     );
                   }
-                )}
+                  return item.category === activeKeyCategory;
+                }).map((item) => {
+                  const isCurrent = currentSelectedKeycode === item.code;
+                  return (
+                    <button
+                      key={item.code}
+                      draggable
+                      onDragStart={(e) => {
+                        e.dataTransfer.setData('text/plain', String(item.code));
+                      }}
+                      onClick={() => handleAssignKeycode(item.code)}
+                      className={`p-2.5 rounded-lg border text-left transition-colors cursor-pointer flex flex-col justify-between ${
+                        isCurrent
+                          ? 'bg-[#10b981]/20 border-[#10b981] text-white'
+                          : 'bg-[#0b0f19] border-[#1e293b] hover:border-[#06b6d4] text-slate-200'
+                      }`}
+                    >
+                      <div className="flex items-center justify-between w-full mb-1">
+                        <span className="text-xs font-mono font-bold text-[#06b6d4]">
+                          {item.shortLabel}
+                        </span>
+                        <span className="text-[10px] font-mono text-slate-500">
+                          0x{item.code.toString(16).toUpperCase().padStart(4, '0')}
+                        </span>
+                      </div>
+                      <div className="text-[11px] text-slate-400 truncate">{item.name}</div>
+                    </button>
+                  );
+                })}
               </div>
             </div>
           </div>
@@ -2510,97 +3522,73 @@ export default function App() {
                 >
                   Flash URL to Slot {targetSlot}
                 </button>
+                <button
+                  type="button"
+                  onClick={() => setShowInlinePainterInGifs((v) => !v)}
+                  className={`px-4 py-2 text-xs font-semibold rounded-lg border cursor-pointer whitespace-nowrap ${
+                    showInlinePainterInGifs
+                      ? 'bg-[#8b5cf6] text-white border-[#8b5cf6]'
+                      : 'bg-[#0b0f19] border-[#8b5cf6]/60 text-purple-300 hover:border-[#8b5cf6]'
+                  }`}
+                >
+                  {showInlinePainterInGifs
+                    ? 'Hide Pixel Painter & Frame Timeline'
+                    : '🖌️ Open Pixel Painter & Frame Timeline'}
+                </button>
               </div>
             </div>
+
+            {showInlinePainterInGifs && (
+              <TftScreenPainterAndTimeline
+                frames={
+                  customPreviewFrames.length > 0
+                    ? customPreviewFrames
+                    : customPreviewImageData
+                    ? [customPreviewImageData]
+                    : uploadedFrames
+                }
+                onUpdateFrames={(nextFrames, msg) => {
+                  setUploadedFrames(nextFrames);
+                  setCustomPreviewFrames(nextFrames);
+                  setCustomPreviewImageData(nextFrames[0] || null);
+                  if (msg) setStatusLog(msg);
+                }}
+                onFlashFrames={async (framesToFlash, label) => {
+                  const res = await hidEngineRef.current?.uploadFramesToLcd(
+                    framesToFlash,
+                    targetSlot,
+                    configState,
+                    (info) => setUploadProgress(info),
+                    useFloydSteinbergDither
+                  );
+                  applyPostUploadState(res, `Flashed ${label} to Slot ${targetSlot}`);
+                }}
+                frameDurationMs={configState.frameDurationMs || 100}
+                onChangeFrameDurationMs={(ms) => handleUpdateRgbConfig({ frameDurationMs: ms })}
+                useFloydSteinbergDither={useFloydSteinbergDither}
+                onToggleDither={() => setUseFloydSteinbergDither((v) => !v)}
+                targetSlot={targetSlot}
+                onSelectSlot={setTargetSlot}
+              />
+            )}
           </div>
         )}
 
         {/* =====================================================================
-            TAB 3: 📖 KEYBOARD SHORTCUTS (Searchable Hardware Reference Table)
+            TAB 3: 📖 KEYBOARD SHORTCUTS & INTERACTIVE HARDWARE DIAGNOSTICS
            ===================================================================== */}
         {activeTab === 'shortcuts' && (
-          <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-5">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
-              <div>
-                <h2 className="text-base font-bold text-white">
-                  Zuoya GMK87 Hardware Fn Combination Reference
-                </h2>
-                <p className="text-xs text-slate-400">
-                  Built-in MCU shortcuts for the 240×135 TFT LCD, 3-Host Bluetooth 5.0 / 2.4GHz
-                  wireless, South-facing RGB, and EEPROM reset.
-                </p>
-              </div>
-
-              <div className="flex flex-wrap items-center gap-2">
-                <div className="relative">
-                  <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
-                  <input
-                    type="text"
-                    value={shortcutQuery}
-                    onChange={(e) => setShortcutQuery(e.target.value)}
-                    placeholder="Filter shortcuts (e.g. Bluetooth, Screen, Reset)..."
-                    className="bg-[#0b0f19] border border-[#1e293b] rounded-lg pl-8 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#06b6d4] w-64"
-                  />
-                </div>
-
-                <div className="flex items-center gap-1 bg-[#0b0f19] p-1 rounded-lg border border-[#1e293b]">
-                  {(['All', 'Screen', 'Wireless', 'Lighting', 'System'] as const).map((cat) => (
-                    <button
-                      key={cat}
-                      onClick={() => setShortcutCat(cat)}
-                      className={`px-2.5 py-1 text-xs font-medium rounded-md transition-colors cursor-pointer ${
-                        shortcutCat === cat
-                          ? 'bg-[#06b6d4] text-slate-950 font-semibold'
-                          : 'text-slate-400 hover:text-white'
-                      }`}
-                    >
-                      {cat}
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            <div className="overflow-x-auto">
-              <table className="w-full text-left border-collapse">
-                <thead>
-                  <tr className="border-b border-[#1e293b] text-[11px] font-mono text-slate-400">
-                    <th className="py-3 px-4">CATEGORY</th>
-                    <th className="py-3 px-4">KEY COMBINATION</th>
-                    <th className="py-3 px-4">HARDWARE FUNCTION</th>
-                    <th className="py-3 px-4">PROTOCOL / FIRMWARE BEHAVIOR</th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-[#1e293b] text-xs">
-                  {filteredShortcuts.map((item) => (
-                    <tr key={item.id} className="hover:bg-[#0b0f19]/60 transition-colors">
-                      <td className="py-3.5 px-4 font-mono text-[#06b6d4] whitespace-nowrap">
-                        {item.category}
-                      </td>
-                      <td className="py-3.5 px-4 whitespace-nowrap">
-                        <div className="inline-flex items-center gap-1.5">
-                          {item.keys.map((k, idx) => (
-                            <React.Fragment key={k}>
-                              <kbd className="px-2 py-1 text-[11px] font-mono font-bold bg-[#0b0f19] border border-slate-700 rounded text-cyan-300 shadow-inner">
-                                {k}
-                              </kbd>
-                              {idx < item.keys.length - 1 && (
-                                <span className="text-slate-500">+</span>
-                              )}
-                            </React.Fragment>
-                          ))}
-                        </div>
-                      </td>
-                      <td className="py-3.5 px-4 font-semibold text-white">{item.action}</td>
-                      <td className="py-3.5 px-4 text-slate-400 leading-relaxed">
-                        {item.details}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
+          <InteractiveShortcutTrainer
+            configState={configState}
+            onUpdateConfig={handleUpdateRgbConfig}
+            onSwitchViaLayer={(layer) => {
+              setActiveLayer(layer);
+              setActiveTab('keymap');
+            }}
+            lastLcdPacketHex={uploadProgress.lastPacketHex}
+            lastViaPacketHex={lastViaPacketHex}
+            onStatusLog={setStatusLog}
+          />
         )}
 
         {/* =====================================================================
@@ -2775,12 +3763,69 @@ export default function App() {
         )}
 
         {/* =====================================================================
-            TAB 5: 🎵 MEDIA & TELEMETRY HUD (Cyberpunk HUD + 24-Band Spectrum)
+            TAB 5: 🎵 MEDIA & TELEMETRY HUD (Cyberpunk HUD + 24-Band Spectrum + Quick RTC/OSD Bar)
            ===================================================================== */}
         {activeTab === 'telemetry' && (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {/* Left: Cyberpunk Telemetry HUD Generator */}
-            <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-4">
+          <div className="space-y-6">
+            {/* Unified Live HUD, RTC Clock Sync & Applet Quick-Launch Strip */}
+            <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-4 flex flex-wrap items-center justify-between gap-4">
+              <div className="flex flex-wrap items-center gap-3">
+                <div className="px-3 py-1.5 rounded-lg bg-[#0b0f19] border border-[#1e293b] text-xs font-mono flex items-center gap-2">
+                  <Clock className="w-3.5 h-3.5 text-[#10b981]" />
+                  <span className="text-slate-400">PC RTC:</span>
+                  <span className="text-[#10b981] font-bold">{pcNow.toLocaleTimeString()}</span>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleSyncClockNow}
+                  className="px-3 py-1.5 text-xs font-semibold rounded-lg bg-[#06b6d4]/20 border border-[#06b6d4] text-[#06b6d4] hover:bg-[#06b6d4] hover:text-slate-950 transition-colors cursor-pointer"
+                >
+                  Sync BCD Clock Now
+                </button>
+                <div className="inline-flex rounded-lg bg-[#0b0f19] p-1 border border-[#1e293b] text-xs font-mono">
+                  {[
+                    { m: 0, label: 'Mode 0: Clock' },
+                    { m: 1, label: 'Mode 1: Slot 0' },
+                    { m: 2, label: 'Mode 2: Slot 1' },
+                  ].map((item) => (
+                    <button
+                      key={item.m}
+                      type="button"
+                      onClick={() => handleUpdateRgbConfig({ activeScreenMode: item.m })}
+                      className={`px-2.5 py-1 rounded cursor-pointer ${
+                        configState.activeScreenMode === item.m
+                          ? 'bg-[#06b6d4] text-slate-950 font-bold'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                    >
+                      {item.label}
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              <div className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => handleFlashBeyondApplet('wpm')}
+                  className="px-3 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-cyan-300 hover:border-[#06b6d4] cursor-pointer"
+                >
+                  ⚡ Flash {liveWpm} WPM OSD
+                </button>
+                <button
+                  type="button"
+                  onClick={() => handleFlashBeyondApplet('pomodoro')}
+                  className="px-3 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-amber-300 hover:border-[#f59e0b] cursor-pointer"
+                >
+                  ⏱️ Flash Pomodoro ({String(Math.floor(pomodoroSeconds / 60)).padStart(2, '0')}:
+                  {String(pomodoroSeconds % 60).padStart(2, '0')})
+                </button>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              {/* Left: Cyberpunk Telemetry HUD Generator */}
+              <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-4">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h2 className="text-base font-bold text-white">
@@ -2980,221 +4025,197 @@ export default function App() {
                 Flash 16-Frame Spectrum to GMK87 (Slot {targetSlot})
               </button>
             </div>
+            </div>
           </div>
         )}
 
         {/* =====================================================================
-            TAB 6: 🎨 CUSTOM GIF UPLOADER (File Picker + RGB565 Quantizer)
+            TAB 6: 🎨 CUSTOM GIF UPLOADER + 240×135 PIXEL ART & TIMELINE STUDIO
            ===================================================================== */}
         {activeTab === 'uploader' && (
-          <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-6">
-            <div className="flex flex-wrap items-center justify-between gap-4">
-              <div>
-                <h2 className="text-base font-bold text-white">
-                  Custom PNG / JPG / GIF Hardware Uploader (240×135 Letterbox & RGB565 Quantizer)
-                </h2>
-                <p className="text-xs text-slate-400">
-                  Automatically scales and centers any local image onto 240×135, applies optional
-                  Floyd-Steinberg dithering to prevent 16-bit banding, and streams 56-byte chunks.
-                </p>
+          <div className="space-y-6">
+            <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-6">
+              <div className="flex flex-wrap items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-base font-bold text-white">
+                    Custom PNG / JPG / GIF Hardware Uploader (240×135 Letterbox & RGB565 Quantizer)
+                  </h2>
+                  <p className="text-xs text-slate-400">
+                    Automatically scales and centers any local image onto 240×135, decodes up to 36
+                    animated GIF frames, applies Floyd-Steinberg dithering, and opens in the Pixel
+                    Painter & Timeline below.
+                  </p>
+                </div>
               </div>
-            </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
-              <label className="border-2 border-dashed border-[#1e293b] hover:border-[#06b6d4] rounded-xl p-8 bg-[#0b0f19] flex flex-col items-center justify-center text-center cursor-pointer transition-colors">
-                <Upload className="w-8 h-8 text-[#06b6d4] mb-3" />
-                <span className="text-sm font-semibold text-white">
-                  Click to choose a PNG, JPG, or GIF file
-                </span>
-                <span className="text-xs text-slate-400 mt-1">
-                  {uploadedFileName
-                    ? `${uploadedFileName}${uploadedSourceInfo ? ` · ${uploadedSourceInfo}` : ''}`
-                    : 'Auto-letterboxed to 240×135 · Multi-Frame GIF & Big-Endian RGB565 (65,536B padded)'}
-                </span>
-                <input
-                  type="file"
-                  accept="image/png,image/jpeg,image/gif,image/webp"
-                  onChange={handleFileUpload}
-                  className="hidden"
-                />
-              </label>
-
-              <div className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-5 flex flex-col sm:flex-row items-center gap-5">
-                <div className="shrink-0">
-                  <div className="text-[10px] font-mono text-slate-400 mb-1">
-                    QUANTIZED RGB565 PREVIEW
-                  </div>
-                  <canvas
-                    ref={uploaderPreviewRef}
-                    width={LCD_WIDTH}
-                    height={LCD_HEIGHT}
-                    className="w-[240px] h-[135px] bg-black border border-[#1e293b] rounded pixelated-canvas"
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 items-center">
+                <label className="border-2 border-dashed border-[#1e293b] hover:border-[#06b6d4] rounded-xl p-8 bg-[#0b0f19] flex flex-col items-center justify-center text-center cursor-pointer transition-colors">
+                  <Upload className="w-8 h-8 text-[#06b6d4] mb-3" />
+                  <span className="text-sm font-semibold text-white">
+                    Click to choose a PNG, JPG, WebP, or Animated GIF file
+                  </span>
+                  <span className="text-xs text-slate-400 mt-1">
+                    {uploadedFileName
+                      ? `${uploadedFileName}${uploadedSourceInfo ? ` · ${uploadedSourceInfo}` : ''}`
+                      : 'Auto-letterboxed to 240×135 · Multi-Frame GIF & Big-Endian RGB565 (65,536B padded)'}
+                  </span>
+                  <input
+                    type="file"
+                    accept="image/png,image/jpeg,image/gif,image/webp"
+                    onChange={handleFileUpload}
+                    className="hidden"
                   />
-                </div>
+                </label>
 
-                <div className="space-y-3 w-full">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => setTargetSlot(0)}
-                      className={`flex-1 py-1.5 text-xs font-mono rounded-lg border cursor-pointer ${
-                        targetSlot === 0
-                          ? 'bg-[#06b6d4] text-slate-950 border-[#06b6d4] font-bold'
-                          : 'bg-[#131b2e] text-slate-300 border-[#1e293b]'
-                      }`}
-                    >
-                      Slot 0
-                    </button>
-                    <button
-                      onClick={() => setTargetSlot(1)}
-                      className={`flex-1 py-1.5 text-xs font-mono rounded-lg border cursor-pointer ${
-                        targetSlot === 1
-                          ? 'bg-[#8b5cf6] text-white border-[#8b5cf6] font-bold'
-                          : 'bg-[#131b2e] text-slate-300 border-[#1e293b]'
-                      }`}
-                    >
-                      Slot 1
-                    </button>
+                <div className="bg-[#0b0f19] border border-[#1e293b] rounded-xl p-5 flex flex-col sm:flex-row items-center gap-5">
+                  <div className="shrink-0">
+                    <div className="text-[10px] font-mono text-slate-400 mb-1">
+                      QUANTIZED RGB565 PREVIEW
+                    </div>
+                    <canvas
+                      ref={uploaderPreviewRef}
+                      width={LCD_WIDTH}
+                      height={LCD_HEIGHT}
+                      className="w-[240px] h-[135px] bg-black border border-[#1e293b] rounded pixelated-canvas"
+                    />
                   </div>
 
-                  <button
-                    onClick={async () => {
-                      const framesToFlash =
-                        uploadedFrames.length > 0
-                          ? uploadedFrames
-                          : customPreviewFrames.length > 0
-                          ? customPreviewFrames
-                          : customPreviewImageData
-                          ? [customPreviewImageData]
-                          : [];
-                      if (framesToFlash.length === 0) {
-                        setStatusLog('Select an image/GIF file first, or load a monitor preview.');
-                        return;
-                      }
-                      const res = await hidEngineRef.current?.uploadFramesToLcd(
-                        framesToFlash,
-                        targetSlot,
-                        configState,
-                        (info) => setUploadProgress(info),
-                        useFloydSteinbergDither
-                      );
-                      applyPostUploadState(
-                        res,
-                        `Flashed ${framesToFlash.length} custom frame(s) to Slot ${targetSlot}`
-                      );
-                    }}
-                    className="w-full py-2.5 px-4 text-xs font-semibold rounded-lg bg-[#06b6d4] text-slate-950 hover:bg-cyan-400 transition-colors cursor-pointer"
-                  >
-                    Flash{' '}
-                    {uploadedFrames.length > 1
-                      ? `${uploadedFrames.length}-Frame GIF`
-                      : 'Custom Frame'}{' '}
-                    to Slot {targetSlot}
-                  </button>
+                  <div className="space-y-3 w-full">
+                    <div className="flex items-center gap-2">
+                      <button
+                        onClick={() => setTargetSlot(0)}
+                        className={`flex-1 py-1.5 text-xs font-mono rounded-lg border cursor-pointer ${
+                          targetSlot === 0
+                            ? 'bg-[#06b6d4] text-slate-950 border-[#06b6d4] font-bold'
+                            : 'bg-[#131b2e] text-slate-300 border-[#1e293b]'
+                        }`}
+                      >
+                        Slot 0
+                      </button>
+                      <button
+                        onClick={() => setTargetSlot(1)}
+                        className={`flex-1 py-1.5 text-xs font-mono rounded-lg border cursor-pointer ${
+                          targetSlot === 1
+                            ? 'bg-[#8b5cf6] text-white border-[#8b5cf6] font-bold'
+                            : 'bg-[#131b2e] text-slate-300 border-[#1e293b]'
+                        }`}
+                      >
+                        Slot 1
+                      </button>
+                    </div>
+
+                    <button
+                      onClick={async () => {
+                        const framesToFlash =
+                          uploadedFrames.length > 0
+                            ? uploadedFrames
+                            : customPreviewFrames.length > 0
+                            ? customPreviewFrames
+                            : customPreviewImageData
+                            ? [customPreviewImageData]
+                            : [];
+                        if (framesToFlash.length === 0) {
+                          setStatusLog(
+                            'Select an image/GIF file first, or paint a custom frame below.'
+                          );
+                          return;
+                        }
+                        const res = await hidEngineRef.current?.uploadFramesToLcd(
+                          framesToFlash,
+                          targetSlot,
+                          configState,
+                          (info) => setUploadProgress(info),
+                          useFloydSteinbergDither
+                        );
+                        applyPostUploadState(
+                          res,
+                          `Flashed ${framesToFlash.length} custom frame(s) to Slot ${targetSlot}`
+                        );
+                      }}
+                      className="w-full py-2.5 px-4 text-xs font-semibold rounded-lg bg-[#06b6d4] text-slate-950 hover:bg-cyan-400 transition-colors cursor-pointer"
+                    >
+                      Flash{' '}
+                      {uploadedFrames.length > 1
+                        ? `${uploadedFrames.length}-Frame GIF`
+                        : 'Custom Frame'}{' '}
+                      to Slot {targetSlot}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
+
+            {/* Integrated 240x135 Pixel Art Painter & Multi-Frame SPI Timeline Editor */}
+            <TftScreenPainterAndTimeline
+              frames={
+                uploadedFrames.length > 0
+                  ? uploadedFrames
+                  : customPreviewFrames.length > 0
+                  ? customPreviewFrames
+                  : customPreviewImageData
+                  ? [customPreviewImageData]
+                  : []
+              }
+              onUpdateFrames={(nextFrames, msg) => {
+                setUploadedFrames(nextFrames);
+                setCustomPreviewFrames(nextFrames);
+                setCustomPreviewImageData(nextFrames[0] || null);
+                if (msg) setStatusLog(msg);
+              }}
+              onFlashFrames={async (framesToFlash, label) => {
+                const res = await hidEngineRef.current?.uploadFramesToLcd(
+                  framesToFlash,
+                  targetSlot,
+                  configState,
+                  (info) => setUploadProgress(info),
+                  useFloydSteinbergDither
+                );
+                applyPostUploadState(res, `Flashed ${label} to Slot ${targetSlot}`);
+              }}
+              frameDurationMs={configState.frameDurationMs || 100}
+              onChangeFrameDurationMs={(ms) => handleUpdateRgbConfig({ frameDurationMs: ms })}
+              useFloydSteinbergDither={useFloydSteinbergDither}
+              onToggleDither={() => setUseFloydSteinbergDither((v) => !v)}
+              targetSlot={targetSlot}
+              onSelectSlot={setTargetSlot}
+            />
           </div>
         )}
 
         {/* =====================================================================
-            TAB 7: 💡 RGB & UNDERGLOW (cfg[1..8] Hardware Lighting Controller)
+            TAB 7: 💡 RGB & UNDERGLOW STUDIO (Full 19-Mode Matrix + 360° Halo + Reactive Engines)
            ===================================================================== */}
         {activeTab === 'rgb' && (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            {/* Left: Sliders & Hue Picker */}
-            <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-5">
-              <h2 className="text-base font-bold text-white">
-                Backlight & Underglow Parameters (`cfg[1..8]`)
-              </h2>
-
-              <div>
-                <div className="flex justify-between text-xs font-mono mb-1.5">
-                  <span className="text-slate-400">BRIGHTNESS (`cfg[2]`)</span>
-                  <span className="text-[#06b6d4] font-bold">{configState.brightness} / 9</span>
-                </div>
-                <input
-                  type="range"
-                  min={0}
-                  max={9}
-                  value={Math.min(9, Math.max(0, configState.brightness))}
-                  onChange={(e) => handleUpdateRgbConfig({ brightness: Number(e.target.value) })}
-                  className="w-full accent-[#06b6d4]"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-xs font-mono mb-1.5">
-                  <span className="text-slate-400">EFFECT SPEED (`cfg[3]`)</span>
-                  <span className="text-[#8b5cf6] font-bold">{configState.speed} / 4</span>
-                </div>
-                <input
-                  type="range"
-                  min={0}
-                  max={4}
-                  value={Math.min(4, Math.max(0, configState.speed))}
-                  onChange={(e) => handleUpdateRgbConfig({ speed: Number(e.target.value) })}
-                  className="w-full accent-[#8b5cf6]"
-                />
-              </div>
-
-              <div>
-                <div className="flex justify-between text-xs font-mono mb-1.5">
-                  <span className="text-slate-400">RGB HUE (`cfg[6..8]`)</span>
-                  <span className="font-mono" style={{ color: rgbHexColor }}>
-                    {rgbHexColor.toUpperCase()}
-                  </span>
-                </div>
-                <div className="flex items-center gap-3">
-                  <input
-                    type="color"
-                    value={rgbHexColor}
-                    onChange={(e) => {
-                      const hex = e.target.value.replace('#', '');
-                      const r = parseInt(hex.substring(0, 2), 16) || 0;
-                      const g = parseInt(hex.substring(2, 4), 16) || 0;
-                      const b = parseInt(hex.substring(4, 6), 16) || 0;
-                      handleUpdateRgbConfig({ rgbHueR: r, rgbHueG: g, rgbHueB: b });
-                    }}
-                    className="w-12 h-10 rounded bg-[#0b0f19] border border-[#1e293b] cursor-pointer"
-                  />
-                  <span className="text-xs font-mono text-slate-400">
-                    R:{configState.rgbHueR} G:{configState.rgbHueG} B:{configState.rgbHueB}
-                  </span>
-                </div>
-              </div>
-            </div>
-
-            {/* Right 2 Cols: 10 Underglow & South-Facing Matrix Effect Cards */}
-            <div className="lg:col-span-2 bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-4">
-              <h2 className="text-base font-bold text-white">
-                South-Facing RGB & Underglow Effect Selector (`cfg[1]`)
-              </h2>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                {RGB_EFFECTS.map((eff) => {
-                  const active = configState.lightingEffect === eff.id;
-                  return (
-                    <button
-                      key={eff.id}
-                      onClick={() => handleUpdateRgbConfig({ lightingEffect: eff.id })}
-                      className={`p-3.5 rounded-xl border text-left transition-colors cursor-pointer ${
-                        active
-                          ? 'bg-[#06b6d4]/15 border-[#06b6d4] text-white'
-                          : 'bg-[#0b0f19] border-[#1e293b] text-slate-300 hover:border-slate-600'
-                      }`}
-                    >
-                      <div className="flex items-center justify-between">
-                        <span className="text-sm font-bold text-white">{eff.name}</span>
-                        <span className="text-[10px] font-mono text-[#06b6d4]">
-                          ID 0x{eff.id.toString(16).padStart(2, '0')}
-                        </span>
-                      </div>
-                      <p className="text-xs text-slate-400 mt-1">{eff.desc}</p>
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          </div>
+          <RgbUnderglowStudio
+            configState={configState}
+            rawHardwareConfig={
+              hidEngineRef.current?.getRawConfigBuffer() || new Uint8Array(48)
+            }
+            onUpdateRgbConfig={handleUpdateRgbConfig}
+            pressedKeyIds={pressedKeyIds}
+            liveWpm={liveWpm}
+            telemetry={telemetry}
+            activePreviewAnim={activePreviewAnim}
+            lcdCustom={lcdCustom}
+            onSyncLcdTheme={async (animId, tintHex, flashImmediately) => {
+              setCustomPreviewFrames([]);
+              setCustomPreviewImageData(null);
+              setActivePreviewAnim(animId);
+              setLcdCustom((prev) => ({
+                ...prev,
+                accentColor: tintHex,
+              }));
+              if (flashImmediately) {
+                await handleFlashProcedural(animId, 12);
+              } else {
+                setStatusLog(
+                  `Ambilight LCD Sync → Paired 240×135 screen with "${animId}" (${tintHex.toUpperCase()})`
+                );
+              }
+            }}
+            targetSlot={targetSlot}
+            onStatusLog={setStatusLog}
+          />
         )}
 
         {/* =====================================================================
@@ -3416,6 +4437,7 @@ export default function App() {
             </div>
           </div>
         )}
+        </main>
       </div>
     </div>
   );

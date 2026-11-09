@@ -30,7 +30,10 @@ function renderSourceToLcdFrame(
 
   const availX = custom?.overlayMode === 'split-clock' ? 88 : 0;
   const availW = LCD_WIDTH - availX;
-  const scale = Math.min(availW / Math.max(1, srcWidth), LCD_HEIGHT / Math.max(1, srcHeight));
+  
+  // Fit dimensions with zero stretching and zero empty space:
+  // Math.max ensures image covers the entire 240x135 canvas while preserving natural aspect ratio
+  const scale = Math.max(availW / Math.max(1, srcWidth), LCD_HEIGHT / Math.max(1, srcHeight));
   const dw = Math.max(1, Math.round(srcWidth * scale));
   const dh = Math.max(1, Math.round(srcHeight * scale));
   const dx = availX + Math.round((availW - dw) / 2);

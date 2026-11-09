@@ -224,12 +224,13 @@ export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
   { id: 'r0c10', label: 'F10', row: 0, col: 10, x: 11.5, y: 0, w: 1 },
   { id: 'r0c11', label: 'F11', row: 0, col: 11, x: 12.5, y: 0, w: 1 },
   { id: 'r0c12', label: 'F12', row: 0, col: 12, x: 13.5, y: 0, w: 1 },
-  // 3 Rotary Knob actions at top right
-  { id: 'r7c0', label: '↺ CCW', row: 7, col: 0, x: 15.25, y: 0, w: 1, isKnob: true },
-  { id: 'r0c14', label: '● CLICK', row: 0, col: 14, x: 16.25, y: 0, w: 1, isKnob: true },
-  { id: 'r7c1', label: '↻ CW', row: 7, col: 1, x: 17.25, y: 0, w: 1, isKnob: true },
+  { id: 'r0c13', label: 'PrtSc', row: 0, col: 13, x: 14.65, y: 0, w: 1 },
+  // Rotary Knob actions (handled via CNC encoder dial overlay, filtered out of keycap array)
+  { id: 'r7c0', label: '↺ CCW', row: 7, col: 0, x: 17.4, y: 0, w: 1, isKnob: true },
+  { id: 'r0c14', label: '● CLICK', row: 0, col: 14, x: 17.4, y: 0, w: 1, isKnob: true },
+  { id: 'r7c1', label: '↻ CW', row: 7, col: 1, x: 17.4, y: 0, w: 1, isKnob: true },
 
-  // Row 1: Number Row + Nav Top (Ins, Home, PgUp)
+  // Row 1: Number Row + Nav Top Row (Ins, Home, PgUp)
   { id: 'r1c0', label: '~ `', row: 1, col: 0, x: 0, y: 1.35, w: 1 },
   { id: 'r1c1', label: '1', row: 1, col: 1, x: 1, y: 1.35, w: 1 },
   { id: 'r1c2', label: '2', row: 1, col: 2, x: 2, y: 1.35, w: 1 },
@@ -244,12 +245,11 @@ export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
   { id: 'r1c11', label: '-', row: 1, col: 11, x: 11, y: 1.35, w: 1 },
   { id: 'r1c12', label: '=', row: 1, col: 12, x: 12, y: 1.35, w: 1 },
   { id: 'r1c13', label: 'Backspace', row: 1, col: 13, x: 13, y: 1.35, w: 2 },
-  // Note: on GMK87, Ins/Home/PgUp are above the TFT screen or standard TKL nav block
-  { id: 'r0c13', label: 'PrtSc', row: 0, col: 13, x: 15.25, y: 1.35, w: 1 },
-  { id: 'r1c14', label: 'Ins', row: 1, col: 14, x: 16.25, y: 1.35, w: 1 },
-  { id: 'r2c14', label: 'Del', row: 2, col: 14, x: 17.25, y: 1.35, w: 1 },
+  { id: 'r1c14', label: 'Ins', row: 1, col: 14, x: 15.25, y: 1.35, w: 1 },
+  { id: 'r3c14', label: 'Home', row: 3, col: 14, x: 16.25, y: 1.35, w: 1 },
+  { id: 'r5c14', label: 'PgUp', row: 5, col: 14, x: 17.25, y: 1.35, w: 1 },
 
-  // Row 2: QWERTY Row + Home / PgUp
+  // Row 2: QWERTY Row + Nav Bottom Row (Del, End, PgDn)
   { id: 'r2c0', label: 'Tab', row: 2, col: 0, x: 0, y: 2.35, w: 1.5 },
   { id: 'r2c1', label: 'Q', row: 2, col: 1, x: 1.5, y: 2.35, w: 1 },
   { id: 'r2c2', label: 'W', row: 2, col: 2, x: 2.5, y: 2.35, w: 1 },
@@ -264,11 +264,11 @@ export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
   { id: 'r2c11', label: '[', row: 2, col: 11, x: 11.5, y: 2.35, w: 1 },
   { id: 'r2c12', label: ']', row: 2, col: 12, x: 12.5, y: 2.35, w: 1 },
   { id: 'r2c13', label: '\\', row: 2, col: 13, x: 13.5, y: 2.35, w: 1.5 },
-  { id: 'r3c14', label: 'Home', row: 3, col: 14, x: 15.25, y: 2.35, w: 1 },
+  { id: 'r2c14', label: 'Del', row: 2, col: 14, x: 15.25, y: 2.35, w: 1 },
   { id: 'r4c14', label: 'End', row: 4, col: 14, x: 16.25, y: 2.35, w: 1 },
-  { id: 'r5c14', label: 'PgUp', row: 5, col: 14, x: 17.25, y: 2.35, w: 1 },
+  { id: 'r6c14', label: 'PgDn', row: 6, col: 14, x: 17.25, y: 2.35, w: 1 },
 
-  // Row 3: ASDF Row + PgDn (TFT LCD sits at x:15.25..17.25, y:3.35)
+  // Row 3: ASDF Row (clean gasket plate below nav cluster)
   { id: 'r3c0', label: 'Caps', row: 3, col: 0, x: 0, y: 3.35, w: 1.75 },
   { id: 'r3c1', label: 'A', row: 3, col: 1, x: 1.75, y: 3.35, w: 1 },
   { id: 'r3c2', label: 'S', row: 3, col: 2, x: 2.75, y: 3.35, w: 1 },
@@ -282,7 +282,6 @@ export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
   { id: 'r3c10', label: ';', row: 3, col: 10, x: 10.75, y: 3.35, w: 1 },
   { id: 'r3c11', label: "'", row: 3, col: 11, x: 11.75, y: 3.35, w: 1 },
   { id: 'r3c13', label: 'Enter', row: 3, col: 13, x: 12.75, y: 3.35, w: 2.25 },
-  { id: 'r6c14', label: 'PgDn', row: 6, col: 14, x: 17.25, y: 3.35, w: 1 },
 
   // Row 4: ZXCV Row + Up Arrow
   { id: 'r4c0', label: 'LShift', row: 4, col: 0, x: 0, y: 4.35, w: 2.25 },

@@ -13,9 +13,42 @@ import { execFile } from 'node:child_process';
 
 function resolveBaseDir(): string {
   if (typeof __dirname !== 'undefined') return __dirname;
-  // @ts-ignore - ESM fallback when executed via tsx / node --experimental-strip-types
-  if (typeof import.meta !== 'undefined' && import.meta.dirname) return import.meta.dirname;
   return process.cwd();
+}
+
+function resolveCliAndEnvNetworkConfig(): { port: number; host?: string } {
+  let cliPort: number | undefined;
+  let cliHost: string | undefined;
+  const argv = typeof process !== 'undefined' && Array.isArray(process.argv) ? process.argv : [];
+  for (let i = 2; i < argv.length; i++) {
+    const arg = argv[i];
+    if (arg === '--port' && argv[i + 1]) {
+      const parsed = Number(argv[i + 1]);
+      if (Number.isFinite(parsed) && parsed > 0) cliPort = parsed;
+      i++;
+    } else if (arg.startsWith('--port=')) {
+      const parsed = Number(arg.slice('--port='.length));
+      if (Number.isFinite(parsed) && parsed > 0) cliPort = parsed;
+    } else if (arg === '--host' && argv[i + 1]) {
+      cliHost = argv[i + 1];
+      i++;
+    } else if (arg.startsWith('--host=')) {
+      cliHost = arg.slice('--host='.length);
+    }
+  }
+
+  const defaultAppPort = Number(process.env.DEFAULT_APP_PORT);
+  const envPort = Number(process.env.PORT);
+  const resolvedPort =
+    cliPort ||
+    (Number.isFinite(defaultAppPort) && defaultAppPort > 0 ? defaultAppPort : 0) ||
+    (Number.isFinite(envPort) && envPort > 0 && envPort !== 8080 ? envPort : 0) ||
+    3887;
+
+  return {
+    port: resolvedPort,
+    host: cliHost || process.env.HOST,
+  };
 }
 
 export interface StartServerOptions {
@@ -34,7 +67,8 @@ export interface ServerHandle {
   stop: () => Promise<void>;
 }
 
-const PORT = Number(process.env.PORT) || 3887;
+const DEFAULT_NETWORK_CONFIG = resolveCliAndEnvNetworkConfig();
+const PORT = DEFAULT_NETWORK_CONFIG.port;
 const VENDOR_ID = 0x320f;
 const PRODUCT_ID = 0x5055;
 const LCD_REPORT_ID = 0x04;
@@ -64,6 +98,8 @@ interface CachedStatus {
     lightingEffect: number;
     brightness: number;
     speed: number;
+    effectDirection: number;
+    rainbowMode: number;
     rgbHueR: number;
     rgbHueG: number;
     rgbHueB: number;
@@ -387,6 +423,8 @@ function parseConfigStruct(cfg: Buffer) {
     lightingEffect: cfg[1],
     brightness: Math.max(0, Math.min(9, cfg[2])),
     speed: Math.max(0, Math.min(4, cfg[3])),
+    effectDirection: (cfg[4] ?? 0) & 0x01,
+    rainbowMode: (cfg[5] ?? 0) & 0x01,
     rgbHueR: cfg[6],
     rgbHueG: cfg[7],
     rgbHueB: cfg[8],
@@ -411,6 +449,12 @@ function patchConfigBuffer(base: Buffer, patch: Record<string, any>): Buffer {
   }
   if (patch.speed !== undefined) {
     cfg[3] = Math.max(0, Math.min(4, Number(patch.speed)));
+  }
+  if (patch.effectDirection !== undefined) {
+    cfg[4] = Number(patch.effectDirection) ? 1 : 0;
+  }
+  if (patch.rainbowMode !== undefined) {
+    cfg[5] = Number(patch.rainbowMode) ? 1 : 0;
   }
   if (patch.rgbHueR !== undefined) cfg[6] = Number(patch.rgbHueR) & 0xff;
   if (patch.rgbHueG !== undefined) cfg[7] = Number(patch.rgbHueG) & 0xff;
@@ -1853,7 +1897,7 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
     app.use(vite.middlewares);
   }
 
-  const explicitHost = options.host || process.env.HOST;
+  const explicitHost = options.host || DEFAULT_NETWORK_CONFIG.host;
   const server = await new Promise<Server>((resolve, reject) => {
     const instance = explicitHost
       ? app.listen(listenPort, explicitHost, () => resolve(instance))

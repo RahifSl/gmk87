@@ -32,6 +32,8 @@ export interface Gmk87ConfigState {
   lightingEffect: number; // cfg[1]: 0-18 (or up to 20)
   brightness: number; // cfg[2]: 0-9
   speed: number; // cfg[3]: 0-4
+  effectDirection?: number; // cfg[4]: 0 = Forward (Right/Down), 1 = Reverse (Left/Up)
+  rainbowMode?: number; // cfg[5]: 0 = Custom Single Hue, 1 = Rainbow / Multicolour
   rgbHueR: number; // cfg[6]
   rgbHueG: number; // cfg[7]
   rgbHueB: number; // cfg[8]
@@ -239,6 +241,8 @@ export function parseConfigBuffer(cfg: Uint8Array): Gmk87ConfigState {
     lightingEffect: cfg[1] ?? 1,
     brightness: Math.max(0, Math.min(9, cfg[2] ?? 5)),
     speed: Math.max(0, Math.min(4, cfg[3] ?? 2)),
+    effectDirection: (cfg[4] ?? 0) & 0x01,
+    rainbowMode: (cfg[5] ?? 0) & 0x01,
     rgbHueR: cfg[6] ?? 255,
     rgbHueG: cfg[7] ?? 255,
     rgbHueB: cfg[8] ?? 255,
@@ -268,6 +272,12 @@ export function serializeConfigBuffer(
   cfg[1] = Math.max(0, Math.min(18, state.lightingEffect));
   cfg[2] = Math.max(0, Math.min(9, state.brightness));
   cfg[3] = Math.max(0, Math.min(4, state.speed));
+  if (state.effectDirection !== undefined) {
+    cfg[4] = state.effectDirection ? 1 : 0;
+  }
+  if (state.rainbowMode !== undefined) {
+    cfg[5] = state.rainbowMode ? 1 : 0;
+  }
   cfg[6] = state.rgbHueR & 0xff;
   cfg[7] = state.rgbHueG & 0xff;
   cfg[8] = state.rgbHueB & 0xff;
@@ -429,6 +439,8 @@ export class Gmk87HidEngine {
           lightingEffect: data.config.lightingEffect,
           brightness: data.config.brightness,
           speed: data.config.speed,
+          effectDirection: data.config.effectDirection ?? 0,
+          rainbowMode: data.config.rainbowMode ?? 0,
           rgbHueR: data.config.rgbHueR,
           rgbHueG: data.config.rgbHueG,
           rgbHueB: data.config.rgbHueB,
@@ -788,6 +800,8 @@ export class Gmk87HidEngine {
                 lightingEffect: data.config.lightingEffect,
                 brightness: data.config.brightness,
                 speed: data.config.speed,
+                effectDirection: data.config.effectDirection ?? 0,
+                rainbowMode: data.config.rainbowMode ?? 0,
                 rgbHueR: data.config.rgbHueR,
                 rgbHueG: data.config.rgbHueG,
                 rgbHueB: data.config.rgbHueB,
@@ -871,6 +885,8 @@ export class Gmk87HidEngine {
           lightingEffect: state.lightingEffect,
           brightness: state.brightness,
           speed: state.speed,
+          effectDirection: state.effectDirection ?? 0,
+          rainbowMode: state.rainbowMode ?? 0,
           rgbHueR: state.rgbHueR,
           rgbHueG: state.rgbHueG,
           rgbHueB: state.rgbHueB,
@@ -978,6 +994,8 @@ export class Gmk87HidEngine {
                 lightingEffect: configState.lightingEffect,
                 brightness: configState.brightness,
                 speed: configState.speed,
+                effectDirection: configState.effectDirection ?? 0,
+                rainbowMode: configState.rainbowMode ?? 0,
                 rgbHueR: configState.rgbHueR,
                 rgbHueG: configState.rgbHueG,
                 rgbHueB: configState.rgbHueB,
@@ -1000,6 +1018,8 @@ export class Gmk87HidEngine {
               lightingEffect: resData.config.lightingEffect,
               brightness: resData.config.brightness,
               speed: resData.config.speed,
+              effectDirection: resData.config.effectDirection ?? 0,
+              rainbowMode: resData.config.rainbowMode ?? 0,
               rgbHueR: resData.config.rgbHueR,
               rgbHueG: resData.config.rgbHueG,
               rgbHueB: resData.config.rgbHueB,

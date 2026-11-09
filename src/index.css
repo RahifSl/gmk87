@@ -4,8 +4,9 @@
 @layer base {
   body {
     font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
-    background-color: #0b0f19;
+    background-color: #06080d;
     color: #f1f5f9;
+    letter-spacing: -0.01em;
   }
 
   code, pre, kbd, .font-mono {
@@ -17,4 +18,80 @@
 .pixelated-canvas {
   image-rendering: pixelated;
   image-rendering: crisp-edges;
+}
+
+/* Industrial Cockpit Hardware Styling Utilities */
+.hardware-grid-bg {
+  background-color: #06080d;
+  background-image:
+    radial-gradient(circle at 50% 0%, rgba(6, 182, 212, 0.05), transparent 45%),
+    linear-gradient(to right, rgba(25, 34, 49, 0.45) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(25, 34, 49, 0.45) 1px, transparent 1px);
+  background-size: 100% 100%, 28px 28px, 28px 28px;
+}
+
+/* Authentic Machined Keyboard Chassis & Switch Plate */
+.gmk-chassis {
+  background: linear-gradient(180deg, #121824 0%, #0c1018 40%, #06080d 100%);
+  border: 1px solid #1f293d;
+  box-shadow:
+    0 25px 60px rgba(0, 0, 0, 0.95),
+    0 8px 24px rgba(0, 0, 0, 0.8),
+    inset 0 1px 1px rgba(255, 255, 255, 0.12),
+    inset 0 -1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.gmk-fr4-plate {
+  background: radial-gradient(circle at 50% 50%, #0f1521 0%, #080c14 100%);
+  border: 1px solid #1a2333;
+  box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+}
+
+/* Authentic Double-Shot PBT Keycap with Cylindrical Finger Dish */
+.keycap-dish-3d {
+  box-shadow:
+    0 4px 0 #04060a,
+    0 6px 12px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    inset 0 -1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.keycap-dish-pressed {
+  box-shadow:
+    0 1px 0 #04060a,
+    0 2px 4px rgba(0, 0, 0, 0.9),
+    inset 0 2px 4px rgba(0, 0, 0, 0.6);
+  transform: translateY(3px) !important;
+}
+
+/* CNC Knurled Aluminum Rotary Dial */
+.knurled-dial {
+  background: radial-gradient(circle at 35% 35%, #52637a 0%, #1e293b 55%, #080d16 100%);
+  box-shadow:
+    0 8px 20px rgba(0, 0, 0, 0.9),
+    inset 0 1px 2px rgba(255, 255, 255, 0.4),
+    inset 0 -2px 4px rgba(0, 0, 0, 0.9);
+}
+
+/* Gasket Mount Hex Socket Bolt */
+.gasket-screw {
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.95),
+    0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Industrial Hardware Panel Surfaces */
+.hardware-panel {
+  background: #0a0e16;
+  border: 1px solid #172030;
+  box-shadow:
+    0 4px 20px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+/* Instrument Telemetry Ribbons & Insets */
+.hardware-recessed {
+  background: #06090f;
+  border: 1px solid #141c2a;
+  box-shadow: inset 0 2px 6px rgba(0, 0, 0, 0.7);
 }
