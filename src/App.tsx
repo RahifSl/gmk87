@@ -66,6 +66,36 @@ import {
   KEYBOARD_APPS_COMPARISON,
   GMK87_FIXES_AND_INNOVATIONS,
 } from './data/ecosystemResearch';
+import {
+  decodeImageOrGifBuffer,
+  fetchAndDecodeExternalGif,
+} from './utils/gifDecoder';
+
+interface WebGifItem {
+  id: string;
+  title: string;
+  url: string;
+  preview: string;
+  source: string;
+  width: number;
+  height: number;
+}
+
+const WEB_GIF_CATEGORIES = [
+  { label: 'Cyberpunk', query: 'cyberpunk neon' },
+  { label: 'Trending', query: 'trending aesthetic' },
+  { label: 'Anime', query: 'anime' },
+  { label: 'Pixel Art', query: 'pixel art' },
+  { label: 'Gaming', query: 'retro gaming arcade' },
+  { label: 'Lo-Fi', query: 'lofi chill' },
+  { label: 'Space', query: 'space nebula galaxy' },
+  { label: 'Vaporwave', query: 'vaporwave synthwave' },
+  { label: 'Sci-Fi', query: 'scifi hud hologram' },
+  { label: 'Nature', query: 'nature waterfalls rain' },
+  { label: 'Cars', query: 'jdm sports car drift' },
+  { label: 'Cats', query: 'funny cute cat' },
+  { label: 'Pokémon', query: 'pokemon sprite' },
+];
 
 type TabId =
   | 'keymap'
@@ -183,29 +213,36 @@ export default function App() {
   // Active navigation tab
   const [activeTab, setActiveTab] = useState<TabId>('keymap');
 
-  // Hardware Config State (48-byte buffer fields)
+  // Hardware Config State (48/64-byte buffer fields)
   const [configState, setConfigState] = useState<Gmk87ConfigState>(() => ({
     lightingEffect: 1, // Wave
-    brightness: 4, // 0-5 UI slider
-    speed: 3, // 1-5 UI slider
+    brightness: 9, // 0-9 hardware slider
+    speed: 2, // 0-4 hardware slider
     rgbHueR: 6,
     rgbHueG: 182,
     rgbHueB: 212,
     activeScreenMode: 1, // Slot 0
-    slot0FrameCount: 12,
-    slot1FrameCount: 16,
-    clockDate: new Date(Date.now() - 142000), // Slightly drifted by ~2m22s initially to show sync utility
+    slot0FrameCount: 1,
+    slot1FrameCount: 12,
+    frameDurationMs: 100,
+    clockDate: new Date(Date.now() - 142000), // Slightly drifted initially until hardware read/sync
   }));
 
-  // WebHID Engine instance
+  // HID Engine instance (USB Bridge + WebHID + Simulation)
   const hidEngineRef = useRef<Gmk87HidEngine | null>(null);
   if (!hidEngineRef.current) {
     hidEngineRef.current = new Gmk87HidEngine(configState);
   }
 
   const [isConnected, setIsConnected] = useState(false);
+  const [transportMode, setTransportMode] = useState<'bridge' | 'webhid' | 'simulation'>(
+    'simulation'
+  );
+  const [bridgeAvailable, setBridgeAvailable] = useState(false);
+  const [viaProtocol, setViaProtocol] = useState<number>(9);
+  const [connectedDeviceLabel, setConnectedDeviceLabel] = useState<string>('Zuoya GMK87');
   const [statusLog, setStatusLog] = useState<string>(
-    'Simulation Mode Active — Ready for WebHID (0x320F:0x5055) or offline studio testing.'
+    'Probing USB HID Bridge (0x320F:0x5055) or ready for WebHID / Simulation Mode.'
   );
   const [lastViaPacketHex, setLastViaPacketHex] = useState<string>('05 00 07 00 00 AA 00 00');
 
@@ -215,6 +252,7 @@ export default function App() {
   const [monitorExpanded, setMonitorExpanded] = useState(true);
   const [activePreviewAnim, setActivePreviewAnim] = useState<ProceduralAnimId>('bongo-cat');
   const [customPreviewImageData, setCustomPreviewImageData] = useState<ImageData | null>(null);
+  const [customPreviewFrames, setCustomPreviewFrames] = useState<ImageData[]>([]);
   const [useFloydSteinbergDither, setUseFloydSteinbergDither] = useState(true);
   const [targetSlot, setTargetSlot] = useState<0 | 1>(0);
   const [uploadProgress, setUploadProgress] = useState<UploadProgressInfo>({
@@ -238,7 +276,7 @@ export default function App() {
   const [knobAngleDeg, setKnobAngleDeg] = useState<number>(0);
   const [rgbPreviewEnabled, setRgbPreviewEnabled] = useState<boolean>(true);
 
-  // Tab 2: GIF Library, 240x135 Screen Customizer & Pokémon State
+  // Tab 2: GIF Library, Endless Web GIF Search, 240x135 Screen Customizer & Pokémon State
   const [gifCategoryFilter, setGifCategoryFilter] = useState<GifCategory>('All');
   const [gifSearchQuery, setGifSearchQuery] = useState<string>('');
   const [pokemonSearchQuery, setPokemonSearchQuery] = useState<string>('');
@@ -246,7 +284,15 @@ export default function App() {
   const [shinyPokemon, setShinyPokemon] = useState(false);
   const [selectedPokemonId, setSelectedPokemonId] = useState<number | null>(null);
   const [customGifUrl, setCustomGifUrl] = useState<string>('');
+  const [webGifQuery, setWebGifQuery] = useState<string>('cyberpunk neon');
+  const [webGifPage, setWebGifPage] = useState<number>(0);
+  const [webGifResults, setWebGifResults] = useState<WebGifItem[]>([]);
+  const [webGifLoading, setWebGifLoading] = useState<boolean>(false);
+  const [webGifError, setWebGifError] = useState<string>('');
+  const [flashingWebGifId, setFlashingWebGifId] = useState<string | null>(null);
   const pokemonImagesCache = useRef<Map<string, HTMLImageElement>>(new Map());
+  const webGifReqIdRef = useRef<number>(0);
+  const webGifAbortRef = useRef<AbortController | null>(null);
 
   // Tab 3: Keyboard Shortcuts Search & Filter
   const [shortcutQuery, setShortcutQuery] = useState('');
@@ -254,8 +300,10 @@ export default function App() {
 
   // Tab 4: Clock & Profiles
   const [pcNow, setPcNow] = useState<Date>(() => new Date());
-  const [hwClockOffsetMs, setHwClockOffsetMs] = useState<number>(-142000); // -2m 22s initial drift
-  const [autoSync15Min, setAutoSync15Min] = useState<boolean>(false);
+  const [hwClockOffsetMs, setHwClockOffsetMs] = useState<number>(-142000);
+  const [autoSync15Min, setAutoSync15Min] = useState<boolean>(() =>
+    typeof window !== 'undefined' && Boolean((window as any).gmk87Electron?.isDesktopApp)
+  );
 
   // Tab 5: Media & Telemetry HUD + 24-Band Audio Spectrum
   const [telemetry, setTelemetry] = useState<TelemetryHudMetrics>({
@@ -269,6 +317,7 @@ export default function App() {
     trackArtist: 'HOME // Zuoya GMK87 DSP',
     wpm: 96,
   });
+  const [livePcTelemetry, setLivePcTelemetry] = useState<boolean>(true);
   const [autoStreamHud5s, setAutoStreamHud5s] = useState(false);
   const [spectrumDemoRunning, setSpectrumDemoRunning] = useState(true);
   const [micActive, setMicActive] = useState(false);
@@ -278,9 +327,10 @@ export default function App() {
   const micStreamRef = useRef<MediaStream | null>(null);
   const liveSpectrumValuesRef = useRef<number[]>(new Array(24).fill(0.25));
 
-  // Tab 6: Custom GIF Uploader
+  // Tab 6: Custom GIF Uploader (Static images & multi-frame animated GIFs)
   const [uploadedFileName, setUploadedFileName] = useState<string>('');
-  const [uploadedRawImage, setUploadedRawImage] = useState<HTMLImageElement | null>(null);
+  const [uploadedFrames, setUploadedFrames] = useState<ImageData[]>([]);
+  const [uploadedSourceInfo, setUploadedSourceInfo] = useState<string>('');
   const uploaderPreviewRef = useRef<HTMLCanvasElement | null>(null);
 
   // Tab 8: Smart Knob Multi-Engine
@@ -293,6 +343,195 @@ export default function App() {
   const [pomodoroSeconds, setPomodoroSeconds] = useState(25 * 60);
   const [pomodoroRunning, setPomodoroRunning] = useState(false);
 
+  // Sync Electron desktop 15-min auto-clock setting on mount
+  useEffect(() => {
+    const bridge = (window as any).gmk87Electron;
+    if (!bridge?.getDesktopStatus) return;
+    bridge
+      .getDesktopStatus()
+      .then((st: any) => {
+        if (typeof st?.autoSyncClock === 'boolean') {
+          setAutoSync15Min(st.autoSyncClock);
+        }
+      })
+      .catch(() => {});
+  }, []);
+
+  // Auto-detect local USB HID Bridge + retry automatically when detached + load hardware config & VIA keymap
+  useEffect(() => {
+    let cancelled = false;
+    let pollTimer: ReturnType<typeof setInterval> | null = null;
+
+    const probeBridge = async (forceRefresh: boolean) => {
+      if (!hidEngineRef.current || cancelled) return;
+      const res = await hidEngineRef.current.checkBridgeStatus(forceRefresh);
+      if (cancelled) return;
+
+      if (typeof res.bridgeAvailable === 'boolean') {
+        setBridgeAvailable(res.bridgeAvailable);
+      }
+
+      if (res.mode === 'bridge' || res.connected) {
+        setBridgeAvailable(true);
+        setIsConnected(res.connected);
+        setTransportMode(res.mode);
+        setConnectedDeviceLabel(res.deviceName);
+        setViaProtocol(res.viaProtocol || 9);
+        setStatusLog(res.message);
+
+        if (res.config) {
+          setConfigState(res.config);
+          setHwClockOffsetMs(res.config.clockDate.getTime() - Date.now());
+        }
+
+        if (res.viaConnected) {
+          const viaRes = await hidEngineRef.current.readViaKeymapBuffer();
+          if (!cancelled && viaRes.keymap) {
+            setKeymap(viaRes.keymap);
+            setViaProtocol(viaRes.viaProtocol || 9);
+            setLastViaPacketHex(viaRes.lastCmdHex);
+          }
+        }
+
+        if (pollTimer) {
+          clearInterval(pollTimer);
+          pollTimer = null;
+        }
+      } else if (res.bridgeAvailable) {
+        setStatusLog(res.message);
+      }
+    };
+
+    probeBridge(true);
+    pollTimer = setInterval(() => {
+      if (!isConnected) {
+        probeBridge(false);
+      }
+    }, 5000);
+
+    return () => {
+      cancelled = true;
+      if (pollTimer) clearInterval(pollTimer);
+    };
+  }, [isConnected]);
+
+  // Poll live Windows CPU/RAM/Now Playing telemetry when local backend exists
+  useEffect(() => {
+    if (!livePcTelemetry) return;
+    let active = true;
+    let timer: ReturnType<typeof setInterval> | null = null;
+
+    const pollTelemetry = async () => {
+      try {
+        const resp = await fetch('/api/system-telemetry', { signal: AbortSignal.timeout(2500) });
+        const ct = resp.headers.get('content-type') || '';
+        if (!resp.ok || !ct.includes('application/json')) {
+          if (timer) clearInterval(timer);
+          return;
+        }
+        const data = await resp.json();
+        if (!active) return;
+        setBridgeAvailable(true);
+        setTelemetry((prev) => ({
+          ...prev,
+          cpuPercent: typeof data.cpuPercent === 'number' ? data.cpuPercent : prev.cpuPercent,
+          ramPercent: typeof data.ramPercent === 'number' ? data.ramPercent : prev.ramPercent,
+          ramUsedGb: typeof data.ramUsedGb === 'number' ? data.ramUsedGb : prev.ramUsedGb,
+          ramTotalGb: typeof data.ramTotalGb === 'number' ? data.ramTotalGb : prev.ramTotalGb,
+          uptimeStr: typeof data.uptimeStr === 'string' ? data.uptimeStr : prev.uptimeStr,
+          trackTitle:
+            data.media?.title && data.media.status !== 'Inactive'
+              ? data.media.title
+              : prev.trackTitle,
+          trackArtist:
+            data.media?.artist && data.media.status !== 'Inactive'
+              ? data.media.artist
+              : prev.trackArtist,
+        }));
+      } catch {
+        if (timer) clearInterval(timer);
+      }
+    };
+
+    pollTelemetry();
+    timer = setInterval(pollTelemetry, 3000);
+    return () => {
+      active = false;
+      if (timer) clearInterval(timer);
+    };
+  }, [livePcTelemetry]);
+
+  // Helper: Search Endless Web GIFs across all categories via /api/gifs/search
+  const handleSearchWebGifs = useCallback(
+    async (queryOverride?: string, pageNum = 0, append = false) => {
+      const q = (queryOverride ?? webGifQuery).trim() || 'cyberpunk neon';
+      const reqId = ++webGifReqIdRef.current;
+      webGifAbortRef.current?.abort();
+      const controller = new AbortController();
+      webGifAbortRef.current = controller;
+
+      let timedOut = false;
+      const timeoutTimer = setTimeout(() => {
+        timedOut = true;
+        controller.abort();
+      }, 35000);
+
+      setWebGifLoading(true);
+      setWebGifError('');
+      try {
+        const resp = await fetch(
+          `/api/gifs/search?q=${encodeURIComponent(q)}&page=${pageNum}`,
+          { signal: controller.signal }
+        );
+        if (webGifReqIdRef.current !== reqId) return;
+
+        const ct = resp.headers.get('content-type') || '';
+        if (!ct.includes('application/json')) {
+          throw new Error('Web GIF search API requires running `npm run dev` local backend.');
+        }
+
+        const data = await resp.json();
+        if (webGifReqIdRef.current !== reqId) return;
+
+        if (!resp.ok) {
+          throw new Error(data?.error || `Web GIF search returned HTTP ${resp.status}`);
+        }
+
+        const items: WebGifItem[] = Array.isArray(data.gifs) ? data.gifs : [];
+        setWebGifPage(pageNum);
+        setWebGifResults((prev) => {
+          if (!append) return items;
+          const seen = new Set(prev.map((x) => x.url));
+          return [...prev, ...items.filter((x) => !seen.has(x.url))];
+        });
+        if (items.length === 0 && !append) {
+          setWebGifError(`No GIFs matched "${q}". Try another keyword or category pill.`);
+        }
+      } catch (err: any) {
+        if (webGifReqIdRef.current !== reqId) return;
+        if (err?.name === 'AbortError' && !timedOut) return;
+        setWebGifError(
+          timedOut
+            ? `GIF search timed out waiting for upstream providers on "${q}". Check internet connectivity and click Retry.`
+            : err?.message || 'Web GIF Search unavailable without local Node backend (`npm run dev`).'
+        );
+      } finally {
+        clearTimeout(timeoutTimer);
+        if (webGifReqIdRef.current === reqId) {
+          setWebGifLoading(false);
+        }
+      }
+    },
+    [webGifQuery]
+  );
+
+  // Load initial Web GIF search batch when opening Tab 2 for the first time
+  useEffect(() => {
+    if (activeTab === 'gifs' && webGifResults.length === 0 && !webGifLoading && !webGifError) {
+      handleSearchWebGifs(webGifQuery, 0, false);
+    }
+  }, [activeTab, webGifResults.length, webGifLoading, webGifError, webGifQuery, handleSearchWebGifs]);
+
   // 1-second Clock ticker
   useEffect(() => {
     const timer = setInterval(() => {
@@ -304,25 +543,37 @@ export default function App() {
     return () => clearInterval(timer);
   }, [pomodoroRunning]);
 
-  // 15-Minute Auto-Sync Daemon
+  // 15-Minute Auto-Sync Daemon (patches only cfg[35..41] without overwriting keyboard state)
   const handleSyncClockNow = useCallback(async () => {
+    if (!hidEngineRef.current) return;
     const now = new Date();
-    setHwClockOffsetMs(0);
-    const updated: Gmk87ConfigState = {
-      ...configState,
-      clockDate: now,
-    };
-    setConfigState(updated);
-    if (hidEngineRef.current) {
-      const pktHex = await hidEngineRef.current.writeConfig(updated);
-      setUploadProgress((prev) => ({
-        ...prev,
-        lastPacketHex: pktHex,
-        message: `Synced BCD Clock cfg[35..41] to ${now.toLocaleTimeString()}`,
-      }));
+    try {
+      const res = await hidEngineRef.current.syncClockNow(now);
+      if (res.bridgeDetected) {
+        setBridgeAvailable(true);
+        setIsConnected(true);
+        setTransportMode('bridge');
+      }
+      if (res.config) {
+        setConfigState(res.config);
+      }
+      if (res.hardwareApplied) {
+        setHwClockOffsetMs(0);
+        setUploadProgress((prev) => ({
+          ...prev,
+          lastPacketHex: res.packetHex,
+          message: `Synced BCD Clock cfg[35..41] to ${now.toLocaleTimeString()}`,
+        }));
+        setStatusLog(`BCD Hardware Clock (cfg[35..41]) synchronized to ${now.toLocaleTimeString()}`);
+      } else {
+        setStatusLog(
+          `Clock sync skipped — ${res.error || 'Connect GMK87 via wired USB-C to write RTC'}`
+        );
+      }
+    } catch (err: any) {
+      setStatusLog(`Clock sync failed: ${err?.message || 'HID write error'}`);
     }
-    setStatusLog(`BCD Hardware Clock (cfg[35..41]) synchronized to ${now.toLocaleTimeString()}`);
-  }, [configState]);
+  }, []);
 
   useEffect(() => {
     if (!autoSync15Min) return;
@@ -459,7 +710,10 @@ export default function App() {
       frameCount++;
 
       let quantized: ImageData;
-      if (customPreviewImageData) {
+      if (customPreviewFrames.length > 0) {
+        const activeFrame = customPreviewFrames[frameCount % customPreviewFrames.length];
+        quantized = quantizeImageDataToRGB565Preview(activeFrame, useFloydSteinbergDither);
+      } else if (customPreviewImageData) {
         quantized = quantizeImageDataToRGB565Preview(
           customPreviewImageData,
           useFloydSteinbergDither
@@ -483,28 +737,63 @@ export default function App() {
 
       monitorCanvasRef.current?.getContext('2d')?.putImageData(quantized, 0, 0);
       inChassisCanvasRef.current?.getContext('2d')?.putImageData(quantized, 0, 0);
-    }, 90);
+    }, 95);
 
     return () => clearInterval(interval);
-  }, [activePreviewAnim, customPreviewImageData, telemetry, useFloydSteinbergDither, lcdCustom]);
+  }, [
+    activePreviewAnim,
+    customPreviewFrames,
+    customPreviewImageData,
+    telemetry,
+    useFloydSteinbergDither,
+    lcdCustom,
+  ]);
 
   // Auto-stream Telemetry HUD every 5s when enabled
   useEffect(() => {
     if (!autoStreamHud5s) return;
     const timer = setInterval(() => {
-      setTelemetry((prev) => ({
-        ...prev,
-        cpuPercent: Math.max(12, Math.min(95, prev.cpuPercent + Math.round((Math.random() - 0.48) * 9))),
-        gpuTempC: Math.max(45, Math.min(82, prev.gpuTempC + Math.round((Math.random() - 0.5) * 3))),
-      }));
-      const frames = generateProceduralFrames('cyber-hud', 1, telemetry);
+      if (!livePcTelemetry || !bridgeAvailable) {
+        setTelemetry((prev) => ({
+          ...prev,
+          cpuPercent: Math.max(
+            12,
+            Math.min(95, prev.cpuPercent + Math.round((Math.random() - 0.48) * 9))
+          ),
+          gpuTempC: Math.max(45, Math.min(82, prev.gpuTempC + Math.round((Math.random() - 0.5) * 3))),
+        }));
+      }
+      const frames = generateProceduralFrames('cyber-hud', 1, telemetry, undefined, lcdCustom);
+      setCustomPreviewFrames([]);
       setCustomPreviewImageData(frames[0]);
-      hidEngineRef.current?.uploadFramesToLcd(frames, targetSlot, configState, (info) => {
-        setUploadProgress(info);
-      });
+      hidEngineRef.current
+        ?.uploadFramesToLcd(
+          frames,
+          targetSlot,
+          configState,
+          (info) => {
+            setUploadProgress(info);
+          },
+          useFloydSteinbergDither
+        )
+        .then((res) => {
+          if (res?.config) {
+            setConfigState(res.config);
+            if (hidEngineRef.current?.isConnected()) setHwClockOffsetMs(0);
+          }
+        });
     }, 5000);
     return () => clearInterval(timer);
-  }, [autoStreamHud5s, telemetry, targetSlot, configState]);
+  }, [
+    autoStreamHud5s,
+    livePcTelemetry,
+    bridgeAvailable,
+    telemetry,
+    lcdCustom,
+    targetSlot,
+    configState,
+    useFloydSteinbergDither,
+  ]);
 
   // Dual-Layer 24-Band Neon Audio Spectrum Visualizer Loop (480x150 canvas on Tab 5)
   useEffect(() => {
@@ -598,23 +887,63 @@ export default function App() {
     return () => cancelAnimationFrame(animFrame);
   }, [micActive, spectrumDemoRunning]);
 
-  // Connect WebHID Handler
+  // Connect Bridge / WebHID Handler
   const handleConnectWebHid = async () => {
     if (!hidEngineRef.current) return;
     if (isConnected) {
       await hidEngineRef.current.disconnect();
       setIsConnected(false);
+      setTransportMode('simulation');
       setStatusLog('Disconnected from hardware. Running in Simulation Mode.');
       return;
     }
 
     const res = await hidEngineRef.current.connect();
+    if (typeof res.bridgeAvailable === 'boolean') {
+      setBridgeAvailable(res.bridgeAvailable);
+    } else if (res.mode === 'bridge') {
+      setBridgeAvailable(true);
+    }
     setIsConnected(res.connected);
+    setTransportMode(res.mode);
+    setConnectedDeviceLabel(res.deviceName);
+    setViaProtocol(res.viaProtocol || 9);
     setStatusLog(res.message);
+
+    if (res.config) {
+      setConfigState(res.config);
+      setHwClockOffsetMs(res.config.clockDate.getTime() - Date.now());
+    }
+    if (res.viaConnected) {
+      const viaRes = await hidEngineRef.current.readViaKeymapBuffer();
+      if (viaRes.keymap) {
+        setKeymap(viaRes.keymap);
+        setViaProtocol(viaRes.viaProtocol || 9);
+        setLastViaPacketHex(viaRes.lastCmdHex);
+      }
+    }
+  };
+
+  const applyPostUploadState = (
+    res: { success: boolean; config?: Gmk87ConfigState; error?: string } | undefined,
+    successMsg: string
+  ) => {
+    if (res?.config) {
+      setConfigState(res.config);
+      if (hidEngineRef.current?.isConnected()) {
+        setHwClockOffsetMs(0);
+      }
+    }
+    if (res && !res.success) {
+      setStatusLog(`Upload failed: ${res.error || 'HID write error'}`);
+    } else {
+      setStatusLog(successMsg);
+    }
   };
 
   // Flash Procedural Animation to GMK87
   const handleFlashProcedural = async (animId: ProceduralAnimId, frameCount = 12) => {
+    setCustomPreviewFrames([]);
     setCustomPreviewImageData(null);
     setActivePreviewAnim(animId);
     const frames = generateProceduralFrames(
@@ -624,7 +953,7 @@ export default function App() {
       liveSpectrumValuesRef.current,
       lcdCustom
     );
-    await hidEngineRef.current?.uploadFramesToLcd(
+    const res = await hidEngineRef.current?.uploadFramesToLcd(
       frames,
       targetSlot,
       configState,
@@ -641,9 +970,11 @@ export default function App() {
             );
           }
         }
-      }
+      },
+      useFloydSteinbergDither
     );
-    setStatusLog(
+    applyPostUploadState(
+      res,
       `Flashed "${animId}" (${frameCount} RGB565 frames, ${(frameCount * 64).toFixed(0)} KB) to Slot ${targetSlot}`
     );
   };
@@ -679,12 +1010,20 @@ export default function App() {
       );
     }
 
+    setCustomPreviewFrames(frames);
     setCustomPreviewImageData(frames[0]);
     if (flashImmediately) {
-      await hidEngineRef.current?.uploadFramesToLcd(frames, targetSlot, configState, (info) => {
-        setUploadProgress(info);
-      });
-      setStatusLog(
+      const res = await hidEngineRef.current?.uploadFramesToLcd(
+        frames,
+        targetSlot,
+        configState,
+        (info) => {
+          setUploadProgress(info);
+        },
+        useFloydSteinbergDither
+      );
+      applyPostUploadState(
+        res,
         `Flashed #${id} ${shinyPokemon ? 'Shiny ' : ''}${name} (${lcdCustom.pokemonLayout}, 8 frames) to Slot ${targetSlot}`
       );
     } else {
@@ -694,67 +1033,71 @@ export default function App() {
     }
   };
 
-  // Import Direct GIF/Image URL
+  // Preview or Flash Endless Web GIF Search Result (Multi-Frame Composite GIF Decoder via /api/proxy-gif)
+  const handlePreviewOrFlashWebGif = async (item: WebGifItem, flash: boolean) => {
+    setFlashingWebGifId(item.id);
+    setStatusLog(`Downloading & decoding multi-frame GIF "${item.title}"...`);
+    try {
+      const decoded = await fetchAndDecodeExternalGif(item.url, lcdCustom);
+      setCustomPreviewFrames(decoded.frames);
+      setCustomPreviewImageData(decoded.frames[0] || null);
+      setStatusLog(
+        `Decoded "${item.title}": ${decoded.frames.length}/${decoded.sourceFrameCount} frames ready for 240×135 RGB565`
+      );
+      if (flash && decoded.frames.length > 0) {
+        const res = await hidEngineRef.current?.uploadFramesToLcd(
+          decoded.frames,
+          targetSlot,
+          configState,
+          (info) => setUploadProgress(info),
+          useFloydSteinbergDither
+        );
+        applyPostUploadState(
+          res,
+          `Flashed "${item.title}" (${decoded.frames.length} RGB565 frames) to Slot ${targetSlot}`
+        );
+      }
+    } catch (err: any) {
+      setStatusLog(`Failed to decode GIF "${item.title}": ${err?.message || 'CORS / fetch error'}`);
+    } finally {
+      setFlashingWebGifId(null);
+    }
+  };
+
+  // Import Direct GIF/Image URL (Multi-frame animated GIF + CORS-free proxy decoding)
   const handleImportGifUrl = async (flash: boolean, overrideUrl?: string) => {
     const targetUrl = (overrideUrl ?? customGifUrl).trim();
     if (!targetUrl) return;
     if (overrideUrl) setCustomGifUrl(overrideUrl);
 
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.src = targetUrl;
-
-    await new Promise<void>((resolve) => {
-      img.onload = () => resolve();
-      img.onerror = () => resolve();
-    });
-
-    const canvas = document.createElement('canvas');
-    canvas.width = LCD_WIDTH;
-    canvas.height = LCD_HEIGHT;
-    const ctx = canvas.getContext('2d')!;
-    ctx.fillStyle = '#070b14';
-    ctx.fillRect(0, 0, LCD_WIDTH, LCD_HEIGHT);
-
-    if (img.naturalWidth > 0) {
-      const availX = lcdCustom.overlayMode === 'split-clock' ? 88 : 0;
-      const availW = LCD_WIDTH - availX;
-      const scale = Math.min(availW / img.naturalWidth, LCD_HEIGHT / img.naturalHeight);
-      const dw = Math.round(img.naturalWidth * scale);
-      const dh = Math.round(img.naturalHeight * scale);
-      const dx = availX + Math.round((availW - dw) / 2);
-      const dy = Math.round((LCD_HEIGHT - dh) / 2);
-      try {
-        ctx.drawImage(img, dx, dy, dw, dh);
-      } catch {
-        ctx.fillStyle = '#06b6d4';
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        ctx.fillText('EXTERNAL URL LOADED', 48, 68);
+    setStatusLog(`Fetching & decoding external URL (${targetUrl.slice(0, 48)})...`);
+    try {
+      const decoded = await fetchAndDecodeExternalGif(targetUrl, lcdCustom);
+      setCustomPreviewFrames(decoded.frames);
+      setCustomPreviewImageData(decoded.frames[0] || null);
+      if (flash && decoded.frames.length > 0) {
+        const res = await hidEngineRef.current?.uploadFramesToLcd(
+          decoded.frames,
+          targetSlot,
+          configState,
+          (info) => setUploadProgress(info),
+          useFloydSteinbergDither
+        );
+        applyPostUploadState(
+          res,
+          `Flashed imported URL (${decoded.frames.length}/${decoded.sourceFrameCount} frames) to Slot ${targetSlot}`
+        );
+      } else {
+        setStatusLog(
+          `Previewing imported URL (${decoded.frames.length}/${decoded.sourceFrameCount} frames) on 240×135 monitor`
+        );
       }
-    } else {
-      ctx.strokeStyle = '#06b6d4';
-      ctx.strokeRect(6, 6, LCD_WIDTH - 12, LCD_HEIGHT - 12);
-      ctx.fillStyle = '#22d3ee';
-      ctx.font = 'bold 11px "JetBrains Mono", monospace';
-      ctx.fillText('URL STREAM // RGB565', 45, 62);
-      ctx.fillStyle = '#94a3b8';
-      ctx.font = '9px "JetBrains Mono", monospace';
-      ctx.fillText(targetUrl.slice(0, 32), 20, 82);
-    }
-
-    applyLcdCustomOverlays(ctx, lcdCustom);
-    const frame = ctx.getImageData(0, 0, LCD_WIDTH, LCD_HEIGHT);
-    setCustomPreviewImageData(frame);
-
-    if (flash) {
-      await hidEngineRef.current?.uploadFramesToLcd([frame], targetSlot, configState, (info) => {
-        setUploadProgress(info);
-      });
-      setStatusLog(`Flashed imported URL frame to Slot ${targetSlot}`);
+    } catch (err: any) {
+      setStatusLog(`URL import failed: ${err?.message || 'Could not load URL'}`);
     }
   };
 
-  // Assign Keycode in Tab 1 (VIA Protocol 9 Command 0x05)
+  // Assign Keycode in Tab 1 (VIA Command 0x05)
   const handleAssignKeycode = async (code: number) => {
     const keyDef = GMK87_PHYSICAL_KEYS.find((k) => k.id === selectedKeyId);
     if (!keyDef) return;
@@ -775,7 +1118,8 @@ export default function App() {
       setLastViaPacketHex(packetHex);
       setStatusLog(
         `VIA 0x05 Set Keycode: Layer ${activeLayer} [${keyDef.row},${keyDef.col}] (${keyDef.label}) → ${getKeycodeLabel(
-          code
+          code,
+          viaProtocol
         )} (0x${code.toString(16).toUpperCase().padStart(4, '0')})`
       );
     }
@@ -786,9 +1130,17 @@ export default function App() {
     if (!hidEngineRef.current) return;
     const res = await hidEngineRef.current.readViaKeymapBuffer();
     setLastViaPacketHex(res.lastCmdHex);
-    setStatusLog(
-      `VIA 0x12 Read Keymap Buffer complete: ${res.totalBytes} bytes across ${res.chunksRead} chunks (4 Layers × 8 Rows × 15 Cols)`
-    );
+    setViaProtocol(res.viaProtocol || 9);
+    if (res.keymap) {
+      setKeymap(res.keymap);
+      setStatusLog(
+        `VIA P${res.viaProtocol} Read 960B Keymap applied to studio (${res.chunksRead} chunks across 4 layers).`
+      );
+    } else {
+      setStatusLog(
+        `VIA 0x12 Simulation Read: ${res.totalBytes} bytes across ${res.chunksRead} chunks (Connect keyboard for live EEPROM keymap)`
+      );
+    }
   };
 
   // Toggle Web Audio API Microphone Capture for Tab 5
@@ -823,83 +1175,79 @@ export default function App() {
     }
   };
 
-  // Handle Local Image/GIF File Upload in Tab 6
-  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Handle Local Image/GIF File Upload in Tab 6 (decodes up to 16 animated GIF frames via omggif)
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploadedFileName(file.name);
 
-    const reader = new FileReader();
-    reader.onload = () => {
-      const img = new Image();
-      img.onload = () => {
-        setUploadedRawImage(img);
-        const canvas = document.createElement('canvas');
-        canvas.width = LCD_WIDTH;
-        canvas.height = LCD_HEIGHT;
-        const ctx = canvas.getContext('2d')!;
-        ctx.fillStyle = '#000000';
-        ctx.fillRect(0, 0, LCD_WIDTH, LCD_HEIGHT);
-
-        // Aspect-ratio letterboxing onto 240x135
-        const scale = Math.min(LCD_WIDTH / img.naturalWidth, LCD_HEIGHT / img.naturalHeight);
-        const dw = Math.round(img.naturalWidth * scale);
-        const dh = Math.round(img.naturalHeight * scale);
-        const dx = Math.round((LCD_WIDTH - dw) / 2);
-        const dy = Math.round((LCD_HEIGHT - dh) / 2);
-        ctx.drawImage(img, dx, dy, dw, dh);
-
-        const rawData = ctx.getImageData(0, 0, LCD_WIDTH, LCD_HEIGHT);
-        const quantized = quantizeImageDataToRGB565Preview(rawData, useFloydSteinbergDither);
-        setCustomPreviewImageData(rawData);
-
-        if (uploaderPreviewRef.current) {
-          const upCtx = uploaderPreviewRef.current.getContext('2d');
-          upCtx?.putImageData(quantized, 0, 0);
-        }
-        setStatusLog(
-          `Loaded "${file.name}" (${img.naturalWidth}×${img.naturalHeight}) → letterboxed to 240×135 RGB565`
-        );
-      };
-      img.src = reader.result as string;
-    };
-    reader.readAsDataURL(file);
+    try {
+      const buffer = await file.arrayBuffer();
+      const decoded = await decodeImageOrGifBuffer(buffer, file.type, lcdCustom);
+      setUploadedFrames(decoded.frames);
+      setCustomPreviewFrames(decoded.frames);
+      setCustomPreviewImageData(decoded.frames[0] || null);
+      setUploadedSourceInfo(
+        `${decoded.frames.length}${
+          decoded.sourceFrameCount > decoded.frames.length
+            ? ` of ${decoded.sourceFrameCount}`
+            : ''
+        } frame(s) · 240×135 RGB565`
+      );
+      setStatusLog(
+        `Loaded "${file.name}" (${decoded.frames.length}/${decoded.sourceFrameCount} frames) → 240×135 RGB565`
+      );
+    } catch (err: any) {
+      setStatusLog(`Failed to decode "${file.name}": ${err?.message || 'Unsupported image'}`);
+    }
   };
 
-  // Re-quantize uploader preview when Floyd-Steinberg toggle changes
+  // Animate uploaded multi-frame GIF / re-quantize on Floyd-Steinberg toggle inside Tab 6 preview canvas
   useEffect(() => {
-    if (!uploadedRawImage || !uploaderPreviewRef.current) return;
-    const canvas = document.createElement('canvas');
-    canvas.width = LCD_WIDTH;
-    canvas.height = LCD_HEIGHT;
-    const ctx = canvas.getContext('2d')!;
-    ctx.fillStyle = '#000000';
-    ctx.fillRect(0, 0, LCD_WIDTH, LCD_HEIGHT);
-    const scale = Math.min(
-      LCD_WIDTH / uploadedRawImage.naturalWidth,
-      LCD_HEIGHT / uploadedRawImage.naturalHeight
-    );
-    const dw = Math.round(uploadedRawImage.naturalWidth * scale);
-    const dh = Math.round(uploadedRawImage.naturalHeight * scale);
-    const dx = Math.round((LCD_WIDTH - dw) / 2);
-    const dy = Math.round((LCD_HEIGHT - dh) / 2);
-    ctx.drawImage(uploadedRawImage, dx, dy, dw, dh);
-    const rawData = ctx.getImageData(0, 0, LCD_WIDTH, LCD_HEIGHT);
-    const quantized = quantizeImageDataToRGB565Preview(rawData, useFloydSteinbergDither);
-    uploaderPreviewRef.current.getContext('2d')?.putImageData(quantized, 0, 0);
-  }, [useFloydSteinbergDither, uploadedRawImage]);
+    if (uploadedFrames.length === 0) return;
+    let idx = 0;
+    const renderUploaderFrame = () => {
+      const canvas = uploaderPreviewRef.current;
+      if (!canvas) return;
+      const frame = uploadedFrames[idx % uploadedFrames.length];
+      const quantized = quantizeImageDataToRGB565Preview(frame, useFloydSteinbergDither);
+      canvas.getContext('2d')?.putImageData(quantized, 0, 0);
+      idx++;
+    };
+    renderUploaderFrame();
+    if (uploadedFrames.length === 1) return;
+    const timer = setInterval(renderUploaderFrame, 95);
+    return () => clearInterval(timer);
+  }, [uploadedFrames, useFloydSteinbergDither]);
 
-  // Apply RGB & Underglow Config (Tab 7)
+  // Apply RGB & Underglow Config (Tab 7) and Display Profile Mode (Tab 4)
   const handleUpdateRgbConfig = async (partial: Partial<Gmk87ConfigState>) => {
-    const next = { ...configState, ...partial };
+    const next: Gmk87ConfigState = { ...configState, ...partial, clockDate: new Date() };
     setConfigState(next);
     if (hidEngineRef.current) {
-      const pktHex = await hidEngineRef.current.writeConfig(next);
-      setUploadProgress((prev) => ({
-        ...prev,
-        lastPacketHex: pktHex,
-        message: `Updated RGB Config: Effect=${next.lightingEffect}, Bri=${next.brightness}, Spd=${next.speed}`,
-      }));
+      try {
+        const pktHex = await hidEngineRef.current.writeConfig(next);
+        if (hidEngineRef.current.isConnected()) {
+          setHwClockOffsetMs(0);
+        }
+        setUploadProgress((prev) => ({
+          ...prev,
+          lastPacketHex: pktHex,
+          message: `Updated Config: Mode=${next.activeScreenMode}, Effect=${next.lightingEffect}, Bri=${next.brightness}, Spd=${next.speed}`,
+        }));
+        if (partial.activeScreenMode !== undefined) {
+          const modeNames = [
+            'Default Screen (Mode 0)',
+            'Custom Slot 0 (Mode 1)',
+            'Custom Slot 1 (Mode 2)',
+          ];
+          setStatusLog(
+            `Switched cfg[33] Active Screen Mode to ${modeNames[partial.activeScreenMode] || `Mode ${partial.activeScreenMode}`}`
+          );
+        }
+      } catch (err: any) {
+        setStatusLog(`Hardware config update failed: ${err?.message || 'HID write error'}`);
+      }
     }
   };
 
@@ -930,10 +1278,22 @@ export default function App() {
         mode.cwLabel,
         mode.accent
       );
+      setCustomPreviewFrames([]);
       setCustomPreviewImageData(osdFrame);
-      await hidEngineRef.current.uploadFramesToLcd([osdFrame], targetSlot, configState, (info) => {
-        setUploadProgress(info);
-      });
+      const res = await hidEngineRef.current.uploadFramesToLcd(
+        [osdFrame],
+        targetSlot,
+        configState,
+        (info) => {
+          setUploadProgress(info);
+        },
+        useFloydSteinbergDither
+      );
+      applyPostUploadState(
+        res,
+        `Smart Knob Engine → ${mode.title}: Rewrote VIA Layer 0 [7,0]=${mode.ccwLabel}, [0,14]=${mode.clickLabel}, [7,1]=${mode.cwLabel} & flashed LCD OSD`
+      );
+      return;
     }
 
     setStatusLog(
@@ -1006,11 +1366,19 @@ export default function App() {
     }
 
     const frame = ctx.getImageData(0, 0, LCD_WIDTH, LCD_HEIGHT);
+    setCustomPreviewFrames([]);
     setCustomPreviewImageData(frame);
-    await hidEngineRef.current?.uploadFramesToLcd([frame], targetSlot, configState, (info) => {
-      setUploadProgress(info);
-    });
-    setStatusLog(
+    const res = await hidEngineRef.current?.uploadFramesToLcd(
+      [frame],
+      targetSlot,
+      configState,
+      (info) => {
+        setUploadProgress(info);
+      },
+      useFloydSteinbergDither
+    );
+    applyPostUploadState(
+      res,
       `Flashed Beyond-Zuoya ${mode === 'wpm' ? 'Live WPM Tachometer' : 'Pomodoro Focus Timer'} frame to GMK87 LCD`
     );
   };
@@ -1067,15 +1435,28 @@ export default function App() {
               {isConnected ? (
                 <>
                   <CheckCircle2 className="w-4 h-4 text-[#10b981]" />
-                  <span className="text-[#10b981] font-semibold">Connected: Zuoya GMK87</span>
+                  <span className="text-[#10b981] font-semibold">
+                    Connected ({transportMode === 'bridge' ? `USB Bridge · ${connectedDeviceLabel}` : 'WebHID'})
+                  </span>
                 </>
               ) : (
                 <>
                   <AlertTriangle className="w-4 h-4 text-[#f59e0b]" />
-                  <span className="text-[#f59e0b] font-semibold">Simulation / Disconnected</span>
+                  <span className="text-[#f59e0b] font-semibold">
+                    {bridgeAvailable ? 'USB Bridge Ready (Keyboard Detached)' : 'Simulation / Disconnected'}
+                  </span>
                 </>
               )}
             </div>
+
+            {(window as any).gmk87Electron?.isDesktopApp && (
+              <button
+                onClick={() => (window as any).gmk87Electron?.minimizeToTray()}
+                className="px-3 py-2 text-xs font-medium rounded-lg bg-[#131b2e] border border-[#1e293b] text-slate-200 hover:border-[#8b5cf6] transition-colors whitespace-nowrap cursor-pointer"
+              >
+                Send to Tray
+              </button>
+            )}
 
             <button
               onClick={() => setMonitorExpanded((v) => !v)}
@@ -1094,7 +1475,11 @@ export default function App() {
               }`}
             >
               <Usb className="w-4 h-4" />
-              {isConnected ? 'Disconnect GMK87' : 'Connect GMK87 (WebHID)'}
+              {isConnected
+                ? 'Disconnect GMK87'
+                : bridgeAvailable
+                ? 'Refresh USB Bridge / Connect'
+                : 'Connect GMK87 (WebHID)'}
             </button>
           </div>
         </div>
@@ -1167,9 +1552,12 @@ export default function App() {
                       Floyd-Steinberg RGB565 Dither: {useFloydSteinbergDither ? 'ON' : 'OFF'}
                     </button>
 
-                    {customPreviewImageData && (
+                    {(customPreviewImageData || customPreviewFrames.length > 0) && (
                       <button
-                        onClick={() => setCustomPreviewImageData(null)}
+                        onClick={() => {
+                          setCustomPreviewFrames([]);
+                          setCustomPreviewImageData(null);
+                        }}
                         className="px-2.5 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-300 hover:border-[#06b6d4] cursor-pointer"
                       >
                         Resume Live Anim
@@ -1294,6 +1682,9 @@ export default function App() {
               </div>
 
               <div className="flex items-center gap-2.5">
+                <span className="px-2.5 py-1.5 text-[11px] font-mono rounded-lg bg-[#8b5cf6]/15 border border-[#8b5cf6]/40 text-purple-200">
+                  VIA PROTOCOL P{viaProtocol}
+                </span>
                 <button
                   onClick={handleReadViaBuffer}
                   className="px-3.5 py-2 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-200 hover:border-[#06b6d4] transition-colors flex items-center gap-1.5 cursor-pointer"
@@ -1351,7 +1742,7 @@ export default function App() {
                     </span>{' '}
                     →{' '}
                     <span className="text-[#10b981] font-bold">
-                      {getKeycodeLabel(currentSelectedKeycode)}
+                      {getKeycodeLabel(currentSelectedKeycode, viaProtocol)}
                     </span>
                   </div>
                 </div>
@@ -1419,7 +1810,7 @@ export default function App() {
 
                 {GMK87_PHYSICAL_KEYS.map((k) => {
                   const assignedCode = keymap[activeLayer]?.[k.row]?.[k.col] ?? 0;
-                  const codeLabel = getKeycodeLabel(assignedCode);
+                  const codeLabel = getKeycodeLabel(assignedCode, viaProtocol);
                   const isSelected = selectedKeyId === k.id;
                   const isPhysicallyPressed = pressedKeyIds.has(k.id);
                   const unitPx = 54;
@@ -1655,6 +2046,165 @@ export default function App() {
               </div>
             </div>
 
+            {/* Endless Live Web GIF Search Across All Categories */}
+            <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-5">
+              <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
+                <div>
+                  <h2 className="text-base font-bold text-white flex items-center gap-2">
+                    🌐 Endless Web GIF Search (All Categories — Anime, Cyberpunk, Gaming, Sci-Fi & More)
+                  </h2>
+                  <p className="text-xs text-slate-400">
+                    Search millions of animated GIFs across any category, decode up to 16 composite
+                    frames in real time, and preview or flash directly to GMK87 Slot {targetSlot}.
+                  </p>
+                </div>
+
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    handleSearchWebGifs(webGifQuery, 0, false);
+                  }}
+                  className="flex items-center gap-2"
+                >
+                  <div className="relative">
+                    <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                    <input
+                      type="text"
+                      value={webGifQuery}
+                      onChange={(e) => setWebGifQuery(e.target.value)}
+                      placeholder="Search any GIF (cyberpunk, anime, matrix, cats)..."
+                      className="bg-[#0b0f19] border border-[#1e293b] rounded-lg pl-8 pr-3.5 py-2 text-xs text-white focus:outline-none focus:border-[#06b6d4] w-full sm:w-72"
+                    />
+                  </div>
+                  <button
+                    type="submit"
+                    disabled={webGifLoading}
+                    className="px-4 py-2 text-xs font-semibold rounded-lg bg-[#06b6d4] text-slate-950 hover:bg-cyan-400 disabled:opacity-50 transition-colors cursor-pointer whitespace-nowrap"
+                  >
+                    {webGifLoading ? 'Searching...' : 'Search GIFs'}
+                  </button>
+                </form>
+              </div>
+
+              {/* 13 Quick Category Discovery Pills */}
+              <div className="flex flex-wrap items-center gap-1.5">
+                {WEB_GIF_CATEGORIES.map((cat) => {
+                  const active = webGifQuery.trim().toLowerCase() === cat.query.toLowerCase();
+                  return (
+                    <button
+                      key={cat.label}
+                      type="button"
+                      onClick={() => {
+                        setWebGifQuery(cat.query);
+                        handleSearchWebGifs(cat.query, 0, false);
+                      }}
+                      className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-colors cursor-pointer ${
+                        active
+                          ? 'bg-[#8b5cf6] text-white border-[#8b5cf6]'
+                          : 'bg-[#0b0f19] text-slate-300 border-[#1e293b] hover:border-[#8b5cf6]/60'
+                      }`}
+                    >
+                      {cat.label}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {webGifError && (
+                <div className="rounded-lg bg-[#f59e0b]/10 border border-[#f59e0b]/40 px-4 py-3 text-xs text-[#f59e0b] font-mono flex items-center justify-between gap-3">
+                  <span>{webGifError}</span>
+                  <button
+                    type="button"
+                    onClick={() => handleSearchWebGifs(webGifQuery, 0, false)}
+                    className="px-3 py-1 rounded bg-[#f59e0b] text-slate-950 font-semibold cursor-pointer shrink-0"
+                  >
+                    Retry
+                  </button>
+                </div>
+              )}
+
+              {webGifResults.length > 0 && (
+                <>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+                    {webGifResults.map((item) => {
+                      const isBusy = flashingWebGifId === item.id;
+                      return (
+                        <div
+                          key={item.id}
+                          className="rounded-xl p-3 bg-[#0b0f19] border border-[#1e293b] hover:border-[#06b6d4]/70 transition-colors flex flex-col justify-between gap-2.5"
+                        >
+                          <div className="space-y-2">
+                            <div className="w-full aspect-[16/9] rounded-lg border border-[#1e293b] bg-black overflow-hidden flex items-center justify-center">
+                              <img
+                                src={item.url}
+                                alt={item.title}
+                                loading="lazy"
+                                referrerPolicy="no-referrer"
+                                className="w-full h-full object-contain"
+                                onError={(e) => {
+                                  const el = e.currentTarget as HTMLImageElement;
+                                  if (!el.dataset.proxied) {
+                                    el.dataset.proxied = '1';
+                                    el.src = `/api/proxy-gif?url=${encodeURIComponent(item.url)}`;
+                                  } else if (!el.dataset.previewTried && item.preview) {
+                                    el.dataset.previewTried = '1';
+                                    el.src = item.preview;
+                                  }
+                                }}
+                              />
+                            </div>
+                            <div className="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                              <span className="text-[#8b5cf6] truncate max-w-[140px]">
+                                {item.source}
+                              </span>
+                              <span>
+                                {item.width}×{item.height}
+                              </span>
+                            </div>
+                            <h3 className="text-xs font-semibold text-white truncate">
+                              {item.title}
+                            </h3>
+                          </div>
+
+                          <div className="flex items-center gap-2 pt-0.5">
+                            <button
+                              type="button"
+                              disabled={isBusy}
+                              onClick={() => handlePreviewOrFlashWebGif(item, false)}
+                              className="flex-1 py-1.5 px-2.5 text-xs font-semibold rounded-lg bg-[#131b2e] border border-[#1e293b] text-slate-200 hover:border-[#06b6d4] disabled:opacity-50 transition-colors cursor-pointer"
+                            >
+                              {isBusy ? 'Decoding...' : 'Monitor'}
+                            </button>
+                            <button
+                              type="button"
+                              disabled={isBusy}
+                              onClick={() => handlePreviewOrFlashWebGif(item, true)}
+                              className="flex-1 py-1.5 px-2.5 text-xs font-semibold rounded-lg bg-[#06b6d4] text-slate-950 hover:bg-cyan-400 disabled:opacity-50 transition-colors cursor-pointer"
+                            >
+                              {isBusy ? 'Wait...' : `Flash Slot ${targetSlot}`}
+                            </button>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+
+                  <div className="flex items-center justify-center pt-2">
+                    <button
+                      type="button"
+                      disabled={webGifLoading}
+                      onClick={() => handleSearchWebGifs(webGifQuery, webGifPage + 1, true)}
+                      className="px-5 py-2.5 text-xs font-mono font-semibold rounded-lg bg-[#0b0f19] border border-[#06b6d4]/50 text-[#06b6d4] hover:bg-[#06b6d4]/10 disabled:opacity-50 transition-colors cursor-pointer"
+                    >
+                      {webGifLoading
+                        ? 'Loading More GIFs...'
+                        : `Load More GIFs · Showing ${webGifResults.length}`}
+                    </button>
+                  </div>
+                </>
+              )}
+            </div>
+
             {/* Section 1: 33 Widescreen 240×135 Animations Across 6 Web-Culture Categories */}
             <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-5">
               <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
@@ -1728,7 +2278,9 @@ export default function App() {
                   return matchesCat && matchesSearch;
                 }).map((preset) => {
                   const isPreviewing =
-                    !customPreviewImageData && activePreviewAnim === preset.id;
+                    !customPreviewImageData &&
+                    customPreviewFrames.length === 0 &&
+                    activePreviewAnim === preset.id;
                   return (
                     <div
                       key={preset.id}
@@ -1756,6 +2308,7 @@ export default function App() {
                       <div className="flex items-center gap-2 pt-1">
                         <button
                           onClick={() => {
+                            setCustomPreviewFrames([]);
                             setCustomPreviewImageData(null);
                             setActivePreviewAnim(preset.id);
                             setStatusLog(
@@ -2062,7 +2615,7 @@ export default function App() {
                   BCD Hardware Real-Time Clock Synchronizer (`cfg[35..41]`)
                 </h2>
                 <p className="text-xs text-slate-400">
-                  Encodes `sec`, `min`, `hour`, `dayOfWeek` (1–7), `date`, `month`, and `year % 100`
+                  Encodes `sec`, `min`, `hour`, `dayOfWeek` (0=Sun..6=Sat), `date`, `month`, and `year % 100`
                   using <code className="text-cyan-300">toBcd(n) = ((Math.floor(n/10)&lt;&lt;4) | (n%10))</code>.
                 </p>
               </div>
@@ -2112,10 +2665,7 @@ export default function App() {
                   <span>[36] MIN: 0x{toBcd(pcNow.getMinutes()).toString(16).padStart(2, '0')}</span>
                   <span>[37] HOUR: 0x{toBcd(pcNow.getHours()).toString(16).padStart(2, '0')}</span>
                   <span>
-                    [38] DOW: 0x
-                    {toBcd(pcNow.getDay() === 0 ? 7 : pcNow.getDay())
-                      .toString(16)
-                      .padStart(2, '0')}
+                    [38] DOW: 0x{toBcd(pcNow.getDay()).toString(16).padStart(2, '0')}
                   </span>
                   <span>[39] DAY: 0x{toBcd(pcNow.getDate()).toString(16).padStart(2, '0')}</span>
                   <span>
@@ -2136,7 +2686,16 @@ export default function App() {
                 </button>
 
                 <button
-                  onClick={() => setAutoSync15Min((v) => !v)}
+                  onClick={async () => {
+                    const nextVal = !autoSync15Min;
+                    const bridge = (window as any).gmk87Electron;
+                    if (bridge?.setAutoSyncClock) {
+                      const confirmed = await bridge.setAutoSyncClock(nextVal).catch(() => nextVal);
+                      setAutoSync15Min(Boolean(confirmed));
+                    } else {
+                      setAutoSync15Min(nextVal);
+                    }
+                  }}
                   className={`px-4 py-2.5 text-xs font-mono rounded-lg border transition-colors cursor-pointer ${
                     autoSync15Min
                       ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981]'
@@ -2146,6 +2705,14 @@ export default function App() {
                   15-Min Auto-Sync Daemon: {autoSync15Min ? 'ACTIVE' : 'OFF'}
                 </button>
               </div>
+
+              {configState.activeScreenMode !== 0 && (
+                <div className="rounded-lg bg-[#f59e0b]/10 border border-[#f59e0b]/40 px-3.5 py-2.5 text-xs text-amber-200 leading-relaxed">
+                  Your LCD is currently showing <strong>Custom Slot {configState.activeScreenMode - 1}</strong>. Switch to{' '}
+                  <strong>Default Screen (Mode 0)</strong> on the right (or press{' '}
+                  <kbd className="text-cyan-300 font-mono">Fn + Enter</kbd>) to display the synced clock on your keyboard.
+                </div>
+              )}
             </div>
 
             {/* Right: Display Profile Switcher (cfg[33]) */}
@@ -2185,10 +2752,7 @@ export default function App() {
                   return (
                     <button
                       key={prof.mode}
-                      onClick={() => {
-                        handleUpdateRgbConfig({ activeScreenMode: prof.mode });
-                        setStatusLog(`Switched cfg[33] Active Screen Mode to ${prof.title}`);
-                      }}
+                      onClick={() => handleUpdateRgbConfig({ activeScreenMode: prof.mode })}
                       className={`w-full p-4 rounded-xl border text-left transition-colors cursor-pointer flex items-center justify-between gap-4 ${
                         active
                           ? 'bg-[#06b6d4]/15 border-[#06b6d4] text-white'
@@ -2217,17 +2781,47 @@ export default function App() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {/* Left: Cyberpunk Telemetry HUD Generator */}
             <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-4">
-              <div className="flex items-center justify-between gap-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <div>
                   <h2 className="text-base font-bold text-white">
                     📊 Cyberpunk Telemetry HUD Generator
                   </h2>
                   <p className="text-xs text-slate-400">
-                    Customize or stream live system CPU %, DDR5 RAM, GPU Temp, and Now-Playing track
+                    Customize or stream live Windows CPU %, DDR5 RAM, Uptime, and Now-Playing track
                     onto the 240×135 TFT screen.
                   </p>
                 </div>
+                <button
+                  type="button"
+                  onClick={() => setLivePcTelemetry((v) => !v)}
+                  className={`px-3 py-1.5 text-[11px] font-mono rounded-lg border transition-colors cursor-pointer shrink-0 ${
+                    livePcTelemetry && bridgeAvailable
+                      ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981] font-bold'
+                      : 'bg-[#0b0f19] border-[#1e293b] text-slate-300 hover:border-[#06b6d4]'
+                  }`}
+                >
+                  {bridgeAvailable && livePcTelemetry
+                    ? 'LIVE WINDOWS TELEMETRY: ON'
+                    : `Live PC Sync: ${livePcTelemetry ? 'POLLING' : 'MANUAL'}`}
+                </button>
               </div>
+
+              {bridgeAvailable && livePcTelemetry && (
+                <div className="grid grid-cols-3 gap-2 text-[11px] font-mono bg-[#0b0f19] border border-[#1e293b] rounded-lg px-3 py-2 text-slate-300">
+                  <div>
+                    UPTIME: <span className="text-[#06b6d4]">{telemetry.uptimeStr}</span>
+                  </div>
+                  <div>
+                    RAM:{' '}
+                    <span className="text-[#8b5cf6]">
+                      {telemetry.ramUsedGb}/{telemetry.ramTotalGb} GB
+                    </span>
+                  </div>
+                  <div className="truncate text-right">
+                    CPU: <span className="text-[#10b981]">{telemetry.cpuPercent}%</span>
+                  </div>
+                </div>
+              )}
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
@@ -2241,8 +2835,10 @@ export default function App() {
                     value={telemetry.cpuPercent}
                     onChange={(e) => {
                       const next = { ...telemetry, cpuPercent: Number(e.target.value) };
+                      setLivePcTelemetry(false);
                       setTelemetry(next);
                       setActivePreviewAnim('cyber-hud');
+                      setCustomPreviewFrames([]);
                       setCustomPreviewImageData(null);
                     }}
                     className="w-full accent-[#06b6d4]"
@@ -2263,10 +2859,12 @@ export default function App() {
                       const next = {
                         ...telemetry,
                         ramPercent: pct,
-                        ramUsedGb: Number(((pct / 100) * 32).toFixed(1)),
+                        ramUsedGb: Number(((pct / 100) * telemetry.ramTotalGb).toFixed(1)),
                       };
+                      setLivePcTelemetry(false);
                       setTelemetry(next);
                       setActivePreviewAnim('cyber-hud');
+                      setCustomPreviewFrames([]);
                       setCustomPreviewImageData(null);
                     }}
                     className="w-full accent-[#8b5cf6]"
@@ -2280,9 +2878,10 @@ export default function App() {
                   <input
                     type="text"
                     value={telemetry.trackTitle}
-                    onChange={(e) =>
-                      setTelemetry((prev) => ({ ...prev, trackTitle: e.target.value }))
-                    }
+                    onChange={(e) => {
+                      setLivePcTelemetry(false);
+                      setTelemetry((prev) => ({ ...prev, trackTitle: e.target.value }));
+                    }}
                     className="w-full bg-[#0b0f19] border border-[#1e293b] rounded-lg px-3 py-1.5 text-xs text-white"
                   />
                 </div>
@@ -2294,9 +2893,10 @@ export default function App() {
                   <input
                     type="text"
                     value={telemetry.trackArtist}
-                    onChange={(e) =>
-                      setTelemetry((prev) => ({ ...prev, trackArtist: e.target.value }))
-                    }
+                    onChange={(e) => {
+                      setLivePcTelemetry(false);
+                      setTelemetry((prev) => ({ ...prev, trackArtist: e.target.value }));
+                    }}
                     className="w-full bg-[#0b0f19] border border-[#1e293b] rounded-lg px-3 py-1.5 text-xs text-white"
                   />
                 </div>
@@ -2408,8 +3008,8 @@ export default function App() {
                 </span>
                 <span className="text-xs text-slate-400 mt-1">
                   {uploadedFileName
-                    ? `Selected: ${uploadedFileName}`
-                    : 'Auto-letterboxed to 240×135 · Big-Endian RGB565 (65,536B padded)'}
+                    ? `${uploadedFileName}${uploadedSourceInfo ? ` · ${uploadedSourceInfo}` : ''}`
+                    : 'Auto-letterboxed to 240×135 · Multi-Frame GIF & Big-Endian RGB565 (65,536B padded)'}
                 </span>
                 <input
                   type="file"
@@ -2457,21 +3057,38 @@ export default function App() {
                   </div>
 
                   <button
-                    onClick={() => {
-                      if (!customPreviewImageData) {
-                        setStatusLog('Select an image file first, or flash current monitor frame.');
+                    onClick={async () => {
+                      const framesToFlash =
+                        uploadedFrames.length > 0
+                          ? uploadedFrames
+                          : customPreviewFrames.length > 0
+                          ? customPreviewFrames
+                          : customPreviewImageData
+                          ? [customPreviewImageData]
+                          : [];
+                      if (framesToFlash.length === 0) {
+                        setStatusLog('Select an image/GIF file first, or load a monitor preview.');
                         return;
                       }
-                      hidEngineRef.current?.uploadFramesToLcd(
-                        [customPreviewImageData],
+                      const res = await hidEngineRef.current?.uploadFramesToLcd(
+                        framesToFlash,
                         targetSlot,
                         configState,
-                        (info) => setUploadProgress(info)
+                        (info) => setUploadProgress(info),
+                        useFloydSteinbergDither
+                      );
+                      applyPostUploadState(
+                        res,
+                        `Flashed ${framesToFlash.length} custom frame(s) to Slot ${targetSlot}`
                       );
                     }}
                     className="w-full py-2.5 px-4 text-xs font-semibold rounded-lg bg-[#06b6d4] text-slate-950 hover:bg-cyan-400 transition-colors cursor-pointer"
                   >
-                    Flash Custom Frame to Slot {targetSlot}
+                    Flash{' '}
+                    {uploadedFrames.length > 1
+                      ? `${uploadedFrames.length}-Frame GIF`
+                      : 'Custom Frame'}{' '}
+                    to Slot {targetSlot}
                   </button>
                 </div>
               </div>
@@ -2493,13 +3110,13 @@ export default function App() {
               <div>
                 <div className="flex justify-between text-xs font-mono mb-1.5">
                   <span className="text-slate-400">BRIGHTNESS (`cfg[2]`)</span>
-                  <span className="text-[#06b6d4] font-bold">{configState.brightness} / 5</span>
+                  <span className="text-[#06b6d4] font-bold">{configState.brightness} / 9</span>
                 </div>
                 <input
                   type="range"
                   min={0}
-                  max={5}
-                  value={Math.min(5, configState.brightness)}
+                  max={9}
+                  value={Math.min(9, Math.max(0, configState.brightness))}
                   onChange={(e) => handleUpdateRgbConfig({ brightness: Number(e.target.value) })}
                   className="w-full accent-[#06b6d4]"
                 />
@@ -2508,13 +3125,13 @@ export default function App() {
               <div>
                 <div className="flex justify-between text-xs font-mono mb-1.5">
                   <span className="text-slate-400">EFFECT SPEED (`cfg[3]`)</span>
-                  <span className="text-[#8b5cf6] font-bold">{configState.speed} / 5</span>
+                  <span className="text-[#8b5cf6] font-bold">{configState.speed} / 4</span>
                 </div>
                 <input
                   type="range"
-                  min={1}
-                  max={5}
-                  value={Math.max(1, configState.speed)}
+                  min={0}
+                  max={4}
+                  value={Math.min(4, Math.max(0, configState.speed))}
                   onChange={(e) => handleUpdateRgbConfig({ speed: Number(e.target.value) })}
                   className="w-full accent-[#8b5cf6]"
                 />

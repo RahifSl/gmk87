@@ -141,20 +141,23 @@ export const KEYCODE_CATALOG: KeycodeItem[] = [
   { code: 0x00AE, shortLabel: 'PLAY', name: 'Media Play / Pause', category: 'Media & Knob' },
   { code: 0x00BD, shortLabel: 'BRI+', name: 'Screen Brightness Up', category: 'Media & Knob' },
   { code: 0x00BE, shortLabel: 'BRI-', name: 'Screen Brightness Down', category: 'Media & Knob' },
-  { code: 0x00B1, shortLabel: 'CALC', name: 'Launch Calculator', category: 'Media & Knob' },
-  { code: 0x00B2, shortLabel: 'MYCMP', name: 'My Computer / Explorer', category: 'Media & Knob' },
+  { code: 0x00B1, shortLabel: 'MAIL', name: 'Launch Mail Client', category: 'Media & Knob' },
+  { code: 0x00B2, shortLabel: 'CALC', name: 'Launch Calculator', category: 'Media & Knob' },
+  { code: 0x00B3, shortLabel: 'MYCMP', name: 'My Computer / Explorer', category: 'Media & Knob' },
 
-  // Layers
-  { code: 0x5220, shortLabel: 'MO(0)', name: 'Momentary Layer 0', category: 'Layers' },
-  { code: 0x5221, shortLabel: 'MO(1)', name: 'Momentary Layer 1 (Win Fn)', category: 'Layers' },
-  { code: 0x5222, shortLabel: 'MO(2)', name: 'Momentary Layer 2 (Mac)', category: 'Layers' },
-  { code: 0x5223, shortLabel: 'MO(3)', name: 'Momentary Layer 3 (Mac Fn)', category: 'Layers' },
-  { code: 0x5200, shortLabel: 'TG(0)', name: 'Toggle Layer 0', category: 'Layers' },
-  { code: 0x5201, shortLabel: 'TG(1)', name: 'Toggle Layer 1', category: 'Layers' },
-  { code: 0x5202, shortLabel: 'TG(2)', name: 'Toggle Layer 2', category: 'Layers' },
-  { code: 0x5203, shortLabel: 'TG(3)', name: 'Toggle Layer 3', category: 'Layers' },
+  // Layers (GMK87 Protocol 9 defaults + Protocol 11 V0112 codes)
+  { code: 0x5F10, shortLabel: 'FN', name: 'GMK87 Hardware Fn Key', category: 'Layers' },
+  { code: 0x5101, shortLabel: 'MO(1)', name: 'Momentary Layer 1 (Win Fn)', category: 'Layers' },
+  { code: 0x5102, shortLabel: 'MO(2)', name: 'Momentary Layer 2 (Mac)', category: 'Layers' },
+  { code: 0x5103, shortLabel: 'MO(3)', name: 'Momentary Layer 3 (Mac Fn)', category: 'Layers' },
+  { code: 0x5010, shortLabel: 'TO(0)', name: 'Switch to Layer 0', category: 'Layers' },
+  { code: 0x5011, shortLabel: 'TO(1)', name: 'Switch to Layer 1', category: 'Layers' },
+  { code: 0x5012, shortLabel: 'TO(2)', name: 'Switch to Layer 2', category: 'Layers' },
+  { code: 0x5013, shortLabel: 'TO(3)', name: 'Switch to Layer 3', category: 'Layers' },
+  { code: 0x5221, shortLabel: 'MO1_V11', name: 'Momentary Layer 1 (V0112)', category: 'Layers' },
+  { code: 0x5223, shortLabel: 'MO3_V11', name: 'Momentary Layer 3 (V0112)', category: 'Layers' },
 
-  // Lighting & Hardware
+  // Lighting & Hardware (Verified GMK87 V0104 Protocol 9 EEPROM codes)
   { code: 0x5CC2, shortLabel: 'RGB_TOG', name: 'RGB Toggle On/Off', category: 'Lighting & Hardware' },
   { code: 0x5CC3, shortLabel: 'RGB_MOD', name: 'RGB Mode Next', category: 'Lighting & Hardware' },
   { code: 0x5CC4, shortLabel: 'RGB_RMOD', name: 'RGB Mode Previous', category: 'Lighting & Hardware' },
@@ -166,24 +169,35 @@ export const KEYCODE_CATALOG: KeycodeItem[] = [
   { code: 0x5CCA, shortLabel: 'RGB_VAD', name: 'RGB Brightness Down', category: 'Lighting & Hardware' },
   { code: 0x5CCB, shortLabel: 'RGB_SPI', name: 'RGB Speed Up', category: 'Lighting & Hardware' },
   { code: 0x5CCC, shortLabel: 'RGB_SPD', name: 'RGB Speed Down', category: 'Lighting & Hardware' },
-  { code: 0x7E00, shortLabel: 'BT_1', name: 'Bluetooth Host 1', category: 'Lighting & Hardware' },
-  { code: 0x7E01, shortLabel: 'BT_2', name: 'Bluetooth Host 2', category: 'Lighting & Hardware' },
-  { code: 0x7E02, shortLabel: 'BT_3', name: 'Bluetooth Host 3', category: 'Lighting & Hardware' },
-  { code: 0x7E03, shortLabel: '2.4G', name: '2.4GHz Wireless Dongle', category: 'Lighting & Hardware' },
-  { code: 0x7E04, shortLabel: 'USB_MOD', name: 'USB Wired Mode', category: 'Lighting & Hardware' },
-  { code: 0x7E10, shortLabel: 'LCD_TOG', name: 'TFT Screen Toggle', category: 'Lighting & Hardware' },
-  { code: 0x7E11, shortLabel: 'LCD_NXT', name: 'TFT Next Slot / Mode', category: 'Lighting & Hardware' },
-  { code: 0x7C00, shortLabel: 'QK_BOOT', name: 'Bootloader / Reset', category: 'Lighting & Hardware' },
+  { code: 0x5F81, shortLabel: 'BT_1', name: 'Bluetooth Host 1', category: 'Lighting & Hardware' },
+  { code: 0x5F82, shortLabel: 'BT_2', name: 'Bluetooth Host 2', category: 'Lighting & Hardware' },
+  { code: 0x5F83, shortLabel: 'BT_3', name: 'Bluetooth Host 3', category: 'Lighting & Hardware' },
+  { code: 0x5F80, shortLabel: '2.4G', name: '2.4GHz Wireless Dongle', category: 'Lighting & Hardware' },
+  { code: 0x5F84, shortLabel: 'WIN_LCK', name: 'Lock Windows Key', category: 'Lighting & Hardware' },
+  { code: 0x5F87, shortLabel: 'LOGO_MOD', name: 'Logo LED Mode', category: 'Lighting & Hardware' },
+  { code: 0x5F88, shortLabel: 'LOGO_CLR', name: 'Logo LED Color', category: 'Lighting & Hardware' },
+  { code: 0x5F89, shortLabel: 'LCD_NXT', name: 'TFT Next Slot / Mode', category: 'Lighting & Hardware' },
+  { code: 0x5F8B, shortLabel: 'LCD_PWR', name: 'TFT Screen Power Toggle', category: 'Lighting & Hardware' },
+  { code: 0x5C00, shortLabel: 'RESET_P9', name: 'Factory Reset (P9)', category: 'Lighting & Hardware' },
+  { code: 0x7C00, shortLabel: 'QK_BOOT', name: 'Bootloader / Reset (V11)', category: 'Lighting & Hardware' },
 ];
 
 export const KEYCODE_BY_CODE = new Map<number, KeycodeItem>(
   KEYCODE_CATALOG.map((item) => [item.code, item])
 );
 
-export function getKeycodeLabel(code: number): string {
+export function getKeycodeLabel(code: number, viaProtocol = 9): string {
   const found = KEYCODE_BY_CODE.get(code);
   if (found) return found.shortLabel;
   if (code === 0) return 'NONE';
+  if (code >= 0x5100 && code <= 0x510f) return `MO(${code & 0x0f})`;
+  if (code >= 0x5010 && code <= 0x501f) return `TO(${code & 0x0f})`;
+  if (viaProtocol >= 11 && code >= 0x5220 && code <= 0x523f) return `MO(${code & 0x1f})`;
+  if (code >= 0x5200 && code <= 0x521f) return `TO(${code & 0x1f})`;
+  if (code >= 0x0100 && code <= 0x1fff) {
+    const inner = KEYCODE_BY_CODE.get(code & 0xff)?.shortLabel ?? `0x${(code & 0xff).toString(16)}`;
+    return `MOD+${inner}`;
+  }
   return `0x${code.toString(16).toUpperCase().padStart(4, '0')}`;
 }
 
@@ -399,7 +413,7 @@ export function createDefaultKeymap(): number[][][] {
   l0[5][2] = 0x00E2; // LAlt
   l0[5][6] = 0x002C; // Space
   l0[5][9] = 0x00E6; // RAlt
-  l0[5][10] = 0x5221; // MO(1)
+  l0[5][10] = 0x5F10; // GMK87 Hardware Fn Key
   l0[5][11] = 0x00E7; // Menu/RGUI
   l0[5][12] = 0x00E4; // RCtrl
   l0[5][13] = 0x0050; // Left
@@ -408,19 +422,18 @@ export function createDefaultKeymap(): number[][][] {
   l0[6][13] = 0x004F; // Right
   l0[6][14] = 0x004E; // PgDn
 
-  // Layer 1 (Win Fn)
+  // Layer 1 (Win Fn — Protocol 9)
   const l1 = layers[1];
-  l1[0][0] = 0x7C00; // Fn+Esc Reset
-  l1[2][1] = 0x7E00; // Fn+Q BT1
-  l1[2][2] = 0x7E01; // Fn+W BT2
-  l1[2][3] = 0x7E02; // Fn+E BT3
-  l1[2][4] = 0x7E03; // Fn+R 2.4G
-  l1[2][5] = 0x7E04; // Fn+T USB
+  l1[0][0] = 0x5C00; // Fn+Esc Reset
+  l1[2][1] = 0x5F81; // Fn+Q BT1
+  l1[2][2] = 0x5F82; // Fn+W BT2
+  l1[2][3] = 0x5F83; // Fn+E BT3
+  l1[2][4] = 0x5F80; // Fn+R 2.4G
   l1[2][13] = 0x5CC3; // Fn+\ RGB Mode
   l1[2][14] = 0x5CC5; // Fn+Del RGB Hue
   l1[1][13] = 0x5CC2; // Fn+Backspace RGB Toggle
-  l1[3][13] = 0x7E11; // Fn+Enter Next Screen Slot
-  l1[4][12] = 0x7E10; // Fn+RShift Toggle Screen
+  l1[3][13] = 0x5F89; // Fn+Enter Next Screen Slot
+  l1[4][12] = 0x5F8B; // Fn+RShift Toggle Screen
   l1[4][13] = 0x5CC9; // Fn+Up RGB Bri+
   l1[6][12] = 0x5CCA; // Fn+Down RGB Bri-
   l1[5][13] = 0x5CCC; // Fn+Left RGB Spd-
@@ -435,7 +448,7 @@ export function createDefaultKeymap(): number[][][] {
   layers[2][5][1] = 0x00E2; // LOpt
   layers[2][5][2] = 0x00E3; // LCmd
   layers[2][5][9] = 0x00E7; // RCmd
-  layers[2][5][10] = 0x5223; // MO(3)
+  layers[2][5][10] = 0x5F10; // Fn
 
   // Layer 3 (Mac Fn)
   for (let r = 0; r < 8; r++) {

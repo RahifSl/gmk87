@@ -1,0 +1,36 @@
+appId: com.zuoya.gmk87.studio
+productName: GMK87 Master Control Center
+copyright: Copyright © 2026 Zuoya GMK87 Community Studio
+directories:
+  output: release
+files:
+  - dist/**/*
+  - dist-electron/**/*
+  - electron/icons/**/*
+  - package.json
+  - "!src/**"
+  - "!**/*.ts"
+  - "!**/node_modules/.vite/**"
+asar: true
+asarUnpack:
+  - "**/node_modules/node-hid/**"
+extraResources:
+  - from: get_media.ps1
+    to: get_media.ps1
+win:
+  target:
+    - target: nsis
+      arch:
+        - x64
+    - target: portable
+      arch:
+        - x64
+  icon: electron/icons/icon.ico
+  signAndEditExecutable: false
+nsis:
+  oneClick: false
+  perMachine: false
+  allowToChangeInstallationDirectory: true
+  createDesktopShortcut: true
+  createStartMenuShortcut: true
+  shortcutName: GMK87 Master Control Center
