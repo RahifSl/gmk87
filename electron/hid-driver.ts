@@ -398,58 +398,29 @@ export class Gmk87HidDriver {
   private async readLcdConfigInternal(device: HID.HID, releaseHint = 0x0104): Promise<Uint8Array> {
     this.drainDevice(device);
 
+    // ClassA sequence (confirmed by disassembly at 0x49C0F0):
+    // Cmd01 → Cmd05(len=48, pos=0) — NO Cmd03 PREPARE_READ before reads.
+    // The firmware returns config bytes starting at pkt[8] when it acknowledges.
     const initAck = await this.sendWithPosition(device, LcdCommand.INIT, Buffer.alloc(0), 0);
     if (!initAck) {
       throw new Error('GMK87 did not acknowledge INIT (0x01) while reading config');
     }
-    for (let i = 0; i < 9; i++) {
-      await this.sendWithPosition(device, LcdCommand.PREPARE_READ, Buffer.alloc(4, 0x00), i * 4);
-    }
-    await this.sendWithPosition(device, LcdCommand.PREPARE_READ, Buffer.alloc(1, 0x00), 36);
-    const prepCommitAck = await this.sendWithPosition(device, LcdCommand.COMMIT, Buffer.alloc(0), 0);
-    if (!prepCommitAck) {
-      throw new Error('GMK87 did not acknowledge COMMIT (0x02) while preparing config read');
+
+    // Ask for 48 bytes: data payload = [0x30] = 48, pos = 0
+    const readReq = Buffer.from([0x30]);
+    const resp = await this.sendWithPosition(device, LcdCommand.READ_CONFIG, readReq, 0, 3000);
+    if (!resp || resp.length < 1) {
+      throw new Error('GMK87 did not return config data for READ_CONFIG (0x05)');
     }
 
+    // Response: resp[0]=len_returned, resp[1..48]=data (sendWithPosition strips the first 4 bytes of raw packet)
+    // Raw packet: [reportId][chk_lo][chk_hi][cmd=0x05][len][pos_lo][pos_hi][pos_hi2][data...]
+    // sendWithPosition returns pkt.subarray(4) → [len, pos_lo, pos_hi, pos_hi2, data[0], data[1], ...]
+    const dataStart = 4; // skip [len, pos_lo, pos_hi, pos_hi2]
     const raw48 = new Uint8Array(48);
-    for (let i = 0; i < 12; i++) {
-      const chunk = await this.sendWithPosition(
-        device,
-        LcdCommand.READ_CONFIG,
-        Buffer.alloc(4, 0x00),
-        i * 4
-      );
-      if (!chunk || chunk.length < 4) {
-        throw new Error(`GMK87 timed out reading config chunk at offset ${i * 4}`);
-      }
-      raw48.set(chunk.subarray(0, 4), i * 4);
-    }
-
-    // V0112 exposes extended 64-byte config block (0x31 holds VIA protocol 9/11 selector)
-    if (releaseHint >= 0x0112) {
-      const raw64 = new Uint8Array(64);
-      raw64.set(raw48, 0);
-      let gotExtended = false;
-      for (let pos = 48; pos < 64; pos += 4) {
-        const chunk = await this.sendWithPosition(
-          device,
-          LcdCommand.READ_CONFIG,
-          Buffer.alloc(4, 0x00),
-          pos,
-          250
-        );
-        if (chunk && chunk.length >= 4) {
-          raw64.set(chunk.subarray(0, 4), pos);
-          gotExtended = true;
-        } else {
-          break;
-        }
-      }
-      if (gotExtended) {
-        this.lastRawConfig = raw64;
-        this.lastConfigIoAt = Date.now();
-        return raw64;
-      }
+    if (resp.length > dataStart) {
+      const dataBytes = resp.length - dataStart;
+      raw48.set(Buffer.from(resp).subarray(dataStart, dataStart + Math.min(48, dataBytes)), 0);
     }
 
     this.lastRawConfig = raw48;
@@ -514,7 +485,26 @@ export class Gmk87HidDriver {
     if (recentEnough && this.lastRawConfig) {
       return this.lastRawConfig;
     }
-    return this.readLcdConfigInternal(dev, releaseHint);
+
+    // Attempt a live read; if the read sequence fails (firmware quirk), fall back
+    // to cached config or a safe 48-byte default so writes (e.g., clock sync) still work.
+    try {
+      return await this.readLcdConfigInternal(dev, releaseHint);
+    } catch {
+      if (this.lastRawConfig && this.lastRawConfig.length >= 48) {
+        return this.lastRawConfig;
+      }
+      // Safe defaults: effect=Wave, brightness=2, speed raw=2, cyan color, screenMode=clock
+      const defaults = new Uint8Array(48);
+      defaults[1] = 1;   // lightEffect: Wave
+      defaults[2] = 2;   // brightness: 2/4
+      defaults[3] = 2;   // speed raw (firmware 0=fast..4=slow; uiSpeed=2 → raw=2)
+      defaults[6] = 6; defaults[7] = 182; defaults[8] = 212; // cyan
+      defaults[29] = 2;  // logoBrightness
+      defaults[33] = 0;  // screenMode: clock face
+      defaults[43] = 100; // frameDurationMs low byte
+      return defaults;
+    }
   }
 
   public async getStatus(forceRefresh = false, lightOnly = false): Promise<HardwareStatusSnapshot> {
