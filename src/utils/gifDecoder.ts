@@ -1,8 +1,8 @@
 import { GifReader } from 'omggif';
-import { LCD_WIDTH, LCD_HEIGHT } from '../services/gmk87Hid';
+import { LCD_WIDTH, LCD_HEIGHT, MAX_TOTAL_FRAMES } from '../services/gmk87Hid';
 import { applyLcdCustomOverlays, LcdCustomizationOptions } from './lcdGenerators';
 
-const MAX_SAMPLED_GIF_FRAMES = 16;
+const MAX_SAMPLED_GIF_FRAMES = MAX_TOTAL_FRAMES;
 
 function sampleFrameIndices(totalFrames: number, maxFrames: number): number[] {
   if (totalFrames <= maxFrames) {
@@ -83,7 +83,7 @@ function sniffImageMimeType(bytes: Uint8Array, mimeTypeHint: string): { mime: st
 }
 
 /**
- * Decodes an animated GIF/WebP/APNG or static PNG/JPG/WebP ArrayBuffer into 1..16 sampled 240x135 LCD ImageData frames.
+ * Decodes an animated GIF/WebP/APNG or static PNG/JPG/WebP ArrayBuffer into 1..36 sampled 240x135 LCD ImageData frames.
  */
 export async function decodeImageOrGifBuffer(
   buffer: ArrayBuffer,

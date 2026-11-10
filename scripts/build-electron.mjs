@@ -38,6 +38,17 @@ await Promise.all([
     define: { 'import.meta.dirname': '__dirname' },
     external: ['node-hid', 'express', 'vite'],
   }),
+  esbuild.build({
+    entryPoints: [path.join(root, 'electron', 'hid-worker.ts')],
+    outfile: path.join(outDir, 'hid-worker.cjs'),
+    bundle: true,
+    platform: 'node',
+    target: 'node22',
+    format: 'cjs',
+    sourcemap: false,
+    define: { 'import.meta.dirname': '__dirname' },
+    external: ['node-hid'],
+  }),
 ]);
 
-console.log('Built Electron main, preload, and server bundles -> dist-electron/');
+console.log('Built Electron main, preload, worker, and server bundles -> dist-electron/');

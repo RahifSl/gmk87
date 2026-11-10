@@ -1,42 +1,86 @@
 /**
- * Zuoya GMK87 Hardware Protocol Engine (Local USB HID Bridge + Browser WebHID)
+ * Zuoya GMK87 Hardware Protocol Engine (Local USB HID Bridge Worker + Browser WebHID)
  * Vendor ID: 0x320F (12815), Product ID: 0x5055 (20565)
- * - LCD Screen Interface: usagePage 0xFF1C (65308), interface 3, Report ID 0x04
- * - VIA Keymap Interface: usagePage 0xFF60 (65376), interface 1, Report ID 0x00
+ * - LCD Screen Interface: usagePage 0xFF1C (65308), interface 3 fallback, Report ID 0x04
+ * - VIA Keymap Interface: usagePage 0xFF60 (65376), interface 1 fallback, Report ID 0x00
  */
 
-export const GMK87_VENDOR_ID = 0x320f;
-export const GMK87_PRODUCT_ID = 0x5055;
-export const LCD_USAGE_PAGE = 0xff1c;
-export const VIA_USAGE_PAGE = 0xff60;
-export const LCD_REPORT_ID = 0x04;
-export const VIA_REPORT_ID = 0x00;
+import {
+  GMK87_VENDOR_ID,
+  GMK87_PRODUCT_ID,
+  LCD_USAGE_PAGE,
+  VIA_USAGE_PAGE,
+  LCD_REPORT_ID,
+  VIA_REPORT_ID,
+  LCD_WIDTH,
+  LCD_HEIGHT,
+  RAW_FRAME_BYTES,
+  PADDED_FRAME_BYTES,
+  MAX_TOTAL_FRAMES,
+  MIN_FRAME_DURATION_MS,
+  VIA_LAYERS,
+  VIA_ROWS,
+  VIA_COLS,
+  VIA_KEYMAP_BYTES,
+  LcdCommand,
+  type Gmk87ParsedConfig,
+  type Gmk87ConfigPatch,
+  toBcd,
+  fromBcd,
+  formatRelease,
+  formatPacketHex,
+  checksum16,
+  buildLcdPacketBytes,
+  parseRawConfigBytes,
+  patchRawConfigBytes,
+  decodeViaKeymapBytes,
+  encodeViaKeymapToBytes,
+} from '../shared/gmk87Protocol';
 
-export const LCD_WIDTH = 240;
-export const LCD_HEIGHT = 135;
-export const RAW_FRAME_BYTES = LCD_WIDTH * LCD_HEIGHT * 2; // 64,800 bytes
-export const PADDED_FRAME_BYTES = 65536; // 64KB boundary per frame
-export const MAX_TOTAL_FRAMES = 36;
-
-export enum LcdCommand {
-  INIT = 0x01,
-  COMMIT = 0x02,
-  PREPARE_READ = 0x03,
-  READ_CONFIG = 0x05,
-  WRITE_CONFIG = 0x06,
-  FRAME_CHUNK = 0x21,
-  READY_UPLOAD = 0x23,
-}
+export {
+  GMK87_VENDOR_ID,
+  GMK87_PRODUCT_ID,
+  LCD_USAGE_PAGE,
+  VIA_USAGE_PAGE,
+  LCD_REPORT_ID,
+  VIA_REPORT_ID,
+  LCD_WIDTH,
+  LCD_HEIGHT,
+  RAW_FRAME_BYTES,
+  PADDED_FRAME_BYTES,
+  MAX_TOTAL_FRAMES,
+  MIN_FRAME_DURATION_MS,
+  VIA_LAYERS,
+  VIA_ROWS,
+  VIA_COLS,
+  VIA_KEYMAP_BYTES,
+  LcdCommand,
+  toBcd,
+  fromBcd,
+  formatRelease,
+  formatPacketHex,
+  checksum16,
+  buildLcdPacketBytes,
+  parseRawConfigBytes,
+  patchRawConfigBytes,
+  decodeViaKeymapBytes,
+  encodeViaKeymapToBytes,
+};
+export type { Gmk87ParsedConfig, Gmk87ConfigPatch };
 
 export interface Gmk87ConfigState {
-  lightingEffect: number; // cfg[1]: 0-18 (or up to 20)
+  lightingEffect: number; // cfg[1]: 0-18
   brightness: number; // cfg[2]: 0-9
-  speed: number; // cfg[3]: 0-4
+  speed: number; // UI level 0 (slowest) .. 4 (fastest), stored in cfg[3] as (4 - speed)
   effectDirection?: number; // cfg[4]: 0 = Forward (Right/Down), 1 = Reverse (Left/Up)
-  rainbowMode?: number; // cfg[5]: 0 = Custom Single Hue, 1 = Rainbow / Multicolour
+  rainbowMode?: number; // cfg[5]: 0 = Custom Single Hue, 1 (0xFF on hardware) = Rainbow / Multicolour
   rgbHueR: number; // cfg[6]
   rgbHueG: number; // cfg[7]
   rgbHueB: number; // cfg[8]
+  logoMode?: number; // cfg[28]: 0-4 (Blinking, Pulse Rainbow, Blinking Alt, Fixed, Fixed Alt)
+  logoBrightness?: number; // cfg[29]: 0-9 (0 = off)
+  logoRainbow?: number; // cfg[31]: 0 = Preset color, 1 (0xFF on hardware) = Rainbow
+  logoColor?: number; // cfg[32]: 0-8 (Red, Orange, Yellow, Green, Teal, Blue, Purple, White, Off)
   activeScreenMode: number; // cfg[33]: 0 = Clock/Stats, 1 = Slot 0, 2 = Slot 1
   slot0FrameCount: number; // cfg[34]
   slot1FrameCount: number; // cfg[46]
@@ -65,18 +109,25 @@ export interface ConnectionResult {
   deviceName: string;
   message: string;
   config?: Gmk87ConfigState;
+  slotCache?: { slot0Frames: number; slot1Frames: number };
 }
 
-/**
- * BCD Helper: toBcd(n) = ((Math.floor(n / 10) << 4) | (n % 10))
- */
-export function toBcd(n: number): number {
-  const clamped = Math.max(0, Math.min(99, Math.floor(n)));
-  return (Math.floor(clamped / 10) << 4) | (clamped % 10);
+export interface ViaBatchEntry {
+  layer: number;
+  row: number;
+  col: number;
+  keycode: number;
 }
 
-export function fromBcd(bcd: number): number {
-  return ((bcd >> 4) & 0x0f) * 10 + (bcd & 0x0f);
+export interface ViaMacroReadResult {
+  success: boolean;
+  supported: boolean;
+  viaProtocol: number;
+  count: number;
+  bufferSize: number;
+  macros: string[];
+  rawBytes?: number[];
+  error?: string;
 }
 
 /**
@@ -173,45 +224,18 @@ export function encodeImageDataToRGB565Frame(
 }
 
 /**
- * Builds the 64-byte LCD packet (returns the 63-byte payload passed to device.sendReport(0x04, payload),
- * plus the full 64-byte representation for inspection).
+ * Builds the 64-byte LCD packet via shared codec (returns the 63-byte payload passed to
+ * device.sendReport(0x04, payload), plus the full 64-byte representation for inspection).
  */
 export function buildLcdPacket(
   command: LcdCommand | number,
   posOffset: number,
   payload?: Uint8Array
 ): { reportPayload63: Uint8Array; fullPacket64: Uint8Array; checksum: number } {
-  const fullPacket64 = new Uint8Array(64);
-  fullPacket64[0] = LCD_REPORT_ID;
-
-  const len = payload ? Math.min(56, payload.length) : 0;
-  fullPacket64[3] = command & 0xff;
-  fullPacket64[4] = len & 0xff;
-  fullPacket64[5] = posOffset & 0xff;
-  fullPacket64[6] = (posOffset >> 8) & 0xff;
-  fullPacket64[7] = (posOffset >> 16) & 0xff;
-
-  if (payload && len > 0) {
-    fullPacket64.set(payload.subarray(0, len), 8);
-  }
-
-  let sum = 0;
-  for (let i = 3; i < 64; i++) {
-    sum += fullPacket64[i];
-  }
-  const checksum = sum & 0xffff;
-  fullPacket64[1] = checksum & 0xff;
-  fullPacket64[2] = (checksum >> 8) & 0xff;
-
+  const fullPacket64 = buildLcdPacketBytes(command, payload, posOffset);
+  const checksum = fullPacket64[1] | (fullPacket64[2] << 8);
   const reportPayload63 = fullPacket64.subarray(1, 64);
   return { reportPayload63, fullPacket64, checksum };
-}
-
-export function formatPacketHex(packet: Uint8Array, maxBytes = 16): string {
-  const slice = packet.subarray(0, maxBytes);
-  return Array.from(slice)
-    .map((b) => b.toString(16).toUpperCase().padStart(2, '0'))
-    .join(' ');
 }
 
 function uint8ToBase64(bytes: Uint8Array): string {
@@ -227,85 +251,163 @@ function uint8ToBase64(bytes: Uint8Array): string {
  * Parses a raw 48B or 64B GMK87 EEPROM config block into Gmk87ConfigState
  */
 export function parseConfigBuffer(cfg: Uint8Array): Gmk87ConfigState {
-  const sec = fromBcd(cfg[35] ?? 0);
-  const min = fromBcd(cfg[36] ?? 0);
-  const hour = fromBcd(cfg[37] ?? 0);
-  const day = Math.max(1, Math.min(31, fromBcd(cfg[39] ?? 1) || 1));
-  const month = Math.max(1, Math.min(12, fromBcd(cfg[40] ?? 1) || 1));
-  const year = 2000 + fromBcd(cfg[41] ?? 26);
-
-  const parsedDate = new Date(year, month - 1, day, hour, min, sec);
-  const rawDelay = (cfg[43] ?? 0) | ((cfg[44] ?? 0) << 8);
-
+  const parsed = parseRawConfigBytes(cfg);
   return {
-    lightingEffect: cfg[1] ?? 1,
-    brightness: Math.max(0, Math.min(9, cfg[2] ?? 5)),
-    speed: Math.max(0, Math.min(4, cfg[3] ?? 2)),
-    effectDirection: (cfg[4] ?? 0) & 0x01,
-    rainbowMode: (cfg[5] ?? 0) & 0x01,
-    rgbHueR: cfg[6] ?? 255,
-    rgbHueG: cfg[7] ?? 255,
-    rgbHueB: cfg[8] ?? 255,
-    activeScreenMode: Math.max(0, Math.min(2, cfg[33] ?? 1)),
-    slot0FrameCount: Math.max(1, cfg[34] || 1),
-    slot1FrameCount: Math.max(1, cfg[46] || 1),
-    frameDurationMs: Math.max(60, rawDelay || 100),
-    clockDate: Number.isNaN(parsedDate.getTime()) ? new Date() : parsedDate,
+    lightingEffect: parsed.lightingEffect,
+    brightness: parsed.brightness,
+    speed: parsed.speed,
+    effectDirection: parsed.effectDirection,
+    rainbowMode: parsed.rainbowMode,
+    rgbHueR: parsed.rgbHueR,
+    rgbHueG: parsed.rgbHueG,
+    rgbHueB: parsed.rgbHueB,
+    logoMode: parsed.logoMode,
+    logoBrightness: parsed.logoBrightness,
+    logoRainbow: parsed.logoRainbow,
+    logoColor: parsed.logoColor,
+    activeScreenMode: parsed.activeScreenMode,
+    slot0FrameCount: parsed.slot0FrameCount,
+    slot1FrameCount: parsed.slot1FrameCount,
+    frameDurationMs: parsed.frameDurationMs,
+    clockDate: new Date(parsed.clockTimestampMs),
   };
 }
 
 /**
- * Serializes Gmk87ConfigState into a 48-byte or 64-byte config buffer,
- * preserving unknown hardware bytes (logo LED, direction, V0112 protocol selector) when baseBuffer is supplied.
+ * Serializes Gmk87ConfigState into a 48-byte or 64-byte config buffer using shared codec,
+ * preserving unknown hardware bytes (V0112 protocol selector, unknown EEPROM flags) when baseBuffer is supplied.
  */
 export function serializeConfigBuffer(
   state: Gmk87ConfigState,
   baseBuffer?: Uint8Array | null
 ): Uint8Array {
-  const len = baseBuffer && baseBuffer.length >= 64 ? 64 : 48;
-  const cfg = new Uint8Array(len);
-  if (baseBuffer) {
-    cfg.set(baseBuffer.subarray(0, len), 0);
+  return patchRawConfigBytes(
+    baseBuffer,
+    {
+      lightingEffect: state.lightingEffect,
+      brightness: state.brightness,
+      speed: state.speed,
+      effectDirection: state.effectDirection,
+      rainbowMode: state.rainbowMode,
+      rgbHueR: state.rgbHueR,
+      rgbHueG: state.rgbHueG,
+      rgbHueB: state.rgbHueB,
+      logoMode: state.logoMode,
+      logoBrightness: state.logoBrightness,
+      logoRainbow: state.logoRainbow,
+      logoColor: state.logoColor,
+      activeScreenMode: state.activeScreenMode,
+      slot0FrameCount: state.slot0FrameCount,
+      slot1FrameCount: state.slot1FrameCount,
+      frameDurationMs: state.frameDurationMs,
+      clockTimestampMs: state.clockDate.getTime(),
+    },
+    48
+  );
+}
+
+// ============================================================================
+// Persistent WebHID Slot 0 / Slot 1 IndexedDB Frame Cache (browser fallback)
+// ============================================================================
+const IDB_NAME = 'gmk87_slot_cache_v1';
+const IDB_STORE = 'slots';
+
+function openSlotDb(): Promise<IDBDatabase | null> {
+  if (typeof indexedDB === 'undefined') return Promise.resolve(null);
+  return new Promise((resolve) => {
+    try {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = () => {
+        const db = req.result;
+        if (!db.objectStoreNames.contains(IDB_STORE)) {
+          db.createObjectStore(IDB_STORE);
+        }
+      };
+      req.onsuccess = () => resolve(req.result);
+      req.onerror = () => resolve(null);
+    } catch {
+      resolve(null);
+    }
+  });
+}
+
+async function loadSlotFromIndexedDB(slot: 0 | 1): Promise<Uint8Array[] | null> {
+  const db = await openSlotDb();
+  if (!db) return null;
+  return new Promise((resolve) => {
+    try {
+      const tx = db.transaction(IDB_STORE, 'readonly');
+      const req = tx.objectStore(IDB_STORE).get(`slot${slot}`);
+      req.onsuccess = () => {
+        db.close();
+        const val = req.result;
+        if (val && Array.isArray(val.frames) && val.frames.length > 0) {
+          const restored: Uint8Array[] = [];
+          for (const rawBuf of val.frames) {
+            if (rawBuf instanceof ArrayBuffer || ArrayBuffer.isView(rawBuf)) {
+              const src =
+                rawBuf instanceof ArrayBuffer
+                  ? new Uint8Array(rawBuf)
+                  : new Uint8Array(rawBuf.buffer, rawBuf.byteOffset, rawBuf.byteLength);
+              const padded = new Uint8Array(PADDED_FRAME_BYTES);
+              padded.set(src.subarray(0, PADDED_FRAME_BYTES), 0);
+              restored.push(padded);
+            }
+          }
+          resolve(restored.length > 0 ? restored : null);
+        } else {
+          resolve(null);
+        }
+      };
+      req.onerror = () => {
+        db.close();
+        resolve(null);
+      };
+    } catch {
+      db.close();
+      resolve(null);
+    }
+  });
+}
+
+async function saveSlotToIndexedDB(slot: 0 | 1, frames: Uint8Array[]): Promise<void> {
+  const db = await openSlotDb();
+  if (!db) return;
+  try {
+    const rawSlices = frames.map((buf) => {
+      const copy = new Uint8Array(RAW_FRAME_BYTES);
+      copy.set(buf.subarray(0, RAW_FRAME_BYTES), 0);
+      return copy.buffer;
+    });
+    const tx = db.transaction(IDB_STORE, 'readwrite');
+    tx.objectStore(IDB_STORE).put({ frames: rawSlices, updatedAt: Date.now() }, `slot${slot}`);
+    tx.oncomplete = () => db.close();
+    tx.onerror = () => db.close();
+  } catch {
+    db.close();
   }
+}
 
-  cfg[0] = baseBuffer ? baseBuffer[0] : 0x00;
-  cfg[1] = Math.max(0, Math.min(18, state.lightingEffect));
-  cfg[2] = Math.max(0, Math.min(9, state.brightness));
-  cfg[3] = Math.max(0, Math.min(4, state.speed));
-  if (state.effectDirection !== undefined) {
-    cfg[4] = state.effectDirection ? 1 : 0;
-  }
-  if (state.rainbowMode !== undefined) {
-    cfg[5] = state.rainbowMode ? 1 : 0;
-  }
-  cfg[6] = state.rgbHueR & 0xff;
-  cfg[7] = state.rgbHueG & 0xff;
-  cfg[8] = state.rgbHueB & 0xff;
-
-  cfg[33] = Math.max(0, Math.min(2, state.activeScreenMode));
-  cfg[34] = Math.max(1, Math.min(255, state.slot0FrameCount));
-  cfg[46] = Math.max(1, Math.min(255, state.slot1FrameCount));
-
-  const existingDelay = (cfg[43] ?? 0) | ((cfg[44] ?? 0) << 8);
-  const frameDurationMs = Math.max(60, Math.min(65535, state.frameDurationMs ?? (existingDelay || 100)));
-  cfg[43] = frameDurationMs & 0xff;
-  cfg[44] = (frameDurationMs >> 8) & 0xff;
-
-  const d = state.clockDate;
-  cfg[35] = toBcd(d.getSeconds());
-  cfg[36] = toBcd(d.getMinutes());
-  cfg[37] = toBcd(d.getHours());
-  cfg[38] = d.getDay(); // 0=Sunday..6=Saturday matching GMK87 firmware & ConfigClient.cs
-  cfg[39] = toBcd(d.getDate());
-  cfg[40] = toBcd(d.getMonth() + 1);
-  cfg[41] = toBcd(d.getFullYear() % 100);
-
-  // Repair damaged V0112 VIA protocol selector if reading extended 64-byte config
-  if (len >= 64 && cfg[0x31] !== 9 && cfg[0x31] !== 11) {
-    cfg[0x31] = 11;
-  }
-
-  return cfg;
+function parsedPayloadToConfigState(cfg: any, fallbackDate = new Date()): Gmk87ConfigState {
+  return {
+    lightingEffect: cfg.lightingEffect,
+    brightness: cfg.brightness,
+    speed: cfg.speed,
+    effectDirection: cfg.effectDirection ?? 0,
+    rainbowMode: cfg.rainbowMode ?? 0,
+    rgbHueR: cfg.rgbHueR,
+    rgbHueG: cfg.rgbHueG,
+    rgbHueB: cfg.rgbHueB,
+    logoMode: cfg.logoMode ?? 0,
+    logoBrightness: cfg.logoBrightness ?? 9,
+    logoRainbow: cfg.logoRainbow ?? 0,
+    logoColor: cfg.logoColor ?? 0,
+    activeScreenMode: cfg.activeScreenMode,
+    slot0FrameCount: cfg.slot0FrameCount,
+    slot1FrameCount: cfg.slot1FrameCount,
+    frameDurationMs: Math.max(MIN_FRAME_DURATION_MS, cfg.frameDurationMs || 100),
+    clockDate: cfg.clockTimestampMs ? new Date(cfg.clockTimestampMs) : fallbackDate,
+  };
 }
 
 // Minimal WebHID TypeScript declarations for browsers
@@ -336,13 +438,65 @@ export class Gmk87HidEngine {
   private bridgeViaProtocol = 9;
   private bridgeFirmwareVersion = '';
   private bridgeDeviceName = 'Zuoya GMK87';
+  private bridgeSlotCache = { slot0Frames: 0, slot1Frames: 0 };
   private configBuffer: Uint8Array;
   private hasReadHardwareConfig = false;
   private isUploading = false;
   private cachedSlotFrames: [Uint8Array[] | null, Uint8Array[] | null] = [null, null];
+  private hardwareChangeListener:
+    | ((event: { type: 'connect' | 'disconnect'; deviceName?: string }) => void)
+    | null = null;
+  private webHidEventsBound = false;
 
   constructor(initialConfig: Gmk87ConfigState) {
     this.configBuffer = serializeConfigBuffer(initialConfig);
+    this.ensureWebHidEventBindings();
+  }
+
+  public setHardwareChangeListener(
+    cb: ((event: { type: 'connect' | 'disconnect'; deviceName?: string }) => void) | null
+  ): void {
+    this.hardwareChangeListener = cb;
+    this.ensureWebHidEventBindings();
+  }
+
+  private ensureWebHidEventBindings(): void {
+    if (this.webHidEventsBound || !this.isWebHidSupported()) return;
+    const navHid = (navigator as any).hid;
+    if (!navHid?.addEventListener) return;
+    this.webHidEventsBound = true;
+
+    navHid.addEventListener('disconnect', (evt: any) => {
+      const dev: HidDevice | undefined = evt?.device;
+      if (!dev) return;
+      let affected = false;
+      if (dev === this.lcdDevice) {
+        this.lcdDevice = null;
+        affected = true;
+      }
+      if (dev === this.viaDevice) {
+        this.viaDevice = null;
+        affected = true;
+      }
+      if (affected && !this.isConnected()) {
+        this.hasReadHardwareConfig = false;
+        this.hardwareChangeListener?.({
+          type: 'disconnect',
+          deviceName: dev.productName || 'Zuoya GMK87',
+        });
+      }
+    });
+
+    navHid.addEventListener('connect', (evt: any) => {
+      const dev: HidDevice | undefined = evt?.device;
+      if (!dev) return;
+      if (dev.vendorId === GMK87_VENDOR_ID && dev.productId === GMK87_PRODUCT_ID) {
+        this.hardwareChangeListener?.({
+          type: 'connect',
+          deviceName: dev.productName || 'Zuoya GMK87',
+        });
+      }
+    });
   }
 
   public isWebHidSupported(): boolean {
@@ -371,9 +525,21 @@ export class Gmk87HidEngine {
     return this.bridgeViaProtocol;
   }
 
+  public getSlotCacheCounts(): { slot0Frames: number; slot1Frames: number } {
+    if (this.isBridgeActive()) {
+      return { ...this.bridgeSlotCache };
+    }
+    return {
+      slot0Frames: this.cachedSlotFrames[0]?.length ?? 0,
+      slot1Frames: this.cachedSlotFrames[1]?.length ?? 0,
+    };
+  }
+
   public getConnectedDeviceName(): string {
     if (this.isBridgeActive()) {
-      return `${this.bridgeDeviceName}${this.bridgeFirmwareVersion ? ` (${this.bridgeFirmwareVersion})` : ''}`;
+      return `${this.bridgeDeviceName}${
+        this.bridgeFirmwareVersion ? ` (${this.bridgeFirmwareVersion})` : ''
+      }`;
     }
     if (this.lcdDevice?.opened && this.viaDevice?.opened) {
       return `${this.lcdDevice.productName || 'Zuoya GMK87'} (LCD + VIA)`;
@@ -389,22 +555,32 @@ export class Gmk87HidEngine {
 
   /**
    * Probes the local Node USB HID bridge (/api/hid/status) for zero-click automatic connection.
+   * Pass `lightOnly = true` for fast USB presence checks without reading full config from EEPROM.
    */
-  public async checkBridgeStatus(forceRefresh = false): Promise<ConnectionResult> {
+  public async checkBridgeStatus(
+    forceRefresh = false,
+    lightOnly = false
+  ): Promise<ConnectionResult> {
     try {
-      const url = forceRefresh ? '/api/hid/status?refresh=1' : '/api/hid/status';
+      const params = new URLSearchParams();
+      if (forceRefresh) params.set('refresh', '1');
+      if (lightOnly) params.set('light', '1');
+      const qs = params.toString();
+      const url = qs ? `/api/hid/status?${qs}` : '/api/hid/status';
+
       const resp = await fetch(url, { signal: AbortSignal.timeout(4000) });
       const contentType = resp.headers.get('content-type') || '';
       if (!resp.ok || !contentType.includes('application/json')) {
         this.bridgeActive = false;
         this.bridgeLcdConnected = false;
         this.bridgeViaConnected = false;
+        const webHidOpen = Boolean(this.lcdDevice?.opened || this.viaDevice?.opened);
         return {
-          connected: Boolean(this.lcdDevice?.opened || this.viaDevice?.opened),
+          connected: webHidOpen,
           bridgeAvailable: false,
           lcdConnected: Boolean(this.lcdDevice?.opened),
           viaConnected: Boolean(this.viaDevice?.opened),
-          mode: this.lcdDevice?.opened || this.viaDevice?.opened ? 'webhid' : 'simulation',
+          mode: webHidOpen ? 'webhid' : 'simulation',
           viaProtocol: 9,
           deviceName: this.getConnectedDeviceName(),
           message: 'Local USB bridge unavailable; using WebHID / Simulation Mode.',
@@ -414,14 +590,17 @@ export class Gmk87HidEngine {
       const data = await resp.json();
       if (!data.bridgeAvailable) {
         this.bridgeActive = false;
+        this.bridgeLcdConnected = false;
+        this.bridgeViaConnected = false;
+        const webHidOpen = Boolean(this.lcdDevice?.opened || this.viaDevice?.opened);
         return {
-          connected: false,
+          connected: webHidOpen,
           bridgeAvailable: false,
-          lcdConnected: false,
-          viaConnected: false,
-          mode: 'simulation',
+          lcdConnected: Boolean(this.lcdDevice?.opened),
+          viaConnected: Boolean(this.viaDevice?.opened),
+          mode: webHidOpen ? 'webhid' : 'simulation',
           viaProtocol: 9,
-          deviceName: 'Simulation Mode',
+          deviceName: this.getConnectedDeviceName(),
           message: 'Local USB bridge not active.',
         };
       }
@@ -432,26 +611,16 @@ export class Gmk87HidEngine {
       this.bridgeViaProtocol = Number(data.viaProtocol) || 9;
       this.bridgeFirmwareVersion = data.firmwareVersion || '';
       this.bridgeDeviceName = data.deviceName || 'Zuoya GMK87';
+      if (data.slotCache && typeof data.slotCache === 'object') {
+        this.bridgeSlotCache = {
+          slot0Frames: Number(data.slotCache.slot0Frames) || 0,
+          slot1Frames: Number(data.slotCache.slot1Frames) || 0,
+        };
+      }
 
       let parsedConfig: Gmk87ConfigState | undefined;
       if (data.config) {
-        parsedConfig = {
-          lightingEffect: data.config.lightingEffect,
-          brightness: data.config.brightness,
-          speed: data.config.speed,
-          effectDirection: data.config.effectDirection ?? 0,
-          rainbowMode: data.config.rainbowMode ?? 0,
-          rgbHueR: data.config.rgbHueR,
-          rgbHueG: data.config.rgbHueG,
-          rgbHueB: data.config.rgbHueB,
-          activeScreenMode: data.config.activeScreenMode,
-          slot0FrameCount: data.config.slot0FrameCount,
-          slot1FrameCount: data.config.slot1FrameCount,
-          frameDurationMs: data.config.frameDurationMs || 100,
-          clockDate: data.config.clockTimestampMs
-            ? new Date(data.config.clockTimestampMs)
-            : new Date(),
-        };
+        parsedConfig = parsedPayloadToConfigState(data.config);
         this.configBuffer = Array.isArray(data.rawConfig)
           ? new Uint8Array(data.rawConfig)
           : serializeConfigBuffer(parsedConfig, this.configBuffer);
@@ -469,20 +638,25 @@ export class Gmk87HidEngine {
           firmwareVersion: this.bridgeFirmwareVersion,
           deviceName: this.getConnectedDeviceName(),
           config: parsedConfig,
-          message: `USB Bridge Auto-Connected: ${this.bridgeDeviceName} ${this.bridgeFirmwareVersion} (LCD: ${
-            this.bridgeLcdConnected ? 'OK' : 'N/A'
-          }, VIA P${this.bridgeViaProtocol}: ${this.bridgeViaConnected ? 'OK' : 'N/A'})`,
+          slotCache: this.bridgeSlotCache,
+          message: `USB Bridge Auto-Connected: ${this.bridgeDeviceName} ${
+            this.bridgeFirmwareVersion
+          } (LCD: ${this.bridgeLcdConnected ? 'OK' : 'N/A'}, VIA P${this.bridgeViaProtocol}: ${
+            this.bridgeViaConnected ? 'OK' : 'N/A'
+          })`,
         };
       }
 
+      const webHidOpen = Boolean(this.lcdDevice?.opened || this.viaDevice?.opened);
       return {
-        connected: false,
+        connected: webHidOpen,
         bridgeAvailable: true,
-        lcdConnected: false,
-        viaConnected: false,
-        mode: 'simulation',
+        lcdConnected: Boolean(this.lcdDevice?.opened),
+        viaConnected: Boolean(this.viaDevice?.opened),
+        mode: webHidOpen ? 'webhid' : 'simulation',
         viaProtocol: 9,
-        deviceName: 'Simulation Mode',
+        deviceName: this.getConnectedDeviceName(),
+        slotCache: this.bridgeSlotCache,
         message:
           data.error ||
           'USB Bridge active, but Zuoya GMK87 (0x320F:0x5055) not detected in wired USB mode.',
@@ -491,16 +665,65 @@ export class Gmk87HidEngine {
       this.bridgeActive = false;
       this.bridgeLcdConnected = false;
       this.bridgeViaConnected = false;
+      const webHidOpen = Boolean(this.lcdDevice?.opened || this.viaDevice?.opened);
       return {
-        connected: Boolean(this.lcdDevice?.opened || this.viaDevice?.opened),
+        connected: webHidOpen,
         bridgeAvailable: false,
         lcdConnected: Boolean(this.lcdDevice?.opened),
         viaConnected: Boolean(this.viaDevice?.opened),
-        mode: this.lcdDevice?.opened || this.viaDevice?.opened ? 'webhid' : 'simulation',
+        mode: webHidOpen ? 'webhid' : 'simulation',
         viaProtocol: 9,
         deviceName: this.getConnectedDeviceName(),
         message: 'Running without local USB bridge (WebHID / Simulation Mode).',
       };
+    }
+  }
+
+  /**
+   * Attempts silent WebHID reconnection to already-permitted 0x320F:0x5055 interfaces (no chooser dialog).
+   */
+  public async tryAutoReconnectWebHid(): Promise<ConnectionResult | null> {
+    if (!this.isWebHidSupported() || this.isBridgeActive()) return null;
+    try {
+      const navHid = (navigator as any).hid;
+      const permitted: HidDevice[] = await navHid.getDevices();
+      const matching = permitted.filter(
+        (d) => d.vendorId === GMK87_VENDOR_ID && d.productId === GMK87_PRODUCT_ID
+      );
+      if (matching.length === 0) return null;
+
+      for (const dev of matching) {
+        const hasLcd = dev.collections?.some((c) => c.usagePage === LCD_USAGE_PAGE);
+        const hasVia = dev.collections?.some((c) => c.usagePage === VIA_USAGE_PAGE);
+        if (hasLcd && (!this.lcdDevice || !this.lcdDevice.opened)) {
+          if (!dev.opened) await dev.open();
+          this.lcdDevice = dev;
+        }
+        if (hasVia && (!this.viaDevice || !this.viaDevice.opened)) {
+          if (!dev.opened) await dev.open();
+          this.viaDevice = dev;
+        }
+      }
+
+      if (!this.lcdDevice?.opened && !this.viaDevice?.opened) return null;
+
+      let config: Gmk87ConfigState | undefined;
+      if (this.lcdDevice?.opened) {
+        config = await this.readWebHidConfig().catch(() => undefined);
+      }
+
+      return {
+        connected: true,
+        lcdConnected: Boolean(this.lcdDevice?.opened),
+        viaConnected: Boolean(this.viaDevice?.opened),
+        mode: 'webhid',
+        viaProtocol: this.bridgeViaProtocol || 9,
+        deviceName: this.getConnectedDeviceName(),
+        config,
+        message: `WebHID Auto-Connected: ${this.getConnectedDeviceName()}`,
+      };
+    } catch {
+      return null;
     }
   }
 
@@ -510,7 +733,6 @@ export class Gmk87HidEngine {
    * so clicking Connect when one is paired prompts for the missing interface automatically.
    */
   public async connect(): Promise<ConnectionResult> {
-    // Check if local USB bridge already sees the physical keyboard
     const bridge = await this.checkBridgeStatus(true);
     if (bridge.connected) {
       return bridge;
@@ -533,10 +755,18 @@ export class Gmk87HidEngine {
 
       const filters: Array<{ vendorId: number; productId: number; usagePage?: number }> = [];
       if (!this.lcdDevice) {
-        filters.push({ vendorId: GMK87_VENDOR_ID, productId: GMK87_PRODUCT_ID, usagePage: LCD_USAGE_PAGE });
+        filters.push({
+          vendorId: GMK87_VENDOR_ID,
+          productId: GMK87_PRODUCT_ID,
+          usagePage: LCD_USAGE_PAGE,
+        });
       }
       if (!this.viaDevice) {
-        filters.push({ vendorId: GMK87_VENDOR_ID, productId: GMK87_PRODUCT_ID, usagePage: VIA_USAGE_PAGE });
+        filters.push({
+          vendorId: GMK87_VENDOR_ID,
+          productId: GMK87_PRODUCT_ID,
+          usagePage: VIA_USAGE_PAGE,
+        });
       }
       if (filters.length === 0) {
         filters.push({ vendorId: GMK87_VENDOR_ID, productId: GMK87_PRODUCT_ID });
@@ -611,6 +841,7 @@ export class Gmk87HidEngine {
     this.bridgeActive = false;
     this.bridgeLcdConnected = false;
     this.bridgeViaConnected = false;
+    this.hasReadHardwareConfig = false;
     if (this.lcdDevice?.opened) {
       await this.lcdDevice.close().catch(() => {});
     }
@@ -714,29 +945,44 @@ export class Gmk87HidEngine {
   }
 
   /**
-   * Reads the real 48-byte (or 64-byte on V0112) config buffer via WebHID 0xFF1C
+   * Reads the real 48-byte (or 64-byte on V0112) config buffer via WebHID 0xFF1C with strict ACK verification.
    */
   public async readWebHidConfig(): Promise<Gmk87ConfigState> {
     if (!this.lcdDevice?.opened) {
       return parseConfigBuffer(this.configBuffer);
     }
 
-    await this.transactWebHidLcd(LcdCommand.INIT, 0, undefined, true);
-    for (let i = 0; i < 9; i++) {
-      await this.transactWebHidLcd(LcdCommand.PREPARE_READ, i * 4, new Uint8Array(4), true);
+    const initRes = await this.transactWebHidLcd(LcdCommand.INIT, 0, undefined, true);
+    if (!initRes.ackReceived) {
+      throw new Error('WebHID INIT (0x01) timeout while reading GMK87 config');
     }
-    await this.transactWebHidLcd(LcdCommand.PREPARE_READ, 36, new Uint8Array(1), true);
-    await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, true);
+
+    for (let i = 0; i < 9; i++) {
+      const prep = await this.transactWebHidLcd(LcdCommand.PREPARE_READ, i * 4, new Uint8Array(4), true);
+      if (!prep.ackReceived) {
+        throw new Error(`WebHID PREPARE_READ (0x03) timeout at offset ${i * 4}`);
+      }
+    }
+    const prepTail = await this.transactWebHidLcd(LcdCommand.PREPARE_READ, 36, new Uint8Array(1), true);
+    if (!prepTail.ackReceived) {
+      throw new Error('WebHID PREPARE_READ (0x03) timeout at offset 36');
+    }
+
+    const commitRes = await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, true);
+    if (!commitRes.ackReceived) {
+      throw new Error('WebHID COMMIT (0x02) timeout before reading EEPROM config');
+    }
 
     const raw48 = new Uint8Array(48);
     for (let i = 0; i < 12; i++) {
       const res = await this.transactWebHidLcd(LcdCommand.READ_CONFIG, i * 4, new Uint8Array(4), true);
-      if (res.replyPayload && res.replyPayload.length >= 4) {
-        raw48.set(res.replyPayload.subarray(0, 4), i * 4);
+      if (!res.ackReceived || !res.replyPayload || res.replyPayload.length < 4) {
+        throw new Error(`WebHID READ_CONFIG (0x05) timeout/short read at offset ${i * 4}`);
       }
+      raw48.set(res.replyPayload.subarray(0, 4), i * 4);
     }
 
-    // Probe V0112 extended tail (positions 48..60) with quick timeout
+    // Optional probe for V0112 extended tail (positions 48..60); ignore blank 0xFF EEPROM on V0104
     const probe48 = await this.transactWebHidLcd(
       LcdCommand.READ_CONFIG,
       48,
@@ -744,7 +990,12 @@ export class Gmk87HidEngine {
       true,
       150
     );
-    if (probe48.replyPayload && probe48.replyPayload.length >= 4) {
+    const hasExtendedFirmwareBlock =
+      probe48.ackReceived &&
+      probe48.replyPayload &&
+      probe48.replyPayload.length >= 4 &&
+      !probe48.replyPayload.subarray(0, 4).every((b) => b === 0xff);
+    if (hasExtendedFirmwareBlock && probe48.replyPayload) {
       const raw64 = new Uint8Array(64);
       raw64.set(raw48, 0);
       raw64.set(probe48.replyPayload.subarray(0, 4), 48);
@@ -756,9 +1007,10 @@ export class Gmk87HidEngine {
           true,
           250
         );
-        if (res.replyPayload && res.replyPayload.length >= 4) {
-          raw64.set(res.replyPayload.subarray(0, 4), pos);
+        if (!res.ackReceived || !res.replyPayload || res.replyPayload.length < 4) {
+          throw new Error(`WebHID READ_CONFIG (0x05) timeout at extended offset ${pos}`);
         }
+        raw64.set(res.replyPayload.subarray(0, 4), pos);
       }
       this.configBuffer = raw64;
     } else {
@@ -795,24 +1047,8 @@ export class Gmk87HidEngine {
         if (resp.ok && data.success) {
           this.bridgeActive = true;
           this.bridgeLcdConnected = true;
-          const parsedConfig: Gmk87ConfigState | undefined = data.config
-            ? {
-                lightingEffect: data.config.lightingEffect,
-                brightness: data.config.brightness,
-                speed: data.config.speed,
-                effectDirection: data.config.effectDirection ?? 0,
-                rainbowMode: data.config.rainbowMode ?? 0,
-                rgbHueR: data.config.rgbHueR,
-                rgbHueG: data.config.rgbHueG,
-                rgbHueB: data.config.rgbHueB,
-                activeScreenMode: data.config.activeScreenMode,
-                slot0FrameCount: data.config.slot0FrameCount,
-                slot1FrameCount: data.config.slot1FrameCount,
-                frameDurationMs: data.config.frameDurationMs || 100,
-                clockDate: data.config.clockTimestampMs
-                  ? new Date(data.config.clockTimestampMs)
-                  : clockDate,
-              }
+          const parsedConfig = data.config
+            ? parsedPayloadToConfigState(data.config, clockDate)
             : undefined;
           if (Array.isArray(data.rawConfig)) {
             this.configBuffer = new Uint8Array(data.rawConfig);
@@ -890,10 +1126,14 @@ export class Gmk87HidEngine {
           rgbHueR: state.rgbHueR,
           rgbHueG: state.rgbHueG,
           rgbHueB: state.rgbHueB,
+          logoMode: state.logoMode,
+          logoBrightness: state.logoBrightness,
+          logoRainbow: state.logoRainbow,
+          logoColor: state.logoColor,
           activeScreenMode: state.activeScreenMode,
           slot0FrameCount: state.slot0FrameCount,
           slot1FrameCount: state.slot1FrameCount,
-          frameDurationMs: state.frameDurationMs ?? 100,
+          frameDurationMs: Math.max(MIN_FRAME_DURATION_MS, state.frameDurationMs ?? 100),
           clockTimestampMs: Date.now(),
         }),
       });
@@ -905,17 +1145,23 @@ export class Gmk87HidEngine {
         this.configBuffer = new Uint8Array(data.rawConfig);
         this.hasReadHardwareConfig = true;
       } else if (data.config) {
-        this.configBuffer = serializeConfigBuffer({ ...state, clockDate: new Date() }, this.configBuffer);
+        this.configBuffer = serializeConfigBuffer(
+          { ...state, clockDate: new Date() },
+          this.configBuffer
+        );
       }
       return data.packetHex || '04 ... 06';
     }
 
     if (this.lcdDevice?.opened && !this.hasReadHardwareConfig) {
-      await this.readWebHidConfig().catch(() => {});
+      await this.readWebHidConfig();
     }
 
     const liveState: Gmk87ConfigState = { ...state, clockDate: new Date() };
-    this.configBuffer = serializeConfigBuffer(liveState, this.hasReadHardwareConfig ? this.configBuffer : null);
+    this.configBuffer = serializeConfigBuffer(
+      liveState,
+      this.hasReadHardwareConfig ? this.configBuffer : null
+    );
 
     const initRes = await this.transactWebHidLcd(LcdCommand.INIT, 0, undefined, true);
     if (this.lcdDevice?.opened && !initRes.ackReceived) {
@@ -938,9 +1184,9 @@ export class Gmk87HidEngine {
   }
 
   /**
-   * Streams 1..16 240x135 RGB565 frames (65,536B padded each) to the GMK87 LCD flash memory.
-   * Applies Floyd-Steinberg dithering to actual transmitted frames when enabled, and handles
-   * both Slot 0 and Slot 1 using the verified contiguous flash upload layout starting at pos = 0.
+   * Streams 1..36 240x135 RGB565 frames (65,536B padded each) to GMK87 SPI NOR flash.
+   * Slot 0 supports up to 36 frames; Slot 1 supports up to 35 frames (preserving >= 1 frame in Slot 0)
+   * using contiguous SPI flash upload layout starting at pos = 0.
    */
   public async uploadFramesToLcd(
     frames: ImageData[],
@@ -961,8 +1207,9 @@ export class Gmk87HidEngine {
         targetSlot === 1 ? encodedTarget.slice(0, MAX_TOTAL_FRAMES - 1) : encodedTarget;
       const frameCount = Math.max(1, usableTarget.length);
       this.cachedSlotFrames[targetSlot] = usableTarget;
+      void saveSlotToIndexedDB(targetSlot, usableTarget);
 
-      // Via Local USB Bridge: stream via Express -> node-hid while polling live progress
+      // Via Local USB Bridge: stream via Worker Thread -> node-hid while polling live progress
       if (this.isBridgeActive()) {
         const framesBase64 = usableTarget.map((buf) => uint8ToBase64(buf.subarray(0, RAW_FRAME_BYTES)));
         let polling = true;
@@ -974,7 +1221,10 @@ export class Gmk87HidEngine {
             if (pResp.ok) {
               const pData = await pResp.json();
               if (pData && pData.phase && pData.phase !== 'idle') {
-                const frameIdx = Math.max(0, Math.min(cappedFrames.length - 1, (pData.currentFrame || 1) - 1));
+                const frameIdx = Math.max(
+                  0,
+                  Math.min(cappedFrames.length - 1, (pData.currentFrame || 1) - 1)
+                );
                 onProgress(pData, cappedFrames[frameIdx]);
               }
             }
@@ -989,7 +1239,7 @@ export class Gmk87HidEngine {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
               targetSlot,
-              frameDurationMs: Math.max(60, configState.frameDurationMs ?? 100),
+              frameDurationMs: Math.max(MIN_FRAME_DURATION_MS, configState.frameDurationMs ?? 100),
               config: {
                 lightingEffect: configState.lightingEffect,
                 brightness: configState.brightness,
@@ -999,6 +1249,10 @@ export class Gmk87HidEngine {
                 rgbHueR: configState.rgbHueR,
                 rgbHueG: configState.rgbHueG,
                 rgbHueB: configState.rgbHueB,
+                logoMode: configState.logoMode,
+                logoBrightness: configState.logoBrightness,
+                logoRainbow: configState.logoRainbow,
+                logoColor: configState.logoColor,
                 clockTimestampMs: Date.now(),
               },
               framesBase64,
@@ -1012,26 +1266,20 @@ export class Gmk87HidEngine {
             throw new Error(resData.error || `HTTP ${uploadResp.status} bridge upload failed`);
           }
 
+          if (resData.slotCache && typeof resData.slotCache === 'object') {
+            this.bridgeSlotCache = {
+              slot0Frames: Number(resData.slotCache.slot0Frames) || 0,
+              slot1Frames: Number(resData.slotCache.slot1Frames) || 0,
+            };
+          }
+
           let returnedConfig: Gmk87ConfigState | undefined;
           if (resData.config) {
-            returnedConfig = {
-              lightingEffect: resData.config.lightingEffect,
-              brightness: resData.config.brightness,
-              speed: resData.config.speed,
-              effectDirection: resData.config.effectDirection ?? 0,
-              rainbowMode: resData.config.rainbowMode ?? 0,
-              rgbHueR: resData.config.rgbHueR,
-              rgbHueG: resData.config.rgbHueG,
-              rgbHueB: resData.config.rgbHueB,
-              activeScreenMode: resData.config.activeScreenMode,
-              slot0FrameCount: resData.config.slot0FrameCount,
-              slot1FrameCount: resData.config.slot1FrameCount,
-              frameDurationMs: resData.config.frameDurationMs || 100,
-              clockDate: resData.config.clockTimestampMs
-                ? new Date(resData.config.clockTimestampMs)
-                : new Date(),
-            };
-            this.configBuffer = serializeConfigBuffer(returnedConfig, this.configBuffer);
+            returnedConfig = parsedPayloadToConfigState(resData.config);
+            this.configBuffer = Array.isArray(resData.rawConfig)
+              ? new Uint8Array(resData.rawConfig)
+              : serializeConfigBuffer(returnedConfig, this.configBuffer);
+            this.hasReadHardwareConfig = true;
           }
 
           onProgress(
@@ -1055,9 +1303,14 @@ export class Gmk87HidEngine {
         }
       }
 
-      // Direct WebHID or Simulation Mode
+      // Direct WebHID or Simulation Mode (lazily hydrate other slot from IndexedDB across reloads)
+      const otherSlot: 0 | 1 = targetSlot === 0 ? 1 : 0;
+      if (!this.cachedSlotFrames[otherSlot]) {
+        this.cachedSlotFrames[otherSlot] = await loadSlotFromIndexedDB(otherSlot);
+      }
+
       if (this.lcdDevice?.opened && !this.hasReadHardwareConfig) {
-        await this.readWebHidConfig().catch(() => {});
+        await this.readWebHidConfig();
       }
 
       let uploadFramesList: Uint8Array[];
@@ -1068,7 +1321,7 @@ export class Gmk87HidEngine {
         const slot1Suffix = this.cachedSlotFrames[1] || [new Uint8Array(PADDED_FRAME_BYTES)];
         const maxSlot1 = Math.max(0, MAX_TOTAL_FRAMES - usableTarget.length);
         const usableSlot1 = slot1Suffix.slice(0, maxSlot1);
-        if (usableSlot1.length > 0) {
+        if (this.cachedSlotFrames[1]) {
           this.cachedSlotFrames[1] = usableSlot1;
         }
         uploadFramesList = [...usableTarget, ...usableSlot1];
@@ -1078,7 +1331,9 @@ export class Gmk87HidEngine {
         const slot0Prefix = this.cachedSlotFrames[0] || [new Uint8Array(PADDED_FRAME_BYTES)];
         const maxSlot0 = Math.max(1, MAX_TOTAL_FRAMES - usableTarget.length);
         const usableSlot0 = slot0Prefix.slice(0, maxSlot0);
-        this.cachedSlotFrames[0] = usableSlot0;
+        if (this.cachedSlotFrames[0]) {
+          this.cachedSlotFrames[0] = usableSlot0;
+        }
         uploadFramesList = [...usableSlot0, ...usableTarget];
         slot0Count = usableSlot0.length;
         slot1Count = usableTarget.length;
@@ -1089,7 +1344,7 @@ export class Gmk87HidEngine {
         activeScreenMode: targetSlot === 0 ? 1 : 2,
         slot0FrameCount: slot0Count,
         slot1FrameCount: slot1Count,
-        frameDurationMs: Math.max(60, configState.frameDurationMs ?? 100),
+        frameDurationMs: Math.max(MIN_FRAME_DURATION_MS, configState.frameDurationMs ?? 100),
         clockDate: new Date(),
       };
 
@@ -1133,7 +1388,7 @@ export class Gmk87HidEngine {
 
       let bytesSent = 0;
 
-      // Step 3: Stream 56-byte chunks starting at pos = 0 (ACKed on every packet in WebHID)
+      // Step 3: Stream 56-byte chunks starting at pos = 0 (strictly ACKed on every packet in WebHID)
       for (let f = 0; f < uploadFramesList.length; f++) {
         const frameBuf = uploadFramesList[f];
         const frameStartOffset = f * PADDED_FRAME_BYTES;
@@ -1174,7 +1429,9 @@ export class Gmk87HidEngine {
                 currentFrame: f + 1,
                 totalFrames: uploadFramesList.length,
                 lastPacketHex: formatPacketHex(pkt.fullPacket64, 14),
-                message: `Step 3/4: Streaming 56B RGB565 chunks (Frame ${f + 1}/${uploadFramesList.length})`,
+                message: `Step 3/4: Streaming 56B RGB565 chunks (Frame ${f + 1}/${
+                  uploadFramesList.length
+                })`,
               },
               previewImg
             );
@@ -1186,11 +1443,22 @@ export class Gmk87HidEngine {
       }
 
       // Step 4: Send 0x02 (Commit with 100ms settle wait)
-      const commitRes = await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, webHidActive, 8000);
+      const commitRes = await this.transactWebHidLcd(
+        LcdCommand.COMMIT,
+        0,
+        undefined,
+        webHidActive,
+        8000
+      );
       if (webHidActive && !commitRes.ackReceived) {
         throw new Error('GMK87 did not acknowledge final COMMIT (0x02) after streaming');
       }
       await new Promise((r) => setTimeout(r, 100));
+
+      // Re-stamp hardware RTC so multi-second SPI transfer adds zero clock lag
+      if (webHidActive) {
+        await this.writeConfig({ ...updatedConfig, clockDate: new Date() }).catch(() => {});
+      }
 
       onProgress(
         {
@@ -1269,11 +1537,80 @@ export class Gmk87HidEngine {
         600
       );
       await this.viaDevice.sendReport(VIA_REPORT_ID, packet);
-      await replyPromise;
-      return { packetHex: formatPacketHex(packet, 8), hardwareApplied: true };
+      const reply = await replyPromise;
+      return { packetHex: formatPacketHex(packet, 8), hardwareApplied: Boolean(reply) };
     }
 
     return { packetHex: formatPacketHex(packet, 8), hardwareApplied: false };
+  }
+
+  /**
+   * Batch programs multiple VIA keycodes in a single worker transaction (for Smart Knob,
+   * .gmk87.json Profile Import, and Reset Default).
+   */
+  public async batchSetViaKeycodes(entries: ViaBatchEntry[]): Promise<{
+    success: boolean;
+    appliedCount: number;
+    lastPacketHex: string;
+    hardwareApplied: boolean;
+  }> {
+    if (!entries || entries.length === 0) {
+      return { success: true, appliedCount: 0, lastPacketHex: '', hardwareApplied: false };
+    }
+
+    if (this.isBridgeActive()) {
+      try {
+        const resp = await fetch('/api/hid/keymap/batch', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ entries }),
+          signal: AbortSignal.timeout(15000),
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (resp.ok && data.success) {
+          return {
+            success: true,
+            appliedCount: Number(data.appliedCount) || entries.length,
+            lastPacketHex: data.lastPacketHex || '',
+            hardwareApplied: true,
+          };
+        }
+      } catch {
+        // Fall through
+      }
+    }
+
+    if (this.viaDevice?.opened) {
+      let appliedCount = 0;
+      let lastPacketHex = '';
+      for (const entry of entries) {
+        const res = await this.setViaKeycode(entry.layer, entry.row, entry.col, entry.keycode);
+        if (res.hardwareApplied) appliedCount++;
+        lastPacketHex = res.packetHex;
+      }
+      return {
+        success: appliedCount > 0,
+        appliedCount,
+        lastPacketHex,
+        hardwareApplied: appliedCount > 0,
+      };
+    }
+
+    const last = entries[entries.length - 1];
+    const pkt = new Uint8Array([
+      0x05,
+      last.layer & 0x03,
+      last.row & 0x07,
+      last.col & 0x0f,
+      (last.keycode >> 8) & 0xff,
+      last.keycode & 0xff,
+    ]);
+    return {
+      success: true,
+      appliedCount: entries.length,
+      lastPacketHex: formatPacketHex(pkt, 6),
+      hardwareApplied: false,
+    };
   }
 
   /**
@@ -1287,7 +1624,7 @@ export class Gmk87HidEngine {
     viaProtocol: number;
     keymap: number[][][] | null;
   }> {
-    const TOTAL_KEYMAP_BYTES = 4 * 8 * 15 * 2; // 960 bytes
+    const TOTAL_KEYMAP_BYTES = VIA_KEYMAP_BYTES; // 960 bytes
     const CHUNK_SIZE = 28;
 
     if (this.isBridgeActive()) {
@@ -1312,7 +1649,6 @@ export class Gmk87HidEngine {
     }
 
     if (this.viaDevice?.opened) {
-      // Read protocol version (0x01)
       let viaProtocol = 9;
       const verReq = new Uint8Array(32);
       verReq[0] = 0x01;
@@ -1356,21 +1692,13 @@ export class Gmk87HidEngine {
         chunksRead++;
       }
 
-      const keymap: number[][][] = [];
-      for (let l = 0; l < 4; l++) {
-        const layer: number[][] = [];
-        for (let r = 0; r < 8; r++) {
-          const row: number[] = [];
-          for (let c = 0; c < 15; c++) {
-            const idx = (l * 8 * 15 + r * 15 + c) * 2;
-            row.push((buffer[idx] << 8) | buffer[idx + 1]);
-          }
-          layer.push(row);
-        }
-        keymap.push(layer);
-      }
-
-      return { totalBytes: TOTAL_KEYMAP_BYTES, chunksRead, lastCmdHex, viaProtocol, keymap };
+      return {
+        totalBytes: TOTAL_KEYMAP_BYTES,
+        chunksRead,
+        lastCmdHex,
+        viaProtocol,
+        keymap: decodeViaKeymapBytes(buffer),
+      };
     }
 
     // Simulation fallback
@@ -1395,6 +1723,135 @@ export class Gmk87HidEngine {
       lastCmdHex,
       viaProtocol: 9,
       keymap: null,
+    };
+  }
+
+  /**
+   * Probes VIA Dynamic Macros (0x0C GetCount, 0x0D GetBufferSize, 0x0E GetBuffer).
+   * Stock V0104 firmware may report 0 slots; handled gracefully without errors.
+   */
+  public async readViaMacros(): Promise<ViaMacroReadResult> {
+    if (this.isBridgeActive()) {
+      try {
+        const resp = await fetch('/api/hid/macros', { signal: AbortSignal.timeout(5000) });
+        const data = await resp.json().catch(() => null);
+        if (resp.ok && data) return data;
+      } catch {
+        // fallback below
+      }
+    }
+
+    if (this.viaDevice?.opened) {
+      const reqCount = new Uint8Array(32);
+      reqCount[0] = 0x0c;
+      const pCount = this.waitForInputReport(
+        this.viaDevice,
+        (_rid, d) => d.length >= 2 && d[0] === 0x0c,
+        400
+      );
+      await this.viaDevice.sendReport(VIA_REPORT_ID, reqCount);
+      const rCount = await pCount;
+      if (!rCount) {
+        return {
+          success: true,
+          supported: false,
+          viaProtocol: this.bridgeViaProtocol || 9,
+          count: 0,
+          bufferSize: 0,
+          macros: [],
+          error: 'Firmware did not respond to VIA Macro GetCount (0x0C)',
+        };
+      }
+      const count = rCount[1] & 0xff;
+      const reqSize = new Uint8Array(32);
+      reqSize[0] = 0x0d;
+      const pSize = this.waitForInputReport(
+        this.viaDevice,
+        (_rid, d) => d.length >= 3 && d[0] === 0x0d,
+        400
+      );
+      await this.viaDevice.sendReport(VIA_REPORT_ID, reqSize);
+      const rSize = await pSize;
+      const bufferSize = rSize ? ((rSize[1] & 0xff) << 8) | (rSize[2] & 0xff) : 0;
+      if (count === 0 || bufferSize === 0 || bufferSize > 4096) {
+        return {
+          success: true,
+          supported: false,
+          viaProtocol: this.bridgeViaProtocol || 9,
+          count,
+          bufferSize,
+          macros: [],
+        };
+      }
+      const raw = new Uint8Array(bufferSize);
+      for (let off = 0; off < bufferSize; off += 28) {
+        const sz = Math.min(28, bufferSize - off);
+        const pkt = new Uint8Array(32);
+        pkt[0] = 0x0e;
+        pkt[1] = (off >> 8) & 0xff;
+        pkt[2] = off & 0xff;
+        pkt[3] = sz;
+        const p = this.waitForInputReport(
+          this.viaDevice,
+          (_rid, d) => d.length >= 4 + sz && d[0] === 0x0e,
+          500
+        );
+        await this.viaDevice.sendReport(VIA_REPORT_ID, pkt);
+        const r = await p;
+        if (r) raw.set(r.subarray(4, 4 + sz), off);
+      }
+      const macros: string[] = [];
+      let cur = 0;
+      for (let i = 0; i < count; i++) {
+        let end = cur;
+        while (end < raw.length && raw[end] !== 0) end++;
+        let text = '';
+        for (let j = cur; j < end; j++) {
+          if (raw[j] >= 0x20 && raw[j] <= 0x7e) text += String.fromCharCode(raw[j]);
+        }
+        macros.push(text);
+        cur = Math.min(raw.length, end + 1);
+      }
+      return {
+        success: true,
+        supported: true,
+        viaProtocol: this.bridgeViaProtocol || 9,
+        count,
+        bufferSize,
+        macros,
+      };
+    }
+
+    return {
+      success: true,
+      supported: false,
+      viaProtocol: 9,
+      count: 0,
+      bufferSize: 0,
+      macros: [],
+      error: 'Connect Zuoya GMK87 via USB to probe VIA Dynamic Macro slots',
+    };
+  }
+
+  public async writeViaMacros(macros: string[]): Promise<{
+    success: boolean;
+    writtenMacros: number;
+    bufferSize: number;
+    error?: string;
+  }> {
+    if (this.isBridgeActive()) {
+      const resp = await fetch('/api/hid/macros/set', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ macros }),
+      });
+      return resp.json();
+    }
+    return {
+      success: false,
+      writtenMacros: 0,
+      bufferSize: 0,
+      error: 'VIA Macro writing requires active USB Bridge connection',
     };
   }
 }

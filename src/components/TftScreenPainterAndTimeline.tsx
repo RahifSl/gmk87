@@ -15,7 +15,12 @@ import {
   Grid,
   Sliders,
 } from 'lucide-react';
-import { LCD_WIDTH, LCD_HEIGHT } from '../services/gmk87Hid';
+import {
+  LCD_WIDTH,
+  LCD_HEIGHT,
+  MAX_TOTAL_FRAMES,
+  MIN_FRAME_DURATION_MS,
+} from '../services/gmk87Hid';
 import { quantizeImageDataToRGB565Preview } from '../utils/lcdGenerators';
 
 interface TftScreenPainterAndTimelineProps {
@@ -245,12 +250,13 @@ export default function TftScreenPainterAndTimeline({
     }
   }, [frames, safeIdx]);
 
-  // Timeline playback preview loop
+  // Timeline playback preview loop (clamped to firmware minimum 60ms and paused while tab hidden)
   useEffect(() => {
     if (!isPlayingTimeline || frames.length <= 1) return;
     const timer = setInterval(() => {
+      if (typeof document !== 'undefined' && document.hidden) return;
       setSelectedFrameIdx((prev) => (prev + 1) % frames.length);
-    }, Math.max(40, frameDurationMs));
+    }, Math.max(MIN_FRAME_DURATION_MS, frameDurationMs));
     return () => clearInterval(timer);
   }, [isPlayingTimeline, frames.length, frameDurationMs]);
 
@@ -448,7 +454,8 @@ export default function TftScreenPainterAndTimeline({
           </h2>
           <p className="text-xs text-slate-400">
             Draw custom pixel art, stamp HUD overlays across imported GIF frames, trim/reorder frames
-            to fit the 36-frame hardware EEPROM budget, and flash to Slot {targetSlot}.
+            to fit the {MAX_TOTAL_FRAMES}-frame SPI flash budget (up to 36f in Slot 0, or up to 35f in
+            Slot 1 with persistent Slot 0 prefix), and flash to Slot {targetSlot}.
           </p>
         </div>
 
@@ -699,14 +706,16 @@ export default function TftScreenPainterAndTimeline({
 
               <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
                 <Sliders className="w-3.5 h-3.5 text-[#06b6d4]" />
-                <span>FRAME DELAY: {frameDurationMs}ms</span>
+                <span>FRAME DELAY: {Math.max(MIN_FRAME_DURATION_MS, frameDurationMs)}ms</span>
                 <input
                   type="range"
-                  min={35}
+                  min={MIN_FRAME_DURATION_MS}
                   max={300}
                   step={5}
-                  value={frameDurationMs}
-                  onChange={(e) => onChangeFrameDurationMs(Number(e.target.value))}
+                  value={Math.max(MIN_FRAME_DURATION_MS, frameDurationMs)}
+                  onChange={(e) =>
+                    onChangeFrameDurationMs(Math.max(MIN_FRAME_DURATION_MS, Number(e.target.value)))
+                  }
                   className="w-24 accent-[#06b6d4]"
                 />
               </div>

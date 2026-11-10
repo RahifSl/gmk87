@@ -33,11 +33,15 @@ import {
   GMK87_ALL_19_RGB_MODES,
   CURATED_RGB_PRESETS,
   FN_LIGHTING_SHORTCUTS,
+  GMK87_LOGO_MODES,
+  GMK87_LOGO_COLORS,
   RgbEffectCategory,
   RgbColorwayPreset,
   FnLightingShortcutItem,
   KeyRippleEvent,
   computePerKeyShader,
+  computeChassisUnderglowVisuals,
+  computeLogoBarVisual,
   hslToRgb,
   rgbToHsv,
   hsvToRgb,
@@ -69,7 +73,7 @@ type ReactiveEngineMode = 'off' | 'audio' | 'thermal' | 'wpm' | 'cycle' | 'sched
 interface RgbUnderglowStudioProps {
   configState: Gmk87ConfigState;
   rawHardwareConfig: Uint8Array;
-  onUpdateRgbConfig: (partial: Partial<Gmk87ConfigState>) => Promise<void> | void;
+  onUpdateRgbConfig: (partial: Partial<Gmk87ConfigState>, previewOnly?: boolean) => Promise<void> | void;
   pressedKeyIds: Set<string>;
   liveWpm: number;
   telemetry: TelemetryHudMetrics;
@@ -91,7 +95,7 @@ const DEFAULT_SAVED_SCENES: SavedUserRgbScene[] = [
     id: 'user_night_city',
     name: 'My Night City Setup',
     effect: 1,
-    brightness: 9,
+    brightness: 4,
     speed: 3,
     effectDirection: 0,
     rainbowMode: 0,
@@ -104,8 +108,8 @@ const DEFAULT_SAVED_SCENES: SavedUserRgbScene[] = [
   {
     id: 'user_stealth_code',
     name: 'Late Night Coding',
-    effect: 11,
-    brightness: 6,
+    effect: 6,
+    brightness: 3,
     speed: 2,
     effectDirection: 0,
     rainbowMode: 0,
@@ -176,11 +180,22 @@ export default function RgbUnderglowStudio({
 
   // Raw 48B/64B Hex Inspector baseline & copy state
   const [baselineBytes, setBaselineBytes] = useState<Uint8Array>(() => new Uint8Array(rawHardwareConfig));
+  const userSnapshottedBaselineRef = useRef<boolean>(false);
   const [copiedHex, setCopiedHex] = useState<boolean>(false);
   const [hexInputText, setHexInputText] = useState<string>('');
 
+  useEffect(() => {
+    if (!userSnapshottedBaselineRef.current && rawHardwareConfig && rawHardwareConfig.length >= 48) {
+      setBaselineBytes(new Uint8Array(rawHardwareConfig));
+    }
+  }, [rawHardwareConfig]);
+
   const effectDirection = configState.effectDirection ?? 0;
   const rainbowMode = configState.rainbowMode ?? 0;
+  const logoMode = configState.logoMode ?? 0;
+  const logoBrightness = configState.logoBrightness ?? 4;
+  const logoRainbow = configState.logoRainbow ?? 0;
+  const logoColor = configState.logoColor ?? 0;
 
   const rgbHexColor = useMemo(() => {
     const r = Math.max(0, Math.min(255, configState.rgbHueR)).toString(16).padStart(2, '0');
@@ -236,11 +251,12 @@ export default function RgbUnderglowStudio({
     }
   }, [pressedKeyIds]);
 
-  // 25 FPS smooth animation ticker for the 87-key + 360-degree underglow visualizer
+  // 25 FPS smooth animation ticker for the 87-key + 360-degree underglow visualizer (paused when hidden)
   useEffect(() => {
     const start = performance.now();
     let frameCount = 0;
     const id = setInterval(() => {
+      if (typeof document !== 'undefined' && document.hidden) return;
       const now = performance.now();
       setAnimTimeSec((now - start) / 1000);
       frameCount++;
@@ -303,16 +319,74 @@ export default function RgbUnderglowStudio({
     ctx.stroke();
   }, [hueDeg, satPct]);
 
-  // Throttled helper for reactive engines so we don't spam USB HID faster than 450ms
+  const lastPushedReactiveRef = useRef<{
+    lightingEffect?: number;
+    brightness?: number;
+    speed?: number;
+    effectDirection?: number;
+    rainbowMode?: number;
+    rgbHueR: number;
+    rgbHueG: number;
+    rgbHueB: number;
+  } | null>(null);
+
+  // Update studio preview immediately; write USB EEPROM at most every 750ms on material change (reduces EEPROM flash wear)
   const pushReactiveRgbUpdate = useCallback(
     (partial: Partial<Gmk87ConfigState>) => {
+      if (!streamReactiveToHardware) {
+        onUpdateRgbConfig(partial, true);
+        return;
+      }
+
+      const prevSnap = lastPushedReactiveRef.current;
+      const nextR = partial.rgbHueR ?? configState.rgbHueR;
+      const nextG = partial.rgbHueG ?? configState.rgbHueG;
+      const nextB = partial.rgbHueB ?? configState.rgbHueB;
+
+      const settingChanged =
+        !prevSnap ||
+        (partial.lightingEffect !== undefined && partial.lightingEffect !== prevSnap.lightingEffect) ||
+        (partial.brightness !== undefined && partial.brightness !== prevSnap.brightness) ||
+        (partial.speed !== undefined && partial.speed !== prevSnap.speed) ||
+        (partial.effectDirection !== undefined && partial.effectDirection !== prevSnap.effectDirection) ||
+        (partial.rainbowMode !== undefined && partial.rainbowMode !== prevSnap.rainbowMode);
+
+      const rgbDelta = prevSnap
+        ? Math.abs(nextR - prevSnap.rgbHueR) +
+          Math.abs(nextG - prevSnap.rgbHueG) +
+          Math.abs(nextB - prevSnap.rgbHueB)
+        : 999;
+
       const now = Date.now();
-      if (streamReactiveToHardware || now - lastHardwarePushRef.current >= 480) {
+      if (now - lastHardwarePushRef.current >= 750 && (settingChanged || rgbDelta >= 12)) {
         lastHardwarePushRef.current = now;
-        onUpdateRgbConfig(partial);
+        lastPushedReactiveRef.current = {
+          lightingEffect: partial.lightingEffect ?? configState.lightingEffect,
+          brightness: partial.brightness ?? configState.brightness,
+          speed: partial.speed ?? configState.speed,
+          effectDirection: partial.effectDirection ?? configState.effectDirection,
+          rainbowMode: partial.rainbowMode ?? configState.rainbowMode,
+          rgbHueR: nextR,
+          rgbHueG: nextG,
+          rgbHueB: nextB,
+        };
+        onUpdateRgbConfig(partial, false);
+      } else {
+        onUpdateRgbConfig(partial, true);
       }
     },
-    [onUpdateRgbConfig, streamReactiveToHardware]
+    [
+      onUpdateRgbConfig,
+      streamReactiveToHardware,
+      configState.lightingEffect,
+      configState.brightness,
+      configState.speed,
+      configState.effectDirection,
+      configState.rainbowMode,
+      configState.rgbHueR,
+      configState.rgbHueG,
+      configState.rgbHueB,
+    ]
   );
 
   // Toggle Web Audio Microphone for Audio-Reactive RGB
@@ -574,15 +648,15 @@ export default function RgbUnderglowStudio({
         break;
       }
       case 'bri-up': {
-        const nextBri = Math.min(9, configState.brightness + 1);
+        const nextBri = Math.min(4, configState.brightness + 1);
         onUpdateRgbConfig({ brightness: nextBri });
-        onStatusLog(`Simulated ${item.combo}: Brightness cfg[2] → ${nextBri}/9`);
+        onStatusLog(`Simulated ${item.combo}: Brightness cfg[2] → ${nextBri}/4`);
         break;
       }
       case 'bri-down': {
         const nextBri = Math.max(0, configState.brightness - 1);
         onUpdateRgbConfig({ brightness: nextBri });
-        onStatusLog(`Simulated ${item.combo}: Brightness cfg[2] → ${nextBri}/9`);
+        onStatusLog(`Simulated ${item.combo}: Brightness cfg[2] → ${nextBri}/4`);
         break;
       }
       case 'spd-up': {
@@ -637,7 +711,8 @@ export default function RgbUnderglowStudio({
     const diffs = new Set<number>();
     const len = Math.min(liveSerializedBytes.length, baselineBytes.length);
     for (let i = 0; i < len; i++) {
-      // Ignore ticking seconds/minutes in diff count if user only wants to see config diffs, or include all
+      // Ignore ticking RTC clock registers [35..41] so diff count matches highlighted config diffs
+      if (i >= 35 && i <= 41) continue;
       if (liveSerializedBytes[i] !== baselineBytes[i]) {
         diffs.add(i);
       }
@@ -645,49 +720,46 @@ export default function RgbUnderglowStudio({
     return diffs;
   }, [liveSerializedBytes, baselineBytes]);
 
-  // Compute 360-degree perimeter underglow CSS gradient for the hero chassis
-  const underglowHaloStyle = useMemo(() => {
-    if (configState.lightingEffect === 0 || configState.brightness === 0) {
-      return {
-        boxShadow: '0 0 0 1px rgba(30, 41, 59, 0.8)',
-        background: '#070a12',
-      };
-    }
-    const briAlpha = Math.max(0.18, (configState.brightness / 9) * 0.72);
-    const angle = Math.round((animTimeSec * (35 + configState.speed * 25) * (effectDirection ? -1 : 1)) % 360);
+  // Compute 360-degree perimeter underglow halo + 4 edge diffuser bars + logo light bar synchronously from hardware shader
+  const chassisUnderglow = useMemo(
+    () =>
+      computeChassisUnderglowVisuals({
+        effect: configState.lightingEffect,
+        brightness: configState.brightness,
+        speed: configState.speed,
+        direction: effectDirection,
+        rainbow: rainbowMode,
+        baseR: configState.rgbHueR,
+        baseG: configState.rgbHueG,
+        baseB: configState.rgbHueB,
+        timeSec: animTimeSec,
+        ripples,
+      }),
+    [
+      configState.lightingEffect,
+      configState.brightness,
+      configState.speed,
+      configState.rgbHueR,
+      configState.rgbHueG,
+      configState.rgbHueB,
+      effectDirection,
+      rainbowMode,
+      animTimeSec,
+      ripples,
+    ]
+  );
 
-    if (rainbowMode || configState.lightingEffect === 1 || configState.lightingEffect === 4) {
-      const [r1, g1, b1] = hslToRgb(angle, 95, 55);
-      const [r2, g2, b2] = hslToRgb((angle + 120) % 360, 95, 55);
-      const [r3, g3, b3] = hslToRgb((angle + 240) % 360, 95, 55);
-      return {
-        boxShadow: `0 0 42px rgba(${r1}, ${g1}, ${b1}, ${briAlpha}), 0 0 85px rgba(${r2}, ${g2}, ${b2}, ${
-          briAlpha * 0.65
-        }), inset 0 0 28px rgba(${r3}, ${g3}, ${b3}, ${briAlpha * 0.35})`,
-        borderColor: `rgba(${r1}, ${g1}, ${b1}, 0.85)`,
-      };
-    }
-
-    const r = configState.rgbHueR;
-    const g = configState.rgbHueG;
-    const b = configState.rgbHueB;
-    return {
-      boxShadow: `0 0 42px rgba(${r}, ${g}, ${b}, ${briAlpha}), 0 0 88px rgba(${r}, ${g}, ${b}, ${
-        briAlpha * 0.55
-      }), inset 0 0 26px rgba(${r}, ${g}, ${b}, ${briAlpha * 0.35})`,
-      borderColor: `rgba(${r}, ${g}, ${b}, 0.85)`,
-    };
-  }, [
-    configState.lightingEffect,
-    configState.brightness,
-    configState.speed,
-    configState.rgbHueR,
-    configState.rgbHueG,
-    configState.rgbHueB,
-    effectDirection,
-    rainbowMode,
-    animTimeSec,
-  ]);
+  const logoBarVisual = useMemo(
+    () =>
+      computeLogoBarVisual({
+        logoMode,
+        logoBrightness,
+        logoRainbow,
+        logoColor,
+        timeSec: animTimeSec,
+      }),
+    [logoMode, logoBrightness, logoRainbow, logoColor, animTimeSec]
+  );
 
   const filteredModes = useMemo(() => {
     if (selectedCategory === 'All') return GMK87_ALL_19_RGB_MODES;
@@ -717,9 +789,9 @@ export default function RgbUnderglowStudio({
               )}
             </div>
             <p className="text-xs text-slate-400 mt-1">
-              Real-time hardware shader previewing all 87 south-facing switch LEDs and the 360°
-              diffused chassis underglow ring. Click any keycap or type on your physical keyboard to
-              test reactive ripples (`0x0A`), key traces (`0x0B`), and laser crosshairs (`0x0C`).
+              Real-time hardware shader previewing all 87 south-facing switch LEDs, 360° perimeter
+              diffuser strips, and nav-cluster Logo LED bar. Click any keycap or type on your physical
+              keyboard to test reactive modes (Slowly Off `0x07`, Stone Ripple `0x08`, Laser `0x09`).
             </p>
           </div>
 
@@ -749,13 +821,14 @@ export default function RgbUnderglowStudio({
         </div>
 
         {/* 87-Key TKL Deck inside 360-Degree Underglow Halo Stage */}
-        <div className="w-full overflow-x-auto py-4 px-2 flex justify-center bg-[#070a12] rounded-2xl border border-[#1e293b]">
+        <div className="w-full overflow-x-auto py-10 px-8 flex justify-center bg-[#070a12] rounded-2xl border border-[#1e293b]">
           <div
-            className="relative rounded-2xl p-4 bg-gradient-to-b from-[#0a0e18] via-[#070910] to-[#04060b] border-2 transition-all duration-150 select-none shadow-[0_20px_50px_rgba(0,0,0,0.9)]"
+            className="relative shrink-0 rounded-2xl p-4 bg-gradient-to-b from-[#0a0e18] via-[#070910] to-[#04060b] border-2 transition-[border-color] duration-150 select-none"
             style={{
-              width: '936px',
-              height: '382px',
-              ...underglowHaloStyle,
+              width: '1040px',
+              height: '386px',
+              borderColor: chassisUnderglow.borderColor,
+              boxShadow: chassisUnderglow.boxShadow,
             }}
           >
             {/* 4 CNC Gasket Mounting Hex Bolts in Plate Corners */}
@@ -770,33 +843,35 @@ export default function RgbUnderglowStudio({
             </div>
 
             {/* 360° Perimeter Side Underglow Diffuser Light Strips */}
-            <div className="absolute -top-1.5 left-10 right-10 h-1.5 rounded-full opacity-90 pointer-events-none"
+            <div
+              className="absolute -top-1.5 left-10 right-10 h-1.5 rounded-full pointer-events-none"
               style={{
-                background:
-                  rainbowMode || configState.lightingEffect === 1
-                    ? 'linear-gradient(90deg, #06b6d4, #8b5cf6, #ec4899, #10b981, #f59e0b, #06b6d4)'
-                    : rgbHexColor,
+                background: chassisUnderglow.topGradient,
+                opacity: chassisUnderglow.stripOpacity,
                 filter: 'blur(2px)',
               }}
             />
-            <div className="absolute -bottom-1.5 left-10 right-10 h-1.5 rounded-full opacity-90 pointer-events-none"
+            <div
+              className="absolute -bottom-1.5 left-10 right-10 h-1.5 rounded-full pointer-events-none"
               style={{
-                background:
-                  rainbowMode || configState.lightingEffect === 1
-                    ? 'linear-gradient(90deg, #10b981, #06b6d4, #8b5cf6, #ec4899, #f59e0b, #10b981)'
-                    : rgbHexColor,
+                background: chassisUnderglow.bottomGradient,
+                opacity: chassisUnderglow.stripOpacity,
                 filter: 'blur(2px)',
               }}
             />
-            <div className="absolute top-8 bottom-8 -left-1.5 w-1.5 rounded-full opacity-90 pointer-events-none"
+            <div
+              className="absolute top-8 bottom-8 -left-1.5 w-1.5 rounded-full pointer-events-none"
               style={{
-                background: rgbHexColor,
+                background: chassisUnderglow.leftGradient,
+                opacity: chassisUnderglow.stripOpacity,
                 filter: 'blur(2px)',
               }}
             />
-            <div className="absolute top-8 bottom-8 -right-1.5 w-1.5 rounded-full opacity-90 pointer-events-none"
+            <div
+              className="absolute top-8 bottom-8 -right-1.5 w-1.5 rounded-full pointer-events-none"
               style={{
-                background: rgbHexColor,
+                background: chassisUnderglow.rightGradient,
+                opacity: chassisUnderglow.stripOpacity,
                 filter: 'blur(2px)',
               }}
             />
@@ -804,10 +879,10 @@ export default function RgbUnderglowStudio({
             {/* Embedded 240x135 TFT Screen Module at Top-Right of GMK87 Deck */}
             <div
               style={{
-                left: `${16 + 13.45 * 54}px`,
-                top: `${16 + 1.22 * 54}px`,
-                width: `${3.05 * 54 - 5}px`,
-                height: `${1.05 * 54}px`,
+                left: `${16 + 15.8 * 54}px`,
+                top: '12px',
+                width: `${2.45 * 54}px`,
+                height: '54px',
               }}
               className="absolute rounded-lg bg-[#050811] border border-[#06b6d4]/60 p-1 flex items-center justify-between gap-1.5 shadow-inner z-10"
             >
@@ -819,13 +894,34 @@ export default function RgbUnderglowStudio({
               />
               <div className="flex flex-col justify-between h-full py-0.5 pr-1 text-right font-mono">
                 <span className="text-[8px] text-[#06b6d4] font-bold leading-none">TFT SYNC</span>
-                <span className="text-[7px] text-slate-400 leading-tight truncate max-w-[54px]">
+                <span className="text-[7px] text-slate-400 leading-tight truncate max-w-[44px]">
                   {activePreviewAnim}
                 </span>
                 <span className="text-[8px] text-[#10b981] leading-none">
-                  BRI {configState.brightness}/9
+                  BRI {configState.brightness}/4
                 </span>
               </div>
+            </div>
+
+            {/* GMK87 Signature Hardware Logo LED Bar in Nav Cluster (cfg[28..32]) */}
+            <div
+              className="absolute flex items-center justify-center select-none pointer-events-none"
+              style={{
+                left: `${16 + 15.25 * 54}px`,
+                top: `${16 + 3.45 * 54}px`,
+                width: `${3 * 54 - 5}px`,
+                height: '24px',
+              }}
+            >
+              <div
+                className="w-full h-3 rounded-full border border-white/40 transition-opacity duration-75"
+                style={{
+                  background: logoBarVisual.background,
+                  boxShadow: logoBarVisual.boxShadow,
+                  opacity: logoBarVisual.opacity,
+                }}
+                title={logoBarVisual.title}
+              />
             </div>
 
             {/* 87 Physical Keys with Real-Time Per-Key RGB Shader (Knob rendered via dedicated CNC encoder) */}
@@ -929,11 +1025,13 @@ export default function RgbUnderglowStudio({
             </span>
             <span>
               BRI <code className="text-[#06b6d4]">cfg[2]</code> ={' '}
-              <strong className="text-white">{configState.brightness}/9</strong>
+              <strong className="text-white">{configState.brightness}/4</strong>
             </span>
             <span>
               SPD <code className="text-[#06b6d4]">cfg[3]</code> ={' '}
-              <strong className="text-white">{configState.speed}/4</strong>
+              <strong className="text-white">
+                {configState.speed}/4 (raw 0x0{4 - Math.min(4, Math.max(0, configState.speed))})
+              </strong>
             </span>
             <span>
               DIR <code className="text-[#06b6d4]">cfg[4]</code> ={' '}
@@ -943,7 +1041,13 @@ export default function RgbUnderglowStudio({
             </span>
             <span>
               RAINBOW <code className="text-[#06b6d4]">cfg[5]</code> ={' '}
-              <strong className="text-white">{rainbowMode ? '1 (Rainbow)' : '0 (Single Hue)'}</strong>
+              <strong className="text-white">
+                {rainbowMode || activeModeDef.colorSupport === 'built-in-rainbow'
+                  ? activeModeDef.colorSupport === 'built-in-rainbow'
+                    ? 'Built-In Rainbow'
+                    : '0xFF (Rainbow)'
+                  : '0x00 (Single Hue)'}
+              </strong>
             </span>
           </div>
           <div className="flex items-center gap-2">
@@ -979,6 +1083,18 @@ export default function RgbUnderglowStudio({
           </div>
 
           {/* 2D HSV Hue/Saturation Spectrum Canvas + Quick Swatches */}
+          {(activeModeDef.colorSupport === 'built-in-rainbow' ||
+            activeModeDef.colorSupport === 'palette' ||
+            rainbowMode === 1) && (
+            <div className="px-3 py-2 rounded-lg bg-[#0b0f19] border border-[#10b981]/40 text-[11px] font-mono text-emerald-300">
+              {activeModeDef.colorSupport === 'built-in-rainbow'
+                ? `Mode ${activeModeDef.hex} (${activeModeDef.name}) uses firmware built-in rainbow spectrum (single RGB hue in cfg[6..8] is ignored by hardware).`
+                : activeModeDef.colorSupport === 'palette'
+                  ? `Mode ${activeModeDef.hex} (${activeModeDef.name}) cycles a built-in 4-colour palette on hardware unless Rainbow is enabled.`
+                  : 'Rainbow Override (cfg[5] = 0xFF) is active — single RGB colour is overridden by multi-colour spectrum. Picking a hue below switches back to Single Hue.'}
+            </div>
+          )}
+
           <div className="space-y-2.5">
             <div className="flex items-center justify-between text-xs font-mono">
               <span className="text-slate-400">2D HSV SPECTRUM (`cfg[6..8]`)</span>
@@ -1148,13 +1264,13 @@ export default function RgbUnderglowStudio({
             <div className="p-3.5 rounded-xl bg-[#0b0f19] border border-[#1e293b]">
               <div className="flex justify-between text-xs font-mono mb-1.5">
                 <span className="text-slate-400">BRIGHTNESS (`cfg[2]`)</span>
-                <span className="text-[#06b6d4] font-bold">{configState.brightness} / 9</span>
+                <span className="text-[#06b6d4] font-bold">{configState.brightness} / 4</span>
               </div>
               <input
                 type="range"
                 min={0}
-                max={9}
-                value={Math.min(9, Math.max(0, configState.brightness))}
+                max={4}
+                value={Math.min(4, Math.max(0, configState.brightness))}
                 onChange={(e) =>
                   onUpdateRgbConfig({ brightness: Number(e.target.value) })
                 }
@@ -1165,7 +1281,9 @@ export default function RgbUnderglowStudio({
             <div className="p-3.5 rounded-xl bg-[#0b0f19] border border-[#1e293b]">
               <div className="flex justify-between text-xs font-mono mb-1.5">
                 <span className="text-slate-400">SPEED (`cfg[3]`)</span>
-                <span className="text-[#8b5cf6] font-bold">{configState.speed} / 4</span>
+                <span className="text-[#8b5cf6] font-bold">
+                  {configState.speed} / 4 {configState.speed === 4 ? '(Fastest)' : configState.speed === 0 ? '(Slowest)' : ''}
+                </span>
               </div>
               <input
                 type="range"
@@ -1221,6 +1339,96 @@ export default function RgbUnderglowStudio({
               </div>
               <Palette className="w-4 h-4 text-[#10b981] shrink-0" />
             </button>
+          </div>
+
+          {/* Signature Logo / Accent Light Bar (`cfg[28..32]`) */}
+          <div className="p-4 rounded-xl bg-[#0b0f19] border border-[#1e293b] space-y-3">
+            <div className="flex items-center justify-between">
+              <div>
+                <div className="text-xs font-bold text-white">
+                  Signature Logo Light Bar (`cfg[28..32]`)
+                </div>
+                <div className="text-[11px] text-slate-400">
+                  Independent RGB accent strip above the arrow cluster
+                </div>
+              </div>
+              <button
+                type="button"
+                onClick={() => onUpdateRgbConfig({ logoRainbow: logoRainbow ? 0 : 1 })}
+                className={`px-2.5 py-1 text-[11px] font-mono rounded-lg border cursor-pointer ${
+                  logoRainbow
+                    ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981]'
+                    : 'bg-[#131b2e] border-[#1e293b] text-slate-300'
+                }`}
+              >
+                {logoRainbow ? 'Logo Rainbow ON' : 'Logo Single Color'}
+              </button>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              <div>
+                <div className="text-[10px] font-mono text-slate-400 mb-1">
+                  LOGO MODE (`cfg[28]`)
+                </div>
+                <select
+                  value={logoMode}
+                  onChange={(e) => onUpdateRgbConfig({ logoMode: Number(e.target.value) })}
+                  className="w-full bg-[#131b2e] border border-[#1e293b] rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#06b6d4]"
+                >
+                  {GMK87_LOGO_MODES.map((lm) => (
+                    <option key={lm.id} value={lm.id}>
+                      {lm.id}: {lm.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              <div>
+                <div className="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
+                  <span>LOGO BRI (`cfg[29]`)</span>
+                  <span className="text-[#06b6d4] font-bold">{logoBrightness}/4</span>
+                </div>
+                <input
+                  type="range"
+                  min={0}
+                  max={4}
+                  value={logoBrightness}
+                  onChange={(e) =>
+                    onUpdateRgbConfig({ logoBrightness: Number(e.target.value) })
+                  }
+                  className="w-full accent-[#06b6d4]"
+                />
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-1.5">
+              {GMK87_LOGO_COLORS.map((lc) => {
+                const active = !logoRainbow && logoColor === lc.id;
+                return (
+                  <button
+                    key={lc.id}
+                    type="button"
+                    onClick={() =>
+                      onUpdateRgbConfig({
+                        logoColor: lc.id,
+                        logoRainbow: 0,
+                      })
+                    }
+                    className={`px-2 py-1 text-[10px] font-mono rounded-md border flex items-center gap-1 cursor-pointer transition-colors ${
+                      active
+                        ? 'bg-[#131b2e] border-[#06b6d4] text-white font-bold'
+                        : 'bg-[#131b2e]/60 border-[#1e293b] text-slate-300 hover:border-slate-500'
+                    }`}
+                  >
+                    <span
+                      className="w-2.5 h-2.5 rounded-full border border-white/30 inline-block"
+                      style={{ backgroundColor: lc.hex }}
+                    />
+                    {lc.name}
+                  </button>
+                );
+              })}
+            </div>
           </div>
         </div>
 
@@ -1386,7 +1594,7 @@ export default function RgbUnderglowStudio({
                 : 'bg-[#0b0f19] border-[#1e293b] text-slate-300 hover:border-[#06b6d4]'
             }`}
           >
-            Hardware Live USB Stream (500ms Safe): {streamReactiveToHardware ? 'ENABLED' : 'PREVIEW'}
+            Hardware Live USB Stream (EEPROM · 750ms Safe): {streamReactiveToHardware ? 'ENABLED' : 'PREVIEW'}
           </button>
         </div>
 
@@ -1771,7 +1979,7 @@ export default function RgbUnderglowStudio({
                       <div className="min-w-0">
                         <div className="text-xs font-bold text-white truncate">{sc.name}</div>
                         <div className="text-[10px] font-mono text-slate-400">
-                          Mode 0x{sc.effect.toString(16).padStart(2, '0')} · Bri {sc.brightness}/9 ·{' '}
+                          Mode 0x{sc.effect.toString(16).padStart(2, '0')} · Bri {sc.brightness}/4 ·{' '}
                           {sc.linkedLcdAnim}
                         </div>
                       </div>
@@ -1900,6 +2108,7 @@ export default function RgbUnderglowStudio({
               <button
                 type="button"
                 onClick={() => {
+                  userSnapshottedBaselineRef.current = true;
                   setBaselineBytes(new Uint8Array(liveSerializedBytes));
                   onStatusLog('Snapshotted current EEPROM config buffer as diff baseline.');
                 }}
@@ -1945,6 +2154,7 @@ export default function RgbUnderglowStudio({
           <div className="grid grid-cols-8 gap-1.5 p-3 rounded-xl bg-[#0b0f19] border border-[#1e293b] font-mono text-[11px]">
             {Array.from(liveSerializedBytes).map((byteVal, idx) => {
               const isRgbReg = idx >= 1 && idx <= 8;
+              const isLogoReg = idx === 28 || idx === 29 || idx === 31 || idx === 32;
               const isLcdReg = idx === 33 || idx === 34 || idx === 43 || idx === 44 || idx === 46;
               const isClockReg = idx >= 35 && idx <= 41;
               const isDiff = modifiedByteIndices.has(idx) && !isClockReg;
@@ -1959,6 +2169,10 @@ export default function RgbUnderglowStudio({
                 6: 'RED',
                 7: 'GRN',
                 8: 'BLU',
+                28: 'LGO_M',
+                29: 'LGO_B',
+                31: 'LGO_R',
+                32: 'LGO_C',
                 33: 'SCR',
                 34: 'S0_F',
                 35: 'SEC',
@@ -1977,7 +2191,7 @@ export default function RgbUnderglowStudio({
               let cellStyle = 'bg-[#131b2e]/70 border-[#1e293b] text-slate-400';
               if (isDiff) {
                 cellStyle = 'bg-[#f59e0b]/25 border-[#f59e0b] text-amber-200 font-bold';
-              } else if (isRgbReg) {
+              } else if (isRgbReg || isLogoReg) {
                 cellStyle = 'bg-[#06b6d4]/15 border-[#06b6d4]/60 text-cyan-200 font-bold';
               } else if (isLcdReg) {
                 cellStyle = 'bg-[#8b5cf6]/15 border-[#8b5cf6]/60 text-purple-200';

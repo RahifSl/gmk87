@@ -34,12 +34,14 @@ let serverHandle: ServerHandle | null = null;
 let activePort = PREFERRED_PORT;
 let isQuitting = false;
 let clockSyncTimer: ReturnType<typeof setInterval> | null = null;
-let usbMonitorTimer: ReturnType<typeof setInterval> | null = null;
+let usbMonitorTimer: ReturnType<typeof setTimeout> | null = null;
+let trayRefreshTimer: ReturnType<typeof setInterval> | null = null;
 let settings: DesktopSettings = { ...DEFAULT_SETTINGS };
 let lastClockSyncLabel = 'Pending';
 let lastClockSyncOkAt = 0;
 let lastSyncedHardwareSession = false;
 let lastDetectedState: boolean | null = null;
+let lastTraySignature = '';
 
 function logMain(message: string): void {
   try {
@@ -224,9 +226,24 @@ function restartAutoClockSyncTimer(): void {
   }
 }
 
-async function checkHardwareAttached(): Promise<boolean> {
+interface UsbProbeSummary {
+  detected: boolean;
+  lcdDetected: boolean;
+  viaConnected: boolean;
+  deviceName: string;
+  firmwareVersion: string;
+}
+
+async function probeHardwareState(): Promise<UsbProbeSummary> {
   if (serverHandle) {
-    return serverHandle.getHardwareSummary().detected;
+    const s = await serverHandle.probeHardwareSummary();
+    return {
+      detected: s.detected,
+      lcdDetected: s.lcdDetected,
+      viaConnected: s.viaConnected,
+      deviceName: s.deviceName,
+      firmwareVersion: s.firmwareVersion,
+    };
   }
   try {
     const resp = await fetch(`http://127.0.0.1:${activePort}/api/health`, {
@@ -234,12 +251,24 @@ async function checkHardwareAttached(): Promise<boolean> {
     });
     if (resp.ok) {
       const data: any = await resp.json();
-      return Boolean(data?.hardwareDetected);
+      return {
+        detected: Boolean(data?.hardwareDetected),
+        lcdDetected: Boolean(data?.lcdDetected ?? data?.hardwareDetected),
+        viaConnected: Boolean(data?.viaDetected),
+        deviceName: data?.deviceName || 'Zuoya GMK87',
+        firmwareVersion: data?.firmwareVersion || 'Offline',
+      };
     }
   } catch {
     // ignore probe error
   }
-  return false;
+  return {
+    detected: false,
+    lcdDetected: false,
+    viaConnected: false,
+    deviceName: 'Zuoya GMK87',
+    firmwareVersion: 'Offline',
+  };
 }
 
 function showMainWindow(): void {
@@ -275,10 +304,15 @@ async function queryLiveHardwareLabel(): Promise<string> {
   return 'Hardware: Probing USB...';
 }
 
-async function rebuildTrayMenu(): Promise<void> {
+async function rebuildTrayMenu(force = true): Promise<void> {
   if (!tray) return;
   const hwLabel = await queryLiveHardwareLabel();
   const openAtLogin = getOpenAtLogin();
+  const signature = `${activePort}|${hwLabel}|${lastClockSyncLabel}|${settings.autoSyncClock15Min}|${openAtLogin}`;
+  if (!force && signature === lastTraySignature) {
+    return;
+  }
+  lastTraySignature = signature;
 
   const menu = Menu.buildFromTemplate([
     {
@@ -318,7 +352,7 @@ async function rebuildTrayMenu(): Promise<void> {
       click: (item) => {
         saveSettings({ ...settings, autoSyncClock15Min: item.checked });
         restartAutoClockSyncTimer();
-        rebuildTrayMenu().catch(() => {});
+        rebuildTrayMenu(true).catch(() => {});
       },
     },
     {
@@ -327,7 +361,7 @@ async function rebuildTrayMenu(): Promise<void> {
       checked: openAtLogin,
       click: (item) => {
         setOpenAtLogin(item.checked);
-        rebuildTrayMenu().catch(() => {});
+        rebuildTrayMenu(true).catch(() => {});
       },
     },
     { type: 'separator' },
@@ -336,7 +370,8 @@ async function rebuildTrayMenu(): Promise<void> {
       click: async () => {
         isQuitting = true;
         if (clockSyncTimer) clearInterval(clockSyncTimer);
-        if (usbMonitorTimer) clearInterval(usbMonitorTimer);
+        if (usbMonitorTimer) clearTimeout(usbMonitorTimer);
+        if (trayRefreshTimer) clearInterval(trayRefreshTimer);
         await serverHandle?.stop().catch(() => {});
         tray?.destroy();
         app.quit();
@@ -498,6 +533,7 @@ async function startEmbeddedBackend(): Promise<void> {
     isProd: true,
     distDir,
     mediaScriptPath,
+    dataDir: app.getPath('userData'),
   };
 
   try {
@@ -575,10 +611,10 @@ if (!gotSingleInstanceLock) {
     createMainWindow(START_HIDDEN);
     restartAutoClockSyncTimer();
 
-    usbMonitorTimer = setInterval(async () => {
+    const runUsbMonitorTick = async () => {
       try {
-        const detected = await checkHardwareAttached();
-        if (!detected) {
+        const summary = await probeHardwareState();
+        if (!summary.detected) {
           lastSyncedHardwareSession = false;
         } else if (
           !lastSyncedHardwareSession &&
@@ -586,22 +622,50 @@ if (!gotSingleInstanceLock) {
           Date.now() - lastClockSyncOkAt > 5000
         ) {
           logMain('USB GMK87 detected/reattached — syncing RTC clock automatically');
-          await new Promise((r) => setTimeout(r, 500));
+          await new Promise((r) => setTimeout(r, 400));
           await triggerClockSync(false);
         }
-        if (detected !== lastDetectedState) {
-          lastDetectedState = detected;
-          await rebuildTrayMenu();
+        if (summary.detected !== lastDetectedState) {
+          lastDetectedState = summary.detected;
+          if (mainWindow && !mainWindow.isDestroyed()) {
+            mainWindow.webContents.send('gmk87:usb-state', summary);
+          }
+          await rebuildTrayMenu(true);
         }
       } catch {
         // ignore periodic monitor errors
       }
-    }, 10000);
-    usbMonitorTimer.unref();
+    };
 
-    setInterval(() => {
-      rebuildTrayMenu().catch(() => {});
-    }, 30000).unref();
+    const scheduleNextUsbCheck = (delayOverride?: number) => {
+      if (isQuitting) return;
+      if (usbMonitorTimer) {
+        clearTimeout(usbMonitorTimer);
+        usbMonitorTimer = null;
+      }
+      const isVisible = Boolean(mainWindow && mainWindow.isVisible() && !mainWindow.isMinimized());
+      const waitMs = delayOverride ?? (isVisible ? 2500 : 10000);
+      usbMonitorTimer = setTimeout(async () => {
+        await runUsbMonitorTick();
+        scheduleNextUsbCheck();
+      }, waitMs);
+      usbMonitorTimer.unref();
+    };
+
+    if (mainWindow) {
+      const wakeMonitor = () => scheduleNextUsbCheck(250);
+      mainWindow.on('show', wakeMonitor);
+      mainWindow.on('restore', wakeMonitor);
+      mainWindow.on('hide', () => scheduleNextUsbCheck(10000));
+      mainWindow.on('minimize', () => scheduleNextUsbCheck(10000));
+    }
+
+    scheduleNextUsbCheck(600);
+
+    trayRefreshTimer = setInterval(() => {
+      rebuildTrayMenu(false).catch(() => {});
+    }, 30000);
+    trayRefreshTimer.unref();
   });
 
   app.on('window-all-closed', () => {
@@ -611,7 +675,8 @@ if (!gotSingleInstanceLock) {
   app.on('before-quit', async () => {
     isQuitting = true;
     if (clockSyncTimer) clearInterval(clockSyncTimer);
-    if (usbMonitorTimer) clearInterval(usbMonitorTimer);
+    if (usbMonitorTimer) clearTimeout(usbMonitorTimer);
+    if (trayRefreshTimer) clearInterval(trayRefreshTimer);
     await serverHandle?.stop().catch(() => {});
   });
 }

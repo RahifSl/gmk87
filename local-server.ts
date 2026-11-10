@@ -1,4 +1,4 @@
-/// <reference types="node" />
+﻿/// <reference types="node" />
 import express, { type Request, type Response } from 'express';
 import http from 'node:http';
 import https from 'node:https';
@@ -6,10 +6,18 @@ import http2 from 'node:http2';
 import type { Server } from 'node:http';
 import { lookup as dnsLookup } from 'node:dns';
 import zlib from 'node:zlib';
-import * as HID from 'node-hid';
+import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { execFile } from 'node:child_process';
+import { Worker } from 'node:worker_threads';
+import {
+  Gmk87HidDriver,
+  type HardwareStatusSnapshot,
+  type HardwareSummary,
+  type UploadProgressState,
+  type ViaBatchEntry,
+} from './electron/hid-driver';
 
 function resolveBaseDir(): string {
   if (typeof __dirname !== 'undefined') return __dirname;
@@ -57,461 +65,232 @@ export interface StartServerOptions {
   isProd?: boolean;
   distDir?: string;
   mediaScriptPath?: string;
+  dataDir?: string;
 }
 
 export interface ServerHandle {
   server: Server;
   port: number;
   syncClock: () => Promise<{ success: boolean; time?: string; error?: string }>;
-  getHardwareSummary: () => { detected: boolean; deviceName: string; viaConnected: boolean };
+  getHardwareSummary: () => HardwareSummary;
+  probeHardwareSummary: () => Promise<HardwareSummary>;
   stop: () => Promise<void>;
 }
 
 const DEFAULT_NETWORK_CONFIG = resolveCliAndEnvNetworkConfig();
 const PORT = DEFAULT_NETWORK_CONFIG.port;
-const VENDOR_ID = 0x320f;
-const PRODUCT_ID = 0x5055;
-const LCD_REPORT_ID = 0x04;
-const PADDED_FRAME_BYTES = 65536;
-const RAW_FRAME_BYTES = 240 * 135 * 2; // 64,800 bytes
-const MAX_TOTAL_FRAMES = 36;
 
 // ============================================================================
-// Hardware HID State & Mutex
+// Persistent HID Worker Client (Runs node-hid Off Main Event Loop)
 // ============================================================================
-let hidQueue: Promise<unknown> = Promise.resolve();
-let lastDeviceCloseTime = 0;
-let cachedLcdPath: string | null = null;
-let cachedLcdRelease = 0;
-let cachedProductName = 'Zuoya GMK87';
-
-interface CachedStatus {
-  timestamp: number;
-  connected: boolean;
-  viaConnected: boolean;
-  viaProtocol: number;
-  firmwareRelease: number;
-  firmwareVersion: string;
-  deviceName: string;
-  rawConfig: number[];
-  config: {
-    lightingEffect: number;
-    brightness: number;
-    speed: number;
-    effectDirection: number;
-    rainbowMode: number;
-    rgbHueR: number;
-    rgbHueG: number;
-    rgbHueB: number;
-    activeScreenMode: number;
-    slot0FrameCount: number;
-    slot1FrameCount: number;
-    frameDurationMs: number;
-    clockIso: string;
-    clockTimestampMs: number;
+class HidWorkerClient {
+  private worker: Worker | null = null;
+  private fallbackDriver: Gmk87HidDriver | null = null;
+  private reqCounter = 1;
+  private pending = new Map<
+    number,
+    { resolve: (val: any) => void; reject: (err: Error) => void }
+  >();
+  private progress: UploadProgressState = {
+    phase: 'idle',
+    bytesSent: 0,
+    totalBytes: 65536,
+    currentFrame: 0,
+    totalFrames: 1,
+    lastPacketHex: '04 28 00 01 00 00 00 00',
+    message: 'Idle',
   };
-}
+  private lastSummary: HardwareSummary = {
+    detected: false,
+    lcdDetected: false,
+    viaDetected: false,
+    deviceName: 'Zuoya GMK87',
+    viaConnected: false,
+    firmwareVersion: 'Offline',
+  };
+  private closed = false;
 
-let cachedStatus: CachedStatus | null = null;
-let lastRawConfig: Buffer | null = null;
-const cachedSlotFrames: [Buffer[] | null, Buffer[] | null] = [null, null];
-
-let uploadProgress = {
-  phase: 'idle',
-  bytesSent: 0,
-  totalBytes: 65536,
-  currentFrame: 0,
-  totalFrames: 1,
-  lastPacketHex: '04 28 00 01 00 00 00 00',
-  message: 'Idle',
-};
-
-function delay(ms: number): Promise<void> {
-  return new Promise((resolve) => setTimeout(resolve, ms));
-}
-
-function withHidLock<T>(fn: () => Promise<T>): Promise<T> {
-  const next = hidQueue.then(fn, fn);
-  hidQueue = next.then(
-    () => undefined,
-    () => undefined
-  );
-  return next;
-}
-
-function checksum16(buf: Buffer): number {
-  let sum = 0;
-  for (let i = 3; i < 64; i++) {
-    sum = (sum + (buf[i] & 0xff)) & 0xffff;
-  }
-  return sum;
-}
-
-function formatHex(buf: Buffer | Uint8Array, maxLen = 16): string {
-  return Array.from(buf.subarray(0, maxLen))
-    .map((b) => b.toString(16).toUpperCase().padStart(2, '0'))
-    .join(' ');
-}
-
-function toBcd(n: number): number {
-  const c = Math.max(0, Math.min(99, Math.floor(n)));
-  return (Math.floor(c / 10) << 4) | (c % 10);
-}
-
-function fromBcd(val: number): number {
-  return ((val >> 4) & 0x0f) * 10 + (val & 0x0f);
-}
-
-function formatRelease(release: number): string {
-  if (!release) return 'V0104';
-  return 'V' + release.toString(16).toUpperCase().padStart(4, '0');
-}
-
-function discoverGmk87Interfaces(): {
-  lcd: HID.Device | null;
-  via: HID.Device | null;
-} {
-  const devices = HID.devices();
-  const lcd =
-    devices.find(
-      (d) =>
-        d.vendorId === VENDOR_ID &&
-        d.productId === PRODUCT_ID &&
-        (d.interface === 3 || d.usagePage === 0xff1c)
-    ) || null;
-  const via =
-    devices.find(
-      (d) =>
-        d.vendorId === VENDOR_ID &&
-        d.productId === PRODUCT_ID &&
-        (d.interface === 1 || d.usagePage === 0xff60)
-    ) || null;
-
-  if (lcd?.path) {
-    cachedLcdPath = lcd.path;
-    cachedLcdRelease = lcd.release || 0x0104;
-    cachedProductName = lcd.product || cachedProductName;
-  } else {
-    cachedLcdPath = null;
+  constructor(private readonly baseDir: string, private readonly dataDir?: string) {
+    this.initWorker();
   }
 
-  return { lcd, via };
-}
-
-async function openHidPath(devicePath: string): Promise<HID.HID> {
-  const sinceClose = Date.now() - lastDeviceCloseTime;
-  if (sinceClose < 100) {
-    await delay(100 - sinceClose);
+  private resolveBuiltWorkerPath(): string | null {
+    const candidates = [
+      path.join(this.baseDir, 'hid-worker.cjs'),
+      path.join(this.baseDir, 'dist-electron', 'hid-worker.cjs'),
+    ];
+    for (const p of candidates) {
+      if (fs.existsSync(p)) return p;
+    }
+    return null;
   }
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try {
-      return new HID.HID(devicePath);
-    } catch (err) {
-      if (attempt < 2) {
-        await delay(60 * (attempt + 1));
-      } else {
-        throw err;
+
+  private initWorker(): void {
+    const builtWorker = this.resolveBuiltWorkerPath();
+    if (builtWorker) {
+      try {
+        const w = new Worker(builtWorker, {
+          workerData: { dataDir: this.dataDir },
+        });
+        w.on('message', (msg: any) => {
+          if (msg?.type === 'progress' && msg.data) {
+            this.progress = msg.data;
+            return;
+          }
+          if (typeof msg?.id === 'number') {
+            const entry = this.pending.get(msg.id);
+            if (!entry) return;
+            this.pending.delete(msg.id);
+            if (msg.ok) entry.resolve(msg.result);
+            else entry.reject(new Error(msg.error || 'HID worker error'));
+          }
+        });
+        w.on('error', (err) => {
+          for (const entry of this.pending.values()) {
+            entry.reject(err);
+          }
+          this.pending.clear();
+          this.worker = null;
+        });
+        w.on('exit', () => {
+          for (const entry of this.pending.values()) {
+            entry.reject(new Error('HID worker exited unexpectedly'));
+          }
+          this.pending.clear();
+          this.worker = null;
+        });
+        this.worker = w;
+        return;
+      } catch {
+        this.worker = null;
       }
     }
-  }
-  throw new Error('Failed to open HID device');
-}
 
-function closeHidDevice(dev: HID.HID | null | undefined): void {
-  if (!dev) return;
-  try {
-    dev.close();
-  } catch {
-    // ignore close error
+    // Fallback for unbuilt `tsx` dev mode: reuse Gmk87HidDriver cleanly in-process
+    this.fallbackDriver = new Gmk87HidDriver(this.dataDir, (p) => {
+      this.progress = p;
+    });
   }
-  lastDeviceCloseTime = Date.now();
-}
 
-async function safeWrite(device: HID.HID, buffer: Buffer): Promise<void> {
-  for (let attempt = 0; attempt < 5; attempt++) {
-    try {
-      device.write([...buffer]);
+  public isUsingWorkerThread(): boolean {
+    return Boolean(this.worker);
+  }
+
+  public getCachedSummary(): HardwareSummary {
+    return { ...this.lastSummary };
+  }
+
+  public getUploadProgress(): UploadProgressState {
+    if (this.fallbackDriver) {
+      return this.fallbackDriver.getUploadProgress();
+    }
+    return { ...this.progress };
+  }
+
+  private callWorker<T>(method: string, args: any[] = []): Promise<T> {
+    if (this.closed) {
+      return Promise.reject(new Error('HID worker stopped'));
+    }
+    if (this.worker) {
+      return new Promise<T>((resolve, reject) => {
+        const id = this.reqCounter++;
+        this.pending.set(id, { resolve, reject });
+        this.worker!.postMessage({ id, method, args });
+      });
+    }
+    if (!this.fallbackDriver) {
+      this.fallbackDriver = new Gmk87HidDriver(this.dataDir, (p) => {
+        this.progress = p;
+      });
+    }
+    const d = this.fallbackDriver as any;
+    return Promise.resolve(d[method](...args));
+  }
+
+  public async checkAttached(): Promise<HardwareSummary> {
+    const res = await this.callWorker<HardwareSummary>('checkAttached');
+    this.lastSummary = res;
+    return res;
+  }
+
+  public async getStatus(forceRefresh = false, lightOnly = false): Promise<HardwareStatusSnapshot> {
+    const snap = await this.callWorker<HardwareStatusSnapshot>('getStatus', [
+      forceRefresh,
+      lightOnly,
+    ]);
+    this.lastSummary = {
+      detected: Boolean(snap.connected || snap.viaConnected),
+      lcdDetected: Boolean(snap.connected),
+      viaDetected: Boolean(snap.viaConnected),
+      deviceName: snap.deviceName || this.lastSummary.deviceName,
+      viaConnected: Boolean(snap.viaConnected),
+      firmwareVersion: snap.firmwareVersion || this.lastSummary.firmwareVersion,
+    };
+    return snap;
+  }
+
+  public writeConfigPatch(patch: Record<string, any>, forceFreshRead = false) {
+    return this.callWorker<any>('writeConfigPatch', [patch, forceFreshRead]);
+  }
+
+  public syncClockNow() {
+    return this.callWorker<{ success: boolean; time?: string; error?: string }>('syncClockNow');
+  }
+
+  public uploadFrames(params: {
+    targetSlot: 0 | 1;
+    framesBase64: string[];
+    configPatch?: Record<string, any>;
+    frameDurationMs?: number;
+  }) {
+    return this.callWorker<any>('uploadFrames', [params]);
+  }
+
+  public readViaKeymap() {
+    return this.callWorker<any>('readViaKeymap');
+  }
+
+  public setViaKeycode(layer: number, row: number, col: number, keycode: number) {
+    return this.callWorker<any>('setViaKeycode', [layer, row, col, keycode]);
+  }
+
+  public batchSetViaKeycodes(entries: ViaBatchEntry[]) {
+    return this.callWorker<any>('batchSetViaKeycodes', [entries]);
+  }
+
+  public readViaMacros() {
+    return this.callWorker<any>('readViaMacros');
+  }
+
+  public writeViaMacros(macros: string[]) {
+    return this.callWorker<any>('writeViaMacros', [macros]);
+  }
+
+  public async stop(): Promise<void> {
+    if (this.closed) return;
+    if (this.worker) {
+      const w = this.worker;
+      try {
+        await Promise.race([
+          this.callWorker('shutdown'),
+          new Promise((r) => setTimeout(r, 400)),
+        ]);
+      } catch {
+        // ignore shutdown rpc error
+      }
+      this.closed = true;
+      this.worker = null;
+      await w.terminate().catch(() => {});
       return;
-    } catch (err: any) {
-      const msg = String(err?.message || '');
-      if ((msg.includes('0x000003E5') || msg.includes('0x000000AA')) && attempt < 4) {
-        await delay(40 * (attempt + 1));
-      } else {
-        throw err;
-      }
     }
-  }
-}
-
-function buildLcdPacketBuffer(
-  commandId: number,
-  data: Uint8Array = Buffer.alloc(0),
-  pos = 0
-): Buffer {
-  const buffer = Buffer.alloc(64, 0x00);
-  const len = Math.min(56, data.length);
-  buffer[0] = LCD_REPORT_ID;
-  buffer[3] = commandId & 0xff;
-  buffer[4] = len & 0xff;
-  buffer[5] = pos & 0xff;
-  buffer[6] = (pos >> 8) & 0xff;
-  buffer[7] = (pos >> 16) & 0xff;
-  if (len > 0) {
-    buffer.set(data.subarray(0, len), 8);
-  }
-  const chk = checksum16(buffer);
-  buffer[1] = chk & 0xff;
-  buffer[2] = (chk >> 8) & 0xff;
-  return buffer;
-}
-
-function drainDevice(device: HID.HID, maxPackets = 24): number {
-  let count = 0;
-  for (let i = 0; i < maxPackets; i++) {
-    try {
-      const r = device.readTimeout(15);
-      if (!r || r.length === 0) break;
-      count++;
-    } catch {
-      break;
-    }
-  }
-  return count;
-}
-
-async function sendWithPosition(
-  device: HID.HID,
-  commandId: number,
-  data: Uint8Array = Buffer.alloc(0),
-  pos = 0,
-  waitMs = 2500,
-  matchPos = false
-): Promise<Buffer | null> {
-  if (commandId === 0x02) {
-    await delay(100);
-  }
-
-  const buffer = buildLcdPacketBuffer(commandId, data, pos);
-  await safeWrite(device, buffer);
-
-  const expectedCmd = commandId & 0xff;
-  const expectedLen = Math.min(56, data.length) & 0xff;
-  const p0 = pos & 0xff;
-  const p1 = (pos >> 8) & 0xff;
-  const p2 = (pos >> 16) & 0xff;
-
-  const start = Date.now();
-  while (Date.now() - start < waitMs) {
-    const remaining = waitMs - (Date.now() - start);
-    if (remaining <= 0) break;
-    const sliceMs = Math.max(5, Math.min(80, remaining));
-    try {
-      const resp = device.readTimeout(sliceMs);
-      if (resp && resp.length > 3 && resp[3] === expectedCmd) {
-        if (
-          !matchPos ||
-          (resp.length >= 8 &&
-            resp[4] === expectedLen &&
-            resp[5] === p0 &&
-            resp[6] === p1 &&
-            resp[7] === p2)
-        ) {
-          return Buffer.from(resp).subarray(4);
-        }
-      }
-      if (resp && resp.length > 0) {
-        continue;
-      }
-    } catch {
-      return null;
-    }
-    await delay(1);
-  }
-  return null;
-}
-
-async function readLcdConfig(device: HID.HID, releaseHint = 0x0104): Promise<Buffer> {
-  drainDevice(device);
-
-  const initAck = await sendWithPosition(device, 0x01, Buffer.alloc(0), 0);
-  if (!initAck) {
-    throw new Error('GMK87 did not acknowledge INIT (0x01) while reading config');
-  }
-  for (let i = 0; i < 9; i++) {
-    await sendWithPosition(device, 0x03, Buffer.alloc(4, 0x00), i * 4);
-  }
-  await sendWithPosition(device, 0x03, Buffer.alloc(1, 0x00), 36);
-  const prepCommitAck = await sendWithPosition(device, 0x02, Buffer.alloc(0), 0);
-  if (!prepCommitAck) {
-    throw new Error('GMK87 did not acknowledge COMMIT (0x02) while preparing config read');
-  }
-
-  const raw48 = Buffer.alloc(48, 0x00);
-  for (let i = 0; i < 12; i++) {
-    const chunk = await sendWithPosition(device, 0x05, Buffer.alloc(4, 0x00), i * 4);
-    if (!chunk || chunk.length < 4) {
-      throw new Error(`GMK87 timed out reading config chunk at offset ${i * 4}`);
-    }
-    chunk.copy(raw48, i * 4, 0, 4);
-  }
-
-  // V0112 stores 64 bytes (extended tail 48..63 contains 0x31 VIA protocol selector)
-  if (releaseHint >= 0x0112) {
-    const raw64 = Buffer.alloc(64, 0x00);
-    raw48.copy(raw64, 0);
-    let gotExtended = false;
-    for (let pos = 48; pos < 64; pos += 4) {
-      const chunk = await sendWithPosition(device, 0x05, Buffer.alloc(4, 0x00), pos, 250);
-      if (chunk && chunk.length >= 4) {
-        chunk.copy(raw64, pos, 0, 4);
-        gotExtended = true;
-      } else {
-        break;
-      }
-    }
-    if (gotExtended) {
-      lastRawConfig = raw64;
-      return raw64;
-    }
-  }
-
-  lastRawConfig = raw48;
-  return raw48;
-}
-
-async function writeLcdConfig(device: HID.HID, cfgBuffer: Buffer): Promise<string> {
-  if (cfgBuffer.length >= 64 && cfgBuffer[0x31] !== 9 && cfgBuffer[0x31] !== 11) {
-    cfgBuffer[0x31] = 11;
-  }
-
-  drainDevice(device);
-
-  const initAck = await sendWithPosition(device, 0x01, Buffer.alloc(0), 0);
-  if (!initAck) {
-    throw new Error('GMK87 did not acknowledge INIT (0x01) before writing config');
-  }
-  let lastHex = '';
-  for (let pos = 0; pos < cfgBuffer.length; pos += 56) {
-    const slice = cfgBuffer.subarray(pos, Math.min(pos + 56, cfgBuffer.length));
-    const pkt = buildLcdPacketBuffer(0x06, slice, pos);
-    lastHex = formatHex(pkt, 16);
-    const writeAck = await sendWithPosition(device, 0x06, slice, pos);
-    if (!writeAck) {
-      throw new Error(`GMK87 did not acknowledge WRITE_CONFIG (0x06) at offset ${pos}`);
-    }
-  }
-  const commitAck = await sendWithPosition(device, 0x02, Buffer.alloc(0), 0);
-  if (!commitAck) {
-    throw new Error('GMK87 did not acknowledge COMMIT (0x02) after writing config');
-  }
-  lastRawConfig = Buffer.from(cfgBuffer);
-  return lastHex;
-}
-
-function parseConfigStruct(cfg: Buffer) {
-  const sec = fromBcd(cfg[35] ?? 0);
-  const min = fromBcd(cfg[36] ?? 0);
-  const hour = fromBcd(cfg[37] ?? 0);
-  const date = Math.max(1, Math.min(31, fromBcd(cfg[39] ?? 1) || 1));
-  const month = Math.max(1, Math.min(12, fromBcd(cfg[40] ?? 1) || 1));
-  const year = 2000 + fromBcd(cfg[41] ?? 26);
-
-  const parsed = new Date(year, month - 1, date, hour, min, sec);
-  const frameDurationMs = Math.max(60, (cfg[43] | (cfg[44] << 8)) || 100);
-
-  return {
-    lightingEffect: cfg[1],
-    brightness: Math.max(0, Math.min(9, cfg[2])),
-    speed: Math.max(0, Math.min(4, cfg[3])),
-    effectDirection: (cfg[4] ?? 0) & 0x01,
-    rainbowMode: (cfg[5] ?? 0) & 0x01,
-    rgbHueR: cfg[6],
-    rgbHueG: cfg[7],
-    rgbHueB: cfg[8],
-    activeScreenMode: Math.max(0, Math.min(2, cfg[33])),
-    slot0FrameCount: Math.max(1, cfg[34] || 1),
-    slot1FrameCount: Math.max(1, cfg[46] || 1),
-    frameDurationMs,
-    clockIso: `${year}-${String(month).padStart(2, '0')}-${String(date).padStart(2, '0')} ${String(
-      hour
-    ).padStart(2, '0')}:${String(min).padStart(2, '0')}:${String(sec).padStart(2, '0')}`,
-    clockTimestampMs: Number.isNaN(parsed.getTime()) ? Date.now() : parsed.getTime(),
-  };
-}
-
-function patchConfigBuffer(base: Buffer, patch: Record<string, any>): Buffer {
-  const cfg = Buffer.from(base);
-  if (patch.lightingEffect !== undefined) {
-    cfg[1] = Math.max(0, Math.min(18, Number(patch.lightingEffect)));
-  }
-  if (patch.brightness !== undefined) {
-    cfg[2] = Math.max(0, Math.min(9, Number(patch.brightness)));
-  }
-  if (patch.speed !== undefined) {
-    cfg[3] = Math.max(0, Math.min(4, Number(patch.speed)));
-  }
-  if (patch.effectDirection !== undefined) {
-    cfg[4] = Number(patch.effectDirection) ? 1 : 0;
-  }
-  if (patch.rainbowMode !== undefined) {
-    cfg[5] = Number(patch.rainbowMode) ? 1 : 0;
-  }
-  if (patch.rgbHueR !== undefined) cfg[6] = Number(patch.rgbHueR) & 0xff;
-  if (patch.rgbHueG !== undefined) cfg[7] = Number(patch.rgbHueG) & 0xff;
-  if (patch.rgbHueB !== undefined) cfg[8] = Number(patch.rgbHueB) & 0xff;
-  if (patch.activeScreenMode !== undefined) {
-    cfg[33] = Math.max(0, Math.min(2, Number(patch.activeScreenMode)));
-  }
-  if (patch.slot0FrameCount !== undefined) {
-    cfg[34] = Math.max(1, Math.min(255, Number(patch.slot0FrameCount)));
-  }
-  if (patch.slot1FrameCount !== undefined) {
-    cfg[46] = Math.max(1, Math.min(255, Number(patch.slot1FrameCount)));
-  }
-
-  const existingDelay = cfg[43] | (cfg[44] << 8);
-  const frameDurationMs = Math.max(
-    60,
-    Math.min(65535, Number(patch.frameDurationMs ?? (existingDelay || 100)))
-  );
-  cfg[43] = frameDurationMs & 0xff;
-  cfg[44] = (frameDurationMs >> 8) & 0xff;
-
-  if (patch.clockTimestampMs !== undefined) {
-    const d = new Date(Number(patch.clockTimestampMs));
-    if (!Number.isNaN(d.getTime())) {
-      cfg[35] = toBcd(d.getSeconds());
-      cfg[36] = toBcd(d.getMinutes());
-      cfg[37] = toBcd(d.getHours());
-      cfg[38] = d.getDay();
-      cfg[39] = toBcd(d.getDate());
-      cfg[40] = toBcd(d.getMonth() + 1);
-      cfg[41] = toBcd(d.getFullYear() % 100);
-    }
-  }
-
-  return cfg;
-}
-
-async function readViaProtocolAndClose(viaPath: string): Promise<number> {
-  const dev = await openHidPath(viaPath);
-  try {
-    const req = Buffer.alloc(33, 0);
-    req[0] = 0x00;
-    req[1] = 0x01; // GetProtocolVersion
-    await safeWrite(dev, req);
-    const resp = dev.readTimeout(400);
-    if (resp && resp.length >= 3 && resp[0] === 0x01) {
-      return (resp[1] << 8) | resp[2] || 9;
-    }
-    return 9;
-  } finally {
-    closeHidDevice(dev);
+    this.closed = true;
+    this.fallbackDriver?.shutdown();
+    this.fallbackDriver = null;
   }
 }
 
 // ============================================================================
-// System CPU Delta + Windows Media Session Telemetry
+// System CPU Delta + Demand-Gated Windows Media Session Telemetry
 // ============================================================================
 let prevCpuTotals: { idle: number; total: number } | null = null;
 let cachedCpuPercent = 18;
@@ -572,9 +351,12 @@ let cachedMedia = {
   album: '',
 };
 let isMediaPolling = false;
+let lastMediaPollAt = 0;
 
-function pollWindowsMedia(scriptPath: string): void {
+function maybeRefreshWindowsMediaOnDemand(scriptPath: string): void {
   if (isMediaPolling || process.platform !== 'win32') return;
+  if (Date.now() - lastMediaPollAt < 4000) return;
+  lastMediaPollAt = Date.now();
   isMediaPolling = true;
   execFile(
     'powershell.exe',
@@ -962,7 +744,7 @@ async function fetchTenorRawQuery(searchQuery: string): Promise<WebGifSearchResu
   const resp = await fetchUpstreamBuffer(
     `https://tenor.com/search?q=${encodeURIComponent(searchQuery)}`,
     {
-      timeoutMs: 22000,
+      timeoutMs: 8000,
       headers: {
         'User-Agent': DEFAULT_BROWSER_UA,
         Accept: 'text/html,application/xhtml+xml,application/json;q=0.9,*/*;q=0.8',
@@ -1059,7 +841,7 @@ async function searchWikimediaGifs(query: string, page = 0): Promise<WebGifSearc
     `&gsrlimit=25&gsroffset=${offset}&prop=imageinfo&iiprop=url|mime|size&format=json`;
 
   const resp = await fetchUpstreamBuffer(url, {
-    timeoutMs: 20000,
+    timeoutMs: 8000,
     headers: {
       'User-Agent': 'GMK87MasterControlCenter/1.0 (https://github.com/RahifSl/gmk87)',
       Accept: 'application/json',
@@ -1110,7 +892,7 @@ async function searchDuckDuckGoGifs(query: string, page = 0): Promise<WebGifSear
   };
 
   const tokenRes = await fetchUpstreamBuffer(`https://duckduckgo.com/?q=${searchParam}`, {
-    timeoutMs: 18000,
+    timeoutMs: 8000,
     headers,
   });
   if (tokenRes.status !== 200) {
@@ -1124,7 +906,7 @@ async function searchDuckDuckGoGifs(query: string, page = 0): Promise<WebGifSear
   const vqd = match[1];
   const apiUrl = `https://duckduckgo.com/i.js?q=${searchParam}&o=json&vqd=${vqd}&f=type:gif&s=${page * 30}`;
   const apiRes = await fetchUpstreamBuffer(apiUrl, {
-    timeoutMs: 18000,
+    timeoutMs: 8000,
     headers: {
       ...headers,
       Referer: 'https://duckduckgo.com/',
@@ -1271,44 +1053,15 @@ function isDisallowedProxyHost(hostname: string): boolean {
 // ============================================================================
 // Express App & Server Startup
 // ============================================================================
-async function syncHardwareClockNow(): Promise<{ success: boolean; time?: string; error?: string }> {
-  try {
-    return await withHidLock(async () => {
-      const { lcd } = discoverGmk87Interfaces();
-      if (!lcd?.path) {
-        return { success: false, error: 'GMK87 not connected in wired USB mode' };
-      }
-      const dev = await openHidPath(lcd.path);
-      try {
-        // Always read live EEPROM/flash config so on-keyboard Fn adjustments are never overwritten
-        const base = await readLcdConfig(dev, lcd.release || 0x0104);
-        const updatedCfg = patchConfigBuffer(base, { clockTimestampMs: Date.now() });
-        await writeLcdConfig(dev, updatedCfg);
-        const parsed = parseConfigStruct(updatedCfg);
-        if (cachedStatus) {
-          cachedStatus = {
-            ...cachedStatus,
-            timestamp: Date.now(),
-            rawConfig: Array.from(updatedCfg),
-            config: parsed,
-          };
-        }
-        return { success: true, time: parsed.clockIso };
-      } finally {
-        closeHidDevice(dev);
-      }
-    });
-  } catch (err: any) {
-    return { success: false, error: err?.message || 'Clock sync failed' };
-  }
-}
-
 export async function startServer(options: StartServerOptions = {}): Promise<ServerHandle> {
   const baseDir = resolveBaseDir();
   const listenPort = options.port ?? PORT;
   const isProd = options.isProd ?? process.env.NODE_ENV === 'production';
   const distDir = options.distDir || path.resolve(baseDir, 'dist');
   const mediaScriptPath = options.mediaScriptPath || path.resolve(baseDir, 'get_media.ps1');
+
+  const worker = new HidWorkerClient(baseDir, options.dataDir);
+  const initialHardware = await worker.checkAttached().catch(() => worker.getCachedSummary());
 
   const app = express();
   app.use(express.json({ limit: '25mb' }));
@@ -1320,99 +1073,57 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
     next();
   });
 
-  app.get('/api/health', (_req: Request, res: Response) => {
-    const { lcd, via } = discoverGmk87Interfaces();
-    res.json({
-      ok: true,
-      app: 'gmk87-master-control-center',
-      pid: process.pid,
-      port: listenPort,
-      hardwareDetected: Boolean(lcd || via),
-      deviceName: cachedProductName,
-    });
+  app.get('/api/health', async (_req: Request, res: Response) => {
+    try {
+      const summary = await worker.checkAttached();
+      res.json({
+        ok: true,
+        app: 'gmk87-master-control-center',
+        pid: process.pid,
+        port: listenPort,
+        workerThread: worker.isUsingWorkerThread(),
+        hardwareDetected: summary.detected,
+        lcdDetected: summary.lcdDetected,
+        viaDetected: summary.viaDetected,
+        deviceName: summary.deviceName,
+        firmwareVersion: summary.firmwareVersion,
+      });
+    } catch {
+      const summary = worker.getCachedSummary();
+      res.json({
+        ok: true,
+        app: 'gmk87-master-control-center',
+        pid: process.pid,
+        port: listenPort,
+        workerThread: worker.isUsingWorkerThread(),
+        hardwareDetected: summary.detected,
+        lcdDetected: summary.lcdDetected,
+        viaDetected: summary.viaDetected,
+        deviceName: summary.deviceName,
+        firmwareVersion: summary.firmwareVersion,
+      });
+    }
   });
 
   // --------------------------------------------------------------------------
-  // Hardware USB HID API Routes
+  // Hardware USB HID API Routes (Routed through Dedicated HID Worker Thread)
   // --------------------------------------------------------------------------
   app.get('/api/hid/status', async (req: Request, res: Response) => {
     const forceRefresh = req.query.refresh === '1';
-    if (!forceRefresh && cachedStatus && Date.now() - cachedStatus.timestamp < 5000) {
-      return res.json({ bridgeAvailable: true, ...cachedStatus });
-    }
-
+    const lightOnly = req.query.light === '1';
     try {
-      const result = await withHidLock(async () => {
-        const { lcd, via } = discoverGmk87Interfaces();
-        if (!lcd && !via) {
-          cachedStatus = null;
-          return {
-            bridgeAvailable: true,
-            connected: false,
-            viaConnected: false,
-            viaProtocol: 9,
-            firmwareRelease: 0,
-            firmwareVersion: 'Offline',
-            deviceName: 'Zuoya GMK87',
-            error: 'Zuoya GMK87 not detected in wired USB mode (VID 0x320F / PID 0x5055)',
-          };
-        }
-
-        let viaProtocol = 9;
-        if (via?.path) {
-          try {
-            viaProtocol = await readViaProtocolAndClose(via.path);
-          } catch {
-            viaProtocol = 9;
-          }
-        }
-
-        if (!lcd?.path) {
-          return {
-            bridgeAvailable: true,
-            connected: false,
-            viaConnected: Boolean(via),
-            viaProtocol,
-            firmwareRelease: via?.release || 0x0104,
-            firmwareVersion: formatRelease(via?.release || 0x0104),
-            deviceName: via?.product || cachedProductName,
-            error: 'VIA interface found, but LCD interface (MI_03 / 0xFF1C) is not available.',
-          };
-        }
-
-        const dev = await openHidPath(lcd.path);
-        try {
-          const cfg = await readLcdConfig(dev, lcd.release || 0x0104);
-          const parsed = parseConfigStruct(cfg);
-          const nextCached: CachedStatus = {
-            timestamp: Date.now(),
-            connected: true,
-            viaConnected: Boolean(via),
-            viaProtocol,
-            firmwareRelease: lcd.release || 0x0104,
-            firmwareVersion: formatRelease(lcd.release || 0x0104),
-            deviceName: lcd.product || cachedProductName,
-            rawConfig: Array.from(cfg),
-            config: parsed,
-          };
-          cachedStatus = nextCached;
-          return { bridgeAvailable: true, ...nextCached };
-        } finally {
-          closeHidDevice(dev);
-        }
-      });
-
-      res.json(result);
+      const snap = await worker.getStatus(forceRefresh, lightOnly);
+      res.json({ bridgeAvailable: true, ...snap });
     } catch (err: any) {
-      cachedLcdPath = null;
-      cachedStatus = null;
       res.json({
         bridgeAvailable: true,
         connected: false,
         viaConnected: false,
         viaProtocol: 9,
+        firmwareRelease: 0,
         firmwareVersion: 'Error',
         deviceName: 'Zuoya GMK87',
+        slotCache: { slot0Frames: 0, slot1Frames: 0 },
         error: err?.message || 'HID status read failed',
       });
     }
@@ -1421,31 +1132,7 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
   app.post('/api/hid/config', async (req: Request, res: Response) => {
     try {
       const patch = req.body || {};
-      const result = await withHidLock(async () => {
-        const { lcd } = discoverGmk87Interfaces();
-        if (!lcd?.path) {
-          throw new Error('GMK87 LCD interface (0xFF1C) not found in USB mode');
-        }
-        const dev = await openHidPath(lcd.path);
-        try {
-          // Always read current hardware config before patching so uncommitted keyboard edits stay intact
-          const base = await readLcdConfig(dev, lcd.release || 0x0104);
-          const updatedCfg = patchConfigBuffer(base, patch);
-          const packetHex = await writeLcdConfig(dev, updatedCfg);
-          const parsed = parseConfigStruct(updatedCfg);
-          if (cachedStatus) {
-            cachedStatus = {
-              ...cachedStatus,
-              timestamp: Date.now(),
-              rawConfig: Array.from(updatedCfg),
-              config: parsed,
-            };
-          }
-          return { success: true, packetHex, config: parsed, rawConfig: Array.from(updatedCfg) };
-        } finally {
-          closeHidDevice(dev);
-        }
-      });
+      const result = await worker.writeConfigPatch(patch, false);
       res.json(result);
     } catch (err: any) {
       res.status(500).json({ success: false, error: err?.message || 'Config update failed' });
@@ -1453,7 +1140,7 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
   });
 
   app.get('/api/hid/upload-progress', (_req: Request, res: Response) => {
-    res.json(uploadProgress);
+    res.json(worker.getUploadProgress());
   });
 
   app.post('/api/hid/upload', async (req: Request, res: Response) => {
@@ -1470,195 +1157,19 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
       if (framesBase64.length === 0) {
         return res.status(400).json({ success: false, error: 'No RGB565 frames provided' });
       }
-      if (framesBase64.length > MAX_TOTAL_FRAMES) {
+      if (framesBase64.length > 36) {
         return res.status(400).json({
           success: false,
-          error: `Too many frames (${framesBase64.length}); max is ${MAX_TOTAL_FRAMES}`,
+          error: `Too many frames (${framesBase64.length}); max is 36`,
         });
       }
 
-      const rawTargetBuffers = framesBase64.map((b64) => {
-        const raw = Buffer.from(b64, 'base64');
-        const padded = Buffer.alloc(PADDED_FRAME_BYTES, 0x00);
-        raw.copy(padded, 0, 0, Math.min(raw.length, PADDED_FRAME_BYTES));
-        return padded;
+      const result = await worker.uploadFrames({
+        targetSlot,
+        framesBase64,
+        configPatch: cfgPatch,
+        frameDurationMs: requestedDuration,
       });
-
-      let targetBuffers = rawTargetBuffers;
-      let uploadList: Buffer[];
-      let slot0Count: number;
-      let slot1Count: number;
-
-      if (targetSlot === 0) {
-        cachedSlotFrames[0] = targetBuffers;
-        const slot1Suffix = cachedSlotFrames[1] || [Buffer.alloc(PADDED_FRAME_BYTES, 0x00)];
-        const maxS1 = Math.max(0, MAX_TOTAL_FRAMES - targetBuffers.length);
-        const usableS1 = slot1Suffix.slice(0, maxS1);
-        if (usableS1.length > 0) {
-          cachedSlotFrames[1] = usableS1;
-        }
-        uploadList = [...targetBuffers, ...usableS1];
-        slot0Count = targetBuffers.length;
-        slot1Count = Math.max(1, usableS1.length);
-      } else {
-        targetBuffers = rawTargetBuffers.slice(0, MAX_TOTAL_FRAMES - 1);
-        cachedSlotFrames[1] = targetBuffers;
-        const slot0Prefix = cachedSlotFrames[0] || [Buffer.alloc(PADDED_FRAME_BYTES, 0x00)];
-        const maxS0 = Math.max(1, MAX_TOTAL_FRAMES - targetBuffers.length);
-        const usableS0 = slot0Prefix.slice(0, maxS0);
-        cachedSlotFrames[0] = usableS0;
-        uploadList = [...usableS0, ...targetBuffers];
-        slot0Count = usableS0.length;
-        slot1Count = targetBuffers.length;
-      }
-
-      const fullBuffer = Buffer.concat(uploadList);
-      const totalBytes = fullBuffer.length;
-      const totalFrames = uploadList.length;
-
-      uploadProgress = {
-        phase: 'config',
-        bytesSent: 0,
-        totalBytes,
-        currentFrame: 1,
-        totalFrames,
-        lastPacketHex: '04 ... 06',
-        message: 'Step 1/4: Writing EEPROM config to GMK87...',
-      };
-
-      const result = await withHidLock(async () => {
-        const { lcd } = discoverGmk87Interfaces();
-        if (!lcd?.path) {
-          throw new Error('GMK87 LCD interface (0xFF1C) not found in USB mode');
-        }
-        const dev = await openHidPath(lcd.path);
-        try {
-          const base = await readLcdConfig(dev, lcd.release || 0x0104);
-          const nextCfg = patchConfigBuffer(base, {
-            ...cfgPatch,
-            activeScreenMode: targetSlot === 0 ? 1 : 2,
-            slot0FrameCount: slot0Count,
-            slot1FrameCount: slot1Count,
-            frameDurationMs: requestedDuration,
-            clockTimestampMs: Date.now(),
-          });
-
-          const cfgHex = await writeLcdConfig(dev, nextCfg);
-
-          const pkt23 = buildLcdPacketBuffer(0x23, Buffer.alloc(0), 0);
-          uploadProgress = {
-            phase: 'ready',
-            bytesSent: 0,
-            totalBytes,
-            currentFrame: 1,
-            totalFrames,
-            lastPacketHex: cfgHex,
-            message: `Step 2/4: Erasing LCD SPI flash for ${totalFrames} frame(s) (0x23)...`,
-          };
-
-          // 0x23 triggers synchronous SPI NOR flash erase on MCU (~0.45s per 64KB block); wait for IN ACK
-          const readyAck = await sendWithPosition(dev, 0x23, Buffer.alloc(0), 0, 30000);
-          if (!readyAck) {
-            throw new Error('GMK87 timed out waiting for 0x23 flash-erase ACK before streaming');
-          }
-
-          let pos = 0;
-          let chunkCount = 0;
-          let lastHex = formatHex(pkt23, 14);
-
-          while (pos < totalBytes) {
-            const size = Math.min(56, totalBytes - pos);
-            const chunk = fullBuffer.subarray(pos, pos + size);
-            const pkt21 = buildLcdPacketBuffer(0x21, chunk, pos);
-
-            // Wait for each 0x21 packet's exact IN echo so SPI flash writes never drop trailing sectors
-            const ack21 = await sendWithPosition(dev, 0x21, chunk, pos, 8000, true);
-            if (!ack21) {
-              throw new Error(`GMK87 timed out waiting for 0x21 frame chunk ACK at offset ${pos}`);
-            }
-
-            pos += size;
-            chunkCount++;
-
-            if (chunkCount === 1 || chunkCount % 16 === 0 || pos >= totalBytes) {
-              const curFrame = Math.min(totalFrames, Math.floor((pos - 1) / PADDED_FRAME_BYTES) + 1);
-              lastHex = formatHex(pkt21, 14);
-              uploadProgress = {
-                phase: 'streaming',
-                bytesSent: pos,
-                totalBytes,
-                currentFrame: curFrame,
-                totalFrames,
-                lastPacketHex: lastHex,
-                message: `Step 3/4: Streaming RGB565 frame ${curFrame}/${totalFrames} (ACK verified)`,
-              };
-              // Yield to Node/libuv I/O so /api/hid/upload-progress & UI polling never starve
-              await new Promise<void>((resolve) => setImmediate(resolve));
-            }
-          }
-
-          const pkt02 = buildLcdPacketBuffer(0x02, Buffer.alloc(0), 0);
-          uploadProgress = {
-            phase: 'commit',
-            bytesSent: totalBytes,
-            totalBytes,
-            currentFrame: totalFrames,
-            totalFrames,
-            lastPacketHex: lastHex,
-            message: 'Step 4/4: Finalizing SPI flash commit (0x02)...',
-          };
-
-          const commitAck = await sendWithPosition(dev, 0x02, Buffer.alloc(0), 0, 8000);
-          if (!commitAck) {
-            throw new Error('GMK87 did not acknowledge final COMMIT (0x02) after streaming');
-          }
-          await delay(100);
-
-          // Re-stamp hardware RTC after the multi-second flash transfer so the clock has zero upload lag
-          const postCfg = patchConfigBuffer(nextCfg, { clockTimestampMs: Date.now() });
-          await writeLcdConfig(dev, postCfg);
-
-          const parsed = parseConfigStruct(postCfg);
-          if (cachedStatus) {
-            cachedStatus = {
-              ...cachedStatus,
-              timestamp: Date.now(),
-              rawConfig: Array.from(postCfg),
-              config: parsed,
-            };
-          }
-
-          const commitHex = formatHex(pkt02, 16);
-          uploadProgress = {
-            phase: 'complete',
-            bytesSent: totalBytes,
-            totalBytes,
-            currentFrame: totalFrames,
-            totalFrames,
-            lastPacketHex: commitHex,
-            message: `Flashed ${targetBuffers.length} frame(s) to Slot ${targetSlot} via USB Bridge`,
-          };
-
-          return {
-            success: true,
-            uploadedBytes: totalBytes,
-            frames: targetBuffers.length,
-            lastPacketHex: commitHex,
-            config: parsed,
-          };
-        } catch (innerErr: any) {
-          uploadProgress = {
-            ...uploadProgress,
-            phase: 'error',
-            lastPacketHex: 'ERR',
-            message: innerErr?.message || 'USB upload error',
-          };
-          throw innerErr;
-        } finally {
-          closeHidDevice(dev);
-        }
-      });
-
       res.json(result);
     } catch (err: any) {
       res.status(500).json({ success: false, error: err?.message || 'USB upload failed' });
@@ -1667,75 +1178,7 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
 
   app.get('/api/hid/keymap', async (_req: Request, res: Response) => {
     try {
-      const result = await withHidLock(async () => {
-        const { via } = discoverGmk87Interfaces();
-        if (!via?.path) {
-          throw new Error('GMK87 VIA interface (0xFF60) not found in USB mode');
-        }
-        const dev = await openHidPath(via.path);
-        try {
-          // 1. Read VIA protocol version
-          let viaProtocol = 9;
-          const verReq = Buffer.alloc(33, 0);
-          verReq[0] = 0x00;
-          verReq[1] = 0x01;
-          await safeWrite(dev, verReq);
-          const verResp = dev.readTimeout(500);
-          if (verResp && verResp.length >= 3 && verResp[0] === 0x01) {
-            viaProtocol = (verResp[1] << 8) | verResp[2] || 9;
-          }
-
-          // 2. Read 960 bytes (4 * 8 * 15 * 2) in 28-byte chunks
-          const LAYERS = 4;
-          const ROWS = 8;
-          const COLS = 15;
-          const TOTAL = LAYERS * ROWS * COLS * 2;
-          const CHUNK = 28;
-          const raw = Buffer.alloc(TOTAL, 0);
-
-          for (let offset = 0; offset < TOTAL; offset += CHUNK) {
-            const size = Math.min(CHUNK, TOTAL - offset);
-            const req = Buffer.alloc(33, 0);
-            req[0] = 0x00;
-            req[1] = 0x12;
-            req[2] = (offset >> 8) & 0xff;
-            req[3] = offset & 0xff;
-            req[4] = size;
-
-            await safeWrite(dev, req);
-            const resp = dev.readTimeout(1000);
-            if (!resp || resp[0] !== 0x12) {
-              throw new Error(`Failed reading keymap chunk at offset ${offset}`);
-            }
-            Buffer.from(resp).copy(raw, offset, 4, 4 + size);
-          }
-
-          const keymap: number[][][] = [];
-          for (let l = 0; l < LAYERS; l++) {
-            const layer: number[][] = [];
-            for (let r = 0; r < ROWS; r++) {
-              const row: number[] = [];
-              for (let c = 0; c < COLS; c++) {
-                const idx = (l * ROWS * COLS + r * COLS + c) * 2;
-                row.push((raw[idx] << 8) | raw[idx + 1]);
-              }
-              layer.push(row);
-            }
-            keymap.push(layer);
-          }
-
-          return {
-            success: true,
-            viaProtocol,
-            layers: LAYERS,
-            rows: ROWS,
-            cols: COLS,
-            keymap,
-          };
-        } finally {
-          closeHidDevice(dev);
-        }
-      });
+      const result = await worker.readViaKeymap();
       res.json(result);
     } catch (err: any) {
       res.status(500).json({ success: false, error: err?.message || 'VIA read failed' });
@@ -1749,49 +1192,54 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
       const col = Number(req.body?.col ?? 0) & 0x0f;
       const keycode = Number(req.body?.keycode ?? 0) & 0xffff;
 
-      const result = await withHidLock(async () => {
-        const { via } = discoverGmk87Interfaces();
-        if (!via?.path) {
-          throw new Error('GMK87 VIA interface (0xFF60) not found in USB mode');
-        }
-        const dev = await openHidPath(via.path);
-        try {
-          const packet = Buffer.alloc(33, 0);
-          packet[0] = 0x00;
-          packet[1] = 0x05;
-          packet[2] = layer;
-          packet[3] = row;
-          packet[4] = col;
-          packet[5] = (keycode >> 8) & 0xff;
-          packet[6] = keycode & 0xff;
-
-          await safeWrite(dev, packet);
-          const resp = dev.readTimeout(1000);
-          if (!resp || resp[0] !== 0x05) {
-            throw new Error(`VIA setKeycode failed at [${layer},${row},${col}]`);
-          }
-          return {
-            success: true,
-            layer,
-            row,
-            col,
-            keycode,
-            packetHex: formatHex(packet.subarray(1), 8),
-          };
-        } finally {
-          closeHidDevice(dev);
-        }
-      });
+      const result = await worker.setViaKeycode(layer, row, col, keycode);
       res.json(result);
     } catch (err: any) {
       res.status(500).json({ success: false, error: err?.message || 'VIA write failed' });
     }
   });
 
+  app.post('/api/hid/keymap/batch', async (req: Request, res: Response) => {
+    try {
+      const entries = Array.isArray(req.body?.entries) ? req.body.entries : [];
+      const result = await worker.batchSetViaKeycodes(entries);
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err?.message || 'VIA batch write failed' });
+    }
+  });
+
+  app.get('/api/hid/macros', async (_req: Request, res: Response) => {
+    try {
+      const result = await worker.readViaMacros();
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({
+        success: false,
+        supported: false,
+        count: 0,
+        bufferSize: 0,
+        macros: [],
+        error: err?.message || 'VIA macro read failed',
+      });
+    }
+  });
+
+  app.post('/api/hid/macros/set', async (req: Request, res: Response) => {
+    try {
+      const macros = Array.isArray(req.body?.macros) ? req.body.macros : [];
+      const result = await worker.writeViaMacros(macros);
+      res.json(result);
+    } catch (err: any) {
+      res.status(500).json({ success: false, error: err?.message || 'VIA macro write failed' });
+    }
+  });
+
   // --------------------------------------------------------------------------
-  // Live Telemetry, Web GIF Search & CORS-free GIF Proxy APIs
+  // Demand-Gated System Telemetry, Web GIF Search & CORS-free GIF Proxy APIs
   // --------------------------------------------------------------------------
   app.get('/api/system-telemetry', (_req: Request, res: Response) => {
+    maybeRefreshWindowsMediaOnDemand(mediaScriptPath);
     const sys = getSystemMetricsSnapshot();
     res.json({
       ...sys,
@@ -1912,9 +1360,6 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
     typeof addr === 'object' && addr ? `${addr.address} (${addr.family})` : String(addr || '');
 
   sampleCpuPercent();
-  pollWindowsMedia(mediaScriptPath);
-  const mediaTimer = setInterval(() => pollWindowsMedia(mediaScriptPath), 4000);
-  mediaTimer.unref();
 
   // Pre-warm default Web GIF search cache & HTTP/2 session in background unless disabled by tests
   let warmTimer: ReturnType<typeof setTimeout> | null = null;
@@ -1931,9 +1376,11 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
   console.log('=====================================================');
   console.log(`> Web Studio UI : http://localhost:${actualPort}  [${boundAddress}]`);
   console.log(`> Mode          : ${isProd ? 'Production (dist/)' : 'Vite Dev HMR'}`);
-  const { lcd, via } = discoverGmk87Interfaces();
   console.log(
-    `> USB Hardware  : ${lcd || via ? `DETECTED (${cachedProductName})` : 'Standby / Not Plugged'}`
+    `> HID Engine    : ${worker.isUsingWorkerThread() ? 'Dedicated Worker Thread' : 'Direct In-Process'} (Persistent Handles)`
+  );
+  console.log(
+    `> USB Hardware  : ${initialHardware.detected ? `DETECTED (${initialHardware.deviceName} ${initialHardware.firmwareVersion})` : 'Standby / Not Plugged'}`
   );
   console.log('=====================================================');
   console.log('');
@@ -1941,19 +1388,13 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
   return {
     server,
     port: actualPort,
-    syncClock: syncHardwareClockNow,
-    getHardwareSummary: () => {
-      const ifaces = discoverGmk87Interfaces();
-      return {
-        detected: Boolean(ifaces.lcd || ifaces.via),
-        deviceName: cachedProductName,
-        viaConnected: Boolean(ifaces.via),
-      };
-    },
+    syncClock: () => worker.syncClockNow(),
+    getHardwareSummary: () => worker.getCachedSummary(),
+    probeHardwareSummary: () => worker.checkAttached(),
     stop: async () => {
       if (warmTimer) clearTimeout(warmTimer);
-      clearInterval(mediaTimer);
       cleanupUpstreamPools();
+      await worker.stop();
       await new Promise<void>((resolve) => {
         server.close(() => resolve());
       });

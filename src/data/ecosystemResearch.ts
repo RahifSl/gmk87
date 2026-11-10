@@ -108,12 +108,12 @@ export const GMK87_FIXES_AND_INNOVATIONS: FixAndInnovationItem[] = [
   {
     id: 'fix-3',
     type: 'fix',
-    title: 'Fix Corrupted Frame Uploads via Strict 64KB Alignment & 25ms Flash Yield',
-    hardwareMechanism: '64,800B Frame → 65,536B (0x10000) Boundary Padding + 56B Chunk Checksum',
+    title: 'Fix Corrupted Frame Uploads via 64KB Alignment + Strict 0x23/0x21 Hardware ACKs',
+    hardwareMechanism: '65,536B Boundary Padding + 0x23 Erase ACK + Per-Packet 0x21 Offset/Len ACK',
     problemOrOpportunity:
-      'Third-party scripts often brick or garble Slot 0 / Slot 1 animations because the GMK87 SPI flash erases on 64KB boundaries while a raw 240×135×2 frame is 64,800 bytes.',
+      'Third-party scripts often garble Slot 0 / Slot 1 animations because the GMK87 SPI flash erases on 64KB boundaries while a raw 240×135×2 frame is 64,800 bytes, and blind sleeps drop chunks whenever an MCU flash page write takes longer than expected.',
     howWeSolvedIt:
-      'Every frame buffer is zero-padded to exactly 65,536 bytes, signed with a 16-bit little-endian sum over bytes 3..63, and pauses 25ms at every 65,536B page boundary so the onboard MCU never drops packets.',
+      'Every frame buffer is zero-padded to 65,536 bytes, signed with a 16-bit checksum, waits for the hardware 0x23 sector-erase IN ACK before streaming, verifies exact offset & length on every 0x21 56B packet ACK, and re-stamps the RTC after 0x02 commit.',
     targetTab: 'gifs',
   },
   {
