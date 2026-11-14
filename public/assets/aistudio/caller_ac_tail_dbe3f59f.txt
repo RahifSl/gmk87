@@ -1,0 +1,82 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  004ACCE0: 15 68 71 66 00     adc         eax,667168h
+  004ACCE5: E9 7B FC FF FF     jmp         004AC965
+  004ACCEA: 8B 95 18 FB FF FF  mov         edx,dword ptr [ebp+FFFFFB18h]
+  004ACCF0: 8B 82 7C 28 00 00  mov         eax,dword ptr [edx+0000287Ch]
+  004ACCF6: 83 C0 01           add         eax,1
+  004ACCF9: 8B 8D 18 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB18h]
+  004ACCFF: 88 81 78 23 00 00  mov         byte ptr [ecx+00002378h],al
+  004ACD05: 8B 95 18 FB FF FF  mov         edx,dword ptr [ebp+FFFFFB18h]
+  004ACD0B: 8A 85 F8 FA FF FF  mov         al,byte ptr [ebp+FFFFFAF8h]
+  004ACD11: 88 82 79 23 00 00  mov         byte ptr [edx+00002379h],al
+  004ACD17: 8B 8D 18 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB18h]
+  004ACD1D: 8A 95 DC FA FF FF  mov         dl,byte ptr [ebp+FFFFFADCh]
+  004ACD23: 88 91 85 23 00 00  mov         byte ptr [ecx+00002385h],dl
+  004ACD29: 6A 00              push        0
+  004ACD2B: 6A 00              push        0
+  004ACD2D: 6A 01              push        1
+  004ACD2F: 6A 00              push        0
+  004ACD31: 6A 00              push        0
+  004ACD33: 8B 85 18 FB FF FF  mov         eax,dword ptr [ebp+FFFFFB18h]
+  004ACD39: 8B 10              mov         edx,dword ptr [eax]
+  004ACD3B: 8B 8D 18 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB18h]
+  004ACD41: 8B 82 94 02 00 00  mov         eax,dword ptr [edx+00000294h]
+  004ACD47: FF D0              call        eax
+  004ACD49: C7 85 D8 FA FF FF  mov         dword ptr [ebp+FFFFFAD8h],1
+            01 00 00 00
+  004ACD53: 8B 8D 18 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB18h]
+  004ACD59: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004ACD5F: E8 1C 37 FD FF     call        00480480
+  004ACD64: 89 85 D8 FA FF FF  mov         dword ptr [ebp+FFFFFAD8h],eax
+  004ACD6A: 8B 8D 18 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB18h]
+  004ACD70: 83 B9 90 08 00 00  cmp         dword ptr [ecx+00000890h],0
+            00
+  004ACD77: 74 11              je          004ACD8A
+  004ACD79: 8B 8D 18 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB18h]
+  004ACD7F: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004ACD85: E8 86 1B FD FF     call        0047E910
+  004ACD8A: 8B 95 F8 FA FF FF  mov         edx,dword ptr [ebp+FFFFFAF8h]
+  004ACD90: 03 95 DC FA FF FF  add         edx,dword ptr [ebp+FFFFFADCh]
+  004ACD96: 0F AF 95 0C FB FF  imul        edx,dword ptr [ebp+FFFFFB0Ch]
+            FF
+  004ACD9D: 52                 push        edx
+  004ACD9E: 8B 85 E0 FA FF FF  mov         eax,dword ptr [ebp+FFFFFAE0h]
+  004ACDA4: 50                 push        eax
+  004ACDA5: 8B 8D 18 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB18h]
+  004ACDAB: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004ACDB1: E8 1A 34 FD FF     call        004801D0
+  004ACDB6: 89 85 D8 FA FF FF  mov         dword ptr [ebp+FFFFFAD8h],eax
+  004ACDBC: 6A 01              push        1
+  004ACDBE: 8B 8D 18 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB18h]
+  004ACDC4: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004ACDCA: E8 51 1D FD FF     call        0047EB20
+  004ACDCF: 8B 8D E0 FA FF FF  mov         ecx,dword ptr [ebp+FFFFFAE0h]
+  004ACDD5: 51                 push        ecx
+  004ACDD6: E8 A6 4F 16 00     call        00611D81
+  004ACDDB: 83 C4 04           add         esp,4
+  004ACDDE: C7 85 C4 FA FF FF  mov         dword ptr [ebp+FFFFFAC4h],0
+            00 00 00 00
+  004ACDE8: C6 45 FC 03        mov         byte ptr [ebp-4],3
+  004ACDEC: 8D 8D 34 FA FF FF  lea         ecx,[ebp+FFFFFA34h]
+  004ACDF2: E8 E9 07 02 00     call        004CD5E0
+  004ACDF7: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  004ACDFB: 8D 8D 4C FA FF FF  lea         ecx,[ebp+FFFFFA4Ch]
+  004ACE01: E8 DA 07 02 00     call        004CD5E0
+  004ACE06: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004ACE0D: 8D 8D 3C FF FF FF  lea         ecx,[ebp+FFFFFF3Ch]
+  004ACE13: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004ACE19: 8B 85 C4 FA FF FF  mov         eax,dword ptr [ebp+FFFFFAC4h]
+  004ACE1F: 8B
+  004ACE20: 4D                 dec         ebp
+
+  Summary
+
+      266000 .text

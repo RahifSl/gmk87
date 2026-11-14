@@ -36,6 +36,11 @@ import {
   decodeViaKeymapBytes,
   encodeViaKeymapToBytes,
 } from '../shared/gmk87Protocol';
+import {
+  GMK87_PHYSICAL_KEYS,
+  createDefaultKeymap,
+  isKeymapMangled,
+} from '../data/gmk87KeymapData';
 
 export {
   GMK87_VENDOR_ID,
@@ -432,6 +437,7 @@ interface HidDevice {
 export class Gmk87HidEngine {
   private lcdDevice: HidDevice | null = null;
   private viaDevice: HidDevice | null = null;
+  private bridgeBaseUrl = '';
   private bridgeActive = false;
   private bridgeLcdConnected = false;
   private bridgeViaConnected = false;
@@ -553,9 +559,47 @@ export class Gmk87HidEngine {
     return new Uint8Array(this.configBuffer);
   }
 
+  private lastWebHidError = '';
+  private lastBridgeProbeLog: Record<string, string> = {};
+
+  public getDiagnosticMetadata(): {
+    inIframe: boolean;
+    windowOrigin: string;
+    webHidSupported: boolean;
+    lastWebHidError: string;
+    bridgeProbeLog: Record<string, string>;
+  } {
+    let inIframe = false;
+    let windowOrigin = '';
+    if (typeof window !== 'undefined') {
+      windowOrigin = window.location.origin;
+      try {
+        inIframe = window.self !== window.top;
+      } catch {
+        inIframe = true;
+      }
+    }
+    return {
+      inIframe,
+      windowOrigin,
+      webHidSupported: this.isWebHidSupported(),
+      lastWebHidError: this.lastWebHidError,
+      bridgeProbeLog: { ...this.lastBridgeProbeLog },
+    };
+  }
+
+  public getBridgeBaseUrl(): string {
+    return this.bridgeBaseUrl || (typeof window !== 'undefined' ? window.location.origin : '');
+  }
+
+  private getBridgeUrl(apiPath: string): string {
+    return `${this.bridgeBaseUrl}${apiPath}`;
+  }
+
   /**
    * Probes the local Node USB HID bridge (/api/hid/status) for zero-click automatic connection.
-   * Pass `lightOnly = true` for fast USB presence checks without reading full config from EEPROM.
+   * When running in a remote preview, automatically falls back to probing the user's local Windows
+   * USB bridge at http://127.0.0.1:3887 and http://localhost:3887 if same-origin has no physical GMK87 attached.
    */
   public async checkBridgeStatus(
     forceRefresh = false,
@@ -566,11 +610,62 @@ export class Gmk87HidEngine {
       if (forceRefresh) params.set('refresh', '1');
       if (lightOnly) params.set('light', '1');
       const qs = params.toString();
-      const url = qs ? `/api/hid/status?${qs}` : '/api/hid/status';
+      const relPath = qs ? `/api/hid/status?${qs}` : '/api/hid/status';
 
-      const resp = await fetch(url, { signal: AbortSignal.timeout(4000) });
-      const contentType = resp.headers.get('content-type') || '';
-      if (!resp.ok || !contentType.includes('application/json')) {
+      const isRemoteHost =
+        typeof window !== 'undefined' &&
+        window.location.hostname !== 'localhost' &&
+        window.location.hostname !== '127.0.0.1';
+
+      // When running on remote preview, probe the user's local Windows bridge (127.0.0.1:3887 / localhost:3887) FIRST
+      const candidateBases: string[] = [];
+      if (this.bridgeBaseUrl) candidateBases.push(this.bridgeBaseUrl);
+      if (isRemoteHost) {
+        if (!candidateBases.includes('http://127.0.0.1:3887')) {
+          candidateBases.push('http://127.0.0.1:3887');
+        }
+        if (!candidateBases.includes('http://localhost:3887')) {
+          candidateBases.push('http://localhost:3887');
+        }
+      }
+      if (!candidateBases.includes('')) candidateBases.push('');
+
+      let data: any = null;
+      let chosenBase = this.bridgeBaseUrl;
+      const probeLog: Record<string, string> = {};
+
+      for (const base of candidateBases) {
+        const label = base || 'same-origin';
+        try {
+          const resp = await fetch(`${base}${relPath}`, {
+            signal: AbortSignal.timeout(base ? 1500 : 3500),
+          });
+          const contentType = resp.headers.get('content-type') || '';
+          if (!resp.ok || !contentType.includes('application/json')) {
+            probeLog[label] = `HTTP ${resp.status} (${contentType || 'no content-type'})`;
+            continue;
+          }
+          const parsed = await resp.json();
+          if (!parsed?.bridgeAvailable) {
+            probeLog[label] = 'bridgeAvailable=false';
+            continue;
+          }
+          probeLog[label] = `OK (connected=${Boolean(parsed.connected)}, via=${Boolean(
+            parsed.viaConnected
+          )}, err=${parsed.error || 'none'})`;
+          data = parsed;
+          chosenBase = base;
+          if (parsed.connected || parsed.viaConnected) {
+            break;
+          }
+        } catch (err: any) {
+          probeLog[label] = `Fetch error: ${err?.name || 'Error'}: ${err?.message || String(err)}`;
+        }
+      }
+
+      this.lastBridgeProbeLog = probeLog;
+
+      if (!data || !data.bridgeAvailable) {
         this.bridgeActive = false;
         this.bridgeLcdConnected = false;
         this.bridgeViaConnected = false;
@@ -587,23 +682,7 @@ export class Gmk87HidEngine {
         };
       }
 
-      const data = await resp.json();
-      if (!data.bridgeAvailable) {
-        this.bridgeActive = false;
-        this.bridgeLcdConnected = false;
-        this.bridgeViaConnected = false;
-        const webHidOpen = Boolean(this.lcdDevice?.opened || this.viaDevice?.opened);
-        return {
-          connected: webHidOpen,
-          bridgeAvailable: false,
-          lcdConnected: Boolean(this.lcdDevice?.opened),
-          viaConnected: Boolean(this.viaDevice?.opened),
-          mode: webHidOpen ? 'webhid' : 'simulation',
-          viaProtocol: 9,
-          deviceName: this.getConnectedDeviceName(),
-          message: 'Local USB bridge not active.',
-        };
-      }
+      this.bridgeBaseUrl = chosenBase;
 
       this.bridgeActive = Boolean(data.connected || data.viaConnected);
       this.bridgeLcdConnected = Boolean(data.connected);
@@ -722,23 +801,19 @@ export class Gmk87HidEngine {
         config,
         message: `WebHID Auto-Connected: ${this.getConnectedDeviceName()}`,
       };
-    } catch {
+    } catch (err: any) {
+      this.lastWebHidError = `${err?.name || 'Error'}: ${err?.message || String(err)}`;
       return null;
     }
   }
 
   /**
-   * Requests pairing with Zuoya GMK87 (VID 0x320F, PID 0x5055) via WebHID or refreshes USB bridge.
-   * Note: On Windows, 0xFF1C (LCD) and 0xFF60 (VIA) are exposed as two separate HID collections,
-   * so clicking Connect when one is paired prompts for the missing interface automatically.
+   * Immediately invokes navigator.hid.requestDevice() on the first synchronous turn of a user click
+   * so the browser's transient user activation is never lost to prior network fetches.
    */
-  public async connect(): Promise<ConnectionResult> {
-    const bridge = await this.checkBridgeStatus(true);
-    if (bridge.connected) {
-      return bridge;
-    }
-
+  public async connectWebHidDirect(): Promise<ConnectionResult> {
     if (!this.isWebHidSupported()) {
+      this.lastWebHidError = 'navigator.hid is not available in this browser';
       return {
         connected: false,
         lcdConnected: false,
@@ -746,7 +821,7 @@ export class Gmk87HidEngine {
         mode: 'simulation',
         viaProtocol: 9,
         deviceName: 'Simulation Mode',
-        message: 'WebHID API unavailable & local bridge not detected. Simulation Mode active.',
+        message: 'WebHID API unavailable in this browser.',
       };
     }
 
@@ -754,14 +829,14 @@ export class Gmk87HidEngine {
       const navHid = (navigator as any).hid;
 
       const filters: Array<{ vendorId: number; productId: number; usagePage?: number }> = [];
-      if (!this.lcdDevice) {
+      if (!this.lcdDevice?.opened) {
         filters.push({
           vendorId: GMK87_VENDOR_ID,
           productId: GMK87_PRODUCT_ID,
           usagePage: LCD_USAGE_PAGE,
         });
       }
-      if (!this.viaDevice) {
+      if (!this.viaDevice?.opened) {
         filters.push({
           vendorId: GMK87_VENDOR_ID,
           productId: GMK87_PRODUCT_ID,
@@ -772,6 +847,7 @@ export class Gmk87HidEngine {
         filters.push({ vendorId: GMK87_VENDOR_ID, productId: GMK87_PRODUCT_ID });
       }
 
+      // CRITICAL: Must be called before any other await to preserve user gesture!
       const selected: HidDevice[] = await navHid.requestDevice({ filters });
       const alreadyPermitted: HidDevice[] = await navHid.getDevices();
       const pool = [...selected, ...alreadyPermitted];
@@ -797,11 +873,12 @@ export class Gmk87HidEngine {
       }
 
       if (this.isConnected()) {
+        this.lastWebHidError = '';
         const missingHint =
-          this.lcdDevice && !this.viaDevice
-            ? ' (LCD connected; click Connect again to pair VIA 0xFF60 if needed)'
-            : !this.lcdDevice && this.viaDevice
-            ? ' (VIA connected; click Connect again to pair LCD 0xFF1C for screen flashing)'
+          this.lcdDevice?.opened && !this.viaDevice?.opened
+            ? ' (LCD 0xFF1C paired; click Pair WebHID again to also grant VIA 0xFF60)'
+            : !this.lcdDevice?.opened && this.viaDevice?.opened
+            ? ' (VIA 0xFF60 paired; click Pair WebHID again to also grant LCD 0xFF1C)'
             : '';
         return {
           connected: true,
@@ -815,6 +892,7 @@ export class Gmk87HidEngine {
         };
       }
 
+      this.lastWebHidError = 'User closed chooser without selecting Zuoya GMK87 (0x320F:0x5055)';
       return {
         connected: false,
         lcdConnected: false,
@@ -822,9 +900,10 @@ export class Gmk87HidEngine {
         mode: 'simulation',
         viaProtocol: 9,
         deviceName: 'Simulation Mode',
-        message: 'No Zuoya GMK87 selected. Simulation Mode active.',
+        message: 'No Zuoya GMK87 selected in WebHID chooser.',
       };
     } catch (err: any) {
+      this.lastWebHidError = `${err?.name || 'Error'}: ${err?.message || String(err)}`;
       return {
         connected: false,
         lcdConnected: false,
@@ -832,9 +911,51 @@ export class Gmk87HidEngine {
         mode: 'simulation',
         viaProtocol: 9,
         deviceName: 'Simulation Mode',
-        message: `WebHID pairing skipped (${err?.message || 'cancelled'}). Simulation Mode active.`,
+        message: `WebHID error: ${this.lastWebHidError}`,
       };
     }
+  }
+
+  /**
+   * Requests pairing with Zuoya GMK87 (VID 0x320F, PID 0x5055) via WebHID or refreshes USB bridge.
+   * Note: On Windows, 0xFF1C (LCD) and 0xFF60 (VIA) are exposed as two separate HID collections,
+   * so clicking Connect when one is paired prompts for the missing interface automatically.
+   */
+  public async connect(): Promise<ConnectionResult> {
+    const isRemoteHost =
+      typeof window !== 'undefined' &&
+      window.location.hostname !== 'localhost' &&
+      window.location.hostname !== '127.0.0.1';
+
+    // When running in a remote browser preview and not yet connected to a local bridge,
+    // invoke WebHID requestDevice FIRST so network timeouts do not consume the user gesture!
+    if (isRemoteHost && !this.isBridgeActive() && this.isWebHidSupported()) {
+      const webRes = await this.connectWebHidDirect();
+      if (webRes.connected) {
+        return webRes;
+      }
+    }
+
+    const bridge = await this.checkBridgeStatus(true);
+    if (bridge.connected) {
+      return bridge;
+    }
+
+    if (!isRemoteHost && this.isWebHidSupported()) {
+      return this.connectWebHidDirect();
+    }
+
+    return {
+      connected: false,
+      lcdConnected: false,
+      viaConnected: false,
+      mode: 'simulation',
+      viaProtocol: 9,
+      deviceName: 'Simulation Mode',
+      message: this.lastWebHidError
+        ? `WebHID blocked/skipped (${this.lastWebHidError}) & local bridge not detected.`
+        : 'WebHID unavailable & local bridge not detected.',
+    };
   }
 
   public async disconnect(): Promise<void> {
@@ -1021,11 +1142,216 @@ export class Gmk87HidEngine {
     return parseConfigBuffer(this.configBuffer);
   }
 
+  public hasWebHidLcdOpen(): boolean {
+    return Boolean(this.lcdDevice?.opened);
+  }
+
   /**
-   * Synchronizes ONLY the hardware BCD clock registers (cfg[35..41]) via local USB bridge or WebHID,
-   * preserving all other on-keyboard flash settings (RGB effect, brightness, speed, screen mode).
+   * 1-Click Option 1 ("Fix 00:00 & Show Native Clock"):
+   * Automatically pairs/opens direct WebHID (0xFF1C) on user click if supported so the browser's
+   * latest ClassA + ClassB 48-byte EEPROM payload (cfg[0]=0, cfg[19..22]=[slot0,slot1,1,0],
+   * cfg[33]=0, cfg[35..41]=BCD) is written directly to the keyboard even if the local Windows
+   * bridge has not been git-pulled yet.
    */
-  public async syncClockNow(clockDate: Date = new Date()): Promise<{
+  public async fixClockAndRestoreNativeMode(
+    baseState: Gmk87ConfigState
+  ): Promise<{
+    success: boolean;
+    hardwareApplied: boolean;
+    usedDirectWebHid: boolean;
+    packetHex: string;
+    config: Gmk87ConfigState;
+    rawConfig: Uint8Array;
+    error?: string;
+  }> {
+    const now = new Date();
+    if (!this.isBridgeActive() && !this.lcdDevice?.opened && this.isWebHidSupported()) {
+      try {
+        await this.connectWebHidDirect();
+      } catch {
+        // User may have closed chooser; fall back to syncClockNow / bridge
+      }
+    }
+
+    const syncRes = await this.syncClockNow(now, true);
+    const nextState: Gmk87ConfigState = {
+      ...(syncRes.config || baseState),
+      activeScreenMode: 0,
+      clockDate: now,
+    };
+
+    if (!this.lcdDevice?.opened && this.isBridgeActive()) {
+      try {
+        const pkt = await this.writeConfig(nextState);
+        return {
+          success: true,
+          hardwareApplied: true,
+          usedDirectWebHid: false,
+          packetHex: pkt || syncRes.packetHex,
+          config: nextState,
+          rawConfig: this.getRawConfigBuffer(),
+        };
+      } catch (err: any) {
+        return {
+          success: syncRes.success,
+          hardwareApplied: syncRes.hardwareApplied,
+          usedDirectWebHid: false,
+          packetHex: syncRes.packetHex,
+          config: nextState,
+          rawConfig: this.getRawConfigBuffer(),
+          error: err?.message,
+        };
+      }
+    }
+
+    return {
+      success: syncRes.success,
+      hardwareApplied: syncRes.hardwareApplied,
+      usedDirectWebHid: Boolean(this.lcdDevice?.opened),
+      packetHex: syncRes.packetHex,
+      config: nextState,
+      rawConfig: this.getRawConfigBuffer(),
+      error: syncRes.error,
+    };
+  }
+
+  /**
+   * 1-Click Hardware Key & EEPROM Config Repair for Zuoya GMK87 (PID 0x5055):
+   * 1. Restores clean 48B 0xFF1C EEPROM config (cfg[0] = 0x01, cfg[9..27] = 0x00) to wipe any
+   *    corrupted ClassA bytes at cfg[19..22] (using silent permitted WebHID AND/OR Local USB Bridge).
+   * 2. Restores all 87 physical keys + 3 rotary encoder actions across all 4 VIA layers (0xFF60)
+   *    to exact factory defaults via batchSetViaKeycodes (0x05).
+   */
+  public async repairKeyboardKeysAndConfig(
+    baseState: Gmk87ConfigState
+  ): Promise<{
+    success: boolean;
+    eepromRepaired: boolean;
+    viaKeysRestored: number;
+    config: Gmk87ConfigState;
+    rawConfig: Uint8Array;
+    keymap: number[][][];
+    packetHex: string;
+    message: string;
+  }> {
+    const now = new Date();
+    const cleanState: Gmk87ConfigState = {
+      ...baseState,
+      clockDate: now,
+    };
+    const factoryKeymap = createDefaultKeymap();
+    let eepromRepaired = false;
+    let lastPacketHex = '';
+
+    // 1. Repair 0xFF1C EEPROM (cfg[0]=0x01, cfg[9..27]=0x00) via silent WebHID if permitted in browser
+    //    (guarantees immediate wipe of cfg[19..22] even if local PowerShell bridge wasn't restarted yet)
+    let openedTempWebHidLcd = false;
+    if (this.isWebHidSupported() && !this.lcdDevice?.opened) {
+      try {
+        const navHid = (navigator as any).hid;
+        const permitted: HidDevice[] = await navHid.getDevices();
+        const lcdDev = permitted.find(
+          (d) =>
+            d.vendorId === GMK87_VENDOR_ID &&
+            d.productId === GMK87_PRODUCT_ID &&
+            d.collections?.some((c) => c.usagePage === LCD_USAGE_PAGE)
+        );
+        if (lcdDev) {
+          if (!lcdDev.opened) await lcdDev.open();
+          this.lcdDevice = lcdDev;
+          openedTempWebHidLcd = true;
+        }
+      } catch {
+        // Ignore if already claimed by bridge
+      }
+    }
+
+    if (this.lcdDevice?.opened) {
+      try {
+        this.configBuffer = serializeConfigBuffer(cleanState, this.configBuffer);
+        this.configBuffer[0] = 0x01;
+        this.configBuffer.fill(0x00, 9, 28);
+
+        await this.transactWebHidLcd(LcdCommand.INIT, 0, undefined, true);
+        for (let pos = 0; pos < this.configBuffer.length; pos += 56) {
+          const slice = this.configBuffer.subarray(pos, Math.min(pos + 56, this.configBuffer.length));
+          const res = await this.transactWebHidLcd(LcdCommand.WRITE_CONFIG, pos, slice, true);
+          lastPacketHex = formatPacketHex(res.fullPacket64, 16);
+        }
+        await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, true);
+        eepromRepaired = true;
+      } catch {
+        // Fall through to bridge write
+      } finally {
+        if (openedTempWebHidLcd && this.isBridgeActive() && this.lcdDevice?.opened) {
+          await this.lcdDevice.close().catch(() => {});
+          this.lcdDevice = null;
+        }
+      }
+    }
+
+    // Also repair via Local USB Bridge if active
+    if (this.isBridgeActive()) {
+      try {
+        const bridgeHex = await this.writeConfig(cleanState);
+        if (bridgeHex) lastPacketHex = bridgeHex;
+        this.configBuffer[0] = 0x01;
+        this.configBuffer.fill(0x00, 9, 28);
+        eepromRepaired = true;
+      } catch {
+        // Ignore if WebHID already repaired it
+      }
+    }
+
+    // 2. Build factory default VIA keycode batch across all 4 layers for all physical keys + rotary knob
+    const entries: ViaBatchEntry[] = [];
+    for (let layer = 0; layer < 4; layer++) {
+      for (const keyDef of GMK87_PHYSICAL_KEYS) {
+        const keycode = factoryKeymap[layer]?.[keyDef.row]?.[keyDef.col] ?? 0x0000;
+        entries.push({
+          layer,
+          row: keyDef.row,
+          col: keyDef.col,
+          keycode,
+        });
+      }
+    }
+
+    const viaRes = await this.batchSetViaKeycodes(entries);
+    const viaKeysRestored = viaRes.hardwareApplied ? viaRes.appliedCount : 0;
+    if (viaRes.lastPacketHex) {
+      lastPacketHex = viaRes.lastPacketHex;
+    }
+
+    const success = eepromRepaired || viaRes.hardwareApplied;
+    const msg = success
+      ? `Repaired GMK87 Keys & EEPROM: Cleared cfg[9..27]=0x00, restored cfg[0]=0x01${
+          viaKeysRestored > 0 ? `, and flashed ${viaKeysRestored} factory VIA keycodes across Layers 0–3` : ''
+        }`
+      : 'Reset studio keymap to factory defaults (connect USB to flash keyboard EEPROM)';
+
+    return {
+      success,
+      eepromRepaired,
+      viaKeysRestored,
+      config: cleanState,
+      rawConfig: this.getRawConfigBuffer(),
+      keymap: factoryKeymap,
+      packetHex: lastPacketHex,
+      message: msg,
+    };
+  }
+
+  /**
+   * Synchronizes the hardware BCD clock registers (cfg[35..41]) AND enables the ClassA/ClassB
+   * clock display flags (cfg[21]=1, cfg[22]=0, cfg[33]=0 when switchToClockMode=true).
+   * If WebHID (0xFF1C) is also open in the browser, writes the full patched 48B ClassA+ClassB
+   * config directly so the fix works even before restarting a local PowerShell bridge!
+   */
+  public async syncClockNow(
+    clockDate: Date = new Date(),
+    switchToClockMode = true
+  ): Promise<{
     success: boolean;
     hardwareApplied: boolean;
     bridgeDetected?: boolean;
@@ -1033,12 +1359,61 @@ export class Gmk87HidEngine {
     config?: Gmk87ConfigState;
     error?: string;
   }> {
+    // If WebHID is open, prefer direct WebHID write first so ClassA bytes (cfg[19..22]) are guaranteed written
+    // even if the local Windows bridge is running an older build prior to git pull.
+    if (this.lcdDevice?.opened) {
+      try {
+        const liveState = await this.readWebHidConfig().catch(() =>
+          parseConfigBuffer(this.configBuffer)
+        );
+        const updatedState: Gmk87ConfigState = {
+          ...liveState,
+          activeScreenMode: switchToClockMode ? 0 : liveState.activeScreenMode,
+          clockDate,
+        };
+        this.configBuffer = serializeConfigBuffer(updatedState, this.configBuffer);
+
+        const initRes = await this.transactWebHidLcd(LcdCommand.INIT, 0, undefined, true);
+        if (!initRes.ackReceived) {
+          throw new Error('WebHID INIT (0x01) timeout while syncing clock');
+        }
+        let lastHex = '';
+        for (let pos = 0; pos < this.configBuffer.length; pos += 56) {
+          const slice = this.configBuffer.subarray(pos, Math.min(pos + 56, this.configBuffer.length));
+          const res = await this.transactWebHidLcd(LcdCommand.WRITE_CONFIG, pos, slice, true);
+          if (!res.ackReceived) {
+            throw new Error(`WebHID WRITE_CONFIG (0x06) timeout at offset ${pos}`);
+          }
+          lastHex = formatPacketHex(res.fullPacket64, 16);
+        }
+        const commitRes = await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, true);
+        if (!commitRes.ackReceived) {
+          throw new Error('WebHID COMMIT (0x02) timeout while syncing clock');
+        }
+        return {
+          success: true,
+          hardwareApplied: true,
+          bridgeDetected: false,
+          packetHex: lastHex,
+          config: updatedState,
+        };
+      } catch {
+        // Fall through to USB Bridge if WebHID write failed
+      }
+    }
+
     let bridgeError = '';
     try {
-      const resp = await fetch('/api/hid/config', {
+      const payload: Record<string, number> = {
+        clockTimestampMs: clockDate.getTime(),
+      };
+      if (switchToClockMode) {
+        payload.activeScreenMode = 0;
+      }
+      const resp = await fetch(this.getBridgeUrl('/api/hid/config'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ clockTimestampMs: clockDate.getTime() }),
+        body: JSON.stringify(payload),
         signal: AbortSignal.timeout(5000),
       });
       const ct = resp.headers.get('content-type') || '';
@@ -1070,36 +1445,6 @@ export class Gmk87HidEngine {
       bridgeError = err?.message || 'Local USB bridge unreachable';
     }
 
-    if (this.lcdDevice?.opened) {
-      const liveState = await this.readWebHidConfig();
-      const updatedState: Gmk87ConfigState = { ...liveState, clockDate };
-      this.configBuffer = serializeConfigBuffer(updatedState, this.configBuffer);
-
-      const initRes = await this.transactWebHidLcd(LcdCommand.INIT, 0, undefined, true);
-      if (!initRes.ackReceived) {
-        throw new Error('WebHID INIT (0x01) timeout while syncing clock');
-      }
-      let lastHex = '';
-      for (let pos = 0; pos < this.configBuffer.length; pos += 56) {
-        const slice = this.configBuffer.subarray(pos, Math.min(pos + 56, this.configBuffer.length));
-        const res = await this.transactWebHidLcd(LcdCommand.WRITE_CONFIG, pos, slice, true);
-        if (!res.ackReceived) {
-          throw new Error(`WebHID WRITE_CONFIG (0x06) timeout at offset ${pos}`);
-        }
-        lastHex = formatPacketHex(res.fullPacket64, 16);
-      }
-      const commitRes = await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, true);
-      if (!commitRes.ackReceived) {
-        throw new Error('WebHID COMMIT (0x02) timeout while syncing clock');
-      }
-      return {
-        success: true,
-        hardwareApplied: true,
-        packetHex: lastHex,
-        config: updatedState,
-      };
-    }
-
     return {
       success: false,
       hardwareApplied: false,
@@ -1110,11 +1455,42 @@ export class Gmk87HidEngine {
 
   /**
    * Writes the configuration buffer cleanly (preserving unknown fields + frameDurationMs >= 60):
-   * Uses local USB bridge when available, or WebHID 0x01 -> 0x06 -> 0x02 sequence.
+   * Prefers direct WebHID (0x01 -> 0x06 -> 0x02) when open in the browser so ClassA+ClassB bytes
+   * are always written with the latest protocol, or uses the local USB bridge when available.
    */
   public async writeConfig(state: Gmk87ConfigState): Promise<string> {
+    if (this.lcdDevice?.opened) {
+      if (!this.hasReadHardwareConfig) {
+        await this.readWebHidConfig().catch(() => null);
+      }
+      const liveState: Gmk87ConfigState = { ...state, clockDate: new Date() };
+      this.configBuffer = serializeConfigBuffer(
+        liveState,
+        this.hasReadHardwareConfig ? this.configBuffer : null
+      );
+
+      const initRes = await this.transactWebHidLcd(LcdCommand.INIT, 0, undefined, true);
+      if (!initRes.ackReceived) {
+        throw new Error('WebHID INIT (0x01) did not acknowledge config write');
+      }
+      let lastHex = '';
+      for (let pos = 0; pos < this.configBuffer.length; pos += 56) {
+        const slice = this.configBuffer.subarray(pos, Math.min(pos + 56, this.configBuffer.length));
+        const res = await this.transactWebHidLcd(LcdCommand.WRITE_CONFIG, pos, slice, true);
+        if (!res.ackReceived) {
+          throw new Error(`WebHID WRITE_CONFIG (0x06) did not acknowledge offset ${pos}`);
+        }
+        lastHex = formatPacketHex(res.fullPacket64, 16);
+      }
+      const commitRes = await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, true);
+      if (!commitRes.ackReceived) {
+        throw new Error('WebHID COMMIT (0x02) did not acknowledge config write');
+      }
+      return lastHex;
+    }
+
     if (this.isBridgeActive()) {
-      const resp = await fetch('/api/hid/config', {
+      const resp = await fetch(this.getBridgeUrl('/api/hid/config'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -1153,10 +1529,6 @@ export class Gmk87HidEngine {
       return data.packetHex || '04 ... 06';
     }
 
-    if (this.lcdDevice?.opened && !this.hasReadHardwareConfig) {
-      await this.readWebHidConfig();
-    }
-
     const liveState: Gmk87ConfigState = { ...state, clockDate: new Date() };
     this.configBuffer = serializeConfigBuffer(
       liveState,
@@ -1164,22 +1536,14 @@ export class Gmk87HidEngine {
     );
 
     const initRes = await this.transactWebHidLcd(LcdCommand.INIT, 0, undefined, true);
-    if (this.lcdDevice?.opened && !initRes.ackReceived) {
-      throw new Error('WebHID INIT (0x01) did not acknowledge config write');
-    }
     let lastHex = '';
     for (let pos = 0; pos < this.configBuffer.length; pos += 56) {
       const slice = this.configBuffer.subarray(pos, Math.min(pos + 56, this.configBuffer.length));
       const res = await this.transactWebHidLcd(LcdCommand.WRITE_CONFIG, pos, slice, true);
-      if (this.lcdDevice?.opened && !res.ackReceived) {
-        throw new Error(`WebHID WRITE_CONFIG (0x06) did not acknowledge offset ${pos}`);
-      }
       lastHex = formatPacketHex(res.fullPacket64, 16);
     }
-    const commitRes = await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, true);
-    if (this.lcdDevice?.opened && !commitRes.ackReceived) {
-      throw new Error('WebHID COMMIT (0x02) did not acknowledge config write');
-    }
+    await this.transactWebHidLcd(LcdCommand.COMMIT, 0, undefined, true);
+    void initRes;
     return lastHex;
   }
 
@@ -1217,7 +1581,7 @@ export class Gmk87HidEngine {
         const pollTimer = setInterval(async () => {
           if (!polling) return;
           try {
-            const pResp = await fetch('/api/hid/upload-progress');
+            const pResp = await fetch(this.getBridgeUrl('/api/hid/upload-progress'));
             if (pResp.ok) {
               const pData = await pResp.json();
               if (pData && pData.phase && pData.phase !== 'idle') {
@@ -1234,7 +1598,7 @@ export class Gmk87HidEngine {
         }, 120);
 
         try {
-          const uploadResp = await fetch('/api/hid/upload', {
+          const uploadResp = await fetch(this.getBridgeUrl('/api/hid/upload'), {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1318,7 +1682,7 @@ export class Gmk87HidEngine {
       let slot1Count: number;
 
       if (targetSlot === 0) {
-        const slot1Suffix = this.cachedSlotFrames[1] || [new Uint8Array(PADDED_FRAME_BYTES)];
+        const slot1Suffix = this.cachedSlotFrames[1] || [];
         const maxSlot1 = Math.max(0, MAX_TOTAL_FRAMES - usableTarget.length);
         const usableSlot1 = slot1Suffix.slice(0, maxSlot1);
         if (this.cachedSlotFrames[1]) {
@@ -1511,7 +1875,7 @@ export class Gmk87HidEngine {
 
     if (this.isBridgeActive()) {
       try {
-        const resp = await fetch('/api/hid/keymap/set', {
+        const resp = await fetch(this.getBridgeUrl('/api/hid/keymap/set'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ layer, row, col, keycode }),
@@ -1531,9 +1895,13 @@ export class Gmk87HidEngine {
     }
 
     if (this.viaDevice?.opened) {
+      const l = layer & 0x03;
+      const r = row & 0x07;
+      const c = col & 0x0f;
       const replyPromise = this.waitForInputReport(
         this.viaDevice,
-        (_rid, data) => data.length > 0 && data[0] === 0x05,
+        (_rid, data) =>
+          data.length >= 4 && data[0] === 0x05 && data[1] === l && data[2] === r && data[3] === c,
         600
       );
       await this.viaDevice.sendReport(VIA_REPORT_ID, packet);
@@ -1560,11 +1928,11 @@ export class Gmk87HidEngine {
 
     if (this.isBridgeActive()) {
       try {
-        const resp = await fetch('/api/hid/keymap/batch', {
+        const resp = await fetch(this.getBridgeUrl('/api/hid/keymap/batch'), {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ entries }),
-          signal: AbortSignal.timeout(15000),
+          signal: AbortSignal.timeout(20000),
         });
         const data = await resp.json().catch(() => ({}));
         if (resp.ok && data.success) {
@@ -1623,23 +1991,28 @@ export class Gmk87HidEngine {
     lastCmdHex: string;
     viaProtocol: number;
     keymap: number[][][] | null;
+    mangledDetected?: boolean;
   }> {
     const TOTAL_KEYMAP_BYTES = VIA_KEYMAP_BYTES; // 960 bytes
     const CHUNK_SIZE = 28;
 
     if (this.isBridgeActive()) {
       try {
-        const resp = await fetch('/api/hid/keymap', { signal: AbortSignal.timeout(8000) });
+        const resp = await fetch(this.getBridgeUrl('/api/hid/keymap'), {
+          signal: AbortSignal.timeout(8000),
+        });
         if (resp.ok) {
           const data = await resp.json();
           if (data.success && Array.isArray(data.keymap)) {
             this.bridgeViaProtocol = Number(data.viaProtocol) || 9;
+            const mangled = isKeymapMangled(data.keymap);
             return {
               totalBytes: TOTAL_KEYMAP_BYTES,
               chunksRead: Math.ceil(TOTAL_KEYMAP_BYTES / CHUNK_SIZE),
               lastCmdHex: '12 03 A4 10 (USB Bridge)',
               viaProtocol: this.bridgeViaProtocol,
-              keymap: data.keymap,
+              keymap: mangled ? createDefaultKeymap() : data.keymap,
+              mangledDetected: mangled,
             };
           }
         }
@@ -1667,37 +2040,46 @@ export class Gmk87HidEngine {
       const buffer = new Uint8Array(TOTAL_KEYMAP_BYTES);
       let offset = 0;
       let chunksRead = 0;
+      let validChunks = 0;
       let lastCmdHex = '';
 
       while (offset < TOTAL_KEYMAP_BYTES) {
         const size = Math.min(CHUNK_SIZE, TOTAL_KEYMAP_BYTES - offset);
+        const hi = (offset >> 8) & 0xff;
+        const lo = offset & 0xff;
         const packet = new Uint8Array(32);
         packet[0] = 0x12; // DYNAMIC_KEYMAP_GET_BUFFER
-        packet[1] = (offset >> 8) & 0xff;
-        packet[2] = offset & 0xff;
+        packet[1] = hi;
+        packet[2] = lo;
         packet[3] = size & 0xff;
 
         const replyPromise = this.waitForInputReport(
           this.viaDevice,
-          (_rid, data) => data.length >= 4 + size && data[0] === 0x12,
+          (_rid, data) =>
+            data.length >= 4 + size && data[0] === 0x12 && data[1] === hi && data[2] === lo,
           700
         );
         await this.viaDevice.sendReport(VIA_REPORT_ID, packet);
         const reply = await replyPromise;
         if (reply) {
           buffer.set(reply.subarray(4, 4 + size), offset);
+          validChunks++;
         }
         lastCmdHex = formatPacketHex(packet, 6);
         offset += size;
         chunksRead++;
       }
 
+      const decoded = validChunks === chunksRead ? decodeViaKeymapBytes(buffer) : null;
+      const mangled = !decoded || isKeymapMangled(decoded);
+
       return {
         totalBytes: TOTAL_KEYMAP_BYTES,
         chunksRead,
         lastCmdHex,
         viaProtocol,
-        keymap: decodeViaKeymapBytes(buffer),
+        keymap: mangled ? createDefaultKeymap() : decoded,
+        mangledDetected: mangled,
       };
     }
 
@@ -1733,7 +2115,9 @@ export class Gmk87HidEngine {
   public async readViaMacros(): Promise<ViaMacroReadResult> {
     if (this.isBridgeActive()) {
       try {
-        const resp = await fetch('/api/hid/macros', { signal: AbortSignal.timeout(5000) });
+        const resp = await fetch(this.getBridgeUrl('/api/hid/macros'), {
+          signal: AbortSignal.timeout(5000),
+        });
         const data = await resp.json().catch(() => null);
         if (resp.ok && data) return data;
       } catch {
@@ -1840,7 +2224,7 @@ export class Gmk87HidEngine {
     error?: string;
   }> {
     if (this.isBridgeActive()) {
-      const resp = await fetch('/api/hid/macros/set', {
+      const resp = await fetch(this.getBridgeUrl('/api/hid/macros/set'), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ macros }),

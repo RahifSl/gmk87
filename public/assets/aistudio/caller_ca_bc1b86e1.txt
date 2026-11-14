@@ -1,0 +1,224 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  004CA200: FD                 std
+  004CA201: FF
+  004CA202: FF 51 8B           call        dword ptr [ecx-75h]
+  004CA205: 8D
+  004CA206: F4                 hlt
+  004CA207: FD                 std
+  004CA208: FF
+  004CA209: FF 81 C1 D8 17 00  inc         dword ptr [ecx+0017D8C1h]
+  004CA20F: 00 E8              add         al,ch
+  004CA211: 8B 43 F5           mov         eax,dword ptr [ebx-0Bh]
+  004CA214: FF 0F              dec         dword ptr [edi]
+  004CA216: B6 50              mov         dh,50h
+  004CA218: 03 0F              add         ecx,dword ptr [edi]
+  004CA21A: AF                 scas        dword ptr es:[edi]
+  004CA21B: F2 66 89 B5 F0 FD  repne mov   word ptr [ebp+FFFFFDF0h],si
+            FF FF
+  004CA223: 0F B7 85 F0 FD FF  movzx       eax,word ptr [ebp+FFFFFDF0h]
+            FF
+  004CA22A: C1 F8 08           sar         eax,8
+  004CA22D: 0F B6 8D FA FD FF  movzx       ecx,byte ptr [ebp+FFFFFDFAh]
+            FF
+  004CA234: 6B D1 03           imul        edx,ecx,3
+  004CA237: 88 84 15 FD FD FF  mov         byte ptr [ebp+edx+FFFFFDFDh],al
+            FF
+  004CA23E: 0F B6 85 FB FD FF  movzx       eax,byte ptr [ebp+FFFFFDFBh]
+            FF
+  004CA245: 50                 push        eax
+  004CA246: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  004CA24C: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004CA252: E8 49 43 F5 FF     call        0041E5A0
+  004CA257: 0F B6 70 02        movzx       esi,byte ptr [eax+2]
+  004CA25B: 0F B6 8D FB FD FF  movzx       ecx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  004CA262: 51                 push        ecx
+  004CA263: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  004CA269: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004CA26F: E8 2C 43 F5 FF     call        0041E5A0
+  004CA274: 0F B6 50 03        movzx       edx,byte ptr [eax+3]
+  004CA278: 0F AF F2           imul        esi,edx
+  004CA27B: 66 89 B5 F0 FD FF  mov         word ptr [ebp+FFFFFDF0h],si
+            FF
+  004CA282: 0F B7 85 F0 FD FF  movzx       eax,word ptr [ebp+FFFFFDF0h]
+            FF
+  004CA289: C1 F8 08           sar         eax,8
+  004CA28C: 0F B6 8D FA FD FF  movzx       ecx,byte ptr [ebp+FFFFFDFAh]
+            FF
+  004CA293: 6B D1 03           imul        edx,ecx,3
+  004CA296: 88 84 15 FE FD FF  mov         byte ptr [ebp+edx+FFFFFDFEh],al
+            FF
+  004CA29D: E9 85 FD FF FF     jmp         004CA027
+  004CA2A2: C7 85 E4 FD FF FF  mov         dword ptr [ebp+FFFFFDE4h],1
+            01 00 00 00
+  004CA2AC: 8B 85 F4 FD FF FF  mov         eax,dword ptr [ebp+FFFFFDF4h]
+  004CA2B2: 83 B8 C8 0E 00 00  cmp         dword ptr [eax+00000EC8h],0
+            00
+  004CA2B9: 75 33              jne         004CA2EE
+  004CA2BB: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  004CA2C1: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004CA2C7: E8 64 3A F8 FF     call        0044DD30
+  004CA2CC: 6B C8 03           imul        ecx,eax,3
+  004CA2CF: 51                 push        ecx
+  004CA2D0: 8D 95 FC FD FF FF  lea         edx,[ebp+FFFFFDFCh]
+  004CA2D6: 52                 push        edx
+  004CA2D7: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  004CA2DD: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004CA2E3: E8 48 66 FB FF     call        00480930
+  004CA2E8: 89 85 E4 FD FF FF  mov         dword ptr [ebp+FFFFFDE4h],eax
+  004CA2EE: 83 BD E4 FD FF FF  cmp         dword ptr [ebp+FFFFFDE4h],1
+            01
+  004CA2F5: 74 0B              je          004CA302
+  004CA2F7: 68 C8 00 00 00     push        0C8h
+  004CA2FC: FF 15 E4 7B 66 00  call        dword ptr ds:[00667BE4h]
+  004CA302: 5E                 pop         esi
+  004CA303: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CA306: 33 CD              xor         ecx,ebp
+  004CA308: E8 C8 F2 13 00     call        006095D5
+  004CA30D: 8B E5              mov         esp,ebp
+  004CA30F: 5D                 pop         ebp
+  004CA310: C3                 ret
+  004CA311: CC                 int         3
+  004CA312: CC                 int         3
+  004CA313: CC                 int         3
+  004CA314: CC                 int         3
+  004CA315: CC                 int         3
+  004CA316: CC                 int         3
+  004CA317: CC                 int         3
+  004CA318: CC                 int         3
+  004CA319: CC                 int         3
+  004CA31A: CC                 int         3
+  004CA31B: CC                 int         3
+  004CA31C: CC                 int         3
+  004CA31D: CC                 int         3
+  004CA31E: CC                 int         3
+  004CA31F: CC                 int         3
+  004CA320: 55                 push        ebp
+  004CA321: 8B EC              mov         ebp,esp
+  004CA323: 51                 push        ecx
+  004CA324: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CA327: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CA32A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CA32D: 89 88 A0 18 00 00  mov         dword ptr [eax+000018A0h],ecx
+  004CA333: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CA336: 83 BA A0 18 00 00  cmp         dword ptr [edx+000018A0h],0
+            00
+  004CA33D: 74 1A              je          004CA359
+  004CA33F: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CA342: 83 B8 8C 17 00 00  cmp         dword ptr [eax+0000178Ch],1
+            01
+  004CA349: 75 0E              jne         004CA359
+  004CA34B: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CA34E: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004CA354: E8 E7 49 FB FF     call        0047ED40
+  004CA359: 8B E5              mov         esp,ebp
+  004CA35B: 5D                 pop         ebp
+  004CA35C: C2 04 00           ret         4
+  004CA35F: CC                 int         3
+  004CA360: 55                 push        ebp
+  004CA361: 8B EC              mov         ebp,esp
+  004CA363: 51                 push        ecx
+  004CA364: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CA367: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CA36A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CA36D: 89 88 A4 18 00 00  mov         dword ptr [eax+000018A4h],ecx
+  004CA373: 8B E5              mov         esp,ebp
+  004CA375: 5D                 pop         ebp
+  004CA376: C2 04 00           ret         4
+  004CA379: CC                 int         3
+  004CA37A: CC                 int         3
+  004CA37B: CC                 int         3
+  004CA37C: CC                 int         3
+  004CA37D: CC                 int         3
+  004CA37E: CC                 int         3
+  004CA37F: CC                 int         3
+  004CA380: 55                 push        ebp
+  004CA381: 8B EC              mov         ebp,esp
+  004CA383: 51                 push        ecx
+  004CA384: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CA387: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CA38A: 8B 80 A0 18 00 00  mov         eax,dword ptr [eax+000018A0h]
+  004CA390: 8B E5              mov         esp,ebp
+  004CA392: 5D                 pop         ebp
+  004CA393: C3                 ret
+  004CA394: CC                 int         3
+  004CA395: CC                 int         3
+  004CA396: CC                 int         3
+  004CA397: CC                 int         3
+  004CA398: CC                 int         3
+  004CA399: CC                 int         3
+  004CA39A: CC                 int         3
+  004CA39B: CC                 int         3
+  004CA39C: CC                 int         3
+  004CA39D: CC                 int         3
+  004CA39E: CC                 int         3
+  004CA39F: CC                 int         3
+  004CA3A0: 55                 push        ebp
+  004CA3A1: 8B EC              mov         ebp,esp
+  004CA3A3: 51                 push        ecx
+  004CA3A4: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CA3A7: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CA3AA: 8B 80 A4 18 00 00  mov         eax,dword ptr [eax+000018A4h]
+  004CA3B0: 8B E5              mov         esp,ebp
+  004CA3B2: 5D                 pop         ebp
+  004CA3B3: C3                 ret
+  004CA3B4: CC                 int         3
+  004CA3B5: CC                 int         3
+  004CA3B6: CC                 int         3
+  004CA3B7: CC                 int         3
+  004CA3B8: CC                 int         3
+  004CA3B9: CC                 int         3
+  004CA3BA: CC                 int         3
+  004CA3BB: CC                 int         3
+  004CA3BC: CC                 int         3
+  004CA3BD: CC                 int         3
+  004CA3BE: CC                 int         3
+  004CA3BF: CC                 int         3
+  004CA3C0: 55                 push        ebp
+  004CA3C1: 8B EC              mov         ebp,esp
+  004CA3C3: 6A FF              push        0FFFFFFFFh
+  004CA3C5: 68 80 35 65 00     push        653580h
+  004CA3CA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  004CA3D0: 50                 push        eax
+  004CA3D1: 81 EC 34 02 00 00  sub         esp,234h
+  004CA3D7: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004CA3DC: 33 C5              xor         eax,ebp
+  004CA3DE: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  004CA3E1: 50                 push        eax
+  004CA3E2: 8D 45 F4           lea         eax,[ebp-0Ch]
+  004CA3E5: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  004CA3EB: 89 8D DC FD FF FF  mov         dword ptr [ebp+FFFFFDDCh],ecx
+  004CA3F1: C7 85 D8 FD FF FF  mov         dword ptr [ebp+FFFFFDD8h],0
+            00 00 00 00
+  004CA3FB: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA401: FF 15 64 71 66 00  call        dword ptr ds:[00667164h]
+  004CA407: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  004CA40E: 8D 85 E8 FE FF FF  lea         eax,[ebp+FFFFFEE8h]
+  004CA414: 50                 push        eax
+  004CA415: 8B 8D DC FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDDCh]
+  004CA41B: E8 40 01 00 00     call        004CA560
+  004CA420: 89 85 D4 FD FF FF  mov         dword ptr [ebp+FFFFFDD4h],eax
+  004CA426: 8B 8D D4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDD4h]
+  004CA42C: 89 8D D0 FD FF FF  mov         dword ptr [ebp+FFFFFDD0h],ecx
+  004CA432: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  004CA436: 8B 95 D0 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDD0h]
+  004CA43C: 52                 push        edx
+  004CA43D: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA443: FF 15 5C 71 66 00  call        dword ptr ds:[0066715Ch]
+  004CA449: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  004CA44D: 8D
+  004CA44E: 8D
+  004CA44F: E8
+  004CA450: FE
+
+  Summary
+
+      266000 .text

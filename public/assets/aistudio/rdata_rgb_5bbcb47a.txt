@@ -1,0 +1,57 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+RAW DATA #2
+  006AFA00: 49 4E 4B 5F 53 45 52 56 45 52 00 00 00 00 00 00  INK_SERVER......
+  006AFA10: 4C 69 67 68 74 49 6E 66 6F 00 00 00 4C 69 67 68  LightInfo...Ligh
+  006AFA20: 74 49 6E 66 6F 00 00 00 53 65 6C 65 63 74 49 74  tInfo...SelectIt
+  006AFA30: 65 6D 00 00 4C 69 67 68 74 00 00 00 53 70 65 65  em..Light...Spee
+  006AFA40: 64 00 00 00 4D 75 6C 74 69 43 6F 6C 6F 72 00 00  d...MultiColor..
+  006AFA50: 52 65 64 00 47 72 65 65 6E 00 00 00 42 6C 75 65  Red.Green...Blue
+  006AFA60: 00 00 00 00 46 78 00 00 5A 5A 43 43 4C 65 64 4D  ....Fx..ZZCCLedM
+  006AFA70: 6F 64 65 00 43 75 73 74 6F 6D 47 72 6F 75 70 00  ode.CustomGroup.
+  006AFA80: 4F 6C 64 4C 65 64 6D 6F 64 65 00 00 53 65 6C 65  OldLedmode..Sele
+  006AFA90: 63 74 49 74 65 6D 00 00 4C 69 67 68 74 00 00 00  ctItem..Light...
+  006AFAA0: 53 70 65 65 64 00 00 00 4D 75 6C 74 69 43 6F 6C  Speed...MultiCol
+  006AFAB0: 6F 72 00 00 52 65 64 00 47 72 65 65 6E 00 00 00  or..Red.Green...
+  006AFAC0: 42                                               B
+
+  Summary
+
+       9B000 .rdata
+Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+RAW DATA #2
+  006B2740: 53 79 73 74 65 6D 53 74 61 67 65 73 00 00 00 00  SystemStages....
+  006B2750: 57 69 6E 46 6C 61 67 00 53 79 73 74 65 6D 53 74  WinFlag.SystemSt
+  006B2760: 61 67 65 73 00 00 00 00 53 79 73 74 65 6D 53 74  ages....SystemSt
+  006B2770: 61 67 65 73 00 00 00 00 52 65 70 65 61 74 00 00  ages....Repeat..
+  006B2780: 53 79 73 74 65 6D 53 74 61 67 65 73 00 00 00 00  SystemStages....
+  006B2790: 52 65 70 65 61 74 44 65 6C 61 79 00 53 79 73 74  RepeatDelay.Syst
+  006B27A0: 65 6D 53 74 61 67 65 73 00 00 00 00 4B 65 79 36  emStages....Key6
+  006B27B0: 46 6C 61 67 00 00 00 00 53 79 73 74 65 6D 53 74  Flag....SystemSt
+  006B27C0: 61 67 65 73 00 00 00 00 50 6F 6C 6C 69 6E 67 52  ages....PollingR
+  006B27D0: 61 74 65 00 53 79 73 74 65 6D 53 74 61 67 65 73  ate.SystemStages
+  006B27E0: 00 00 00 00 57 46 6C 61 67 00 00 00 53 79 73 74  ....WFlag...Syst
+  006B27F0: 65 6D 53 74 61 67 65 73 00 00 00 00 57 69 6E 46  emStages....WinF
+  006B2800: 6C 61 67 00 46 72 61 6D 65 49 6E 74 65 72 76 61  lag.FrameInterva
+  006B2810: 6C 54 69 6D 65 00 00 00 46 72 61 6D 65 49 6E 74  lTime...FrameInt
+  006B2820: 65 72 76 61 6C 54 69 6D 65 00 00 00 46 72 61 6D  ervalTime...Fram
+  006B2830: 65 49 6E 74 65 72 76 61 6C 54 69 6D 65 00 00 00  eIntervalTime...
+  006B2840: 43 75 73 74 6F 6D 4C 69 67 68 74 4D 6F 64 65 00  CustomLightMode.
+  006B2850: 4C                                               L
+
+  Summary
+
+       9B000 .rdata

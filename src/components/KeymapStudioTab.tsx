@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Layers,
   RefreshCw,
@@ -67,6 +67,7 @@ export interface KeymapStudioTabProps {
   onSelectSmartKnobMode: (mode: SmartKnobMode) => Promise<void>;
   onOpenRgbStudio: () => void;
   onOpenGifsTab: () => void;
+  onRepairKeys?: () => Promise<void>;
   onStatusLog: (msg: string) => void;
 }
 
@@ -92,8 +93,10 @@ export default function KeymapStudioTab({
   onSelectSmartKnobMode,
   onOpenRgbStudio,
   onOpenGifsTab,
+  onRepairKeys,
   onStatusLog,
 }: KeymapStudioTabProps) {
+  const [isRepairingKeys, setIsRepairingKeys] = useState<boolean>(false);
   const [activeKeyCategory, setActiveKeyCategory] =
     useState<KeycodeItem['category']>('Media & Knob');
   const [keycodeSearchQuery, setKeycodeSearchQuery] = useState<string>('');
@@ -224,6 +227,16 @@ export default function KeymapStudioTab({
           setKeycapThemeId(themeHint);
         }
         await onBatchApplyKeymap(parsed.keymap, themeHint, `Profile "${file.name}"`);
+      } else if (
+        parsed.vendorId &&
+        String(parsed.vendorId).toLowerCase() === '0x320f' &&
+        parsed.layouts?.keymap
+      ) {
+        await onBatchApplyKeymap(
+          createDefaultKeymap(),
+          undefined,
+          `Official VIA V2 Definition "${file.name}"`
+        );
       } else {
         onStatusLog(`Invalid .gmk87.json file "${file.name}" — missing 4-layer keymap matrix.`);
       }
@@ -237,10 +250,21 @@ export default function KeymapStudioTab({
   const currentSelectedKeycode =
     keymap[activeLayer]?.[selectedKeyDef.row]?.[selectedKeyDef.col] ?? 0;
 
+  const isKeyCodeModified = (layerIdx: number, keyId: string, cur: number, def: number): boolean => {
+    if (cur === def) return false;
+    if ((layerIdx === 1 || layerIdx === 3) && (cur === 0x0000 || cur === 0x0001) && (def === 0x0000 || def === 0x0001)) {
+      return false;
+    }
+    if (keyId === 'r5c10' && (cur === 0x5101 || cur === 0x5103 || cur === 0x5f10)) {
+      return false;
+    }
+    return true;
+  };
+
   const activeLayerModifiedCount = GMK87_PHYSICAL_KEYS.reduce((acc, k) => {
     const cur = keymap[activeLayer]?.[k.row]?.[k.col] ?? 0;
     const def = defaultKeymap[activeLayer]?.[k.row]?.[k.col] ?? 0;
-    return cur !== def ? acc + 1 : acc;
+    return isKeyCodeModified(activeLayer, k.id, cur, def) ? acc + 1 : acc;
   }, 0);
 
   const activeKeycapTheme = GMK_KEYCAP_THEMES[keycapThemeId];
@@ -373,10 +397,23 @@ export default function KeymapStudioTab({
             />
           </label>
           <button
-            onClick={() => onBatchApplyKeymap(createDefaultKeymap(), undefined, 'Factory Default')}
-            className="px-3 py-1.5 text-xs font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-400 hover:text-white transition-colors cursor-pointer"
+            disabled={isRepairingKeys}
+            onClick={async () => {
+              if (onRepairKeys) {
+                setIsRepairingKeys(true);
+                try {
+                  await onRepairKeys();
+                } finally {
+                  setIsRepairingKeys(false);
+                }
+              } else {
+                await onBatchApplyKeymap(createDefaultKeymap(), undefined, 'Factory Default');
+              }
+            }}
+            className="px-3 py-1.5 text-xs font-mono font-bold rounded-lg bg-[#10b981]/20 border border-[#10b981] text-[#10b981] hover:bg-[#10b981] hover:text-slate-950 transition-colors cursor-pointer disabled:opacity-50"
+            title="Restores clean PID 0x5055 EEPROM config (cfg[0]=0x01, cfg[9..27]=0x00) and flashes all 87 factory keycodes across Layers 0–3"
           >
-            Reset Default
+            {isRepairingKeys ? 'Repairing Keys...' : 'Repair & Reset Keys'}
           </button>
         </div>
       </div>
@@ -745,7 +782,7 @@ export default function KeymapStudioTab({
               if (k.isKnob) return null;
               const assignedCode = keymap[activeLayer]?.[k.row]?.[k.col] ?? 0;
               const defaultCode = defaultKeymap[activeLayer]?.[k.row]?.[k.col] ?? 0;
-              const isModifiedFromDefault = assignedCode !== defaultCode;
+              const isModifiedFromDefault = isKeyCodeModified(activeLayer, k.id, assignedCode, defaultCode);
               const codeLabel = getKeycodeLabel(assignedCode, viaProtocol);
               const isSelected = selectedKeyId === k.id;
               const isPhysicallyPressed = pressedKeyIds.has(k.id);
@@ -754,13 +791,13 @@ export default function KeymapStudioTab({
               const gapPx = 5;
 
               const isCyberpunk = keycapThemeId === 'cyberpunk';
-              const isSpacebar = k.id === 'r5c6';
+              const isSpacebar = k.id === 'r5c8';
               const isEnter = k.id === 'r3c13';
               const isBackspace = k.id === 'r1c13';
               const isEsc = k.id === 'r0c0';
               const isPrtSc = k.id === 'r0c13';
               const isArrow =
-                k.id === 'r4c13' || k.id === 'r6c12' || k.id === 'r5c13' || k.id === 'r6c13';
+                k.id === 'r4c14' || k.id === 'r5c14' || k.id === 'r5c13' || k.id === 'r5c7';
               const isFRowYellow =
                 k.id === 'r0c1' ||
                 k.id === 'r0c2' ||
@@ -772,7 +809,7 @@ export default function KeymapStudioTab({
                 k.id === 'r0c12';
               const isFRowCyan =
                 k.id === 'r0c5' || k.id === 'r0c6' || k.id === 'r0c7' || k.id === 'r0c8';
-              const isModKey = k.w > 1.15 || k.row === 0 || k.col >= 13;
+              const isModKey = k.w > 1.15 || k.row === 0 || k.col >= 13 || k.x >= 15;
 
               let themeCapClass = activeKeycapTheme.alphaClass;
               if (isCyberpunk) {
@@ -973,7 +1010,7 @@ export default function KeymapStudioTab({
                           />
                         )}
                       </div>
-                      {cyberGlyph && isCyberpunk && (
+                      {cyberGlyph && isCyberpunk && !isModifiedFromDefault && (
                         <span className="text-[9px] font-mono text-cyan-400 truncate opacity-80">
                           {cyberGlyph}
                         </span>

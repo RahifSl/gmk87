@@ -139,6 +139,10 @@ export function parseRawConfigBytes(cfg: Uint8Array): Gmk87ParsedConfig {
   const rawDelay = (cfg[43] ?? 0) | ((cfg[44] ?? 0) << 8);
   const rawSpeed = Math.max(0, Math.min(4, cfg[3] ?? 2));
 
+  const rawScreenMode = cfg[33] !== undefined && cfg[33] <= 2 ? cfg[33] : 0;
+  const rawSlot0 = cfg[34] || 1;
+  const rawSlot1 = cfg[46] || 1;
+
   return {
     lightingEffect: cfg[1] ?? 1,
     brightness: Math.max(0, Math.min(4, cfg[2] ?? 2)),
@@ -152,9 +156,9 @@ export function parseRawConfigBytes(cfg: Uint8Array): Gmk87ParsedConfig {
     logoBrightness: Math.max(0, Math.min(4, cfg[29] ?? 4)),
     logoRainbow: (cfg[31] ?? 0) !== 0 ? 1 : 0,
     logoColor: Math.max(0, Math.min(8, cfg[32] ?? 0)),
-    activeScreenMode: Math.max(0, Math.min(2, cfg[33] ?? 1)),
-    slot0FrameCount: Math.max(1, cfg[34] || 1),
-    slot1FrameCount: Math.max(1, cfg[46] || 1),
+    activeScreenMode: Math.max(0, Math.min(2, rawScreenMode)),
+    slot0FrameCount: Math.max(1, rawSlot0),
+    slot1FrameCount: Math.max(1, rawSlot1),
     frameDurationMs: Math.max(MIN_FRAME_DURATION_MS, rawDelay || 100),
     clockIso: `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')} ${String(
       hour
@@ -173,6 +177,14 @@ export function patchRawConfigBytes(
   if (base && base.length > 0) {
     cfg.set(base.subarray(0, targetLen), 0);
   }
+
+  // Zuoya GMK87 (PID 0x5055, V0104) factory header byte is ALWAYS 0x01
+  cfg[0] = 0x01;
+
+  // CRITICAL: Bytes cfg[9..27] MUST remain 0x00 on PID 0x5055!
+  // Non-zero values in cfg[9..27] (such as ClassA offsets cfg[19..22]) corrupt
+  // the keyboard's internal key matrix / custom key override table.
+  cfg.fill(0x00, 9, 28);
 
   if (patch.lightingEffect !== undefined) {
     cfg[1] = Math.max(0, Math.min(18, Number(patch.lightingEffect)));
@@ -205,14 +217,28 @@ export function patchRawConfigBytes(
   if (patch.logoColor !== undefined) {
     cfg[32] = Math.max(0, Math.min(8, Number(patch.logoColor)));
   }
-  if (patch.activeScreenMode !== undefined) {
-    cfg[33] = Math.max(0, Math.min(2, Number(patch.activeScreenMode)));
-  }
-  if (patch.slot0FrameCount !== undefined) {
-    cfg[34] = Math.max(1, Math.min(255, Number(patch.slot0FrameCount)));
-  }
-  if (patch.slot1FrameCount !== undefined) {
-    cfg[46] = Math.max(1, Math.min(255, Number(patch.slot1FrameCount)));
+
+  // PID 0x5055 screen/slot registers: cfg[33] = activeScreenMode, cfg[34] = slot0FrameCount, cfg[46] = slot1FrameCount
+  const nextScreenMode =
+    patch.activeScreenMode !== undefined
+      ? Math.max(0, Math.min(2, Number(patch.activeScreenMode)))
+      : Math.max(0, Math.min(2, cfg[33] || 0));
+  const nextSlot0 =
+    patch.slot0FrameCount !== undefined
+      ? Math.max(1, Math.min(255, Number(patch.slot0FrameCount)))
+      : Math.max(1, cfg[34] || 1);
+  const nextSlot1 =
+    patch.slot1FrameCount !== undefined
+      ? Math.max(1, Math.min(255, Number(patch.slot1FrameCount)))
+      : Math.max(1, cfg[46] || 1);
+
+  cfg[33] = nextScreenMode;
+  cfg[34] = nextSlot0;
+  cfg[42] = 0x00;
+  cfg[45] = 0x00;
+  cfg[46] = nextSlot1;
+  if (targetLen >= 48) {
+    cfg[47] = 0x00;
   }
 
   const existingDelay = (cfg[43] ?? 0) | ((cfg[44] ?? 0) << 8);
@@ -229,7 +255,7 @@ export function patchRawConfigBytes(
       cfg[35] = toBcd(d.getSeconds());
       cfg[36] = toBcd(d.getMinutes());
       cfg[37] = toBcd(d.getHours());
-      cfg[38] = d.getDay(); // 0=Sunday..6=Saturday
+      cfg[38] = d.getDay(); // 0=Sunday..6=Saturday (004B6150: GetDayOfWeek - 1)
       cfg[39] = toBcd(d.getDate());
       cfg[40] = toBcd(d.getMonth() + 1);
       cfg[41] = toBcd(d.getFullYear() % 100);

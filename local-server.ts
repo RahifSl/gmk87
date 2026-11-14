@@ -1,4 +1,4 @@
-﻿/// <reference types="node" />
+/// <reference types="node" />
 import express, { type Request, type Response } from 'express';
 import http from 'node:http';
 import https from 'node:https';
@@ -1066,10 +1066,14 @@ export async function startServer(options: StartServerOptions = {}): Promise<Ser
   const app = express();
   app.use(express.json({ limit: '25mb' }));
 
-  app.use((_req, res, next) => {
+  app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    res.setHeader('Access-Control-Allow-Private-Network', 'true');
+    if (req.method === 'OPTIONS') {
+      return res.status(204).end();
+    }
     next();
   });
 
@@ -1409,8 +1413,16 @@ const isDirectCliRun =
   /local-server\.(ts|js|mjs|cjs)$/i.test(process.argv[1]);
 
 if (isDirectCliRun && process.env.GMK87_NO_AUTOSTART !== '1') {
+  process.on('uncaughtException', (err) => {
+    console.warn('[GMK87 Server] Recovered from uncaught exception:', err?.message || err);
+  });
+  process.on('unhandledRejection', (reason: any) => {
+    console.warn('[GMK87 Server] Recovered from unhandled rejection:', reason?.message || reason);
+  });
+
   startServer().catch((err) => {
     console.error('Fatal server startup error:', err);
     process.exit(1);
   });
 }
+

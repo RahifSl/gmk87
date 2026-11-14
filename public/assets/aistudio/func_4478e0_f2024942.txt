@@ -1,0 +1,252 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  004478E0: 55                 push        ebp
+  004478E1: 8B EC              mov         ebp,esp
+  004478E3: 6A FF              push        0FFFFFFFFh
+  004478E5: 68 D8 15 65 00     push        6515D8h
+  004478EA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  004478F0: 50                 push        eax
+  004478F1: 83 EC 38           sub         esp,38h
+  004478F4: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004478F9: 33 C5              xor         eax,ebp
+  004478FB: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  004478FE: 50                 push        eax
+  004478FF: 8D 45 F4           lea         eax,[ebp-0Ch]
+  00447902: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  00447908: 89 4D DC           mov         dword ptr [ebp-24h],ecx
+  0044790B: C6 45 E0 00        mov         byte ptr [ebp-20h],0
+  0044790F: 33 C0              xor         eax,eax
+  00447911: 89 45 E1           mov         dword ptr [ebp-1Fh],eax
+  00447914: 89 45 E5           mov         dword ptr [ebp-1Bh],eax
+  00447917: 89 45 E9           mov         dword ptr [ebp-17h],eax
+  0044791A: 88 45 ED           mov         byte ptr [ebp-13h],al
+  0044791D: 8B 4D DC           mov         ecx,dword ptr [ebp-24h]
+  00447920: 81 C1 60 03 00 00  add         ecx,360h
+  00447926: E8 F5 76 08 00     call        004CF020
+  0044792B: 0F B6 C8           movzx       ecx,al
+  0044792E: 85 C9              test        ecx,ecx
+  00447930: 0F 85 93 01 00 00  jne         00447AC9
+  00447936: 68 10 FA 6A 00     push        6AFA10h
+  0044793B: 8B 4D DC           mov         ecx,dword ptr [ebp-24h]
+  0044793E: 81 C1 60 03 00 00  add         ecx,360h
+  00447944: E8 D7 72 08 00     call        004CEC20
+  00447949: 8B C8              mov         ecx,eax
+  0044794B: E8 D0 76 08 00     call        004CF020
+  00447950: 0F B6 D0           movzx       edx,al
+  00447953: 85 D2              test        edx,edx
+  00447955: 0F 85 4B 01 00 00  jne         00447AA6
+  0044795B: 6A 00              push        0
+  0044795D: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447960: E8 5B 57 08 00     call        004CD0C0
+  00447965: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  0044796C: 68 1C FA 6A 00     push        6AFA1Ch
+  00447971: 8B 4D DC           mov         ecx,dword ptr [ebp-24h]
+  00447974: 81 C1 60 03 00 00  add         ecx,360h
+  0044797A: E8 A1 72 08 00     call        004CEC20
+  0044797F: 83 EC 18           sub         esp,18h
+  00447982: 8B CC              mov         ecx,esp
+  00447984: 89 65 C0           mov         dword ptr [ebp-40h],esp
+  00447987: 50                 push        eax
+  00447988: E8 73 5A 08 00     call        004CD400
+  0044798D: 89 45 BC           mov         dword ptr [ebp-44h],eax
+  00447990: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447993: E8 88 5D 08 00     call        004CD720
+  00447998: 68 28 FA 6A 00     push        6AFA28h
+  0044799D: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  004479A0: E8 7B 72 08 00     call        004CEC20
+  004479A5: 8B C8              mov         ecx,eax
+  004479A7: E8 A4 62 08 00     call        004CDC50
+  004479AC: 88 45 E0           mov         byte ptr [ebp-20h],al
+  004479AF: 68 34 FA 6A 00     push        6AFA34h
+  004479B4: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  004479B7: E8 64 72 08 00     call        004CEC20
+  004479BC: 8B C8              mov         ecx,eax
+  004479BE: E8 8D 62 08 00     call        004CDC50
+  004479C3: 88 45 E1           mov         byte ptr [ebp-1Fh],al
+  004479C6: 68 3C FA 6A 00     push        6AFA3Ch
+  004479CB: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  004479CE: E8 4D 72 08 00     call        004CEC20
+  004479D3: 8B C8              mov         ecx,eax
+  004479D5: E8 76 62 08 00     call        004CDC50
+  004479DA: 88 45 E2           mov         byte ptr [ebp-1Eh],al
+  004479DD: 68 44 FA 6A 00     push        6AFA44h
+  004479E2: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  004479E5: E8 36 72 08 00     call        004CEC20
+  004479EA: 8B C8              mov         ecx,eax
+  004479EC: E8 4F 68 08 00     call        004CE240
+  004479F1: 88 45 E4           mov         byte ptr [ebp-1Ch],al
+  004479F4: 68 50 FA 6A 00     push        6AFA50h
+  004479F9: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  004479FC: E8 1F 72 08 00     call        004CEC20
+  00447A01: 8B C8              mov         ecx,eax
+  00447A03: E8 48 62 08 00     call        004CDC50
+  00447A08: 88 45 E5           mov         byte ptr [ebp-1Bh],al
+  00447A0B: 68 54 FA 6A 00     push        6AFA54h
+  00447A10: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447A13: E8 08 72 08 00     call        004CEC20
+  00447A18: 8B C8              mov         ecx,eax
+  00447A1A: E8 31 62 08 00     call        004CDC50
+  00447A1F: 88 45 E6           mov         byte ptr [ebp-1Ah],al
+  00447A22: 68 5C FA 6A 00     push        6AFA5Ch
+  00447A27: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447A2A: E8 F1 71 08 00     call        004CEC20
+  00447A2F: 8B C8              mov         ecx,eax
+  00447A31: E8 1A 62 08 00     call        004CDC50
+  00447A36: 88 45 E7           mov         byte ptr [ebp-19h],al
+  00447A39: 68 64 FA 6A 00     push        6AFA64h
+  00447A3E: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447A41: E8 DA 71 08 00     call        004CEC20
+  00447A46: 8B C8              mov         ecx,eax
+  00447A48: E8 03 62 08 00     call        004CDC50
+  00447A4D: 88 45 E3           mov         byte ptr [ebp-1Dh],al
+  00447A50: 68 68 FA 6A 00     push        6AFA68h
+  00447A55: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447A58: E8 C3 71 08 00     call        004CEC20
+  00447A5D: 8B C8              mov         ecx,eax
+  00447A5F: E8 EC 61 08 00     call        004CDC50
+  00447A64: 88 45 EB           mov         byte ptr [ebp-15h],al
+  00447A67: 68 74 FA 6A 00     push        6AFA74h
+  00447A6C: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447A6F: E8 AC 71 08 00     call        004CEC20
+  00447A74: 8B C8              mov         ecx,eax
+  00447A76: E8 D5 61 08 00     call        004CDC50
+  00447A7B: 88 45 EC           mov         byte ptr [ebp-14h],al
+  00447A7E: 68 80 FA 6A 00     push        6AFA80h
+  00447A83: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447A86: E8 95 71 08 00     call        004CEC20
+  00447A8B: 8B C8              mov         ecx,eax
+  00447A8D: E8 BE 61 08 00     call        004CDC50
+  00447A92: 88 45 ED           mov         byte ptr [ebp-13h],al
+  00447A95: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  00447A9C: 8D 4D C4           lea         ecx,[ebp-3Ch]
+  00447A9F: E8 3C 5B 08 00     call        004CD5E0
+  00447AA4: EB 21              jmp         00447AC7
+  00447AA6: 8B 45 DC           mov         eax,dword ptr [ebp-24h]
+  00447AA9: 05 22 01 00 00     add         eax,122h
+  00447AAE: 8B 08              mov         ecx,dword ptr [eax]
+  00447AB0: 89 4D E0           mov         dword ptr [ebp-20h],ecx
+  00447AB3: 8B 50 04           mov         edx,dword ptr [eax+4]
+  00447AB6: 89 55 E4           mov         dword ptr [ebp-1Ch],edx
+  00447AB9: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  00447ABC: 89 4D E8           mov         dword ptr [ebp-18h],ecx
+  00447ABF: 66 8B 50 0C        mov         dx,word ptr [eax+0Ch]
+  00447AC3: 66 89 55 EC        mov         word ptr [ebp-14h],dx
+  00447AC7: EB 21              jmp         00447AEA
+  00447AC9: 8B 45 DC           mov         eax,dword ptr [ebp-24h]
+  00447ACC: 05 22 01 00 00     add         eax,122h
+  00447AD1: 8B 08              mov         ecx,dword ptr [eax]
+  00447AD3: 89 4D E0           mov         dword ptr [ebp-20h],ecx
+  00447AD6: 8B 50 04           mov         edx,dword ptr [eax+4]
+  00447AD9: 89 55 E4           mov         dword ptr [ebp-1Ch],edx
+  00447ADC: 8B 48 08           mov         ecx,dword ptr [eax+8]
+  00447ADF: 89 4D E8           mov         dword ptr [ebp-18h],ecx
+  00447AE2: 66 8B 50 0C        mov         dx,word ptr [eax+0Ch]
+  00447AE6: 66 89 55 EC        mov         word ptr [ebp-14h],dx
+  00447AEA: 8B 45 DC           mov         eax,dword ptr [ebp-24h]
+  00447AED: 05 14 01 00 00     add         eax,114h
+  00447AF2: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  00447AF5: 89 08              mov         dword ptr [eax],ecx
+  00447AF7: 8B 55 E4           mov         edx,dword ptr [ebp-1Ch]
+  00447AFA: 89 50 04           mov         dword ptr [eax+4],edx
+  00447AFD: 8B 4D E8           mov         ecx,dword ptr [ebp-18h]
+  00447B00: 89 48 08           mov         dword ptr [eax+8],ecx
+  00447B03: 66 8B 55 EC        mov         dx,word ptr [ebp-14h]
+  00447B07: 66 89 50 0C        mov         word ptr [eax+0Ch],dx
+  00447B0B: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  00447B0E: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  00447B11: 89 08              mov         dword ptr [eax],ecx
+  00447B13: 8B 55 E4           mov         edx,dword ptr [ebp-1Ch]
+  00447B16: 89 50 04           mov         dword ptr [eax+4],edx
+  00447B19: 8B 4D E8           mov         ecx,dword ptr [ebp-18h]
+  00447B1C: 89 48 08           mov         dword ptr [eax+8],ecx
+  00447B1F: 66 8B 55 EC        mov         dx,word ptr [ebp-14h]
+  00447B23: 66 89 50 0C        mov         word ptr [eax+0Ch],dx
+  00447B27: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  00447B2A: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  00447B2D: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  00447B34: 59                 pop         ecx
+  00447B35: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  00447B38: 33 CD              xor         ecx,ebp
+  00447B3A: E8 96 1A 1C 00     call        006095D5
+  00447B3F: 8B E5              mov         esp,ebp
+  00447B41: 5D                 pop         ebp
+  00447B42: C2 04 00           ret         4
+  00447B45: CC                 int         3
+  00447B46: CC                 int         3
+  00447B47: CC                 int         3
+  00447B48: CC                 int         3
+  00447B49: CC                 int         3
+  00447B4A: CC                 int         3
+  00447B4B: CC                 int         3
+  00447B4C: CC                 int         3
+  00447B4D: CC                 int         3
+  00447B4E: CC                 int         3
+  00447B4F: CC                 int         3
+  00447B50: 55                 push        ebp
+  00447B51: 8B EC              mov         ebp,esp
+  00447B53: 6A FF              push        0FFFFFFFFh
+  00447B55: 68 7D 16 65 00     push        65167Dh
+  00447B5A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  00447B60: 50                 push        eax
+  00447B61: 81 EC AC 00 00 00  sub         esp,0ACh
+  00447B67: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  00447B6C: 33 C5              xor         eax,ebp
+  00447B6E: 50                 push        eax
+  00447B6F: 8D 45 F4           lea         eax,[ebp-0Ch]
+  00447B72: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  00447B78: 89 4D F0           mov         dword ptr [ebp-10h],ecx
+  00447B7B: 8B 45 F0           mov         eax,dword ptr [ebp-10h]
+  00447B7E: 05 14 01 00 00     add         eax,114h
+  00447B83: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  00447B86: 89 08              mov         dword ptr [eax],ecx
+  00447B88: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  00447B8B: 89 50 04           mov         dword ptr [eax+4],edx
+  00447B8E: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  00447B91: 89 48 08           mov         dword ptr [eax+8],ecx
+  00447B94: 66 8B 55 14        mov         dx,word ptr [ebp+14h]
+  00447B98: 66 89 50 0C        mov         word ptr [eax+0Ch],dx
+  00447B9C: 6A 00              push        0
+  00447B9E: 8D 4D D8           lea         ecx,[ebp-28h]
+  00447BA1: E8 1A 55 08 00     call        004CD0C0
+  00447BA6: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  00447BAD: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  00447BB1: 83 EC 18           sub         esp,18h
+  00447BB4: 8B CC              mov         ecx,esp
+  00447BB6: 89 65 A4           mov         dword ptr [ebp-5Ch],esp
+  00447BB9: 50                 push        eax
+  00447BBA: E8 F1 55 08 00     call        004CD1B0
+  00447BBF: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  00447BC2: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  00447BC5: 89 4D A0           mov         dword ptr [ebp-60h],ecx
+  00447BC8: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  00447BCC: 68 8C FA 6A 00     push        6AFA8Ch
+  00447BD1: 8D 4D D8           lea         ecx,[ebp-28h]
+  00447BD4: E8 47 70 08 00     call        004CEC20
+  00447BD9: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  00447BDD: 8B C8              mov         ecx,eax
+  00447BDF: E8 3C 5B 08 00     call        004CD720
+  00447BE4: 0F B6 55 09        movzx       edx,byte ptr [ebp+9]
+  00447BE8: 83 EC 18           sub         esp,18h
+  00447BEB: 8B CC              mov         ecx,esp
+  00447BED: 89 65 9C           mov         dword ptr [ebp-64h],esp
+  00447BF0: 52                 push        edx
+  00447BF1: E8 BA 55 08 00     call        004CD1B0
+  00447BF6: 89 45 D0           mov         dword ptr [ebp-30h],eax
+  00447BF9: 8B 45 D0           mov         eax,dword ptr [ebp-30h]
+  00447BFC: 89 45 98           mov         dword ptr [ebp-68h],eax
+  00447BFF: C6
+  00447C00: 45                 inc         ebp
+
+  Summary
+
+      266000 .text

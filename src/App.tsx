@@ -15,6 +15,8 @@ import {
   Palette,
   PictureInPicture2,
   Eye,
+  Activity,
+  Wrench,
 } from 'lucide-react';
 import {
   Gmk87HidEngine,
@@ -66,6 +68,9 @@ const CustomUploaderTab = React.lazy(() => import('./components/CustomUploaderTa
 const RgbUnderglowStudio = React.lazy(() => import('./components/RgbUnderglowStudio'));
 const SmartKnobTab = React.lazy(() => import('./components/SmartKnobTab'));
 const BeyondZuoyaLabTab = React.lazy(() => import('./components/BeyondZuoyaLabTab'));
+const HardwareDiagnosticModal = React.lazy(
+  () => import('./components/HardwareDiagnosticModal')
+);
 
 function TabLoadingFallback() {
   return (
@@ -139,6 +144,7 @@ export default function App() {
 
   const [monitorExpanded, setMonitorExpanded] = useState(false);
   const [floatingPipMonitor, setFloatingPipMonitor] = useState(false);
+  const [diagnosticOpen, setDiagnosticOpen] = useState(false);
   const [isAnimPaused, setIsAnimPaused] = useState(false);
   const [activePreviewAnim, setActivePreviewAnim] = useState<ProceduralAnimId>('cyber-hud');
   const [customPreviewImageData, setCustomPreviewImageData] = useState<ImageData | null>(null);
@@ -247,6 +253,8 @@ export default function App() {
     let timer: ReturnType<typeof setInterval> | null = null;
     let attachedInSession = false;
 
+    let autoRepairedInSession = false;
+
     const applyConnectedState = async (
       res: Awaited<ReturnType<Gmk87HidEngine['checkBridgeStatus']>>,
       loadViaKeymap: boolean
@@ -261,11 +269,19 @@ export default function App() {
       setViaProtocol(res.viaProtocol || 9);
       setStatusLog(res.message);
 
+      let needsAutoRepair = false;
       if (res.config) {
         configStateRef.current = res.config;
         setConfigState(res.config);
-        setRawHardwareConfig(engine.getRawConfigBuffer());
+        const raw = engine.getRawConfigBuffer();
+        setRawHardwareConfig(raw);
         setHwClockOffsetMs(res.config.clockDate.getTime() - Date.now());
+        if (
+          res.connected &&
+          (raw[0] !== 0x01 || raw.subarray(9, 28).some((b) => b !== 0x00))
+        ) {
+          needsAutoRepair = true;
+        }
       }
 
       if (loadViaKeymap && res.viaConnected) {
@@ -274,6 +290,26 @@ export default function App() {
           setKeymap(viaRes.keymap);
           setViaProtocol(viaRes.viaProtocol || 9);
           setLastViaPacketHex(viaRes.lastCmdHex);
+          if (viaRes.mangledDetected) {
+            needsAutoRepair = true;
+          }
+        }
+      }
+
+      if (needsAutoRepair && !autoRepairedInSession && !cancelled) {
+        autoRepairedInSession = true;
+        setStatusLog(
+          'Detected corrupted GMK87 EEPROM / VIA keymap — auto-repairing cfg[0]=0x01, clearing cfg[9..27], and restoring factory keys...'
+        );
+        const repairRes = await engine
+          .repairKeyboardKeysAndConfig(configStateRef.current)
+          .catch(() => null);
+        if (!cancelled && repairRes?.success) {
+          configStateRef.current = repairRes.config;
+          setConfigState(repairRes.config);
+          setRawHardwareConfig(repairRes.rawConfig);
+          setKeymap(repairRes.keymap);
+          setStatusLog(repairRes.message);
         }
       }
     };
@@ -639,10 +675,10 @@ export default function App() {
       BracketLeft: 'r2c11',
       BracketRight: 'r2c12',
       Backslash: 'r2c13',
-      Home: 'r3c14',
-      End: 'r4c14',
-      PageUp: 'r5c14',
-      PageDown: 'r6c14',
+      Home: 'r5c4',
+      End: 'r5c5',
+      PageUp: 'r3c14',
+      PageDown: 'r5c6',
       CapsLock: 'r3c0',
       KeyA: 'r3c1',
       KeyS: 'r3c2',
@@ -667,18 +703,18 @@ export default function App() {
       Comma: 'r4c9',
       Period: 'r4c10',
       Slash: 'r4c11',
-      ShiftRight: 'r4c12',
-      ArrowUp: 'r4c13',
+      ShiftRight: 'r4c13',
+      ArrowUp: 'r4c14',
       ControlLeft: 'r5c0',
       MetaLeft: 'r5c1',
       AltLeft: 'r5c2',
-      Space: 'r5c6',
+      Space: 'r5c8',
       AltRight: 'r5c9',
       ContextMenu: 'r5c11',
       ControlRight: 'r5c12',
       ArrowLeft: 'r5c13',
-      ArrowDown: 'r6c12',
-      ArrowRight: 'r6c13',
+      ArrowDown: 'r5c14',
+      ArrowRight: 'r5c7',
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
@@ -1164,6 +1200,32 @@ export default function App() {
         `VIA 0x12 Simulation Read: ${res.totalBytes} bytes across ${res.chunksRead} chunks (Connect keyboard for live EEPROM keymap)`
       );
     }
+  };
+
+  // 1-Click Hardware Key & EEPROM Sanitizer (fixes mangled physical keys on PID 0x5055)
+  const handleRepairMangledKeys = async () => {
+    const engine = hidEngineRef.current;
+    if (!engine) return;
+    setStatusLog(
+      'Repairing mangled keys: restoring PID 0x5055 cfg[0]=0x01, wiping cfg[9..27]=0x00, and flashing all 4 VIA layers...'
+    );
+    const res = await engine.repairKeyboardKeysAndConfig(configStateRef.current);
+    configStateRef.current = res.config;
+    setConfigState(res.config);
+    setRawHardwareConfig(res.rawConfig);
+    setKeymap(res.keymap);
+    setIsConnected(Boolean(engine.isConnected()));
+    setTransportMode(engine.getTransportMode());
+    setConnectedDeviceLabel(engine.getConnectedDeviceName());
+    if (res.packetHex) {
+      setLastViaPacketHex(res.packetHex);
+      setUploadProgress((prev) => ({
+        ...prev,
+        lastPacketHex: res.packetHex,
+        message: res.message,
+      }));
+    }
+    setStatusLog(res.message);
   };
 
   // Toggle Web Audio API Microphone Capture for Tab 5
@@ -1663,6 +1725,62 @@ export default function App() {
             </button>
 
             <button
+              type="button"
+              onClick={handleRepairMangledKeys}
+              title="1-Click Hardware Key Repair: Wipes corrupted cfg[9..27], restores cfg[0]=0x01, and flashes factory VIA 4-layer keymap"
+              className="px-2.5 py-1.5 text-xs font-mono font-bold rounded-md border border-cyan-400/70 bg-cyan-500/20 text-cyan-200 hover:bg-cyan-500/30 transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-[0_0_12px_rgba(6,182,212,0.25)]"
+            >
+              <Wrench className="w-3.5 h-3.5 text-cyan-300" />
+              <span>REPAIR KEYS</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={async () => {
+                const engine = hidEngineRef.current;
+                if (!engine) return;
+                setStatusLog('Fixing 00:00 Clock & switching LCD to Native Clock Mode (PID 0x5055 ScreenMode=0)...');
+                const res = await engine.fixClockAndRestoreNativeMode(configStateRef.current);
+                configStateRef.current = res.config;
+                setConfigState(res.config);
+                setRawHardwareConfig(res.rawConfig);
+                setIsConnected(Boolean(engine.isConnected()));
+                setTransportMode(engine.getTransportMode());
+                setConnectedDeviceLabel(engine.getConnectedDeviceName());
+                if (res.success) {
+                  setHwClockOffsetMs(0);
+                  setUploadProgress((prev) => ({
+                    ...prev,
+                    lastPacketHex: res.packetHex,
+                    message: `Fixed 00:00 Clock → ${res.config.clockDate.toLocaleTimeString()} (${
+                      res.usedDirectWebHid ? 'Direct WebHID' : 'USB Bridge'
+                    })`,
+                  }));
+                  setStatusLog(
+                    `Fixed 00:00 Clock! Synced BCD RTC & restored ScreenMode=0 (${res.config.clockDate.toLocaleTimeString()})`
+                  );
+                } else {
+                  setStatusLog(`Clock fix failed: ${res.error || 'Connect GMK87 USB first'}`);
+                }
+              }}
+              title="Fix 00:00 Clock & Switch Keyboard LCD to Built-in Native Clock (<1s)"
+              className="px-2.5 py-1.5 text-xs font-mono font-bold rounded-md border border-emerald-400/60 bg-emerald-500/15 text-emerald-300 hover:bg-emerald-500/25 transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer shadow-[0_0_12px_rgba(16,185,129,0.2)]"
+            >
+              <Clock className="w-3.5 h-3.5 text-emerald-300" />
+              <span>FIX 00:00 CLOCK</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setDiagnosticOpen(true)}
+              title="Open 1-Click GMK87 Hardware Self-Test & Diagnostic Suite"
+              className="px-2.5 py-1.5 text-xs font-mono font-bold rounded-md border border-yellow-400/50 bg-yellow-400/10 text-yellow-300 hover:bg-yellow-400/20 transition-colors flex items-center gap-1.5 whitespace-nowrap cursor-pointer"
+            >
+              <Activity className="w-3.5 h-3.5 text-yellow-300" />
+              <span>TEST KEYBOARD</span>
+            </button>
+
+            <button
               onClick={handleConnectWebHid}
               className={`px-3 py-1.5 text-xs font-mono font-bold rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
                 isConnected
@@ -1676,6 +1794,30 @@ export default function App() {
           </div>
         </div>
       </header>
+
+      {diagnosticOpen && (
+        <Suspense fallback={null}>
+          <HardwareDiagnosticModal
+            isOpen={diagnosticOpen}
+            onClose={() => setDiagnosticOpen(false)}
+            hidEngine={hidEngineRef.current}
+            configState={configState}
+            rawHardwareConfig={rawHardwareConfig}
+            onSyncConfigState={(next, raw) => {
+              configStateRef.current = next;
+              setConfigState(next);
+              setRawHardwareConfig(raw);
+              setIsConnected(Boolean(hidEngineRef.current?.isConnected()));
+              if (hidEngineRef.current) {
+                setTransportMode(hidEngineRef.current.getTransportMode());
+                setConnectedDeviceLabel(hidEngineRef.current.getConnectedDeviceName());
+              }
+            }}
+            onSyncKeymap={setKeymap}
+            onStatusLog={setStatusLog}
+          />
+        </Suspense>
+      )}
 
       {/* Floating Bottom-Right Picture-in-Picture (PiP) 240x135 Hardware LCD Monitor */}
       {floatingPipMonitor && (
@@ -2194,6 +2336,7 @@ export default function App() {
                 onAssignKeycode={handleAssignKeycode}
                 onBatchApplyKeymap={handleBatchApplyKeymap}
                 onReadViaBuffer={handleReadViaBuffer}
+                onRepairKeys={handleRepairMangledKeys}
                 onReadViaMacros={() => hidEngineRef.current!.readViaMacros()}
                 onWriteViaMacros={(macros) => hidEngineRef.current!.writeViaMacros(macros)}
                 onSelectSmartKnobMode={handleSelectSmartKnobMode}

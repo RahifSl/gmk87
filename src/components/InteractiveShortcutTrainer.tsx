@@ -26,9 +26,9 @@ interface InteractiveShortcutTrainerProps {
 }
 
 const SHORTCUT_KEY_ID_MAP: Record<string, string[]> = {
-  'sc-1': ['r5c10', 'r4c12'], // Fn + Right Shift
+  'sc-1': ['r5c10', 'r4c13'], // Fn + Right Shift [4,13]
   'sc-2': ['r5c10', 'r3c13'], // Fn + Enter
-  'sc-3': ['r5c10', 'r4c13', 'r6c12', 'r5c13', 'r6c13'], // Fn + Arrows
+  'sc-3': ['r5c10', 'r4c14', 'r5c14', 'r5c13', 'r5c7'], // Fn + Arrows
   'sc-4': ['r5c10', 'r2c1'], // Fn + Q
   'sc-5': ['r5c10', 'r2c2'], // Fn + W
   'sc-6': ['r5c10', 'r2c3'], // Fn + E
@@ -36,8 +36,8 @@ const SHORTCUT_KEY_ID_MAP: Record<string, string[]> = {
   'sc-8': ['r5c10', 'r2c5'], // Fn + T
   'sc-9': ['r5c10', 'r2c13'], // Fn + \ |
   'sc-10': ['r5c10', 'r2c14'], // Fn + Del
-  'sc-11': ['r5c10', 'r4c13', 'r6c12'], // Fn + Up/Down
-  'sc-12': ['r5c10', 'r5c13', 'r6c13'], // Fn + Left/Right
+  'sc-11': ['r5c10', 'r4c14', 'r5c14'], // Fn + Up/Down
+  'sc-12': ['r5c10', 'r5c13', 'r5c7'], // Fn + Left/Right
   'sc-13': ['r5c10', 'r1c13'], // Fn + Backspace
   'sc-14': ['r5c10', 'r5c1'], // Fn + Win
   'sc-15': ['r5c10', 'r3c1'], // Fn + A

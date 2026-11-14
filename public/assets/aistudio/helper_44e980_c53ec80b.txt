@@ -1,0 +1,110 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0044E980: 55                 push        ebp
+  0044E981: 8B EC              mov         ebp,esp
+  0044E983: 83 EC 14           sub         esp,14h
+  0044E986: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0044E98B: 33 C5              xor         eax,ebp
+  0044E98D: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0044E990: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  0044E993: 33 C0              xor         eax,eax
+  0044E995: 66 89 45 F0        mov         word ptr [ebp-10h],ax
+  0044E999: 33 C9              xor         ecx,ecx
+  0044E99B: 89 4D F2           mov         dword ptr [ebp-0Eh],ecx
+  0044E99E: 89 4D F6           mov         dword ptr [ebp-0Ah],ecx
+  0044E9A1: 66 89 4D FA        mov         word ptr [ebp-6],cx
+  0044E9A5: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044E9A8: 81 C1 60 03 00 00  add         ecx,360h
+  0044E9AE: E8 6D 06 08 00     call        004CF020
+  0044E9B3: 0F B6 D0           movzx       edx,al
+  0044E9B6: 85 D2              test        edx,edx
+  0044E9B8: 0F 85 21 01 00 00  jne         0044EADF
+  0044E9BE: 68 58 27 6B 00     push        6B2758h
+  0044E9C3: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044E9C6: 81 C1 60 03 00 00  add         ecx,360h
+  0044E9CC: E8 4F 02 08 00     call        004CEC20
+  0044E9D1: 8B C8              mov         ecx,eax
+  0044E9D3: E8 48 06 08 00     call        004CF020
+  0044E9D8: 0F B6 C0           movzx       eax,al
+  0044E9DB: 85 C0              test        eax,eax
+  0044E9DD: 0F 85 FC 00 00 00  jne         0044EADF
+  0044E9E3: 68 78 27 6B 00     push        6B2778h
+  0044E9E8: 68 68 27 6B 00     push        6B2768h
+  0044E9ED: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044E9F0: 81 C1 60 03 00 00  add         ecx,360h
+  0044E9F6: E8 25 02 08 00     call        004CEC20
+  0044E9FB: 8B C8              mov         ecx,eax
+  0044E9FD: E8 1E 02 08 00     call        004CEC20
+  0044EA02: 8B C8              mov         ecx,eax
+  0044EA04: E8 47 F2 07 00     call        004CDC50
+  0044EA09: 66 89 45 F0        mov         word ptr [ebp-10h],ax
+  0044EA0D: 68 90 27 6B 00     push        6B2790h
+  0044EA12: 68 80 27 6B 00     push        6B2780h
+  0044EA17: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044EA1A: 81 C1 60 03 00 00  add         ecx,360h
+  0044EA20: E8 FB 01 08 00     call        004CEC20
+  0044EA25: 8B C8              mov         ecx,eax
+  0044EA27: E8 F4 01 08 00     call        004CEC20
+  0044EA2C: 8B C8              mov         ecx,eax
+  0044EA2E: E8 1D F2 07 00     call        004CDC50
+  0044EA33: 66 89 45 F2        mov         word ptr [ebp-0Eh],ax
+  0044EA37: 68 AC 27 6B 00     push        6B27ACh
+  0044EA3C: 68 9C 27 6B 00     push        6B279Ch
+  0044EA41: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044EA44: 81 C1 60 03 00 00  add         ecx,360h
+  0044EA4A: E8 D1 01 08 00     call        004CEC20
+  0044EA4F: 8B C8              mov         ecx,eax
+  0044EA51: E8 CA 01 08 00     call        004CEC20
+  0044EA56: 8B C8              mov         ecx,eax
+  0044EA58: E8 F3 F1 07 00     call        004CDC50
+  0044EA5D: 66 89 45 F4        mov         word ptr [ebp-0Ch],ax
+  0044EA61: 68 C8 27 6B 00     push        6B27C8h
+  0044EA66: 68 B8 27 6B 00     push        6B27B8h
+  0044EA6B: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044EA6E: 81 C1 60 03 00 00  add         ecx,360h
+  0044EA74: E8 A7 01 08 00     call        004CEC20
+  0044EA79: 8B C8              mov         ecx,eax
+  0044EA7B: E8 A0 01 08 00     call        004CEC20
+  0044EA80: 8B C8              mov         ecx,eax
+  0044EA82: E8 C9 F1 07 00     call        004CDC50
+  0044EA87: 66 89 45 F6        mov         word ptr [ebp-0Ah],ax
+  0044EA8B: 68 E4 27 6B 00     push        6B27E4h
+  0044EA90: 68 D4 27 6B 00     push        6B27D4h
+  0044EA95: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044EA98: 81 C1 60 03 00 00  add         ecx,360h
+  0044EA9E: E8 7D 01 08 00     call        004CEC20
+  0044EAA3: 8B C8              mov         ecx,eax
+  0044EAA5: E8 76 01 08 00     call        004CEC20
+  0044EAAA: 8B C8              mov         ecx,eax
+  0044EAAC: E8 9F F1 07 00     call        004CDC50
+  0044EAB1: 66 89 45 F8        mov         word ptr [ebp-8],ax
+  0044EAB5: 68 FC 27 6B 00     push        6B27FCh
+  0044EABA: 68 EC 27 6B 00     push        6B27ECh
+  0044EABF: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044EAC2: 81 C1 60 03 00 00  add         ecx,360h
+  0044EAC8: E8 53 01 08 00     call        004CEC20
+  0044EACD: 8B C8              mov         ecx,eax
+  0044EACF: E8 4C 01 08 00     call        004CEC20
+  0044EAD4: 8B C8              mov         ecx,eax
+  0044EAD6: E8 75 F1 07 00     call        004CDC50
+  0044EADB: 66 89 45 FA        mov         word ptr [ebp-6],ax
+  0044EADF: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  0044EAE2: 81 C1 60 04 00 00  add         ecx,460h
+  0044EAE8: 8B 55 F0           mov         edx,dword ptr [ebp-10h]
+  0044EAEB: 89 11              mov         dword ptr [ecx],edx
+  0044EAED: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  0044EAF0: 89 41 04           mov         dword ptr [ecx+4],eax
+  0044EAF3: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0044EAF6: 89 51 08           mov         dword ptr [ecx+8],edx
+  0044EAF9: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  0044EAFC: 05 60 04 00 00     add         eax,460h
+
+  Summary
+
+      266000 .text

@@ -1,0 +1,3041 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0047EB20: 55                 push        ebp
+  0047EB21: 8B EC              mov         ebp,esp
+  0047EB23: 81 EC A8 00 00 00  sub         esp,0A8h
+  0047EB29: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047EB2E: 33 C5              xor         eax,ebp
+  0047EB30: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047EB33: 89 8D 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],ecx
+  0047EB39: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0047EB3D: 6A 3F              push        3Fh
+  0047EB3F: 6A 00              push        0
+  0047EB41: 8D 45 BD           lea         eax,[ebp-43h]
+  0047EB44: 50                 push        eax
+  0047EB45: E8 26 06 19 00     call        0060F170
+  0047EB4A: 83 C4 0C           add         esp,0Ch
+  0047EB4D: B9 01 00 00 00     mov         ecx,1
+  0047EB52: 6B D1 00           imul        edx,ecx,0
+  0047EB55: C6 44 15 BC 04     mov         byte ptr [ebp+edx-44h],4
+  0047EB5A: B8 01 00 00 00     mov         eax,1
+  0047EB5F: 6B C8 03           imul        ecx,eax,3
+  0047EB62: C6 44 0D BC 02     mov         byte ptr [ebp+ecx-44h],2
+  0047EB67: BA 01 00 00 00     mov         edx,1
+  0047EB6C: 6B C2 07           imul        eax,edx,7
+  0047EB6F: 89 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],eax
+  0047EB75: 83 BD 6C FF FF FF  cmp         dword ptr [ebp+FFFFFF6Ch],40h
+            40
+  0047EB7C: 73 02              jae         0047EB80
+  0047EB7E: EB 05              jmp         0047EB85
+  0047EB80: E8 B4 B1 18 00     call        00609D39
+  0047EB85: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047EB8B: C6 44 0D BC 00     mov         byte ptr [ebp+ecx-44h],0
+  0047EB90: BA 01 00 00 00     mov         edx,1
+  0047EB95: C1 E2 02           shl         edx,2
+  0047EB98: 89 95 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],edx
+  0047EB9E: 83 BD 68 FF FF FF  cmp         dword ptr [ebp+FFFFFF68h],40h
+            40
+  0047EBA5: 73 02              jae         0047EBA9
+  0047EBA7: EB 05              jmp         0047EBAE
+  0047EBA9: E8 8B B1 18 00     call        00609D39
+  0047EBAE: 8B 85 68 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF68h]
+  0047EBB4: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047EBB9: B9 01 00 00 00     mov         ecx,1
+  0047EBBE: 6B D1 05           imul        edx,ecx,5
+  0047EBC1: 89 95 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],edx
+  0047EBC7: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  0047EBCE: 73 02              jae         0047EBD2
+  0047EBD0: EB 05              jmp         0047EBD7
+  0047EBD2: E8 62 B1 18 00     call        00609D39
+  0047EBD7: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  0047EBDD: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047EBE2: B9 01 00 00 00     mov         ecx,1
+  0047EBE7: 6B D1 06           imul        edx,ecx,6
+  0047EBEA: 89 95 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],edx
+  0047EBF0: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],40h
+            40
+  0047EBF7: 73 02              jae         0047EBFB
+  0047EBF9: EB 05              jmp         0047EC00
+  0047EBFB: E8 39 B1 18 00     call        00609D39
+  0047EC00: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047EC06: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047EC0B: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],3
+            03 00 00 00
+  0047EC15: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  0047EC1F: EB 0F              jmp         0047EC30
+  0047EC21: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047EC27: 83 C1 01           add         ecx,1
+  0047EC2A: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047EC30: 83 BD 78 FF FF FF  cmp         dword ptr [ebp+FFFFFF78h],40h
+            40
+  0047EC37: 73 19              jae         0047EC52
+  0047EC39: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047EC3F: 0F B6 44 15 BC     movzx       eax,byte ptr [ebp+edx-44h]
+  0047EC44: 03 85 74 FF FF FF  add         eax,dword ptr [ebp+FFFFFF74h]
+  0047EC4A: 89 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],eax
+  0047EC50: EB CF              jmp         0047EC21
+  0047EC52: B9 01 00 00 00     mov         ecx,1
+  0047EC57: C1 E1 00           shl         ecx,0
+  0047EC5A: 8A 95 74 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF74h]
+  0047EC60: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047EC64: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047EC6A: C1 E8 08           shr         eax,8
+  0047EC6D: B9 01 00 00 00     mov         ecx,1
+  0047EC72: D1 E1              shl         ecx,1
+  0047EC74: 88 44 0D BC        mov         byte ptr [ebp+ecx-44h],al
+  0047EC78: 6A 0A              push        0Ah
+  0047EC7A: FF 15 E4 7B 66 00  call        dword ptr ds:[00667BE4h]
+  0047EC80: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EC86: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047EC8C: E8 2F B1 FF FF     call        00479DC0
+  0047EC91: 8D 95 58 FF FF FF  lea         edx,[ebp+FFFFFF58h]
+  0047EC97: 52                 push        edx
+  0047EC98: 6A 40              push        40h
+  0047EC9A: 8D 85 7C FF FF FF  lea         eax,[ebp+FFFFFF7Ch]
+  0047ECA0: 50                 push        eax
+  0047ECA1: 6A 40              push        40h
+  0047ECA3: 8D 4D BC           lea         ecx,[ebp-44h]
+  0047ECA6: 51                 push        ecx
+  0047ECA7: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047ECAD: E8 BE E5 FF FF     call        0047D270
+  0047ECB2: 89 85 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],eax
+  0047ECB8: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047ECBE: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047ECC4: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047ECCA: 8B 82 0C 06 00 00  mov         eax,dword ptr [edx+0000060Ch]
+  0047ECD0: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047ECD3: FF D2              call        edx
+  0047ECD5: 83 BD 5C FF FF FF  cmp         dword ptr [ebp+FFFFFF5Ch],1
+            01
+  0047ECDC: 74 08              je          0047ECE6
+  0047ECDE: 8B 85 5C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  0047ECE4: EB 43              jmp         0047ED29
+  0047ECE6: B8 01 00 00 00     mov         eax,1
+  0047ECEB: 6B C8 07           imul        ecx,eax,7
+  0047ECEE: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047ECF6: 81 FA FF 00 00 00  cmp         edx,0FFh
+  0047ECFC: 75 07              jne         0047ED05
+  0047ECFE: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047ED03: EB 24              jmp         0047ED29
+  0047ED05: B8 01 00 00 00     mov         eax,1
+  0047ED0A: 6B C8 07           imul        ecx,eax,7
+  0047ED0D: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047ED15: 81 FA FE 00 00 00  cmp         edx,0FEh
+  0047ED1B: 75 07              jne         0047ED24
+  0047ED1D: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047ED22: EB 05              jmp         0047ED29
+  0047ED24: B8 01 00 00 00     mov         eax,1
+  0047ED29: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047ED2C: 33 CD              xor         ecx,ebp
+  0047ED2E: E8 A2 A8 18 00     call        006095D5
+  0047ED33: 8B E5              mov         esp,ebp
+  0047ED35: 5D                 pop         ebp
+  0047ED36: C2 04 00           ret         4
+  0047ED39: CC                 int         3
+  0047ED3A: CC                 int         3
+  0047ED3B: CC                 int         3
+  0047ED3C: CC                 int         3
+  0047ED3D: CC                 int         3
+  0047ED3E: CC                 int         3
+  0047ED3F: CC                 int         3
+  0047ED40: 55                 push        ebp
+  0047ED41: 8B EC              mov         ebp,esp
+  0047ED43: 81 EC A8 00 00 00  sub         esp,0A8h
+  0047ED49: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047ED4E: 33 C5              xor         eax,ebp
+  0047ED50: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047ED53: 89 8D 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],ecx
+  0047ED59: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0047ED5D: 6A 3F              push        3Fh
+  0047ED5F: 6A 00              push        0
+  0047ED61: 8D 45 BD           lea         eax,[ebp-43h]
+  0047ED64: 50                 push        eax
+  0047ED65: E8 06 04 19 00     call        0060F170
+  0047ED6A: 83 C4 0C           add         esp,0Ch
+  0047ED6D: B9 01 00 00 00     mov         ecx,1
+  0047ED72: 6B D1 00           imul        edx,ecx,0
+  0047ED75: C6 44 15 BC 04     mov         byte ptr [ebp+edx-44h],4
+  0047ED7A: B8 01 00 00 00     mov         eax,1
+  0047ED7F: 6B C8 03           imul        ecx,eax,3
+  0047ED82: C6 44 0D BC 1C     mov         byte ptr [ebp+ecx-44h],1Ch
+  0047ED87: BA 01 00 00 00     mov         edx,1
+  0047ED8C: 6B C2 07           imul        eax,edx,7
+  0047ED8F: 89 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],eax
+  0047ED95: 83 BD 6C FF FF FF  cmp         dword ptr [ebp+FFFFFF6Ch],40h
+            40
+  0047ED9C: 73 02              jae         0047EDA0
+  0047ED9E: EB 05              jmp         0047EDA5
+  0047EDA0: E8 94 AF 18 00     call        00609D39
+  0047EDA5: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047EDAB: C6 44 0D BC 00     mov         byte ptr [ebp+ecx-44h],0
+  0047EDB0: BA 01 00 00 00     mov         edx,1
+  0047EDB5: C1 E2 02           shl         edx,2
+  0047EDB8: 89 95 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],edx
+  0047EDBE: 83 BD 68 FF FF FF  cmp         dword ptr [ebp+FFFFFF68h],40h
+            40
+  0047EDC5: 73 02              jae         0047EDC9
+  0047EDC7: EB 05              jmp         0047EDCE
+  0047EDC9: E8 6B AF 18 00     call        00609D39
+  0047EDCE: 8B 85 68 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF68h]
+  0047EDD4: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047EDD9: B9 01 00 00 00     mov         ecx,1
+  0047EDDE: 6B D1 05           imul        edx,ecx,5
+  0047EDE1: 89 95 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],edx
+  0047EDE7: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  0047EDEE: 73 02              jae         0047EDF2
+  0047EDF0: EB 05              jmp         0047EDF7
+  0047EDF2: E8 42 AF 18 00     call        00609D39
+  0047EDF7: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  0047EDFD: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047EE02: B9 01 00 00 00     mov         ecx,1
+  0047EE07: 6B D1 06           imul        edx,ecx,6
+  0047EE0A: 89 95 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],edx
+  0047EE10: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],40h
+            40
+  0047EE17: 73 02              jae         0047EE1B
+  0047EE19: EB 05              jmp         0047EE20
+  0047EE1B: E8 19 AF 18 00     call        00609D39
+  0047EE20: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047EE26: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047EE2B: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],3
+            03 00 00 00
+  0047EE35: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  0047EE3F: EB 0F              jmp         0047EE50
+  0047EE41: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047EE47: 83 C1 01           add         ecx,1
+  0047EE4A: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047EE50: 83 BD 78 FF FF FF  cmp         dword ptr [ebp+FFFFFF78h],40h
+            40
+  0047EE57: 73 19              jae         0047EE72
+  0047EE59: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047EE5F: 0F B6 44 15 BC     movzx       eax,byte ptr [ebp+edx-44h]
+  0047EE64: 03 85 74 FF FF FF  add         eax,dword ptr [ebp+FFFFFF74h]
+  0047EE6A: 89 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],eax
+  0047EE70: EB CF              jmp         0047EE41
+  0047EE72: B9 01 00 00 00     mov         ecx,1
+  0047EE77: C1 E1 00           shl         ecx,0
+  0047EE7A: 8A 95 74 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF74h]
+  0047EE80: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047EE84: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047EE8A: C1 E8 08           shr         eax,8
+  0047EE8D: B9 01 00 00 00     mov         ecx,1
+  0047EE92: D1 E1              shl         ecx,1
+  0047EE94: 88 44 0D BC        mov         byte ptr [ebp+ecx-44h],al
+  0047EE98: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EE9E: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047EEA4: E8 17 AF FF FF     call        00479DC0
+  0047EEA9: 8D 95 58 FF FF FF  lea         edx,[ebp+FFFFFF58h]
+  0047EEAF: 52                 push        edx
+  0047EEB0: 6A 40              push        40h
+  0047EEB2: 8D 85 7C FF FF FF  lea         eax,[ebp+FFFFFF7Ch]
+  0047EEB8: 50                 push        eax
+  0047EEB9: 6A 40              push        40h
+  0047EEBB: 8D 4D BC           lea         ecx,[ebp-44h]
+  0047EEBE: 51                 push        ecx
+  0047EEBF: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EEC5: E8 A6 E3 FF FF     call        0047D270
+  0047EECA: 89 85 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],eax
+  0047EED0: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EED6: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047EEDC: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047EEE2: 8B 82 0C 06 00 00  mov         eax,dword ptr [edx+0000060Ch]
+  0047EEE8: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047EEEB: FF D2              call        edx
+  0047EEED: 83 BD 5C FF FF FF  cmp         dword ptr [ebp+FFFFFF5Ch],1
+            01
+  0047EEF4: 74 08              je          0047EEFE
+  0047EEF6: 8B 85 5C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  0047EEFC: EB 43              jmp         0047EF41
+  0047EEFE: B8 01 00 00 00     mov         eax,1
+  0047EF03: 6B C8 07           imul        ecx,eax,7
+  0047EF06: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047EF0E: 81 FA FF 00 00 00  cmp         edx,0FFh
+  0047EF14: 75 07              jne         0047EF1D
+  0047EF16: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047EF1B: EB 24              jmp         0047EF41
+  0047EF1D: B8 01 00 00 00     mov         eax,1
+  0047EF22: 6B C8 07           imul        ecx,eax,7
+  0047EF25: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047EF2D: 81 FA FE 00 00 00  cmp         edx,0FEh
+  0047EF33: 75 07              jne         0047EF3C
+  0047EF35: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047EF3A: EB 05              jmp         0047EF41
+  0047EF3C: B8 01 00 00 00     mov         eax,1
+  0047EF41: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047EF44: 33 CD              xor         ecx,ebp
+  0047EF46: E8 8A A6 18 00     call        006095D5
+  0047EF4B: 8B E5              mov         esp,ebp
+  0047EF4D: 5D                 pop         ebp
+  0047EF4E: C3                 ret
+  0047EF4F: CC                 int         3
+  0047EF50: 55                 push        ebp
+  0047EF51: 8B EC              mov         ebp,esp
+  0047EF53: 81 EC D0 00 00 00  sub         esp,0D0h
+  0047EF59: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047EF5E: 33 C5              xor         eax,ebp
+  0047EF60: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047EF63: 56                 push        esi
+  0047EF64: 57                 push        edi
+  0047EF65: 89 8D 44 FF FF FF  mov         dword ptr [ebp+FFFFFF44h],ecx
+  0047EF6B: C6 45 94 00        mov         byte ptr [ebp-6Ch],0
+  0047EF6F: 6A 3F              push        3Fh
+  0047EF71: 6A 00              push        0
+  0047EF73: 8D 45 95           lea         eax,[ebp-6Bh]
+  0047EF76: 50                 push        eax
+  0047EF77: E8 F4 01 19 00     call        0060F170
+  0047EF7C: 83 C4 0C           add         esp,0Ch
+  0047EF7F: C6 45 D4 00        mov         byte ptr [ebp-2Ch],0
+  0047EF83: 33 C9              xor         ecx,ecx
+  0047EF85: 89 4D D5           mov         dword ptr [ebp-2Bh],ecx
+  0047EF88: 89 4D D9           mov         dword ptr [ebp-27h],ecx
+  0047EF8B: 89 4D DD           mov         dword ptr [ebp-23h],ecx
+  0047EF8E: 89 4D E1           mov         dword ptr [ebp-1Fh],ecx
+  0047EF91: 89 4D E5           mov         dword ptr [ebp-1Bh],ecx
+  0047EF94: 89 4D E9           mov         dword ptr [ebp-17h],ecx
+  0047EF97: 89 4D ED           mov         dword ptr [ebp-13h],ecx
+  0047EF9A: 89 4D F1           mov         dword ptr [ebp-0Fh],ecx
+  0047EF9D: 89 4D F5           mov         dword ptr [ebp-0Bh],ecx
+  0047EFA0: C7 85 40 FF FF FF  mov         dword ptr [ebp+FFFFFF40h],0
+            00 00 00 00
+  0047EFAA: C7 85 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],25h
+            25 00 00 00
+  0047EFB4: BA 01 00 00 00     mov         edx,1
+  0047EFB9: 6B C2 00           imul        eax,edx,0
+  0047EFBC: C6 44 05 94 04     mov         byte ptr [ebp+eax-6Ch],4
+  0047EFC1: B9 01 00 00 00     mov         ecx,1
+  0047EFC6: 6B D1 03           imul        edx,ecx,3
+  0047EFC9: C6 44 15 94 03     mov         byte ptr [ebp+edx-6Ch],3
+  0047EFCE: B8 01 00 00 00     mov         eax,1
+  0047EFD3: 6B C8 07           imul        ecx,eax,7
+  0047EFD6: 89 8D 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],ecx
+  0047EFDC: 83 BD 38 FF FF FF  cmp         dword ptr [ebp+FFFFFF38h],40h
+            40
+  0047EFE3: 73 02              jae         0047EFE7
+  0047EFE5: EB 05              jmp         0047EFEC
+  0047EFE7: E8 4D AD 18 00     call        00609D39
+  0047EFEC: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  0047EFF2: C6 44 15 94 00     mov         byte ptr [ebp+edx-6Ch],0
+  0047EFF7: C7 85 50 FF FF FF  mov         dword ptr [ebp+FFFFFF50h],0
+            00 00 00 00
+  0047F001: EB 0F              jmp         0047F012
+  0047F003: 8B 85 50 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF50h]
+  0047F009: 83 C0 04           add         eax,4
+  0047F00C: 89 85 50 FF FF FF  mov         dword ptr [ebp+FFFFFF50h],eax
+  0047F012: 8B 8D 50 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F018: 3B 8D 3C FF FF FF  cmp         ecx,dword ptr [ebp+FFFFFF3Ch]
+  0047F01E: 0F 83 B2 01 00 00  jae         0047F1D6
+  0047F024: 8B 95 50 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF50h]
+  0047F02A: 83 C2 04           add         edx,4
+  0047F02D: 3B 95 3C FF FF FF  cmp         edx,dword ptr [ebp+FFFFFF3Ch]
+  0047F033: 73 0C              jae         0047F041
+  0047F035: C7 85 40 FF FF FF  mov         dword ptr [ebp+FFFFFF40h],4
+            04 00 00 00
+  0047F03F: EB 12              jmp         0047F053
+  0047F041: 8B 85 3C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF3Ch]
+  0047F047: 2B 85 50 FF FF FF  sub         eax,dword ptr [ebp+FFFFFF50h]
+  0047F04D: 89 85 40 FF FF FF  mov         dword ptr [ebp+FFFFFF40h],eax
+  0047F053: B9 01 00 00 00     mov         ecx,1
+  0047F058: C1 E1 02           shl         ecx,2
+  0047F05B: 8A 95 40 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF40h]
+  0047F061: 88 54 0D 94        mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F065: 8B 85 50 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF50h]
+  0047F06B: 33 D2              xor         edx,edx
+  0047F06D: B9 00 01 00 00     mov         ecx,100h
+  0047F072: F7 F1              div         eax,ecx
+  0047F074: B8 01 00 00 00     mov         eax,1
+  0047F079: 6B C8 05           imul        ecx,eax,5
+  0047F07C: 88 54 0D 94        mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F080: 8B 95 50 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF50h]
+  0047F086: C1 EA 08           shr         edx,8
+  0047F089: B8 01 00 00 00     mov         eax,1
+  0047F08E: 6B C8 06           imul        ecx,eax,6
+  0047F091: 88 54 0D 94        mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F095: C7 85 4C FF FF FF  mov         dword ptr [ebp+FFFFFF4Ch],3
+            03 00 00 00
+  0047F09F: C7 85 48 FF FF FF  mov         dword ptr [ebp+FFFFFF48h],0
+            00 00 00 00
+  0047F0A9: EB 0F              jmp         0047F0BA
+  0047F0AB: 8B 95 4C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF4Ch]
+  0047F0B1: 83 C2 01           add         edx,1
+  0047F0B4: 89 95 4C FF FF FF  mov         dword ptr [ebp+FFFFFF4Ch],edx
+  0047F0BA: 83 BD 4C FF FF FF  cmp         dword ptr [ebp+FFFFFF4Ch],40h
+            40
+  0047F0C1: 73 19              jae         0047F0DC
+  0047F0C3: 8B 85 4C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  0047F0C9: 0F B6 4C 05 94     movzx       ecx,byte ptr [ebp+eax-6Ch]
+  0047F0CE: 03 8D 48 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF48h]
+  0047F0D4: 89 8D 48 FF FF FF  mov         dword ptr [ebp+FFFFFF48h],ecx
+  0047F0DA: EB CF              jmp         0047F0AB
+  0047F0DC: BA 01 00 00 00     mov         edx,1
+  0047F0E1: C1 E2 00           shl         edx,0
+  0047F0E4: 8A 85 48 FF FF FF  mov         al,byte ptr [ebp+FFFFFF48h]
+  0047F0EA: 88 44 15 94        mov         byte ptr [ebp+edx-6Ch],al
+  0047F0EE: 8B 8D 48 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF48h]
+  0047F0F4: C1 E9 08           shr         ecx,8
+  0047F0F7: BA 01 00 00 00     mov         edx,1
+  0047F0FC: D1 E2              shl         edx,1
+  0047F0FE: 88 4C 15 94        mov         byte ptr [ebp+edx-6Ch],cl
+  0047F102: 8B 8D 44 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F108: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047F10E: E8 AD AC FF FF     call        00479DC0
+  0047F113: 8D 85 30 FF FF FF  lea         eax,[ebp+FFFFFF30h]
+  0047F119: 50                 push        eax
+  0047F11A: 6A 40              push        40h
+  0047F11C: 8D 8D 54 FF FF FF  lea         ecx,[ebp+FFFFFF54h]
+  0047F122: 51                 push        ecx
+  0047F123: 6A 40              push        40h
+  0047F125: 8D 55 94           lea         edx,[ebp-6Ch]
+  0047F128: 52                 push        edx
+  0047F129: 8B 8D 44 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F12F: E8 3C E1 FF FF     call        0047D270
+  0047F134: 89 85 34 FF FF FF  mov         dword ptr [ebp+FFFFFF34h],eax
+  0047F13A: 8B 8D 44 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F140: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047F146: 8B 85 44 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF44h]
+  0047F14C: 8B 90 0C 06 00 00  mov         edx,dword ptr [eax+0000060Ch]
+  0047F152: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  0047F155: FF D0              call        eax
+  0047F157: 83 BD 34 FF FF FF  cmp         dword ptr [ebp+FFFFFF34h],1
+            01
+  0047F15E: 74 0B              je          0047F16B
+  0047F160: 8B 85 34 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF34h]
+  0047F166: E9 87 00 00 00     jmp         0047F1F2
+  0047F16B: B9 01 00 00 00     mov         ecx,1
+  0047F170: 6B D1 07           imul        edx,ecx,7
+  0047F173: 0F B6 84 15 54 FF  movzx       eax,byte ptr [ebp+edx+FFFFFF54h]
+            FF FF
+  0047F17B: 3D FF 00 00 00     cmp         eax,0FFh
+  0047F180: 75 07              jne         0047F189
+  0047F182: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047F187: EB 69              jmp         0047F1F2
+  0047F189: B9 01 00 00 00     mov         ecx,1
+  0047F18E: 6B D1 07           imul        edx,ecx,7
+  0047F191: 0F B6 84 15 54 FF  movzx       eax,byte ptr [ebp+edx+FFFFFF54h]
+            FF FF
+  0047F199: 3D FE 00 00 00     cmp         eax,0FEh
+  0047F19E: 75 07              jne         0047F1A7
+  0047F1A0: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047F1A5: EB 4B              jmp         0047F1F2
+  0047F1A7: 8B 8D 40 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF40h]
+  0047F1AD: 51                 push        ecx
+  0047F1AE: BA 01 00 00 00     mov         edx,1
+  0047F1B3: C1 E2 02           shl         edx,2
+  0047F1B6: 8D 84 15 54 FF FF  lea         eax,[ebp+edx+FFFFFF54h]
+            FF
+  0047F1BD: 50                 push        eax
+  0047F1BE: 8B 8D 50 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F1C4: 8D 54 0D D4        lea         edx,[ebp+ecx-2Ch]
+  0047F1C8: 52                 push        edx
+  0047F1C9: E8 22 FA 18 00     call        0060EBF0
+  0047F1CE: 83 C4 0C           add         esp,0Ch
+  0047F1D1: E9 2D FE FF FF     jmp         0047F003
+  0047F1D6: B8 01 00 00 00     mov         eax,1
+  0047F1DB: 6B C8 00           imul        ecx,eax,0
+  0047F1DE: 8D 74 0D D4        lea         esi,[ebp+ecx-2Ch]
+  0047F1E2: B9 09 00 00 00     mov         ecx,9
+  0047F1E7: 8B 7D 08           mov         edi,dword ptr [ebp+8]
+  0047F1EA: F3 A5              rep movs    dword ptr es:[edi],dword ptr [esi]
+  0047F1EC: A4                 movs        byte ptr es:[edi],byte ptr [esi]
+  0047F1ED: B8 01 00 00 00     mov         eax,1
+  0047F1F2: 5F                 pop         edi
+  0047F1F3: 5E                 pop         esi
+  0047F1F4: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047F1F7: 33 CD              xor         ecx,ebp
+  0047F1F9: E8 D7 A3 18 00     call        006095D5
+  0047F1FE: 8B E5              mov         esp,ebp
+  0047F200: 5D                 pop         ebp
+  0047F201: C2 04 00           ret         4
+  0047F204: CC                 int         3
+  0047F205: CC                 int         3
+  0047F206: CC                 int         3
+  0047F207: CC                 int         3
+  0047F208: CC                 int         3
+  0047F209: CC                 int         3
+  0047F20A: CC                 int         3
+  0047F20B: CC                 int         3
+  0047F20C: CC                 int         3
+  0047F20D: CC                 int         3
+  0047F20E: CC                 int         3
+  0047F20F: CC                 int         3
+  0047F210: 55                 push        ebp
+  0047F211: 8B EC              mov         ebp,esp
+  0047F213: 81 EC D0 00 00 00  sub         esp,0D0h
+  0047F219: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047F21E: 33 C5              xor         eax,ebp
+  0047F220: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047F223: 56                 push        esi
+  0047F224: 57                 push        edi
+  0047F225: 89 8D 4C FF FF FF  mov         dword ptr [ebp+FFFFFF4Ch],ecx
+  0047F22B: C6 45 94 00        mov         byte ptr [ebp-6Ch],0
+  0047F22F: 6A 3F              push        3Fh
+  0047F231: 6A 00              push        0
+  0047F233: 8D 45 95           lea         eax,[ebp-6Bh]
+  0047F236: 50                 push        eax
+  0047F237: E8 34 FF 18 00     call        0060F170
+  0047F23C: 83 C4 0C           add         esp,0Ch
+  0047F23F: C6 45 D4 00        mov         byte ptr [ebp-2Ch],0
+  0047F243: 33 C9              xor         ecx,ecx
+  0047F245: 89 4D D5           mov         dword ptr [ebp-2Bh],ecx
+  0047F248: 89 4D D9           mov         dword ptr [ebp-27h],ecx
+  0047F24B: 89 4D DD           mov         dword ptr [ebp-23h],ecx
+  0047F24E: 89 4D E1           mov         dword ptr [ebp-1Fh],ecx
+  0047F251: 89 4D E5           mov         dword ptr [ebp-1Bh],ecx
+  0047F254: 89 4D E9           mov         dword ptr [ebp-17h],ecx
+  0047F257: 89 4D ED           mov         dword ptr [ebp-13h],ecx
+  0047F25A: 89 4D F1           mov         dword ptr [ebp-0Fh],ecx
+  0047F25D: 89 4D F5           mov         dword ptr [ebp-0Bh],ecx
+  0047F260: C7 85 40 FF FF FF  mov         dword ptr [ebp+FFFFFF40h],0
+            00 00 00 00
+  0047F26A: C7 85 3C FF FF FF  mov         dword ptr [ebp+FFFFFF3Ch],25h
+            25 00 00 00
+  0047F274: BA 01 00 00 00     mov         edx,1
+  0047F279: 6B C2 00           imul        eax,edx,0
+  0047F27C: C6 44 05 94 04     mov         byte ptr [ebp+eax-6Ch],4
+  0047F281: B9 01 00 00 00     mov         ecx,1
+  0047F286: 6B D1 03           imul        edx,ecx,3
+  0047F289: C6 44 15 94 03     mov         byte ptr [ebp+edx-6Ch],3
+  0047F28E: B8 01 00 00 00     mov         eax,1
+  0047F293: 6B C8 07           imul        ecx,eax,7
+  0047F296: 89 8D 38 FF FF FF  mov         dword ptr [ebp+FFFFFF38h],ecx
+  0047F29C: 83 BD 38 FF FF FF  cmp         dword ptr [ebp+FFFFFF38h],40h
+            40
+  0047F2A3: 73 02              jae         0047F2A7
+  0047F2A5: EB 05              jmp         0047F2AC
+  0047F2A7: E8 8D AA 18 00     call        00609D39
+  0047F2AC: 8B 95 38 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF38h]
+  0047F2B2: C6 44 15 94 00     mov         byte ptr [ebp+edx-6Ch],0
+  0047F2B7: C7 85 50 FF FF FF  mov         dword ptr [ebp+FFFFFF50h],0
+            00 00 00 00
+  0047F2C1: EB 19              jmp         0047F2DC
+  0047F2C3: 8B 85 4C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  0047F2C9: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  0047F2D0: 03 8D 50 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F2D6: 89 8D 50 FF FF FF  mov         dword ptr [ebp+FFFFFF50h],ecx
+  0047F2DC: 8B 95 50 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF50h]
+  0047F2E2: 3B 95 3C FF FF FF  cmp         edx,dword ptr [ebp+FFFFFF3Ch]
+  0047F2E8: 0F 83 C5 01 00 00  jae         0047F4B3
+  0047F2EE: 8B 85 4C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  0047F2F4: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  0047F2FB: 03 8D 50 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F301: 3B 8D 3C FF FF FF  cmp         ecx,dword ptr [ebp+FFFFFF3Ch]
+  0047F307: 73 15              jae         0047F31E
+  0047F309: 8B 95 4C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF4Ch]
+  0047F30F: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  0047F316: 89 85 40 FF FF FF  mov         dword ptr [ebp+FFFFFF40h],eax
+  0047F31C: EB 12              jmp         0047F330
+  0047F31E: 8B 8D 3C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF3Ch]
+  0047F324: 2B 8D 50 FF FF FF  sub         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F32A: 89 8D 40 FF FF FF  mov         dword ptr [ebp+FFFFFF40h],ecx
+  0047F330: BA 01 00 00 00     mov         edx,1
+  0047F335: C1 E2 02           shl         edx,2
+  0047F338: 8A 85 40 FF FF FF  mov         al,byte ptr [ebp+FFFFFF40h]
+  0047F33E: 88 44 15 94        mov         byte ptr [ebp+edx-6Ch],al
+  0047F342: 8B 85 50 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF50h]
+  0047F348: 33 D2              xor         edx,edx
+  0047F34A: B9 00 01 00 00     mov         ecx,100h
+  0047F34F: F7 F1              div         eax,ecx
+  0047F351: B8 01 00 00 00     mov         eax,1
+  0047F356: 6B C8 05           imul        ecx,eax,5
+  0047F359: 88 54 0D 94        mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F35D: 8B 95 50 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF50h]
+  0047F363: C1 EA 08           shr         edx,8
+  0047F366: B8 01 00 00 00     mov         eax,1
+  0047F36B: 6B C8 06           imul        ecx,eax,6
+  0047F36E: 88 54 0D 94        mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F372: C7 85 48 FF FF FF  mov         dword ptr [ebp+FFFFFF48h],3
+            03 00 00 00
+  0047F37C: C7 85 44 FF FF FF  mov         dword ptr [ebp+FFFFFF44h],0
+            00 00 00 00
+  0047F386: EB 0F              jmp         0047F397
+  0047F388: 8B 95 48 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF48h]
+  0047F38E: 83 C2 01           add         edx,1
+  0047F391: 89 95 48 FF FF FF  mov         dword ptr [ebp+FFFFFF48h],edx
+  0047F397: 83 BD 48 FF FF FF  cmp         dword ptr [ebp+FFFFFF48h],40h
+            40
+  0047F39E: 73 19              jae         0047F3B9
+  0047F3A0: 8B 85 48 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF48h]
+  0047F3A6: 0F B6 4C 05 94     movzx       ecx,byte ptr [ebp+eax-6Ch]
+  0047F3AB: 03 8D 44 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F3B1: 89 8D 44 FF FF FF  mov         dword ptr [ebp+FFFFFF44h],ecx
+  0047F3B7: EB CF              jmp         0047F388
+  0047F3B9: BA 01 00 00 00     mov         edx,1
+  0047F3BE: C1 E2 00           shl         edx,0
+  0047F3C1: 8A 85 44 FF FF FF  mov         al,byte ptr [ebp+FFFFFF44h]
+  0047F3C7: 88 44 15 94        mov         byte ptr [ebp+edx-6Ch],al
+  0047F3CB: 8B 8D 44 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F3D1: C1 E9 08           shr         ecx,8
+  0047F3D4: BA 01 00 00 00     mov         edx,1
+  0047F3D9: D1 E2              shl         edx,1
+  0047F3DB: 88 4C 15 94        mov         byte ptr [ebp+edx-6Ch],cl
+  0047F3DF: 8B 8D 4C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF4Ch]
+  0047F3E5: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047F3EB: E8 D0 A9 FF FF     call        00479DC0
+  0047F3F0: 8D 85 30 FF FF FF  lea         eax,[ebp+FFFFFF30h]
+  0047F3F6: 50                 push        eax
+  0047F3F7: 6A 40              push        40h
+  0047F3F9: 8D 8D 54 FF FF FF  lea         ecx,[ebp+FFFFFF54h]
+  0047F3FF: 51                 push        ecx
+  0047F400: 6A 40              push        40h
+  0047F402: 8D 55 94           lea         edx,[ebp-6Ch]
+  0047F405: 52                 push        edx
+  0047F406: 8B 8D 4C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF4Ch]
+  0047F40C: E8 5F DE FF FF     call        0047D270
+  0047F411: 89 85 34 FF FF FF  mov         dword ptr [ebp+FFFFFF34h],eax
+  0047F417: 8B 8D 4C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF4Ch]
+  0047F41D: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047F423: 8B 85 4C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  0047F429: 8B 90 0C 06 00 00  mov         edx,dword ptr [eax+0000060Ch]
+  0047F42F: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  0047F432: FF D0              call        eax
+  0047F434: 83 BD 34 FF FF FF  cmp         dword ptr [ebp+FFFFFF34h],1
+            01
+  0047F43B: 74 0B              je          0047F448
+  0047F43D: 8B 85 34 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF34h]
+  0047F443: E9 87 00 00 00     jmp         0047F4CF
+  0047F448: B9 01 00 00 00     mov         ecx,1
+  0047F44D: 6B D1 07           imul        edx,ecx,7
+  0047F450: 0F B6 84 15 54 FF  movzx       eax,byte ptr [ebp+edx+FFFFFF54h]
+            FF FF
+  0047F458: 3D FF 00 00 00     cmp         eax,0FFh
+  0047F45D: 75 07              jne         0047F466
+  0047F45F: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047F464: EB 69              jmp         0047F4CF
+  0047F466: B9 01 00 00 00     mov         ecx,1
+  0047F46B: 6B D1 07           imul        edx,ecx,7
+  0047F46E: 0F B6 84 15 54 FF  movzx       eax,byte ptr [ebp+edx+FFFFFF54h]
+            FF FF
+  0047F476: 3D FE 00 00 00     cmp         eax,0FEh
+  0047F47B: 75 07              jne         0047F484
+  0047F47D: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047F482: EB 4B              jmp         0047F4CF
+  0047F484: 8B 8D 40 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF40h]
+  0047F48A: 51                 push        ecx
+  0047F48B: BA 01 00 00 00     mov         edx,1
+  0047F490: C1 E2 03           shl         edx,3
+  0047F493: 8D 84 15 54 FF FF  lea         eax,[ebp+edx+FFFFFF54h]
+            FF
+  0047F49A: 50                 push        eax
+  0047F49B: 8B 8D 50 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F4A1: 8D 54 0D D4        lea         edx,[ebp+ecx-2Ch]
+  0047F4A5: 52                 push        edx
+  0047F4A6: E8 45 F7 18 00     call        0060EBF0
+  0047F4AB: 83 C4 0C           add         esp,0Ch
+  0047F4AE: E9 10 FE FF FF     jmp         0047F2C3
+  0047F4B3: B8 01 00 00 00     mov         eax,1
+  0047F4B8: 6B C8 00           imul        ecx,eax,0
+  0047F4BB: 8D 74 0D D4        lea         esi,[ebp+ecx-2Ch]
+  0047F4BF: B9 09 00 00 00     mov         ecx,9
+  0047F4C4: 8B 7D 08           mov         edi,dword ptr [ebp+8]
+  0047F4C7: F3 A5              rep movs    dword ptr es:[edi],dword ptr [esi]
+  0047F4C9: A4                 movs        byte ptr es:[edi],byte ptr [esi]
+  0047F4CA: B8 01 00 00 00     mov         eax,1
+  0047F4CF: 5F                 pop         edi
+  0047F4D0: 5E                 pop         esi
+  0047F4D1: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047F4D4: 33 CD              xor         ecx,ebp
+  0047F4D6: E8 FA A0 18 00     call        006095D5
+  0047F4DB: 8B E5              mov         esp,ebp
+  0047F4DD: 5D                 pop         ebp
+  0047F4DE: C2 04 00           ret         4
+  0047F4E1: CC                 int         3
+  0047F4E2: CC                 int         3
+  0047F4E3: CC                 int         3
+  0047F4E4: CC                 int         3
+  0047F4E5: CC                 int         3
+  0047F4E6: CC                 int         3
+  0047F4E7: CC                 int         3
+  0047F4E8: CC                 int         3
+  0047F4E9: CC                 int         3
+  0047F4EA: CC                 int         3
+  0047F4EB: CC                 int         3
+  0047F4EC: CC                 int         3
+  0047F4ED: CC                 int         3
+  0047F4EE: CC                 int         3
+  0047F4EF: CC                 int         3
+  0047F4F0: 55                 push        ebp
+  0047F4F1: 8B EC              mov         ebp,esp
+  0047F4F3: 81 EC A4 00 00 00  sub         esp,0A4h
+  0047F4F9: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047F4FE: 33 C5              xor         eax,ebp
+  0047F500: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047F503: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047F509: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0047F50D: 6A 3F              push        3Fh
+  0047F50F: 6A 00              push        0
+  0047F511: 8D 45 BD           lea         eax,[ebp-43h]
+  0047F514: 50                 push        eax
+  0047F515: E8 56 FC 18 00     call        0060F170
+  0047F51A: 83 C4 0C           add         esp,0Ch
+  0047F51D: 83 7D 0C 01        cmp         dword ptr [ebp+0Ch],1
+  0047F521: 72 0A              jb          0047F52D
+  0047F523: B8 37 FF FF FF     mov         eax,0FFFFFF37h
+  0047F528: E9 66 02 00 00     jmp         0047F793
+  0047F52D: 6A 40              push        40h
+  0047F52F: 6A 00              push        0
+  0047F531: 8D 4D BC           lea         ecx,[ebp-44h]
+  0047F534: 51                 push        ecx
+  0047F535: E8 36 FC 18 00     call        0060F170
+  0047F53A: 83 C4 0C           add         esp,0Ch
+  0047F53D: BA 01 00 00 00     mov         edx,1
+  0047F542: 6B C2 00           imul        eax,edx,0
+  0047F545: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  0047F54A: B9 01 00 00 00     mov         ecx,1
+  0047F54F: 6B D1 03           imul        edx,ecx,3
+  0047F552: C6 44 15 BC 09     mov         byte ptr [ebp+edx-44h],9
+  0047F557: B8 01 00 00 00     mov         eax,1
+  0047F55C: 6B C8 07           imul        ecx,eax,7
+  0047F55F: 89 8D 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],ecx
+  0047F565: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  0047F56C: 73 02              jae         0047F570
+  0047F56E: EB 05              jmp         0047F575
+  0047F570: E8 C4 A7 18 00     call        00609D39
+  0047F575: 8B 95 64 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF64h]
+  0047F57B: C6 44 15 BC 00     mov         byte ptr [ebp+edx-44h],0
+  0047F580: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  0047F58A: EB 19              jmp         0047F5A5
+  0047F58C: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047F592: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  0047F599: 03 8D 74 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF74h]
+  0047F59F: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  0047F5A5: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F5AB: 0F B7 02           movzx       eax,word ptr [edx]
+  0047F5AE: 39 85 74 FF FF FF  cmp         dword ptr [ebp+FFFFFF74h],eax
+  0047F5B4: 0F 83 D4 01 00 00  jae         0047F78E
+  0047F5BA: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F5C0: 0F B6 91 58 06 00  movzx       edx,byte ptr [ecx+00000658h]
+            00
+  0047F5C7: 03 95 74 FF FF FF  add         edx,dword ptr [ebp+FFFFFF74h]
+  0047F5CD: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047F5D3: 0F B7 08           movzx       ecx,word ptr [eax]
+  0047F5D6: 3B D1              cmp         edx,ecx
+  0047F5D8: 73 15              jae         0047F5EF
+  0047F5DA: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F5E0: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  0047F5E7: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  0047F5ED: EB 15              jmp         0047F604
+  0047F5EF: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F5F5: 0F B7 11           movzx       edx,word ptr [ecx]
+  0047F5F8: 2B 95 74 FF FF FF  sub         edx,dword ptr [ebp+FFFFFF74h]
+  0047F5FE: 89 95 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],edx
+  0047F604: B8 01 00 00 00     mov         eax,1
+  0047F609: C1 E0 02           shl         eax,2
+  0047F60C: 8A 8D 68 FF FF FF  mov         cl,byte ptr [ebp+FFFFFF68h]
+  0047F612: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  0047F616: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  0047F619: C1 E0 09           shl         eax,9
+  0047F61C: 03 85 74 FF FF FF  add         eax,dword ptr [ebp+FFFFFF74h]
+  0047F622: 33 D2              xor         edx,edx
+  0047F624: B9 00 01 00 00     mov         ecx,100h
+  0047F629: F7 F1              div         eax,ecx
+  0047F62B: B8 01 00 00 00     mov         eax,1
+  0047F630: 6B C8 05           imul        ecx,eax,5
+  0047F633: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047F637: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  0047F63A: C1 E2 09           shl         edx,9
+  0047F63D: 03 95 74 FF FF FF  add         edx,dword ptr [ebp+FFFFFF74h]
+  0047F643: C1 EA 08           shr         edx,8
+  0047F646: B8 01 00 00 00     mov         eax,1
+  0047F64B: 6B C8 06           imul        ecx,eax,6
+  0047F64E: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047F652: 8B 95 68 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF68h]
+  0047F658: 52                 push        edx
+  0047F659: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  0047F65C: 03 85 74 FF FF FF  add         eax,dword ptr [ebp+FFFFFF74h]
+  0047F662: 50                 push        eax
+  0047F663: B9 01 00 00 00     mov         ecx,1
+  0047F668: C1 E1 03           shl         ecx,3
+  0047F66B: 8D 54 0D BC        lea         edx,[ebp+ecx-44h]
+  0047F66F: 52                 push        edx
+  0047F670: E8 7B F5 18 00     call        0060EBF0
+  0047F675: 83 C4 0C           add         esp,0Ch
+  0047F678: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  0047F682: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  0047F68C: EB 0F              jmp         0047F69D
+  0047F68E: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  0047F694: 83 C0 01           add         eax,1
+  0047F697: 89 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],eax
+  0047F69D: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  0047F6A4: 73 19              jae         0047F6BF
+  0047F6A6: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047F6AC: 0F B6 54 0D BC     movzx       edx,byte ptr [ebp+ecx-44h]
+  0047F6B1: 03 95 6C FF FF FF  add         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047F6B7: 89 95 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],edx
+  0047F6BD: EB CF              jmp         0047F68E
+  0047F6BF: B8 01 00 00 00     mov         eax,1
+  0047F6C4: C1 E0 00           shl         eax,0
+  0047F6C7: 8A 8D 6C FF FF FF  mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  0047F6CD: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  0047F6D1: 8B 95 6C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047F6D7: C1 EA 08           shr         edx,8
+  0047F6DA: B8 01 00 00 00     mov         eax,1
+  0047F6DF: D1 E0              shl         eax,1
+  0047F6E1: 88 54 05 BC        mov         byte ptr [ebp+eax-44h],dl
+  0047F6E5: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F6EB: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047F6F1: E8 CA A6 FF FF     call        00479DC0
+  0047F6F6: 8D 8D 5C FF FF FF  lea         ecx,[ebp+FFFFFF5Ch]
+  0047F6FC: 51                 push        ecx
+  0047F6FD: 6A 40              push        40h
+  0047F6FF: 8D 95 7C FF FF FF  lea         edx,[ebp+FFFFFF7Ch]
+  0047F705: 52                 push        edx
+  0047F706: 6A 40              push        40h
+  0047F708: 8D 45 BC           lea         eax,[ebp-44h]
+  0047F70B: 50                 push        eax
+  0047F70C: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F712: E8 59 DB FF FF     call        0047D270
+  0047F717: 89 85 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],eax
+  0047F71D: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F723: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047F729: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F72F: 8B 82 0C 06 00 00  mov         eax,dword ptr [edx+0000060Ch]
+  0047F735: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047F738: FF D2              call        edx
+  0047F73A: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],1
+            01
+  0047F741: 74 08              je          0047F74B
+  0047F743: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047F749: EB 48              jmp         0047F793
+  0047F74B: B8 01 00 00 00     mov         eax,1
+  0047F750: 6B C8 07           imul        ecx,eax,7
+  0047F753: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047F75B: 81 FA FF 00 00 00  cmp         edx,0FFh
+  0047F761: 75 07              jne         0047F76A
+  0047F763: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047F768: EB 29              jmp         0047F793
+  0047F76A: B8 01 00 00 00     mov         eax,1
+  0047F76F: 6B C8 07           imul        ecx,eax,7
+  0047F772: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047F77A: 81 FA FE 00 00 00  cmp         edx,0FEh
+  0047F780: 75 07              jne         0047F789
+  0047F782: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047F787: EB 0A              jmp         0047F793
+  0047F789: E9 FE FD FF FF     jmp         0047F58C
+  0047F78E: B8 01 00 00 00     mov         eax,1
+  0047F793: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047F796: 33 CD              xor         ecx,ebp
+  0047F798: E8 38 9E 18 00     call        006095D5
+  0047F79D: 8B E5              mov         esp,ebp
+  0047F79F: 5D                 pop         ebp
+  0047F7A0: C2 08 00           ret         8
+  0047F7A3: CC                 int         3
+  0047F7A4: CC                 int         3
+  0047F7A5: CC                 int         3
+  0047F7A6: CC                 int         3
+  0047F7A7: CC                 int         3
+  0047F7A8: CC                 int         3
+  0047F7A9: CC                 int         3
+  0047F7AA: CC                 int         3
+  0047F7AB: CC                 int         3
+  0047F7AC: CC                 int         3
+  0047F7AD: CC                 int         3
+  0047F7AE: CC                 int         3
+  0047F7AF: CC                 int         3
+  0047F7B0: 55                 push        ebp
+  0047F7B1: 8B EC              mov         ebp,esp
+  0047F7B3: 81 EC A4 00 00 00  sub         esp,0A4h
+  0047F7B9: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047F7BE: 33 C5              xor         eax,ebp
+  0047F7C0: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047F7C3: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  0047F7C9: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0047F7CD: 6A 3F              push        3Fh
+  0047F7CF: 6A 00              push        0
+  0047F7D1: 8D 45 BD           lea         eax,[ebp-43h]
+  0047F7D4: 50                 push        eax
+  0047F7D5: E8 96 F9 18 00     call        0060F170
+  0047F7DA: 83 C4 0C           add         esp,0Ch
+  0047F7DD: 6A 40              push        40h
+  0047F7DF: 6A 00              push        0
+  0047F7E1: 8D 4D BC           lea         ecx,[ebp-44h]
+  0047F7E4: 51                 push        ecx
+  0047F7E5: E8 86 F9 18 00     call        0060F170
+  0047F7EA: 83 C4 0C           add         esp,0Ch
+  0047F7ED: BA 01 00 00 00     mov         edx,1
+  0047F7F2: 6B C2 00           imul        eax,edx,0
+  0047F7F5: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  0047F7FA: B9 01 00 00 00     mov         ecx,1
+  0047F7FF: 6B D1 03           imul        edx,ecx,3
+  0047F802: C6 44 15 BC 15     mov         byte ptr [ebp+edx-44h],15h
+  0047F807: B8 01 00 00 00     mov         eax,1
+  0047F80C: 6B C8 07           imul        ecx,eax,7
+  0047F80F: 89 8D 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],ecx
+  0047F815: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  0047F81C: 73 02              jae         0047F820
+  0047F81E: EB 05              jmp         0047F825
+  0047F820: E8 14 A5 18 00     call        00609D39
+  0047F825: 8B 95 64 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF64h]
+  0047F82B: C6 44 15 BC 00     mov         byte ptr [ebp+edx-44h],0
+  0047F830: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],0
+            00 00 00 00
+  0047F83A: EB 19              jmp         0047F855
+  0047F83C: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047F842: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  0047F849: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F84F: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047F855: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F85B: 3B 55 0C           cmp         edx,dword ptr [ebp+0Ch]
+  0047F85E: 0F 83 BA 01 00 00  jae         0047FA1E
+  0047F864: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047F86A: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  0047F871: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F877: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  0047F87A: 73 15              jae         0047F891
+  0047F87C: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  0047F882: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  0047F889: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  0047F88F: EB 0F              jmp         0047F8A0
+  0047F891: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  0047F894: 2B 8D 78 FF FF FF  sub         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F89A: 89 8D 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],ecx
+  0047F8A0: BA 01 00 00 00     mov         edx,1
+  0047F8A5: C1 E2 02           shl         edx,2
+  0047F8A8: 8A 85 68 FF FF FF  mov         al,byte ptr [ebp+FFFFFF68h]
+  0047F8AE: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  0047F8B2: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047F8B8: 33 D2              xor         edx,edx
+  0047F8BA: B9 00 01 00 00     mov         ecx,100h
+  0047F8BF: F7 F1              div         eax,ecx
+  0047F8C1: B8 01 00 00 00     mov         eax,1
+  0047F8C6: 6B C8 05           imul        ecx,eax,5
+  0047F8C9: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047F8CD: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F8D3: C1 EA 08           shr         edx,8
+  0047F8D6: B8 01 00 00 00     mov         eax,1
+  0047F8DB: 6B C8 06           imul        ecx,eax,6
+  0047F8DE: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047F8E2: 8B 95 68 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF68h]
+  0047F8E8: 52                 push        edx
+  0047F8E9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  0047F8EC: 03 85 78 FF FF FF  add         eax,dword ptr [ebp+FFFFFF78h]
+  0047F8F2: 50                 push        eax
+  0047F8F3: B9 01 00 00 00     mov         ecx,1
+  0047F8F8: C1 E1 03           shl         ecx,3
+  0047F8FB: 8D 54 0D BC        lea         edx,[ebp+ecx-44h]
+  0047F8FF: 52                 push        edx
+  0047F900: E8 EB F2 18 00     call        0060EBF0
+  0047F905: 83 C4 0C           add         esp,0Ch
+  0047F908: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  0047F912: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  0047F91C: EB 0F              jmp         0047F92D
+  0047F91E: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  0047F924: 83 C0 01           add         eax,1
+  0047F927: 89 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],eax
+  0047F92D: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  0047F934: 73 19              jae         0047F94F
+  0047F936: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047F93C: 0F B6 54 0D BC     movzx       edx,byte ptr [ebp+ecx-44h]
+  0047F941: 03 95 6C FF FF FF  add         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047F947: 89 95 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],edx
+  0047F94D: EB CF              jmp         0047F91E
+  0047F94F: B8 01 00 00 00     mov         eax,1
+  0047F954: C1 E0 00           shl         eax,0
+  0047F957: 8A 8D 6C FF FF FF  mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  0047F95D: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  0047F961: 8B 95 6C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047F967: C1 EA 08           shr         edx,8
+  0047F96A: B8 01 00 00 00     mov         eax,1
+  0047F96F: D1 E0              shl         eax,1
+  0047F971: 88 54 05 BC        mov         byte ptr [ebp+eax-44h],dl
+  0047F975: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0047F97B: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047F981: E8 3A A4 FF FF     call        00479DC0
+  0047F986: 8D 8D 5C FF FF FF  lea         ecx,[ebp+FFFFFF5Ch]
+  0047F98C: 51                 push        ecx
+  0047F98D: 6A 40              push        40h
+  0047F98F: 8D 95 7C FF FF FF  lea         edx,[ebp+FFFFFF7Ch]
+  0047F995: 52                 push        edx
+  0047F996: 6A 40              push        40h
+  0047F998: 8D 45 BC           lea         eax,[ebp-44h]
+  0047F99B: 50                 push        eax
+  0047F99C: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0047F9A2: E8 C9 D8 FF FF     call        0047D270
+  0047F9A7: 89 85 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],eax
+  0047F9AD: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0047F9B3: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047F9B9: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  0047F9BF: 8B 82 0C 06 00 00  mov         eax,dword ptr [edx+0000060Ch]
+  0047F9C5: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047F9C8: FF D2              call        edx
+  0047F9CA: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],1
+            01
+  0047F9D1: 74 08              je          0047F9DB
+  0047F9D3: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047F9D9: EB 48              jmp         0047FA23
+  0047F9DB: B8 01 00 00 00     mov         eax,1
+  0047F9E0: 6B C8 07           imul        ecx,eax,7
+  0047F9E3: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047F9EB: 81 FA FF 00 00 00  cmp         edx,0FFh
+  0047F9F1: 75 07              jne         0047F9FA
+  0047F9F3: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047F9F8: EB 29              jmp         0047FA23
+  0047F9FA: B8 01 00 00 00     mov         eax,1
+  0047F9FF: 6B C8 07           imul        ecx,eax,7
+  0047FA02: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047FA0A: 81 FA FE 00 00 00  cmp         edx,0FEh
+  0047FA10: 75 07              jne         0047FA19
+  0047FA12: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047FA17: EB 0A              jmp         0047FA23
+  0047FA19: E9 1E FE FF FF     jmp         0047F83C
+  0047FA1E: B8 01 00 00 00     mov         eax,1
+  0047FA23: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047FA26: 33 CD              xor         ecx,ebp
+  0047FA28: E8 A8 9B 18 00     call        006095D5
+  0047FA2D: 8B E5              mov         esp,ebp
+  0047FA2F: 5D                 pop         ebp
+  0047FA30: C2 08 00           ret         8
+  0047FA33: CC                 int         3
+  0047FA34: CC                 int         3
+  0047FA35: CC                 int         3
+  0047FA36: CC                 int         3
+  0047FA37: CC                 int         3
+  0047FA38: CC                 int         3
+  0047FA39: CC                 int         3
+  0047FA3A: CC                 int         3
+  0047FA3B: CC                 int         3
+  0047FA3C: CC                 int         3
+  0047FA3D: CC                 int         3
+  0047FA3E: CC                 int         3
+  0047FA3F: CC                 int         3
+  0047FA40: 55                 push        ebp
+  0047FA41: 8B EC              mov         ebp,esp
+  0047FA43: 81 EC A4 00 00 00  sub         esp,0A4h
+  0047FA49: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047FA4E: 33 C5              xor         eax,ebp
+  0047FA50: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047FA53: 89 8D 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],ecx
+  0047FA59: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0047FA5D: 6A 3F              push        3Fh
+  0047FA5F: 6A 00              push        0
+  0047FA61: 8D 45 BD           lea         eax,[ebp-43h]
+  0047FA64: 50                 push        eax
+  0047FA65: E8 06 F7 18 00     call        0060F170
+  0047FA6A: 83 C4 0C           add         esp,0Ch
+  0047FA6D: 6A 40              push        40h
+  0047FA6F: 6A 00              push        0
+  0047FA71: 8D 4D BC           lea         ecx,[ebp-44h]
+  0047FA74: 51                 push        ecx
+  0047FA75: E8 F6 F6 18 00     call        0060F170
+  0047FA7A: 83 C4 0C           add         esp,0Ch
+  0047FA7D: BA 01 00 00 00     mov         edx,1
+  0047FA82: 6B C2 00           imul        eax,edx,0
+  0047FA85: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  0047FA8A: B9 01 00 00 00     mov         ecx,1
+  0047FA8F: 6B D1 03           imul        edx,ecx,3
+  0047FA92: C6 44 15 BC 17     mov         byte ptr [ebp+edx-44h],17h
+  0047FA97: B8 01 00 00 00     mov         eax,1
+  0047FA9C: 6B C8 07           imul        ecx,eax,7
+  0047FA9F: 89 8D 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],ecx
+  0047FAA5: 83 BD 68 FF FF FF  cmp         dword ptr [ebp+FFFFFF68h],40h
+            40
+  0047FAAC: 73 02              jae         0047FAB0
+  0047FAAE: EB 05              jmp         0047FAB5
+  0047FAB0: E8 84 A2 18 00     call        00609D39
+  0047FAB5: 8B 95 68 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF68h]
+  0047FABB: C6 44 15 BC 00     mov         byte ptr [ebp+edx-44h],0
+  0047FAC0: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],0
+            00 00 00 00
+  0047FACA: EB 0F              jmp         0047FADB
+  0047FACC: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FAD2: 83 C0 38           add         eax,38h
+  0047FAD5: 89 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],eax
+  0047FADB: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FAE1: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  0047FAE4: 0F 83 77 01 00 00  jae         0047FC61
+  0047FAEA: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047FAF0: 83 C2 38           add         edx,38h
+  0047FAF3: 3B 55 0C           cmp         edx,dword ptr [ebp+0Ch]
+  0047FAF6: 73 0C              jae         0047FB04
+  0047FAF8: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],38h
+            38 00 00 00
+  0047FB02: EB 0F              jmp         0047FB13
+  0047FB04: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  0047FB07: 2B 85 78 FF FF FF  sub         eax,dword ptr [ebp+FFFFFF78h]
+  0047FB0D: 89 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],eax
+  0047FB13: B9 01 00 00 00     mov         ecx,1
+  0047FB18: C1 E1 02           shl         ecx,2
+  0047FB1B: 8A 95 6C FF FF FF  mov         dl,byte ptr [ebp+FFFFFF6Ch]
+  0047FB21: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047FB25: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FB2B: 33 D2              xor         edx,edx
+  0047FB2D: B9 00 01 00 00     mov         ecx,100h
+  0047FB32: F7 F1              div         eax,ecx
+  0047FB34: B8 01 00 00 00     mov         eax,1
+  0047FB39: 6B C8 05           imul        ecx,eax,5
+  0047FB3C: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047FB40: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047FB46: C1 EA 08           shr         edx,8
+  0047FB49: B8 01 00 00 00     mov         eax,1
+  0047FB4E: 6B C8 06           imul        ecx,eax,6
+  0047FB51: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047FB55: 8B 95 6C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047FB5B: 52                 push        edx
+  0047FB5C: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  0047FB5F: 03 85 78 FF FF FF  add         eax,dword ptr [ebp+FFFFFF78h]
+  0047FB65: 50                 push        eax
+  0047FB66: B9 01 00 00 00     mov         ecx,1
+  0047FB6B: C1 E1 03           shl         ecx,3
+  0047FB6E: 8D 54 0D BC        lea         edx,[ebp+ecx-44h]
+  0047FB72: 52                 push        edx
+  0047FB73: E8 78 F0 18 00     call        0060EBF0
+  0047FB78: 83 C4 0C           add         esp,0Ch
+  0047FB7B: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],3
+            03 00 00 00
+  0047FB85: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],0
+            00 00 00 00
+  0047FB8F: EB 0F              jmp         0047FBA0
+  0047FB91: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047FB97: 83 C0 01           add         eax,1
+  0047FB9A: 89 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],eax
+  0047FBA0: 83 BD 74 FF FF FF  cmp         dword ptr [ebp+FFFFFF74h],40h
+            40
+  0047FBA7: 73 19              jae         0047FBC2
+  0047FBA9: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0047FBAF: 0F B6 54 0D BC     movzx       edx,byte ptr [ebp+ecx-44h]
+  0047FBB4: 03 95 70 FF FF FF  add         edx,dword ptr [ebp+FFFFFF70h]
+  0047FBBA: 89 95 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],edx
+  0047FBC0: EB CF              jmp         0047FB91
+  0047FBC2: B8 01 00 00 00     mov         eax,1
+  0047FBC7: C1 E0 00           shl         eax,0
+  0047FBCA: 8A 8D 70 FF FF FF  mov         cl,byte ptr [ebp+FFFFFF70h]
+  0047FBD0: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  0047FBD4: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047FBDA: C1 EA 08           shr         edx,8
+  0047FBDD: B8 01 00 00 00     mov         eax,1
+  0047FBE2: D1 E0              shl         eax,1
+  0047FBE4: 88 54 05 BC        mov         byte ptr [ebp+eax-44h],dl
+  0047FBE8: 8D 8D 5C FF FF FF  lea         ecx,[ebp+FFFFFF5Ch]
+  0047FBEE: 51                 push        ecx
+  0047FBEF: 6A 40              push        40h
+  0047FBF1: 8D 95 7C FF FF FF  lea         edx,[ebp+FFFFFF7Ch]
+  0047FBF7: 52                 push        edx
+  0047FBF8: 6A 40              push        40h
+  0047FBFA: 8D 45 BC           lea         eax,[ebp-44h]
+  0047FBFD: 50                 push        eax
+  0047FBFE: 8B 8D 60 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF60h]
+  0047FC04: E8 67 D6 FF FF     call        0047D270
+  0047FC09: 89 85 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],eax
+  0047FC0F: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],1
+            01
+  0047FC16: 74 08              je          0047FC20
+  0047FC18: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  0047FC1E: EB 46              jmp         0047FC66
+  0047FC20: B9 01 00 00 00     mov         ecx,1
+  0047FC25: 6B D1 07           imul        edx,ecx,7
+  0047FC28: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  0047FC30: 3D FF 00 00 00     cmp         eax,0FFh
+  0047FC35: 75 07              jne         0047FC3E
+  0047FC37: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047FC3C: EB 28              jmp         0047FC66
+  0047FC3E: B9 01 00 00 00     mov         ecx,1
+  0047FC43: 6B D1 07           imul        edx,ecx,7
+  0047FC46: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  0047FC4E: 3D FE 00 00 00     cmp         eax,0FEh
+  0047FC53: 75 07              jne         0047FC5C
+  0047FC55: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047FC5A: EB 0A              jmp         0047FC66
+  0047FC5C: E9 6B FE FF FF     jmp         0047FACC
+  0047FC61: B8 01 00 00 00     mov         eax,1
+  0047FC66: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047FC69: 33 CD              xor         ecx,ebp
+  0047FC6B: E8 65 99 18 00     call        006095D5
+  0047FC70: 8B E5              mov         esp,ebp
+  0047FC72: 5D                 pop         ebp
+  0047FC73: C2 08 00           ret         8
+  0047FC76: CC                 int         3
+  0047FC77: CC                 int         3
+  0047FC78: CC                 int         3
+  0047FC79: CC                 int         3
+  0047FC7A: CC                 int         3
+  0047FC7B: CC                 int         3
+  0047FC7C: CC                 int         3
+  0047FC7D: CC                 int         3
+  0047FC7E: CC                 int         3
+  0047FC7F: CC                 int         3
+  0047FC80: 55                 push        ebp
+  0047FC81: 8B EC              mov         ebp,esp
+  0047FC83: 81 EC A4 00 00 00  sub         esp,0A4h
+  0047FC89: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047FC8E: 33 C5              xor         eax,ebp
+  0047FC90: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047FC93: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047FC99: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0047FC9D: 6A 3F              push        3Fh
+  0047FC9F: 6A 00              push        0
+  0047FCA1: 8D 45 BD           lea         eax,[ebp-43h]
+  0047FCA4: 50                 push        eax
+  0047FCA5: E8 C6 F4 18 00     call        0060F170
+  0047FCAA: 83 C4 0C           add         esp,0Ch
+  0047FCAD: 6A 40              push        40h
+  0047FCAF: 6A 00              push        0
+  0047FCB1: 8D 4D BC           lea         ecx,[ebp-44h]
+  0047FCB4: 51                 push        ecx
+  0047FCB5: E8 B6 F4 18 00     call        0060F170
+  0047FCBA: 83 C4 0C           add         esp,0Ch
+  0047FCBD: BA 01 00 00 00     mov         edx,1
+  0047FCC2: 6B C2 00           imul        eax,edx,0
+  0047FCC5: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  0047FCCA: B9 01 00 00 00     mov         ecx,1
+  0047FCCF: 6B D1 03           imul        edx,ecx,3
+  0047FCD2: C6 44 15 BC 07     mov         byte ptr [ebp+edx-44h],7
+  0047FCD7: B8 01 00 00 00     mov         eax,1
+  0047FCDC: 6B C8 07           imul        ecx,eax,7
+  0047FCDF: 89 8D 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],ecx
+  0047FCE5: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  0047FCEC: 73 02              jae         0047FCF0
+  0047FCEE: EB 05              jmp         0047FCF5
+  0047FCF0: E8 44 A0 18 00     call        00609D39
+  0047FCF5: 8B 95 64 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF64h]
+  0047FCFB: C6 44 15 BC 00     mov         byte ptr [ebp+edx-44h],0
+  0047FD00: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  0047FD0A: EB 19              jmp         0047FD25
+  0047FD0C: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FD12: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  0047FD19: 03 8D 74 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF74h]
+  0047FD1F: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  0047FD25: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047FD2B: 0F B7 02           movzx       eax,word ptr [edx]
+  0047FD2E: 39 85 74 FF FF FF  cmp         dword ptr [ebp+FFFFFF74h],eax
+  0047FD34: 0F 83 C9 01 00 00  jae         0047FF03
+  0047FD3A: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FD40: 0F B6 91 58 06 00  movzx       edx,byte ptr [ecx+00000658h]
+            00
+  0047FD47: 03 95 74 FF FF FF  add         edx,dword ptr [ebp+FFFFFF74h]
+  0047FD4D: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FD53: 0F B7 08           movzx       ecx,word ptr [eax]
+  0047FD56: 3B D1              cmp         edx,ecx
+  0047FD58: 73 15              jae         0047FD6F
+  0047FD5A: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047FD60: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  0047FD67: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  0047FD6D: EB 15              jmp         0047FD84
+  0047FD6F: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FD75: 0F B7 11           movzx       edx,word ptr [ecx]
+  0047FD78: 2B 95 74 FF FF FF  sub         edx,dword ptr [ebp+FFFFFF74h]
+  0047FD7E: 89 95 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],edx
+  0047FD84: B8 01 00 00 00     mov         eax,1
+  0047FD89: C1 E0 02           shl         eax,2
+  0047FD8C: 8A 8D 68 FF FF FF  mov         cl,byte ptr [ebp+FFFFFF68h]
+  0047FD92: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  0047FD96: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047FD9C: 33 D2              xor         edx,edx
+  0047FD9E: B9 00 01 00 00     mov         ecx,100h
+  0047FDA3: F7 F1              div         eax,ecx
+  0047FDA5: B8 01 00 00 00     mov         eax,1
+  0047FDAA: 6B C8 05           imul        ecx,eax,5
+  0047FDAD: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047FDB1: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  0047FDB7: C1 EA 08           shr         edx,8
+  0047FDBA: B8 01 00 00 00     mov         eax,1
+  0047FDBF: 6B C8 06           imul        ecx,eax,6
+  0047FDC2: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047FDC6: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  0047FDD0: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  0047FDDA: EB 0F              jmp         0047FDEB
+  0047FDDC: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047FDE2: 83 C2 01           add         edx,1
+  0047FDE5: 89 95 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],edx
+  0047FDEB: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  0047FDF2: 73 19              jae         0047FE0D
+  0047FDF4: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  0047FDFA: 0F B6 4C 05 BC     movzx       ecx,byte ptr [ebp+eax-44h]
+  0047FDFF: 03 8D 6C FF FF FF  add         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047FE05: 89 8D 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  0047FE0B: EB CF              jmp         0047FDDC
+  0047FE0D: BA 01 00 00 00     mov         edx,1
+  0047FE12: C1 E2 00           shl         edx,0
+  0047FE15: 8A 85 6C FF FF FF  mov         al,byte ptr [ebp+FFFFFF6Ch]
+  0047FE1B: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  0047FE1F: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047FE25: C1 E9 08           shr         ecx,8
+  0047FE28: BA 01 00 00 00     mov         edx,1
+  0047FE2D: D1 E2              shl         edx,1
+  0047FE2F: 88 4C 15 BC        mov         byte ptr [ebp+edx-44h],cl
+  0047FE33: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FE39: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047FE3F: E8 7C 9F FF FF     call        00479DC0
+  0047FE44: 8D 85 5C FF FF FF  lea         eax,[ebp+FFFFFF5Ch]
+  0047FE4A: 50                 push        eax
+  0047FE4B: 6A 40              push        40h
+  0047FE4D: 8D 8D 7C FF FF FF  lea         ecx,[ebp+FFFFFF7Ch]
+  0047FE53: 51                 push        ecx
+  0047FE54: 6A 40              push        40h
+  0047FE56: 8D 55 BC           lea         edx,[ebp-44h]
+  0047FE59: 52                 push        edx
+  0047FE5A: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FE60: E8 0B D4 FF FF     call        0047D270
+  0047FE65: 89 85 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],eax
+  0047FE6B: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FE71: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047FE77: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FE7D: 8B 90 0C 06 00 00  mov         edx,dword ptr [eax+0000060Ch]
+  0047FE83: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  0047FE86: FF D0              call        eax
+  0047FE88: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],1
+            01
+  0047FE8F: 74 08              je          0047FE99
+  0047FE91: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047FE97: EB 6F              jmp         0047FF08
+  0047FE99: B9 01 00 00 00     mov         ecx,1
+  0047FE9E: 6B D1 07           imul        edx,ecx,7
+  0047FEA1: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  0047FEA9: 3D FF 00 00 00     cmp         eax,0FFh
+  0047FEAE: 75 07              jne         0047FEB7
+  0047FEB0: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047FEB5: EB 51              jmp         0047FF08
+  0047FEB7: B9 01 00 00 00     mov         ecx,1
+  0047FEBC: 6B D1 07           imul        edx,ecx,7
+  0047FEBF: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  0047FEC7: 3D FE 00 00 00     cmp         eax,0FEh
+  0047FECC: 75 07              jne         0047FED5
+  0047FECE: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047FED3: EB 33              jmp         0047FF08
+  0047FED5: 8B 8D 68 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF68h]
+  0047FEDB: 51                 push        ecx
+  0047FEDC: BA 01 00 00 00     mov         edx,1
+  0047FEE1: C1 E2 03           shl         edx,3
+  0047FEE4: 8D 84 15 7C FF FF  lea         eax,[ebp+edx+FFFFFF7Ch]
+            FF
+  0047FEEB: 50                 push        eax
+  0047FEEC: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  0047FEEF: 03 8D 74 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF74h]
+  0047FEF5: 51                 push        ecx
+  0047FEF6: E8 F5 EC 18 00     call        0060EBF0
+  0047FEFB: 83 C4 0C           add         esp,0Ch
+  0047FEFE: E9 09 FE FF FF     jmp         0047FD0C
+  0047FF03: B8 01 00 00 00     mov         eax,1
+  0047FF08: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047FF0B: 33 CD              xor         ecx,ebp
+  0047FF0D: E8 C3 96 18 00     call        006095D5
+  0047FF12: 8B E5              mov         esp,ebp
+  0047FF14: 5D                 pop         ebp
+  0047FF15: C2 04 00           ret         4
+  0047FF18: CC                 int         3
+  0047FF19: CC                 int         3
+  0047FF1A: CC                 int         3
+  0047FF1B: CC                 int         3
+  0047FF1C: CC                 int         3
+  0047FF1D: CC                 int         3
+  0047FF1E: CC                 int         3
+  0047FF1F: CC                 int         3
+  0047FF20: 55                 push        ebp
+  0047FF21: 8B EC              mov         ebp,esp
+  0047FF23: 81 EC A8 00 00 00  sub         esp,0A8h
+  0047FF29: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047FF2E: 33 C5              xor         eax,ebp
+  0047FF30: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047FF33: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047FF39: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0047FF3D: 6A 3F              push        3Fh
+  0047FF3F: 6A 00              push        0
+  0047FF41: 8D 45 BD           lea         eax,[ebp-43h]
+  0047FF44: 50                 push        eax
+  0047FF45: E8 26 F2 18 00     call        0060F170
+  0047FF4A: 83 C4 0C           add         esp,0Ch
+  0047FF4D: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FF53: 0F B7 01           movzx       eax,word ptr [ecx]
+  0047FF56: 99                 cdq
+  0047FF57: B9 03 00 00 00     mov         ecx,3
+  0047FF5C: F7 F9              idiv        eax,ecx
+  0047FF5E: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  0047FF64: 6A 40              push        40h
+  0047FF66: 6A 00              push        0
+  0047FF68: 8D 55 BC           lea         edx,[ebp-44h]
+  0047FF6B: 52                 push        edx
+  0047FF6C: E8 FF F1 18 00     call        0060F170
+  0047FF71: 83 C4 0C           add         esp,0Ch
+  0047FF74: B8 01 00 00 00     mov         eax,1
+  0047FF79: 6B C8 00           imul        ecx,eax,0
+  0047FF7C: C6 44 0D BC 04     mov         byte ptr [ebp+ecx-44h],4
+  0047FF81: BA 01 00 00 00     mov         edx,1
+  0047FF86: 6B C2 03           imul        eax,edx,3
+  0047FF89: C6 44 05 BC 1B     mov         byte ptr [ebp+eax-44h],1Bh
+  0047FF8E: B9 01 00 00 00     mov         ecx,1
+  0047FF93: 6B D1 07           imul        edx,ecx,7
+  0047FF96: 89 95 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],edx
+  0047FF9C: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],40h
+            40
+  0047FFA3: 73 02              jae         0047FFA7
+  0047FFA5: EB 05              jmp         0047FFAC
+  0047FFA7: E8 8D 9D 18 00     call        00609D39
+  0047FFAC: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047FFB2: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047FFB7: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  0047FFC1: EB 19              jmp         0047FFDC
+  0047FFC3: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FFC9: 0F B6 91 58 06 00  movzx       edx,byte ptr [ecx+00000658h]
+            00
+  0047FFD0: 03 95 74 FF FF FF  add         edx,dword ptr [ebp+FFFFFF74h]
+  0047FFD6: 89 95 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],edx
+  0047FFDC: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047FFE2: 3B 85 68 FF FF FF  cmp         eax,dword ptr [ebp+FFFFFF68h]
+  0047FFE8: 0F 83 C1 01 00 00  jae         004801AF
+  0047FFEE: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FFF4: 0F B6 91 58 06 00  movzx       edx,byte ptr [ecx+00000658h]
+            00
+  0047FFFB: 03 95 74 FF FF FF  add         edx,dword ptr [ebp+FFFFFF74h]
+  00480001: 3B 95 68 FF FF FF  cmp         edx,dword ptr [ebp+FFFFFF68h]
+  00480007: 73 15              jae         0048001E
+  00480009: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  0048000F: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  00480016: 89 8D 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],ecx
+  0048001C: EB 12              jmp         00480030
+  0048001E: 8B 95 68 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF68h]
+  00480024: 2B 95 74 FF FF FF  sub         edx,dword ptr [ebp+FFFFFF74h]
+  0048002A: 89 95 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],edx
+  00480030: B8 01 00 00 00     mov         eax,1
+  00480035: C1 E0 02           shl         eax,2
+  00480038: 8A 8D 64 FF FF FF  mov         cl,byte ptr [ebp+FFFFFF64h]
+  0048003E: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  00480042: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480048: 33 D2              xor         edx,edx
+  0048004A: B9 00 01 00 00     mov         ecx,100h
+  0048004F: F7 F1              div         eax,ecx
+  00480051: B8 01 00 00 00     mov         eax,1
+  00480056: 6B C8 05           imul        ecx,eax,5
+  00480059: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0048005D: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480063: C1 EA 08           shr         edx,8
+  00480066: B8 01 00 00 00     mov         eax,1
+  0048006B: 6B C8 06           imul        ecx,eax,6
+  0048006E: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480072: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  0048007C: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  00480086: EB 0F              jmp         00480097
+  00480088: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  0048008E: 83 C2 01           add         edx,1
+  00480091: 89 95 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],edx
+  00480097: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  0048009E: 73 19              jae         004800B9
+  004800A0: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  004800A6: 0F B6 4C 05 BC     movzx       ecx,byte ptr [ebp+eax-44h]
+  004800AB: 03 8D 6C FF FF FF  add         ecx,dword ptr [ebp+FFFFFF6Ch]
+  004800B1: 89 8D 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  004800B7: EB CF              jmp         00480088
+  004800B9: BA 01 00 00 00     mov         edx,1
+  004800BE: C1 E2 00           shl         edx,0
+  004800C1: 8A 85 6C FF FF FF  mov         al,byte ptr [ebp+FFFFFF6Ch]
+  004800C7: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  004800CB: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  004800D1: C1 E9 08           shr         ecx,8
+  004800D4: BA 01 00 00 00     mov         edx,1
+  004800D9: D1 E2              shl         edx,1
+  004800DB: 88 4C 15 BC        mov         byte ptr [ebp+edx-44h],cl
+  004800DF: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004800E5: 81 C1 0C 06 00 00  add         ecx,60Ch
+  004800EB: E8 D0 9C FF FF     call        00479DC0
+  004800F0: 8D 85 58 FF FF FF  lea         eax,[ebp+FFFFFF58h]
+  004800F6: 50                 push        eax
+  004800F7: 6A 40              push        40h
+  004800F9: 8D 8D 7C FF FF FF  lea         ecx,[ebp+FFFFFF7Ch]
+  004800FF: 51                 push        ecx
+  00480100: 6A 40              push        40h
+  00480102: 8D 55 BC           lea         edx,[ebp-44h]
+  00480105: 52                 push        edx
+  00480106: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0048010C: E8 5F D1 FF FF     call        0047D270
+  00480111: 89 85 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],eax
+  00480117: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0048011D: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00480123: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480129: 8B 90 0C 06 00 00  mov         edx,dword ptr [eax+0000060Ch]
+  0048012F: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  00480132: FF D0              call        eax
+  00480134: 83 BD 5C FF FF FF  cmp         dword ptr [ebp+FFFFFF5Ch],1
+            01
+  0048013B: 74 08              je          00480145
+  0048013D: 8B 85 5C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  00480143: EB 6F              jmp         004801B4
+  00480145: B9 01 00 00 00     mov         ecx,1
+  0048014A: 6B D1 07           imul        edx,ecx,7
+  0048014D: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  00480155: 3D FF 00 00 00     cmp         eax,0FFh
+  0048015A: 75 07              jne         00480163
+  0048015C: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  00480161: EB 51              jmp         004801B4
+  00480163: B9 01 00 00 00     mov         ecx,1
+  00480168: 6B D1 07           imul        edx,ecx,7
+  0048016B: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  00480173: 3D FE 00 00 00     cmp         eax,0FEh
+  00480178: 75 07              jne         00480181
+  0048017A: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0048017F: EB 33              jmp         004801B4
+  00480181: 8B 8D 64 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF64h]
+  00480187: 51                 push        ecx
+  00480188: BA 01 00 00 00     mov         edx,1
+  0048018D: C1 E2 03           shl         edx,3
+  00480190: 8D 84 15 7C FF FF  lea         eax,[ebp+edx+FFFFFF7Ch]
+            FF
+  00480197: 50                 push        eax
+  00480198: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  0048019B: 03 8D 74 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF74h]
+  004801A1: 51                 push        ecx
+  004801A2: E8 49 EA 18 00     call        0060EBF0
+  004801A7: 83 C4 0C           add         esp,0Ch
+  004801AA: E9 14 FE FF FF     jmp         0047FFC3
+  004801AF: B8 01 00 00 00     mov         eax,1
+  004801B4: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004801B7: 33 CD              xor         ecx,ebp
+  004801B9: E8 17 94 18 00     call        006095D5
+  004801BE: 8B E5              mov         esp,ebp
+  004801C0: 5D                 pop         ebp
+  004801C1: C2 04 00           ret         4
+  004801C4: CC                 int         3
+  004801C5: CC                 int         3
+  004801C6: CC                 int         3
+  004801C7: CC                 int         3
+  004801C8: CC                 int         3
+  004801C9: CC                 int         3
+  004801CA: CC                 int         3
+  004801CB: CC                 int         3
+  004801CC: CC                 int         3
+  004801CD: CC                 int         3
+  004801CE: CC                 int         3
+  004801CF: CC                 int         3
+  004801D0: 55                 push        ebp
+  004801D1: 8B EC              mov         ebp,esp
+  004801D3: 81 EC A0 00 00 00  sub         esp,0A0h
+  004801D9: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004801DE: 33 C5              xor         eax,ebp
+  004801E0: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004801E3: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  004801E9: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  004801ED: 6A 3F              push        3Fh
+  004801EF: 6A 00              push        0
+  004801F1: 8D 45 BD           lea         eax,[ebp-43h]
+  004801F4: 50                 push        eax
+  004801F5: E8 76 EF 18 00     call        0060F170
+  004801FA: 83 C4 0C           add         esp,0Ch
+  004801FD: 6A 40              push        40h
+  004801FF: 6A 00              push        0
+  00480201: 8D 4D BC           lea         ecx,[ebp-44h]
+  00480204: 51                 push        ecx
+  00480205: E8 66 EF 18 00     call        0060F170
+  0048020A: 83 C4 0C           add         esp,0Ch
+  0048020D: BA 01 00 00 00     mov         edx,1
+  00480212: 6B C2 00           imul        eax,edx,0
+  00480215: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  0048021A: B9 01 00 00 00     mov         ecx,1
+  0048021F: 6B D1 03           imul        edx,ecx,3
+  00480222: C6 44 15 BC 21     mov         byte ptr [ebp+edx-44h],21h
+  00480227: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],0
+            00 00 00 00
+  00480231: EB 19              jmp         0048024C
+  00480233: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480239: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  00480240: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  00480246: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  0048024C: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480252: 3B 55 0C           cmp         edx,dword ptr [ebp+0Ch]
+  00480255: 0F 83 0E 02 00 00  jae         00480469
+  0048025B: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480261: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  00480268: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  0048026E: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  00480271: 73 15              jae         00480288
+  00480273: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480279: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  00480280: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  00480286: EB 0F              jmp         00480297
+  00480288: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  0048028B: 2B 8D 78 FF FF FF  sub         ecx,dword ptr [ebp+FFFFFF78h]
+  00480291: 89 8D 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],ecx
+  00480297: BA 01 00 00 00     mov         edx,1
+  0048029C: C1 E2 02           shl         edx,2
+  0048029F: 8A 85 68 FF FF FF  mov         al,byte ptr [ebp+FFFFFF68h]
+  004802A5: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  004802A9: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004802AF: 81 E1 FF 00 00 00  and         ecx,0FFh
+  004802B5: BA 01 00 00 00     mov         edx,1
+  004802BA: 6B C2 05           imul        eax,edx,5
+  004802BD: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  004802C1: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004802C7: C1 E9 08           shr         ecx,8
+  004802CA: 81 E1 FF 00 00 00  and         ecx,0FFh
+  004802D0: BA 01 00 00 00     mov         edx,1
+  004802D5: 6B C2 06           imul        eax,edx,6
+  004802D8: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  004802DC: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004802E2: C1 E9 10           shr         ecx,10h
+  004802E5: 81 E1 FF 00 00 00  and         ecx,0FFh
+  004802EB: BA 01 00 00 00     mov         edx,1
+  004802F0: 6B C2 07           imul        eax,edx,7
+  004802F3: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  004802F7: 8B 8D 68 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF68h]
+  004802FD: 51                 push        ecx
+  004802FE: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  00480301: 03 95 78 FF FF FF  add         edx,dword ptr [ebp+FFFFFF78h]
+  00480307: 52                 push        edx
+  00480308: B8 01 00 00 00     mov         eax,1
+  0048030D: C1 E0 03           shl         eax,3
+  00480310: 8D 4C 05 BC        lea         ecx,[ebp+eax-44h]
+  00480314: 51                 push        ecx
+  00480315: E8 D6 E8 18 00     call        0060EBF0
+  0048031A: 83 C4 0C           add         esp,0Ch
+  0048031D: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  00480327: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  00480331: EB 0F              jmp         00480342
+  00480333: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  00480339: 83 C2 01           add         edx,1
+  0048033C: 89 95 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],edx
+  00480342: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  00480349: 73 19              jae         00480364
+  0048034B: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  00480351: 0F B6 4C 05 BC     movzx       ecx,byte ptr [ebp+eax-44h]
+  00480356: 03 8D 6C FF FF FF  add         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0048035C: 89 8D 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  00480362: EB CF              jmp         00480333
+  00480364: BA 01 00 00 00     mov         edx,1
+  00480369: C1 E2 00           shl         edx,0
+  0048036C: 8A 85 6C FF FF FF  mov         al,byte ptr [ebp+FFFFFF6Ch]
+  00480372: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  00480376: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0048037C: C1 E9 08           shr         ecx,8
+  0048037F: BA 01 00 00 00     mov         edx,1
+  00480384: D1 E2              shl         edx,1
+  00480386: 88 4C 15 BC        mov         byte ptr [ebp+edx-44h],cl
+  0048038A: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480390: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00480396: E8 25 9A FF FF     call        00479DC0
+  0048039B: 8D 85 60 FF FF FF  lea         eax,[ebp+FFFFFF60h]
+  004803A1: 50                 push        eax
+  004803A2: 6A 40              push        40h
+  004803A4: 8D 8D 7C FF FF FF  lea         ecx,[ebp+FFFFFF7Ch]
+  004803AA: 51                 push        ecx
+  004803AB: 6A 40              push        40h
+  004803AD: 8D 55 BC           lea         edx,[ebp-44h]
+  004803B0: 52                 push        edx
+  004803B1: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004803B7: E8 B4 CE FF FF     call        0047D270
+  004803BC: 89 85 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],eax
+  004803C2: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004803C8: 81 C1 0C 06 00 00  add         ecx,60Ch
+  004803CE: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  004803D4: 8B 90 0C 06 00 00  mov         edx,dword ptr [eax+0000060Ch]
+  004803DA: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  004803DD: FF D0              call        eax
+  004803DF: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],1
+            01
+  004803E6: 74 08              je          004803F0
+  004803E8: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  004803EE: EB 7E              jmp         0048046E
+  004803F0: B9 01 00 00 00     mov         ecx,1
+  004803F5: 6B D1 07           imul        edx,ecx,7
+  004803F8: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  00480400: 3D FF 00 00 00     cmp         eax,0FFh
+  00480405: 75 07              jne         0048040E
+  00480407: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0048040C: EB 60              jmp         0048046E
+  0048040E: B9 01 00 00 00     mov         ecx,1
+  00480413: 6B D1 07           imul        edx,ecx,7
+  00480416: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  0048041E: 3D FE 00 00 00     cmp         eax,0FEh
+  00480423: 75 07              jne         0048042C
+  00480425: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0048042A: EB 42              jmp         0048046E
+  0048042C: B9 01 00 00 00     mov         ecx,1
+  00480431: 6B D1 05           imul        edx,ecx,5
+  00480434: 0F B6 44 15 BC     movzx       eax,byte ptr [ebp+edx-44h]
+  00480439: B9 01 00 00 00     mov         ecx,1
+  0048043E: 6B D1 06           imul        edx,ecx,6
+  00480441: 0F B6 4C 15 BC     movzx       ecx,byte ptr [ebp+edx-44h]
+  00480446: 0B C1              or          eax,ecx
+  00480448: BA 01 00 00 00     mov         edx,1
+  0048044D: 6B CA 07           imul        ecx,edx,7
+  00480450: 0F B6 54 0D BC     movzx       edx,byte ptr [ebp+ecx-44h]
+  00480455: 0B C2              or          eax,edx
+  00480457: 75 0B              jne         00480464
+  00480459: 68 F4 01 00 00     push        1F4h
+  0048045E: FF 15 E4 7B 66 00  call        dword ptr ds:[00667BE4h]
+  00480464: E9 CA FD FF FF     jmp         00480233
+  00480469: B8 01 00 00 00     mov         eax,1
+  0048046E: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  00480471: 33 CD              xor         ecx,ebp
+  00480473: E8 5D 91 18 00     call        006095D5
+  00480478: 8B E5              mov         esp,ebp
+  0048047A: 5D                 pop         ebp
+  0048047B: C2 08 00           ret         8
+  0048047E: CC                 int         3
+  0048047F: CC                 int         3
+  00480480: 55                 push        ebp
+  00480481: 8B EC              mov         ebp,esp
+  00480483: 81 EC A8 00 00 00  sub         esp,0A8h
+  00480489: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0048048E: 33 C5              xor         eax,ebp
+  00480490: 89 45 FC           mov         dword ptr [ebp-4],eax
+  00480493: 89 8D 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],ecx
+  00480499: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0048049D: 6A 3F              push        3Fh
+  0048049F: 6A 00              push        0
+  004804A1: 8D 45 BD           lea         eax,[ebp-43h]
+  004804A4: 50                 push        eax
+  004804A5: E8 C6 EC 18 00     call        0060F170
+  004804AA: 83 C4 0C           add         esp,0Ch
+  004804AD: B9 01 00 00 00     mov         ecx,1
+  004804B2: 6B D1 00           imul        edx,ecx,0
+  004804B5: C6 44 15 BC 04     mov         byte ptr [ebp+edx-44h],4
+  004804BA: B8 01 00 00 00     mov         eax,1
+  004804BF: 6B C8 03           imul        ecx,eax,3
+  004804C2: C6 44 0D BC 23     mov         byte ptr [ebp+ecx-44h],23h
+  004804C7: BA 01 00 00 00     mov         edx,1
+  004804CC: 6B C2 07           imul        eax,edx,7
+  004804CF: 89 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],eax
+  004804D5: 83 BD 6C FF FF FF  cmp         dword ptr [ebp+FFFFFF6Ch],40h
+            40
+  004804DC: 73 02              jae         004804E0
+  004804DE: EB 05              jmp         004804E5
+  004804E0: E8 54 98 18 00     call        00609D39
+  004804E5: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  004804EB: C6 44 0D BC 00     mov         byte ptr [ebp+ecx-44h],0
+  004804F0: BA 01 00 00 00     mov         edx,1
+  004804F5: C1 E2 02           shl         edx,2
+  004804F8: 89 95 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],edx
+  004804FE: 83 BD 68 FF FF FF  cmp         dword ptr [ebp+FFFFFF68h],40h
+            40
+  00480505: 73 02              jae         00480509
+  00480507: EB 05              jmp         0048050E
+  00480509: E8 2B 98 18 00     call        00609D39
+  0048050E: 8B 85 68 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF68h]
+  00480514: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  00480519: B9 01 00 00 00     mov         ecx,1
+  0048051E: 6B D1 05           imul        edx,ecx,5
+  00480521: 89 95 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],edx
+  00480527: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  0048052E: 73 02              jae         00480532
+  00480530: EB 05              jmp         00480537
+  00480532: E8 02 98 18 00     call        00609D39
+  00480537: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  0048053D: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  00480542: B9 01 00 00 00     mov         ecx,1
+  00480547: 6B D1 06           imul        edx,ecx,6
+  0048054A: 89 95 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],edx
+  00480550: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],40h
+            40
+  00480557: 73 02              jae         0048055B
+  00480559: EB 05              jmp         00480560
+  0048055B: E8 D9 97 18 00     call        00609D39
+  00480560: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  00480566: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0048056B: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],3
+            03 00 00 00
+  00480575: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  0048057F: EB 0F              jmp         00480590
+  00480581: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480587: 83 C1 01           add         ecx,1
+  0048058A: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  00480590: 83 BD 78 FF FF FF  cmp         dword ptr [ebp+FFFFFF78h],40h
+            40
+  00480597: 73 19              jae         004805B2
+  00480599: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0048059F: 0F B6 44 15 BC     movzx       eax,byte ptr [ebp+edx-44h]
+  004805A4: 03 85 74 FF FF FF  add         eax,dword ptr [ebp+FFFFFF74h]
+  004805AA: 89 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],eax
+  004805B0: EB CF              jmp         00480581
+  004805B2: B9 01 00 00 00     mov         ecx,1
+  004805B7: C1 E1 00           shl         ecx,0
+  004805BA: 8A 95 74 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF74h]
+  004805C0: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  004805C4: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  004805CA: C1 E8 08           shr         eax,8
+  004805CD: B9 01 00 00 00     mov         ecx,1
+  004805D2: D1 E1              shl         ecx,1
+  004805D4: 88 44 0D BC        mov         byte ptr [ebp+ecx-44h],al
+  004805D8: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  004805DE: 81 C1 0C 06 00 00  add         ecx,60Ch
+  004805E4: E8 D7 97 FF FF     call        00479DC0
+  004805E9: 8D 95 58 FF FF FF  lea         edx,[ebp+FFFFFF58h]
+  004805EF: 52                 push        edx
+  004805F0: 6A 40              push        40h
+  004805F2: 8D 85 7C FF FF FF  lea         eax,[ebp+FFFFFF7Ch]
+  004805F8: 50                 push        eax
+  004805F9: 6A 40              push        40h
+  004805FB: 8D 4D BC           lea         ecx,[ebp-44h]
+  004805FE: 51                 push        ecx
+  004805FF: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480605: E8 66 CC FF FF     call        0047D270
+  0048060A: 89 85 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],eax
+  00480610: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480616: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0048061C: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  00480622: 8B 82 0C 06 00 00  mov         eax,dword ptr [edx+0000060Ch]
+  00480628: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0048062B: FF D2              call        edx
+  0048062D: 83 BD 5C FF FF FF  cmp         dword ptr [ebp+FFFFFF5Ch],1
+            01
+  00480634: 74 08              je          0048063E
+  00480636: 8B 85 5C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  0048063C: EB 43              jmp         00480681
+  0048063E: B8 01 00 00 00     mov         eax,1
+  00480643: 6B C8 07           imul        ecx,eax,7
+  00480646: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0048064E: 81 FA FF 00 00 00  cmp         edx,0FFh
+  00480654: 75 07              jne         0048065D
+  00480656: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0048065B: EB 24              jmp         00480681
+  0048065D: B8 01 00 00 00     mov         eax,1
+  00480662: 6B C8 07           imul        ecx,eax,7
+  00480665: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0048066D: 81 FA FE 00 00 00  cmp         edx,0FEh
+  00480673: 75 07              jne         0048067C
+  00480675: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0048067A: EB 05              jmp         00480681
+  0048067C: B8 01 00 00 00     mov         eax,1
+  00480681: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  00480684: 33 CD              xor         ecx,ebp
+  00480686: E8 4A 8F 18 00     call        006095D5
+  0048068B: 8B E5              mov         esp,ebp
+  0048068D: 5D                 pop         ebp
+  0048068E: C3                 ret
+  0048068F: CC                 int         3
+  00480690: 55                 push        ebp
+  00480691: 8B EC              mov         ebp,esp
+  00480693: 81 EC A4 00 00 00  sub         esp,0A4h
+  00480699: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0048069E: 33 C5              xor         eax,ebp
+  004806A0: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004806A3: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  004806A9: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  004806AD: 6A 3F              push        3Fh
+  004806AF: 6A 00              push        0
+  004806B1: 8D 45 BD           lea         eax,[ebp-43h]
+  004806B4: 50                 push        eax
+  004806B5: E8 B6 EA 18 00     call        0060F170
+  004806BA: 83 C4 0C           add         esp,0Ch
+  004806BD: 6A 40              push        40h
+  004806BF: 6A 00              push        0
+  004806C1: 8D 4D BC           lea         ecx,[ebp-44h]
+  004806C4: 51                 push        ecx
+  004806C5: E8 A6 EA 18 00     call        0060F170
+  004806CA: 83 C4 0C           add         esp,0Ch
+  004806CD: BA 01 00 00 00     mov         edx,1
+  004806D2: 6B C2 00           imul        eax,edx,0
+  004806D5: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  004806DA: B9 01 00 00 00     mov         ecx,1
+  004806DF: 6B D1 03           imul        edx,ecx,3
+  004806E2: C6 44 15 BC 0B     mov         byte ptr [ebp+edx-44h],0Bh
+  004806E7: B8 01 00 00 00     mov         eax,1
+  004806EC: 6B C8 07           imul        ecx,eax,7
+  004806EF: 89 8D 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],ecx
+  004806F5: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],40h
+            40
+  004806FC: 73 02              jae         00480700
+  004806FE: EB 05              jmp         00480705
+  00480700: E8 34 96 18 00     call        00609D39
+  00480705: 8B 95 60 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF60h]
+  0048070B: C6 44 15 BC 00     mov         byte ptr [ebp+edx-44h],0
+  00480710: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],0
+            00 00 00 00
+  0048071A: EB 19              jmp         00480735
+  0048071C: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480722: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  00480729: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  0048072F: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  00480735: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0048073B: 3B 55 0C           cmp         edx,dword ptr [ebp+0Ch]
+  0048073E: 0F 83 D2 01 00 00  jae         00480916
+  00480744: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0048074A: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  00480751: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  00480757: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  0048075A: 73 15              jae         00480771
+  0048075C: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480762: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  00480769: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  0048076F: EB 0F              jmp         00480780
+  00480771: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  00480774: 2B 8D 78 FF FF FF  sub         ecx,dword ptr [ebp+FFFFFF78h]
+  0048077A: 89 8D 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],ecx
+  00480780: BA 01 00 00 00     mov         edx,1
+  00480785: C1 E2 02           shl         edx,2
+  00480788: 8A 85 68 FF FF FF  mov         al,byte ptr [ebp+FFFFFF68h]
+  0048078E: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  00480792: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  00480795: 0F AF 45 14        imul        eax,dword ptr [ebp+14h]
+  00480799: 03 85 78 FF FF FF  add         eax,dword ptr [ebp+FFFFFF78h]
+  0048079F: 33 D2              xor         edx,edx
+  004807A1: B9 00 01 00 00     mov         ecx,100h
+  004807A6: F7 F1              div         eax,ecx
+  004807A8: B8 01 00 00 00     mov         eax,1
+  004807AD: 6B C8 05           imul        ecx,eax,5
+  004807B0: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  004807B4: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  004807B7: 0F AF 55 14        imul        edx,dword ptr [ebp+14h]
+  004807BB: 03 95 78 FF FF FF  add         edx,dword ptr [ebp+FFFFFF78h]
+  004807C1: C1 EA 08           shr         edx,8
+  004807C4: B8 01 00 00 00     mov         eax,1
+  004807C9: 6B C8 06           imul        ecx,eax,6
+  004807CC: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  004807D0: 8B 95 68 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF68h]
+  004807D6: 52                 push        edx
+  004807D7: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004807DA: 03 85 78 FF FF FF  add         eax,dword ptr [ebp+FFFFFF78h]
+  004807E0: 50                 push        eax
+  004807E1: B9 01 00 00 00     mov         ecx,1
+  004807E6: C1 E1 03           shl         ecx,3
+  004807E9: 8D 54 0D BC        lea         edx,[ebp+ecx-44h]
+  004807ED: 52                 push        edx
+  004807EE: E8 FD E3 18 00     call        0060EBF0
+  004807F3: 83 C4 0C           add         esp,0Ch
+  004807F6: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  00480800: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  0048080A: EB 0F              jmp         0048081B
+  0048080C: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  00480812: 83 C0 01           add         eax,1
+  00480815: 89 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],eax
+  0048081B: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  00480822: 73 19              jae         0048083D
+  00480824: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0048082A: 0F B6 54 0D BC     movzx       edx,byte ptr [ebp+ecx-44h]
+  0048082F: 03 95 6C FF FF FF  add         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480835: 89 95 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],edx
+  0048083B: EB CF              jmp         0048080C
+  0048083D: B8 01 00 00 00     mov         eax,1
+  00480842: C1 E0 00           shl         eax,0
+  00480845: 8A 8D 6C FF FF FF  mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  0048084B: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  0048084F: 8B 95 6C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480855: C1 EA 08           shr         edx,8
+  00480858: B8 01 00 00 00     mov         eax,1
+  0048085D: D1 E0              shl         eax,1
+  0048085F: 88 54 05 BC        mov         byte ptr [ebp+eax-44h],dl
+  00480863: C7 85 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],1
+            01 00 00 00
+  0048086D: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480873: 81 C1 2C 06 00 00  add         ecx,62Ch
+  00480879: E8 42 95 FF FF     call        00479DC0
+  0048087E: 8D 8D 5C FF FF FF  lea         ecx,[ebp+FFFFFF5Ch]
+  00480884: 51                 push        ecx
+  00480885: 6A 40              push        40h
+  00480887: 8D 95 7C FF FF FF  lea         edx,[ebp+FFFFFF7Ch]
+  0048088D: 52                 push        edx
+  0048088E: 6A 40              push        40h
+  00480890: 8D 45 BC           lea         eax,[ebp-44h]
+  00480893: 50                 push        eax
+  00480894: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0048089A: E8 D1 C9 FF FF     call        0047D270
+  0048089F: 89 85 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],eax
+  004808A5: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004808AB: 81 C1 2C 06 00 00  add         ecx,62Ch
+  004808B1: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  004808B7: 8B 82 2C 06 00 00  mov         eax,dword ptr [edx+0000062Ch]
+  004808BD: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  004808C0: FF D2              call        edx
+  004808C2: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],1
+            01
+  004808C9: 74 08              je          004808D3
+  004808CB: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  004808D1: EB 48              jmp         0048091B
+  004808D3: B8 01 00 00 00     mov         eax,1
+  004808D8: 6B C8 07           imul        ecx,eax,7
+  004808DB: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  004808E3: 81 FA FF 00 00 00  cmp         edx,0FFh
+  004808E9: 75 07              jne         004808F2
+  004808EB: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  004808F0: EB 29              jmp         0048091B
+  004808F2: B8 01 00 00 00     mov         eax,1
+  004808F7: 6B C8 07           imul        ecx,eax,7
+  004808FA: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  00480902: 81 FA FE 00 00 00  cmp         edx,0FEh
+  00480908: 75 07              jne         00480911
+  0048090A: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0048090F: EB 0A              jmp         0048091B
+  00480911: E9 06 FE FF FF     jmp         0048071C
+  00480916: B8 01 00 00 00     mov         eax,1
+  0048091B: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0048091E: 33 CD              xor         ecx,ebp
+  00480920: E8 B0 8C 18 00     call        006095D5
+  00480925: 8B E5              mov         esp,ebp
+  00480927: 5D                 pop         ebp
+  00480928: C2 10 00           ret         10h
+  0048092B: CC                 int         3
+  0048092C: CC                 int         3
+  0048092D: CC                 int         3
+  0048092E: CC                 int         3
+  0048092F: CC                 int         3
+  00480930: 55                 push        ebp
+  00480931: 8B EC              mov         ebp,esp
+  00480933: 81 EC A4 00 00 00  sub         esp,0A4h
+  00480939: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0048093E: 33 C5              xor         eax,ebp
+  00480940: 89 45 FC           mov         dword ptr [ebp-4],eax
+  00480943: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  00480949: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0048094D: 6A 3F              push        3Fh
+  0048094F: 6A 00              push        0
+  00480951: 8D 45 BD           lea         eax,[ebp-43h]
+  00480954: 50                 push        eax
+  00480955: E8 16 E8 18 00     call        0060F170
+  0048095A: 83 C4 0C           add         esp,0Ch
+  0048095D: 6A 40              push        40h
+  0048095F: 6A 00              push        0
+  00480961: 8D 4D BC           lea         ecx,[ebp-44h]
+  00480964: 51                 push        ecx
+  00480965: E8 06 E8 18 00     call        0060F170
+  0048096A: 83 C4 0C           add         esp,0Ch
+  0048096D: BA 01 00 00 00     mov         edx,1
+  00480972: 6B C2 00           imul        eax,edx,0
+  00480975: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  0048097A: B9 01 00 00 00     mov         ecx,1
+  0048097F: 6B D1 03           imul        edx,ecx,3
+  00480982: C6 44 15 BC 12     mov         byte ptr [ebp+edx-44h],12h
+  00480987: B8 01 00 00 00     mov         eax,1
+  0048098C: 6B C8 07           imul        ecx,eax,7
+  0048098F: 89 8D 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],ecx
+  00480995: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],40h
+            40
+  0048099C: 73 02              jae         004809A0
+  0048099E: EB 05              jmp         004809A5
+  004809A0: E8 94 93 18 00     call        00609D39
+  004809A5: 8B 95 60 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF60h]
+  004809AB: C6 44 15 BC 00     mov         byte ptr [ebp+edx-44h],0
+  004809B0: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  004809BA: EB 19              jmp         004809D5
+  004809BC: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  004809C2: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  004809C9: 03 8D 74 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF74h]
+  004809CF: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  004809D5: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  004809DB: 3B 55 0C           cmp         edx,dword ptr [ebp+0Ch]
+  004809DE: 0F 83 F0 01 00 00  jae         00480BD4
+  004809E4: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  004809EA: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  004809F1: 03 8D 74 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF74h]
+  004809F7: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  004809FA: 73 15              jae         00480A11
+  004809FC: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480A02: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  00480A09: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  00480A0F: EB 0F              jmp         00480A20
+  00480A11: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  00480A14: 2B 8D 74 FF FF FF  sub         ecx,dword ptr [ebp+FFFFFF74h]
+  00480A1A: 89 8D 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],ecx
+  00480A20: BA 01 00 00 00     mov         edx,1
+  00480A25: C1 E2 02           shl         edx,2
+  00480A28: 8A 85 68 FF FF FF  mov         al,byte ptr [ebp+FFFFFF68h]
+  00480A2E: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  00480A32: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480A38: 33 D2              xor         edx,edx
+  00480A3A: B9 00 01 00 00     mov         ecx,100h
+  00480A3F: F7 F1              div         eax,ecx
+  00480A41: B8 01 00 00 00     mov         eax,1
+  00480A46: 6B C8 05           imul        ecx,eax,5
+  00480A49: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480A4D: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480A53: C1 EA 08           shr         edx,8
+  00480A56: B8 01 00 00 00     mov         eax,1
+  00480A5B: 6B C8 06           imul        ecx,eax,6
+  00480A5E: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480A62: 8B 95 68 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF68h]
+  00480A68: 52                 push        edx
+  00480A69: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  00480A6C: 03 85 74 FF FF FF  add         eax,dword ptr [ebp+FFFFFF74h]
+  00480A72: 50                 push        eax
+  00480A73: B9 01 00 00 00     mov         ecx,1
+  00480A78: C1 E1 03           shl         ecx,3
+  00480A7B: 8D 54 0D BC        lea         edx,[ebp+ecx-44h]
+  00480A7F: 52                 push        edx
+  00480A80: E8 6B E1 18 00     call        0060EBF0
+  00480A85: 83 C4 0C           add         esp,0Ch
+  00480A88: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  00480A92: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  00480A9C: EB 0F              jmp         00480AAD
+  00480A9E: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  00480AA4: 83 C0 01           add         eax,1
+  00480AA7: 89 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],eax
+  00480AAD: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  00480AB4: 73 19              jae         00480ACF
+  00480AB6: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480ABC: 0F B6 54 0D BC     movzx       edx,byte ptr [ebp+ecx-44h]
+  00480AC1: 03 95 6C FF FF FF  add         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480AC7: 89 95 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],edx
+  00480ACD: EB CF              jmp         00480A9E
+  00480ACF: B8 01 00 00 00     mov         eax,1
+  00480AD4: C1 E0 00           shl         eax,0
+  00480AD7: 8A 8D 6C FF FF FF  mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  00480ADD: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  00480AE1: 8B 95 6C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480AE7: C1 EA 08           shr         edx,8
+  00480AEA: B8 01 00 00 00     mov         eax,1
+  00480AEF: D1 E0              shl         eax,1
+  00480AF1: 88 54 05 BC        mov         byte ptr [ebp+eax-44h],dl
+  00480AF5: C7 85 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],1
+            01 00 00 00
+  00480AFF: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480B05: 0F B6 51 04        movzx       edx,byte ptr [ecx+4]
+  00480B09: 85 D2              test        edx,edx
+  00480B0B: 75 66              jne         00480B73
+  00480B0D: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480B13: 83 B8 4C 06 00 00  cmp         dword ptr [eax+0000064Ch],0
+            00
+  00480B1A: 75 55              jne         00480B71
+  00480B1C: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480B22: 81 C1 2C 06 00 00  add         ecx,62Ch
+  00480B28: E8 93 92 FF FF     call        00479DC0
+  00480B2D: 8D 8D 5C FF FF FF  lea         ecx,[ebp+FFFFFF5Ch]
+  00480B33: 51                 push        ecx
+  00480B34: 6A 40              push        40h
+  00480B36: 8D 95 7C FF FF FF  lea         edx,[ebp+FFFFFF7Ch]
+  00480B3C: 52                 push        edx
+  00480B3D: 6A 40              push        40h
+  00480B3F: 8D 45 BC           lea         eax,[ebp-44h]
+  00480B42: 50                 push        eax
+  00480B43: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480B49: E8 72 DC FF FF     call        0047E7C0
+  00480B4E: 89 85 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],eax
+  00480B54: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480B5A: 81 C1 2C 06 00 00  add         ecx,62Ch
+  00480B60: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480B66: 8B 82 2C 06 00 00  mov         eax,dword ptr [edx+0000062Ch]
+  00480B6C: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  00480B6F: FF D2              call        edx
+  00480B71: EB 0D              jmp         00480B80
+  00480B73: 68 14 D6 6B 00     push        6BD614h
+  00480B78: E8 13 CF 00 00     call        0048DA90
+  00480B7D: 83 C4 04           add         esp,4
+  00480B80: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],1
+            01
+  00480B87: 74 08              je          00480B91
+  00480B89: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  00480B8F: EB 48              jmp         00480BD9
+  00480B91: B8 01 00 00 00     mov         eax,1
+  00480B96: 6B C8 07           imul        ecx,eax,7
+  00480B99: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  00480BA1: 81 FA FF 00 00 00  cmp         edx,0FFh
+  00480BA7: 75 07              jne         00480BB0
+  00480BA9: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  00480BAE: EB 29              jmp         00480BD9
+  00480BB0: B8 01 00 00 00     mov         eax,1
+  00480BB5: 6B C8 07           imul        ecx,eax,7
+  00480BB8: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  00480BC0: 81 FA FE 00 00 00  cmp         edx,0FEh
+  00480BC6: 75 07              jne         00480BCF
+  00480BC8: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  00480BCD: EB 0A              jmp         00480BD9
+  00480BCF: E9 E8 FD FF FF     jmp         004809BC
+  00480BD4: B8 01 00 00 00     mov         eax,1
+  00480BD9: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  00480BDC: 33 CD              xor         ecx,ebp
+  00480BDE: E8 F2 89 18 00     call        006095D5
+  00480BE3: 8B E5              mov         esp,ebp
+  00480BE5: 5D                 pop         ebp
+  00480BE6: C2 08 00           ret         8
+  00480BE9: CC                 int         3
+  00480BEA: CC                 int         3
+  00480BEB: CC                 int         3
+  00480BEC: CC                 int         3
+  00480BED: CC                 int         3
+  00480BEE: CC                 int         3
+  00480BEF: CC                 int         3
+  00480BF0: 55                 push        ebp
+  00480BF1: 8B EC              mov         ebp,esp
+  00480BF3: 81 EC A4 00 00 00  sub         esp,0A4h
+  00480BF9: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  00480BFE: 33 C5              xor         eax,ebp
+  00480C00: 89 45 FC           mov         dword ptr [ebp-4],eax
+  00480C03: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  00480C09: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  00480C0D: 6A 3F              push        3Fh
+  00480C0F: 6A 00              push        0
+  00480C11: 8D 45 BD           lea         eax,[ebp-43h]
+  00480C14: 50                 push        eax
+  00480C15: E8 56 E5 18 00     call        0060F170
+  00480C1A: 83 C4 0C           add         esp,0Ch
+  00480C1D: B9 01 00 00 00     mov         ecx,1
+  00480C22: 6B D1 00           imul        edx,ecx,0
+  00480C25: C6 44 15 BC 04     mov         byte ptr [ebp+edx-44h],4
+  00480C2A: B8 01 00 00 00     mov         eax,1
+  00480C2F: 6B C8 03           imul        ecx,eax,3
+  00480C32: C6 44 0D BC 06     mov         byte ptr [ebp+ecx-44h],6
+  00480C37: BA 01 00 00 00     mov         edx,1
+  00480C3C: 6B C2 07           imul        eax,edx,7
+  00480C3F: 89 85 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],eax
+  00480C45: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  00480C4C: 73 02              jae         00480C50
+  00480C4E: EB 05              jmp         00480C55
+  00480C50: E8 E4 90 18 00     call        00609D39
+  00480C55: 8B 8D 64 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF64h]
+  00480C5B: C6 44 0D BC 00     mov         byte ptr [ebp+ecx-44h],0
+  00480C60: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],0
+            00 00 00 00
+  00480C6A: EB 19              jmp         00480C85
+  00480C6C: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480C72: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  00480C79: 03 85 78 FF FF FF  add         eax,dword ptr [ebp+FFFFFF78h]
+  00480C7F: 89 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],eax
+  00480C85: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480C8B: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  00480C8E: 0F 83 C0 01 00 00  jae         00480E54
+  00480C94: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480C9A: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  00480CA1: 03 85 78 FF FF FF  add         eax,dword ptr [ebp+FFFFFF78h]
+  00480CA7: 3B 45 0C           cmp         eax,dword ptr [ebp+0Ch]
+  00480CAA: 73 15              jae         00480CC1
+  00480CAC: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480CB2: 0F B6 91 58 06 00  movzx       edx,byte ptr [ecx+00000658h]
+            00
+  00480CB9: 89 95 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],edx
+  00480CBF: EB 0F              jmp         00480CD0
+  00480CC1: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  00480CC4: 2B 85 78 FF FF FF  sub         eax,dword ptr [ebp+FFFFFF78h]
+  00480CCA: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  00480CD0: B9 01 00 00 00     mov         ecx,1
+  00480CD5: C1 E1 02           shl         ecx,2
+  00480CD8: 8A 95 68 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF68h]
+  00480CDE: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480CE2: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480CE8: 03 45 10           add         eax,dword ptr [ebp+10h]
+  00480CEB: 33 D2              xor         edx,edx
+  00480CED: B9 00 01 00 00     mov         ecx,100h
+  00480CF2: F7 F1              div         eax,ecx
+  00480CF4: B8 01 00 00 00     mov         eax,1
+  00480CF9: 6B C8 05           imul        ecx,eax,5
+  00480CFC: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480D00: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480D06: 03 55 10           add         edx,dword ptr [ebp+10h]
+  00480D09: C1 EA 08           shr         edx,8
+  00480D0C: B8 01 00 00 00     mov         eax,1
+  00480D11: 6B C8 06           imul        ecx,eax,6
+  00480D14: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480D18: 8B 95 68 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF68h]
+  00480D1E: 52                 push        edx
+  00480D1F: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  00480D22: 03 85 78 FF FF FF  add         eax,dword ptr [ebp+FFFFFF78h]
+  00480D28: 50                 push        eax
+  00480D29: B9 01 00 00 00     mov         ecx,1
+  00480D2E: C1 E1 03           shl         ecx,3
+  00480D31: 8D 54 0D BC        lea         edx,[ebp+ecx-44h]
+  00480D35: 52                 push        edx
+  00480D36: E8 B5 DE 18 00     call        0060EBF0
+  00480D3B: 83 C4 0C           add         esp,0Ch
+  00480D3E: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  00480D48: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  00480D52: EB 0F              jmp         00480D63
+  00480D54: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  00480D5A: 83 C0 01           add         eax,1
+  00480D5D: 89 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],eax
+  00480D63: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  00480D6A: 73 19              jae         00480D85
+  00480D6C: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480D72: 0F B6 54 0D BC     movzx       edx,byte ptr [ebp+ecx-44h]
+  00480D77: 03 95 6C FF FF FF  add         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480D7D: 89 95 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],edx
+  00480D83: EB CF              jmp         00480D54
+  00480D85: B8 01 00 00 00     mov         eax,1
+  00480D8A: C1 E0 00           shl         eax,0
+  00480D8D: 8A 8D 6C FF FF FF  mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  00480D93: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  00480D97: 8B 95 6C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480D9D: C1 EA 08           shr         edx,8
+  00480DA0: B8 01 00 00 00     mov         eax,1
+  00480DA5: D1 E0              shl         eax,1
+  00480DA7: 88 54 05 BC        mov         byte ptr [ebp+eax-44h],dl
+  00480DAB: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480DB1: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00480DB7: E8 04 90 FF FF     call        00479DC0
+  00480DBC: 8D 8D 5C FF FF FF  lea         ecx,[ebp+FFFFFF5Ch]
+  00480DC2: 51                 push        ecx
+  00480DC3: 6A 40              push        40h
+  00480DC5: 8D 95 7C FF FF FF  lea         edx,[ebp+FFFFFF7Ch]
+  00480DCB: 52                 push        edx
+  00480DCC: 6A 40              push        40h
+  00480DCE: 8D 45 BC           lea         eax,[ebp-44h]
+  00480DD1: 50                 push        eax
+  00480DD2: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480DD8: E8 93 C4 FF FF     call        0047D270
+  00480DDD: 89 85 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],eax
+  00480DE3: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480DE9: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00480DEF: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480DF5: 8B 82 0C 06 00 00  mov         eax,dword ptr [edx+0000060Ch]
+  00480DFB: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  00480DFE: FF D2              call        edx
+  00480E00: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],1
+            01
+  00480E07: 74 08              je          00480E11
+  00480E09: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  00480E0F: EB 48              jmp         00480E59
+  00480E11: B8 01 00 00 00     mov         eax,1
+  00480E16: 6B C8 07           imul        ecx,eax,7
+  00480E19: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  00480E21: 81 FA FF 00 00 00  cmp         edx,0FFh
+  00480E27: 75 07              jne         00480E30
+  00480E29: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  00480E2E: EB 29              jmp         00480E59
+  00480E30: B8 01 00 00 00     mov         eax,1
+  00480E35: 6B C8 07           imul        ecx,eax,7
+  00480E38: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  00480E40: 81 FA FE 00 00 00  cmp         edx,0FEh
+  00480E46: 75 07              jne         00480E4F
+  00480E48: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  00480E4D: EB 0A              jmp         00480E59
+  00480E4F: E9 18 FE FF FF     jmp         00480C6C
+  00480E54: B8 01 00 00 00     mov         eax,1
+  00480E59: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  00480E5C: 33 CD              xor         ecx,ebp
+  00480E5E: E8 72 87 18 00     call        006095D5
+  00480E63: 8B E5              mov         esp,ebp
+  00480E65: 5D                 pop         ebp
+  00480E66: C2 0C 00           ret         0Ch
+  00480E69: CC                 int         3
+  00480E6A: CC                 int         3
+  00480E6B: CC                 int         3
+  00480E6C: CC                 int         3
+  00480E6D: CC                 int         3
+  00480E6E: CC                 int         3
+  00480E6F: CC                 int         3
+  00480E70: 55                 push        ebp
+  00480E71: 8B EC              mov         ebp,esp
+  00480E73: 81 EC A4 00 00 00  sub         esp,0A4h
+  00480E79: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  00480E7E: 33 C5              xor         eax,ebp
+  00480E80: 89 45 FC           mov         dword ptr [ebp-4],eax
+  00480E83: 89 8D 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  00480E89: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  00480E8D: 6A 3F              push        3Fh
+  00480E8F: 6A 00              push        0
+  00480E91: 8D 45 BD           lea         eax,[ebp-43h]
+  00480E94: 50                 push        eax
+  00480E95: E8 D6 E2 18 00     call        0060F170
+  00480E9A: 83 C4 0C           add         esp,0Ch
+  00480E9D: 6A 40              push        40h
+  00480E9F: 6A 00              push        0
+  00480EA1: 8D 4D BC           lea         ecx,[ebp-44h]
+  00480EA4: 51                 push        ecx
+  00480EA5: E8 C6 E2 18 00     call        0060F170
+  00480EAA: 83 C4 0C           add         esp,0Ch
+  00480EAD: BA 01 00 00 00     mov         edx,1
+  00480EB2: 6B C2 00           imul        eax,edx,0
+  00480EB5: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  00480EBA: B9 01 00 00 00     mov         ecx,1
+  00480EBF: 6B D1 03           imul        edx,ecx,3
+  00480EC2: C6 44 15 BC 05     mov         byte ptr [ebp+edx-44h],5
+  00480EC7: B8 01 00 00 00     mov         eax,1
+  00480ECC: 6B C8 07           imul        ecx,eax,7
+  00480ECF: 89 8D 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],ecx
+  00480ED5: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  00480EDC: 73 02              jae         00480EE0
+  00480EDE: EB 05              jmp         00480EE5
+  00480EE0: E8 54 8E 18 00     call        00609D39
+  00480EE5: 8B 95 64 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF64h]
+  00480EEB: C6 44 15 BC 00     mov         byte ptr [ebp+edx-44h],0
+  00480EF0: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],0
+            00 00 00 00
+  00480EFA: EB 0F              jmp         00480F0B
+  00480EFC: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480F02: 83 C0 04           add         eax,4
+  00480F05: 89 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],eax
+  00480F0B: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480F11: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  00480F14: 0F 83 61 01 00 00  jae         0048107B
+  00480F1A: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480F20: 83 C2 04           add         edx,4
+  00480F23: 3B 55 0C           cmp         edx,dword ptr [ebp+0Ch]
+  00480F26: 73 0C              jae         00480F34
+  00480F28: C7 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],4
+            04 00 00 00
+  00480F32: EB 0F              jmp         00480F43
+  00480F34: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  00480F37: 2B 85 78 FF FF FF  sub         eax,dword ptr [ebp+FFFFFF78h]
+  00480F3D: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  00480F43: B9 01 00 00 00     mov         ecx,1
+  00480F48: C1 E1 02           shl         ecx,2
+  00480F4B: 8A 95 68 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF68h]
+  00480F51: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480F55: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480F5B: 03 45 10           add         eax,dword ptr [ebp+10h]
+  00480F5E: 33 D2              xor         edx,edx
+  00480F60: B9 00 01 00 00     mov         ecx,100h
+  00480F65: F7 F1              div         eax,ecx
+  00480F67: B8 01 00 00 00     mov         eax,1
+  00480F6C: 6B C8 05           imul        ecx,eax,5
+  00480F6F: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480F73: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480F79: 03 55 10           add         edx,dword ptr [ebp+10h]
+  00480F7C: C1 EA 08           shr         edx,8
+  00480F7F: B8 01 00 00 00     mov         eax,1
+  00480F84: 6B C8 06           imul        ecx,eax,6
+  00480F87: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00480F8B: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],3
+            03 00 00 00
+  00480F95: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],0
+            00 00 00 00
+  00480F9F: EB 0F              jmp         00480FB0
+  00480FA1: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480FA7: 83 C2 01           add         edx,1
+  00480FAA: 89 95 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],edx
+  00480FB0: 83 BD 74 FF FF FF  cmp         dword ptr [ebp+FFFFFF74h],40h
+            40
+  00480FB7: 73 19              jae         00480FD2
+  00480FB9: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480FBF: 0F B6 4C 05 BC     movzx       ecx,byte ptr [ebp+eax-44h]
+  00480FC4: 03 8D 70 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF70h]
+  00480FCA: 89 8D 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],ecx
+  00480FD0: EB CF              jmp         00480FA1
+  00480FD2: BA 01 00 00 00     mov         edx,1
+  00480FD7: C1 E2 00           shl         edx,0
+  00480FDA: 8A 85 70 FF FF FF  mov         al,byte ptr [ebp+FFFFFF70h]
+  00480FE0: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  00480FE4: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480FEA: C1 E9 08           shr         ecx,8
+  00480FED: BA 01 00 00 00     mov         edx,1
+  00480FF2: D1 E2              shl         edx,1
+  00480FF4: 88 4C 15 BC        mov         byte ptr [ebp+edx-44h],cl
+  00480FF8: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00480FFE: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00481004: E8 B7 8D FF FF     call        00479DC0
+  00481009: 8D 85 60 FF FF FF  lea         eax,[ebp+FFFFFF60h]
+  0048100F: 50                 push        eax
+  00481010: 6A 40              push        40h
+  00481012: 8D 8D 7C FF FF FF  lea         ecx,[ebp+FFFFFF7Ch]
+  00481018: 51                 push        ecx
+  00481019: 6A 40              push        40h
+  0048101B: 8D 55 BC           lea         edx,[ebp-44h]
+  0048101E: 52                 push        edx
+  0048101F: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00481025: E8 26 CD FF FF     call        0047DD50
+  0048102A: 89 85 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],eax
+  00481030: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00481036: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0048103C: 8B 85 6C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF6Ch]
+  00481042: 8B 90 0C 06 00 00  mov         edx,dword ptr [eax+0000060Ch]
+  00481048: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  0048104B: FF D0              call        eax
+  0048104D: 8B 8D 68 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF68h]
+  00481053: 51                 push        ecx
+  00481054: BA 01 00 00 00     mov         edx,1
+  00481059: C1 E2 02           shl         edx,2
+  0048105C: 8D 84 15 7C FF FF  lea         eax,[ebp+edx+FFFFFF7Ch]
+            FF
+  00481063: 50                 push        eax
+  00481064: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  00481067: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  0048106D: 51                 push        ecx
+  0048106E: E8 7D DB 18 00     call        0060EBF0
+  00481073: 83 C4 0C           add         esp,0Ch
+  00481076: E9 81 FE FF FF     jmp         00480EFC
+  0048107B: B8 01 00 00 00     mov         eax,1
+  00481080: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  00481083: 33 CD              xor         ecx,ebp
+  00481085: E8 4B 85 18 00     call        006095D5
+  0048108A: 8B E5              mov         esp,ebp
+  0048108C: 5D                 pop         ebp
+  0048108D: C2 0C 00           ret         0Ch
+  00481090: 55                 push        ebp
+  00481091: 8B EC              mov         ebp,esp
+  00481093: 81 EC A4 00 00 00  sub         esp,0A4h
+  00481099: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0048109E: 33 C5              xor         eax,ebp
+  004810A0: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004810A3: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  004810A9: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  004810AD: 6A 3F              push        3Fh
+  004810AF: 6A 00              push        0
+  004810B1: 8D 45 BD           lea         eax,[ebp-43h]
+  004810B4: 50                 push        eax
+  004810B5: E8 B6 E0 18 00     call        0060F170
+  004810BA: 83 C4 0C           add         esp,0Ch
+  004810BD: 6A 40              push        40h
+  004810BF: 6A 00              push        0
+  004810C1: 8D 4D BC           lea         ecx,[ebp-44h]
+  004810C4: 51                 push        ecx
+  004810C5: E8 A6 E0 18 00     call        0060F170
+  004810CA: 83 C4 0C           add         esp,0Ch
+  004810CD: BA 01 00 00 00     mov         edx,1
+  004810D2: 6B C2 00           imul        eax,edx,0
+  004810D5: C6 44 05 BC 04     mov         byte ptr [ebp+eax-44h],4
+  004810DA: B9 01 00 00 00     mov         ecx,1
+  004810DF: 6B D1 03           imul        edx,ecx,3
+  004810E2: C6 44 15 BC 05     mov         byte ptr [ebp+edx-44h],5
+  004810E7: B8 01 00 00 00     mov         eax,1
+  004810EC: 6B C8 07           imul        ecx,eax,7
+  004810EF: 89 8D 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],ecx
+  004810F5: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  004810FC: 73 02              jae         00481100
+  004810FE: EB 05              jmp         00481105
+  00481100: E8 34 8C 18 00     call        00609D39
+  00481105: 8B 95 64 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF64h]
+  0048110B: C6 44 15 BC 00     mov         byte ptr [ebp+edx-44h],0
+  00481110: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],0
+            00 00 00 00
+  0048111A: EB 19              jmp         00481135
+  0048111C: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  00481122: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  00481129: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  0048112F: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  00481135: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0048113B: 3B 55 0C           cmp         edx,dword ptr [ebp+0Ch]
+  0048113E: 0F 83 C1 01 00 00  jae         00481305
+  00481144: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0048114A: 0F B6 88 58 06 00  movzx       ecx,byte ptr [eax+00000658h]
+            00
+  00481151: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  00481157: 3B 4D 0C           cmp         ecx,dword ptr [ebp+0Ch]
+  0048115A: 73 15              jae         00481171
+  0048115C: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00481162: 0F B6 82 58 06 00  movzx       eax,byte ptr [edx+00000658h]
+            00
+  00481169: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  0048116F: EB 0F              jmp         00481180
+  00481171: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  00481174: 2B 8D 78 FF FF FF  sub         ecx,dword ptr [ebp+FFFFFF78h]
+  0048117A: 89 8D 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],ecx
+  00481180: BA 01 00 00 00     mov         edx,1
+  00481185: C1 E2 02           shl         edx,2
+  00481188: 8A 85 68 FF FF FF  mov         al,byte ptr [ebp+FFFFFF68h]
+  0048118E: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  00481192: 8B 85 78 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF78h]
+  00481198: 03 45 10           add         eax,dword ptr [ebp+10h]
+  0048119B: 33 D2              xor         edx,edx
+  0048119D: B9 00 01 00 00     mov         ecx,100h
+  004811A2: F7 F1              div         eax,ecx
+  004811A4: B8 01 00 00 00     mov         eax,1
+  004811A9: 6B C8 05           imul        ecx,eax,5
+  004811AC: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  004811B0: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  004811B6: 03 55 10           add         edx,dword ptr [ebp+10h]
+  004811B9: C1 EA 08           shr         edx,8
+  004811BC: B8 01 00 00 00     mov         eax,1
+  004811C1: 6B C8 06           imul        ecx,eax,6
+  004811C4: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  004811C8: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  004811D2: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  004811DC: EB 0F              jmp         004811ED
+  004811DE: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  004811E4: 83 C2 01           add         edx,1
+  004811E7: 89 95 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],edx
+  004811ED: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  004811F4: 73 19              jae         0048120F
+  004811F6: 8B 85 70 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF70h]
+  004811FC: 0F B6 4C 05 BC     movzx       ecx,byte ptr [ebp+eax-44h]
+  00481201: 03 8D 6C FF FF FF  add         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00481207: 89 8D 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  0048120D: EB CF              jmp         004811DE
+  0048120F: BA 01 00 00 00     mov         edx,1
+  00481214: C1 E2 00           shl         edx,0
+  00481217: 8A 85 6C FF FF FF  mov         al,byte ptr [ebp+FFFFFF6Ch]
+  0048121D: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  00481221: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00481227: C1 E9 08           shr         ecx,8
+  0048122A: BA 01 00 00 00     mov         edx,1
+  0048122F: D1 E2              shl         edx,1
+  00481231: 88 4C 15 BC        mov         byte ptr [ebp+edx-44h],cl
+  00481235: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0048123B: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00481241: E8 7A 8B FF FF     call        00479DC0
+  00481246: 8D 85 5C FF FF FF  lea         eax,[ebp+FFFFFF5Ch]
+  0048124C: 50                 push        eax
+  0048124D: 6A 40              push        40h
+  0048124F: 8D 8D 7C FF FF FF  lea         ecx,[ebp+FFFFFF7Ch]
+  00481255: 51                 push        ecx
+  00481256: 6A 40              push        40h
+  00481258: 8D 55 BC           lea         edx,[ebp-44h]
+  0048125B: 52                 push        edx
+  0048125C: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00481262: E8 09 C0 FF FF     call        0047D270
+  00481267: 89 85 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],eax
+  0048126D: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00481273: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00481279: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0048127F: 8B 90 0C 06 00 00  mov         edx,dword ptr [eax+0000060Ch]
+  00481285: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  00481288: FF D0              call        eax
+  0048128A: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],1
+            01
+  00481291: 74 08              je          0048129B
+  00481293: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  00481299: EB 6F              jmp         0048130A
+  0048129B: B9 01 00 00 00     mov         ecx,1
+  004812A0: 6B D1 07           imul        edx,ecx,7
+  004812A3: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  004812AB: 3D FF 00 00 00     cmp         eax,0FFh
+  004812B0: 75 07              jne         004812B9
+  004812B2: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  004812B7: EB 51              jmp         0048130A
+  004812B9: B9 01 00 00 00     mov         ecx,1
+  004812BE: 6B D1 07           imul        edx,ecx,7
+  004812C1: 0F B6 84 15 7C FF  movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+            FF FF
+  004812C9: 3D FE 00 00 00     cmp         eax,0FEh
+  004812CE: 75 07              jne         004812D7
+  004812D0: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  004812D5: EB 33              jmp         0048130A
+  004812D7: 8B 8D 68 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF68h]
+  004812DD: 51                 push        ecx
+  004812DE: BA 01 00 00 00     mov         edx,1
+  004812E3: C1 E2 03           shl         edx,3
+  004812E6: 8D 84 15 7C FF FF  lea         eax,[ebp+edx+FFFFFF7Ch]
+            FF
+  004812ED: 50                 push        eax
+  004812EE: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004812F1: 03 8D 78 FF FF FF  add         ecx,dword ptr [ebp+FFFFFF78h]
+  004812F7: 51                 push        ecx
+  004812F8: E8 F3 D8 18 00     call        0060EBF0
+  004812FD: 83 C4 0C           add         esp,0Ch
+  00481300: E9 17 FE FF FF     jmp         0048111C
+  00481305: B8 01 00 00 00     mov         eax,1
+  0048130A: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0048130D: 33 CD              xor         ecx,ebp
+  0048130F: E8 C1 82 18 00     call        006095D5
+  00481314: 8B E5              mov         esp,ebp
+  00481316: 5D                 pop         ebp
+  00481317: C2 0C 00           ret         0Ch
+  0048131A: CC                 int         3
+  0048131B: CC                 int         3
+  0048131C: CC                 int         3
+  0048131D: CC                 int         3
+  0048131E: CC                 int         3
+  0048131F: CC                 int         3
+  00481320: 55                 push        ebp
+  00481321: 8B EC              mov         ebp,esp
+  00481323: 81 EC 9C 00 00 00  sub         esp,9Ch
+  00481329: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0048132E: 33 C5              xor         eax,ebp
+  00481330: 89 45 FC           mov         dword ptr [ebp-4],eax
+  00481333: 89 8D 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],ecx
+  00481339: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0048133D: 6A 3F              push        3Fh
+  0048133F: 6A 00              push        0
+  00481341: 8D 45 BD           lea         eax,[ebp-43h]
+  00481344: 50                 push        eax
+  00481345: E8 26 DE 18 00     call        0060F170
+  0048134A: 83 C4 0C           add         esp,0Ch
+  0048134D: B9 01 00 00 00     mov         ecx,1
+  00481352: 6B D1 00           imul        edx,ecx,0
+  00481355: C6 44 15 BC 04     mov         byte ptr [ebp+edx-44h],4
+  0048135A: B8 01 00 00 00     mov         eax,1
+  0048135F: 6B C8 03           imul        ecx,eax,3
+  00481362: C6 44 0D BC 1A     mov         byte ptr [ebp+ecx-44h],1Ah
+  00481367: BA 01 00 00 00     mov         edx,1
+  0048136C: 6B C2 07           imul        eax,edx,7
+  0048136F: 89 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],eax
+  00481375: 83 BD 6C FF FF FF  cmp         dword ptr [ebp+FFFFFF6Ch],40h
+            40
+  0048137C: 73 02              jae         00481380
+  0048137E: EB 05              jmp         00481385
+  00481380: E8 B4 89 18 00     call        00609D39
+  00481385: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0048138B: C6 44 0D BC 00     mov         byte ptr [ebp+ecx-44h],0
+  00481390: BA 01 00 00 00     mov         edx,1
+  00481395: C1 E2 02           shl         edx,2
+  00481398: 8A 45 0C           mov         al,byte ptr [ebp+0Ch]
+  0048139B: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  0048139F: B9 01 00 00 00     mov         ecx,1
+  004813A4: 6B D1 05           imul        edx,ecx,5
+  004813A7: 8A 45 10           mov         al,byte ptr [ebp+10h]
+  004813AA: 88 44 15 BC        mov         byte ptr [ebp+edx-44h],al
+  004813AE: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  004813B1: C1 E9 08           shr         ecx,8
+  004813B4: BA 01 00 00 00     mov         edx,1
+  004813B9: 6B C2 06           imul        eax,edx,6
+  004813BC: 88 4C 05 BC        mov         byte ptr [ebp+eax-44h],cl
+  004813C0: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],3
+            03 00 00 00
+  004813CA: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  004813D4: EB 0F              jmp         004813E5
+  004813D6: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004813DC: 83 C1 01           add         ecx,1
+  004813DF: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  004813E5: 83 BD 78 FF FF FF  cmp         dword ptr [ebp+FFFFFF78h],40h
+            40
+  004813EC: 73 19              jae         00481407
+  004813EE: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  004813F4: 0F B6 44 15 BC     movzx       eax,byte ptr [ebp+edx-44h]
+  004813F9: 03 85 74 FF FF FF  add         eax,dword ptr [ebp+FFFFFF74h]
+  004813FF: 89 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],eax
+  00481405: EB CF              jmp         004813D6
+  00481407: B9 01 00 00 00     mov         ecx,1
+  0048140C: C1 E1 00           shl         ecx,0
+  0048140F: 8A 95 74 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF74h]
+  00481415: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  00481419: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0048141F: C1 E8 08           shr         eax,8
+  00481422: B9 01 00 00 00     mov         ecx,1
+  00481427: D1 E1              shl         ecx,1
+  00481429: 88 44 0D BC        mov         byte ptr [ebp+ecx-44h],al
+  0048142D: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00481433: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00481439: E8 82 89 FF FF     call        00479DC0
+  0048143E: 8D 95 64 FF FF FF  lea         edx,[ebp+FFFFFF64h]
+  00481444: 52                 push        edx
+  00481445: 6A 40              push        40h
+  00481447: 8D 85 7C FF FF FF  lea         eax,[ebp+FFFFFF7Ch]
+  0048144D: 50                 push        eax
+  0048144E: 6A 40              push        40h
+  00481450: 8D 4D BC           lea         ecx,[ebp-44h]
+  00481453: 51                 push        ecx
+  00481454: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0048145A: E8 11 BE FF FF     call        0047D270
+  0048145F: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  00481465: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0048146B: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00481471: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  00481477: 8B 82 0C 06 00 00  mov         eax,dword ptr [edx+0000060Ch]
+  0048147D: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  00481480: FF D2              call        edx
+  00481482: 83 BD 68 FF FF FF  cmp         dword ptr [ebp+FFFFFF68h],1
+            01
+  00481489: 74 08              je          00481493
+  0048148B: 8B 85 68 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF68h]
+  00481491: EB 63              jmp         004814F6
+  00481493: B8 01 00 00 00     mov         eax,1
+  00481498: 6B C8 07           imul        ecx,eax,7
+  0048149B: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  004814A3: 81 FA FF 00 00 00  cmp         edx,0FFh
+  004814A9: 75 07              jne         004814B2
+  004814AB: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  004814B0: EB 44              jmp         004814F6
+  004814B2: B8 01 00 00 00     mov         eax,1
+  004814B7: 6B C8 07           imul        ecx,eax,7
+  004814BA: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  004814C2: 81 FA FE 00 00 00  cmp         edx,0FEh
+  004814C8: 75 07              jne         004814D1
+  004814CA: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  004814CF: EB 25              jmp         004814F6
+  004814D1: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  004814D4: 50                 push        eax
+  004814D5: B9 01 00 00 00     mov         ecx,1
+  004814DA: C1 E1 03           shl         ecx,3
+  004814DD: 8D 94 0D 7C FF FF  lea         edx,[ebp+ecx+FFFFFF7Ch]
+            FF
+  004814E4: 52                 push        edx
+  004814E5: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004814E8: 50                 push        eax
+  004814E9: E8 02 D7 18 00     call        0060EBF0
+  004814EE: 83 C4 0C           add         esp,0Ch
+  004814F1: B8 01 00 00 00     mov         eax,1
+  004814F6: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004814F9: 33 CD              xor         ecx,ebp
+  004814FB: E8 D5 80 18 00     call        006095D5
+  00481500: 8B E5              mov         esp,ebp
+  00481502: 5D                 pop         ebp
+  00481503: C2 0C 00           ret         0Ch
+  00481506: CC                 int         3
+  00481507: CC                 int         3
+  00481508: CC                 int         3
+  00481509: CC                 int         3
+  0048150A: CC                 int         3
+  0048150B: CC                 int         3
+  0048150C: CC                 int         3
+  0048150D: CC                 int         3
+  0048150E: CC                 int         3
+  0048150F: CC                 int         3
+  00481510: 55                 push        ebp
+  00481511: 8B EC              mov         ebp,esp
+  00481513: 81 EC AC 00 00 00  sub         esp,0ACh
+  00481519: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0048151E: 33 C5              xor         eax,ebp
+  00481520: 89 45 FC           mov         dword ptr [ebp-4],eax
+  00481523: 89 8D 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],ecx
+  00481529: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0048152D: 6A 3F              push        3Fh
+  0048152F: 6A 00              push        0
+  00481531: 8D 45 BD           lea         eax,[ebp-43h]
+  00481534: 50                 push        eax
+  00481535: E8 36 DC 18 00     call        0060F170
+  0048153A: 83 C4 0C           add         esp,0Ch
+  0048153D: C6 85 7B FF FF FF  mov         byte ptr [ebp+FFFFFF7Bh],0
+            00
+  00481544: B9 01 00 00 00     mov         ecx,1
+  00481549: 6B D1 00           imul        edx,ecx,0
+  0048154C: C6 44 15 BC 04     mov         byte ptr [ebp+edx-44h],4
+  00481551: B8 01 00 00 00     mov         eax,1
+  00481556: 6B C8 03           imul        ecx,eax,3
+  00481559: C6 44 0D BC AA     mov         byte ptr [ebp+ecx-44h],0AAh
+  0048155E: BA 01 00 00 00     mov         edx,1
+  00481563: 6B C2 07           imul        eax,edx,7
+  00481566: 89 85 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],eax
+  0048156C: 83 BD 68 FF FF FF  cmp         dword ptr [ebp+FFFFFF68h],40h
+            40
+  00481573: 73 02              jae         00481577
+  00481575: EB 05              jmp         0048157C
+  00481577: E8 BD 87 18 00     call        00609D39
+  0048157C: 8B 8D 68 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF68h]
+  00481582: C6 44 0D BC 00     mov         byte ptr [ebp+ecx-44h],0
+  00481587: BA 01 00 00 00     mov         edx,1
+  0048158C: C1 E2 02           shl         edx,2
+  0048158F: 89 95 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],edx
+  00481595: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  0048159C: 73 02              jae         004815A0
+  0048159E: EB 05              jmp         004815A5
+  004815A0: E8 94 87 18 00     call        00609D39
+  004815A5: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  004815AB: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  004815B0: B9 01 00 00 00     mov         ecx,1
+  004815B5: 6B D1 05           imul        edx,ecx,5
+  004815B8: 89 95 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],edx
+  004815BE: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],40h
+            40
+  004815C5: 73 02              jae         004815C9
+  004815C7: EB 05              jmp         004815CE
+  004815C9: E8 6B 87 18 00     call        00609D39
+  004815CE: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  004815D4: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  004815D9: B9 01 00 00 00     mov         ecx,1
+  004815DE: 6B D1 06           imul        edx,ecx,6
+  004815E1: 89 95 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],edx
+  004815E7: 83 BD 5C FF FF FF  cmp         dword ptr [ebp+FFFFFF5Ch],40h
+            40
+  004815EE: 73 02              jae         004815F2
+  004815F0: EB 05              jmp         004815F7
+  004815F2: E8 42 87 18 00     call        00609D39
+  004815F7: 8B 85 5C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  004815FD: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  00481602: C7 85 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],3
+            03 00 00 00
+  0048160C: C7 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],0
+            00 00 00 00
+  00481616: EB 0F              jmp         00481627
+  00481618: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0048161E: 83 C1 01           add         ecx,1
+  00481621: 89 8D 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],ecx
+  00481627: 83 BD 70 FF FF FF  cmp         dword ptr [ebp+FFFFFF70h],40h
+            40
+  0048162E: 73 19              jae         00481649
+  00481630: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  00481636: 0F B6 44 15 BC     movzx       eax,byte ptr [ebp+edx-44h]
+  0048163B: 03 85 6C FF FF FF  add         eax,dword ptr [ebp+FFFFFF6Ch]
+  00481641: 89 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],eax
+  00481647: EB CF              jmp         00481618
+  00481649: B9 01 00 00 00     mov         ecx,1
+  0048164E: C1 E1 00           shl         ecx,0
+  00481651: 8A 95 6C FF FF FF  mov         dl,byte ptr [ebp+FFFFFF6Ch]
+  00481657: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0048165B: 8B 85 6C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF6Ch]
+  00481661: C1 E8 08           shr         eax,8
+  00481664: B9 01 00 00 00     mov         ecx,1
+  00481669: D1 E1              shl         ecx,1
+  0048166B: 88 44 0D BC        mov         byte ptr [ebp+ecx-44h],al
+  0048166F: 8B 95 74 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF74h]
+  00481675: 83 BA 4C 06 00 00  cmp         dword ptr [edx+0000064Ch],0
+            00
+  0048167C: 75 07              jne         00481685
+  0048167E: B0 01              mov         al,1
+  00481680: E9 D1 00 00 00     jmp         00481756
+  00481685: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0048168B: 81 C1 0C 06 00 00  add         ecx,60Ch
+  00481691: E8 2A 87 FF FF     call        00479DC0
+  00481696: 8D 85 54 FF FF FF  lea         eax,[ebp+FFFFFF54h]
+  0048169C: 50                 push        eax
+  0048169D: 6A 40              push        40h
+  0048169F: 8D 8D 7C FF FF FF  lea         ecx,[ebp+FFFFFF7Ch]
+  004816A5: 51                 push        ecx
+  004816A6: 6A 40              push        40h
+  004816A8: 8D 55 BC           lea         edx,[ebp-44h]
+  004816AB: 52                 push        edx
+  004816AC: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004816B2: E8 B9 BB FF FF     call        0047D270
+  004816B7: 89 85 58 FF FF FF  mov         dword ptr [ebp+FFFFFF58h],eax
+  004816BD: 8B 8D 74 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004816C3: 81 C1 0C 06 00 00  add         ecx,60Ch
+  004816C9: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  004816CF: 8B 90 0C 06 00 00  mov         edx,dword ptr [eax+0000060Ch]
+  004816D5: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  004816D8: FF D0              call        eax
+  004816DA: B9 01 00 00 00     mov         ecx,1
+  004816DF: C1 E1 03           shl         ecx,3
+  004816E2: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  004816EA: 81 FA FF 00 00 00  cmp         edx,0FFh
+  004816F0: 75 09              jne         004816FB
+  004816F2: C6 85 7B FF FF FF  mov         byte ptr [ebp+FFFFFF7Bh],1
+            01
+  004816F9: EB 07              jmp         00481702
+  004816FB: C6 85 7B FF FF FF  mov         byte ptr [ebp+FFFFFF7Bh],0
+            00
+  00481702: 83 BD 58 FF FF FF  cmp         dword ptr [ebp+FFFFFF58h],1
+            01
+  00481709: 74 07              je          00481712
+  0048170B: C6 85 7B FF FF FF  mov         byte ptr [ebp+FFFFFF7Bh],0
+            00
+  00481712: B8 01 00 00 00     mov         eax,1
+  00481717: 6B C8 07           imul        ecx,eax,7
+  0048171A: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  00481722: 81 FA FF 00 00 00  cmp         edx,0FFh
+  00481728: 75 07              jne         00481731
+  0048172A: C6 85 7B FF FF FF  mov         byte ptr [ebp+FFFFFF7Bh],0
+            00
+  00481731: B8 01 00 00 00     mov         eax,1
+  00481736: 6B C8 07           imul        ecx,eax,7
+  00481739: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  00481741: 81 FA FE 00 00 00  cmp         edx,0FEh
+  00481747: 75 07              jne         00481750
+  00481749: C6 85 7B FF FF FF  mov         byte ptr [ebp+FFFFFF7Bh],0
+            00
+  00481750: 8A 85 7B FF FF FF  mov         al,byte ptr [ebp+FFFFFF7Bh]
+  00481756: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  00481759: 33 CD              xor         ecx,ebp
+  0048175B: E8 75 7E 18 00     call        006095D5
+  00481760: 8B E5              mov         esp,ebp
+  00481762: 5D                 pop         ebp
+  00481763: C3                 ret
+  00481764: CC                 int         3
+  00481765: CC                 int         3
+  00481766: CC                 int         3
+  00481767: CC                 int         3
+  00481768: CC                 int         3
+  00481769: CC                 int         3
+  0048176A: CC                 int         3
+  0048176B: CC                 int         3
+  0048176C: CC                 int         3
+  0048176D: CC                 int         3
+  0048176E: CC                 int         3
+  0048176F: CC                 int         3
+  00481770: 55                 push        ebp
+  00481771: 8B EC              mov         ebp,esp
+  00481773: 51                 push        ecx
+  00481774: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  00481777: 0F B7 45 08        movzx       eax,word ptr [ebp+8]
+  0048177B: 3D 00 02 00 00     cmp         eax,200h
+  00481780: 7E 04              jle         00481786
+  00481782: 33 C0              xor         eax,eax
+  00481784: EB 0F              jmp         00481795
+  00481786: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  00481789: 66 8B 55 08        mov         dx,word ptr [ebp+8]
+  0048178D: 66 89 11           mov         word ptr [ecx],dx
+  00481790: B8 01 00 00 00     mov         eax,1
+  00481795: 8B E5              mov         esp,ebp
+  00481797: 5D                 pop         ebp
+  00481798: C2 04 00           ret         4
+  0048179B: CC                 int         3
+  0048179C: CC                 int         3
+  0048179D: CC                 int         3
+  0048179E: CC                 int         3
+  0048179F: CC                 int         3
+  004817A0: 55                 push        ebp
+  004817A1: 8B EC              mov         ebp,esp
+  004817A3: 51                 push        ecx
+  004817A4: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004817A7: 83 7D 08 01        cmp         dword ptr [ebp+8],1
+  004817AB: 75 19              jne         004817C6
+  004817AD: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004817B0: C7 80 4C 06 00 00  mov         dword ptr [eax+0000064Ch],0
+            00 00 00 00
+  004817BA: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004817BD: C6 81 58 06 00 00  mov         byte ptr [ecx+00000658h],38h
+            38
+  004817C4: EB 36              jmp         004817FC
+  004817C6: 83 7D 08 02        cmp         dword ptr [ebp+8],2
+  004817CA: 75 19              jne         004817E5
+  004817CC: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004817CF: C7 82 4C 06 00 00  mov         dword ptr [edx+0000064Ch],1
+            01 00 00 00
+  004817D9: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004817DC: C6 80 58 06 00 00  mov         byte ptr [eax+00000658h],18h
+            18
+  004817E3: EB 17              jmp         004817FC
+  004817E5: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004817E8: C7 81 4C 06 00 00  mov         dword ptr [ecx+0000064Ch],0
+            00 00 00 00
+  004817F2: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004817F5: C6 82 58 06 00 00  mov         byte ptr [edx+00000658h],38h
+            38
+  004817FC: 8B E5              mov         esp,ebp
+  004817FE: 5D                 pop         ebp
+  004817FF: C2
+  00481800: 04
+
+  Summary
+
+      266000 .text

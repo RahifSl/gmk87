@@ -1,0 +1,727 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0049E400: D0 8B E5 5D C2 04  ror         byte ptr [ebx+04C25DE5h],1
+  0049E406: 00 CC              add         ah,cl
+  0049E408: CC                 int         3
+  0049E409: CC                 int         3
+  0049E40A: CC                 int         3
+  0049E40B: CC                 int         3
+  0049E40C: CC                 int         3
+  0049E40D: CC                 int         3
+  0049E40E: CC                 int         3
+  0049E40F: CC                 int         3
+  0049E410: 55                 push        ebp
+  0049E411: 8B EC              mov         ebp,esp
+  0049E413: 83 EC 14           sub         esp,14h
+  0049E416: 56                 push        esi
+  0049E417: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  0049E41A: C7 45 EC 00 00 00  mov         dword ptr [ebp-14h],0
+            00
+  0049E421: EB 09              jmp         0049E42C
+  0049E423: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  0049E426: 83 C0 01           add         eax,1
+  0049E429: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  0049E42C: 81 7D EC AA 00 00  cmp         dword ptr [ebp-14h],0AAh
+            00
+  0049E433: 7D 32              jge         0049E467
+  0049E435: 8D 4D EC           lea         ecx,[ebp-14h]
+  0049E438: 51                 push        ecx
+  0049E439: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E43C: 81 C1 C0 17 00 00  add         ecx,17C0h
+  0049E442: E8 A9 6F FD FF     call        004753F0
+  0049E447: C7 00 FF 00 00 00  mov         dword ptr [eax],0FFh
+  0049E44D: 8D 55 EC           lea         edx,[ebp-14h]
+  0049E450: 52                 push        edx
+  0049E451: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E454: 81 C1 C8 17 00 00  add         ecx,17C8h
+  0049E45A: E8 91 6F FD FF     call        004753F0
+  0049E45F: C7 00 FF 00 00 00  mov         dword ptr [eax],0FFh
+  0049E465: EB BC              jmp         0049E423
+  0049E467: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  0049E46E: EB 09              jmp         0049E479
+  0049E470: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  0049E473: 83 C0 01           add         eax,1
+  0049E476: 89 45 F8           mov         dword ptr [ebp-8],eax
+  0049E479: 81 7D F8 AA 00 00  cmp         dword ptr [ebp-8],0AAh
+            00
+  0049E480: 0F 8D 98 00 00 00  jge         0049E51E
+  0049E486: C7 45 F4 00 00 00  mov         dword ptr [ebp-0Ch],0
+            00
+  0049E48D: EB 09              jmp         0049E498
+  0049E48F: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  0049E492: 83 C1 01           add         ecx,1
+  0049E495: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  0049E498: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  0049E49B: 0F B6 82 39 15 00  movzx       eax,byte ptr [edx+00001539h]
+            00
+  0049E4A2: 39 45 F4           cmp         dword ptr [ebp-0Ch],eax
+  0049E4A5: 7D 72              jge         0049E519
+  0049E4A7: 6B 4D F8 03        imul        ecx,dword ptr [ebp-8],3
+  0049E4AB: 6B 55 F4 03        imul        edx,dword ptr [ebp-0Ch],3
+  0049E4AF: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  0049E4B2: 0F B6 94 10 C0 1C  movzx       edx,byte ptr [eax+edx+00001CC0h]
+            00 00
+  0049E4BA: 39 14 8D F8 3F 6C  cmp         dword ptr [ecx*4+006C3FF8h],edx
+            00
+  0049E4C1: 75 51              jne         0049E514
+  0049E4C3: 6B 45 F8 03        imul        eax,dword ptr [ebp-8],3
+  0049E4C7: 6B 4D F4 03        imul        ecx,dword ptr [ebp-0Ch],3
+  0049E4CB: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  0049E4CE: 0F B6 8C 0A C1 1C  movzx       ecx,byte ptr [edx+ecx+00001CC1h]
+            00 00
+  0049E4D6: 39 0C 85 FC 3F 6C  cmp         dword ptr [eax*4+006C3FFCh],ecx
+            00
+  0049E4DD: 75 35              jne         0049E514
+  0049E4DF: 6B 55 F8 03        imul        edx,dword ptr [ebp-8],3
+  0049E4E3: 6B 45 F4 03        imul        eax,dword ptr [ebp-0Ch],3
+  0049E4E7: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E4EA: 0F B6 84 01 C2 1C  movzx       eax,byte ptr [ecx+eax+00001CC2h]
+            00 00
+  0049E4F2: 39 04 95 00 40 6C  cmp         dword ptr [edx*4+006C4000h],eax
+            00
+  0049E4F9: 75 19              jne         0049E514
+  0049E4FB: 8D 4D F8           lea         ecx,[ebp-8]
+  0049E4FE: 51                 push        ecx
+  0049E4FF: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E502: 81 C1 C0 17 00 00  add         ecx,17C0h
+  0049E508: E8 E3 6E FD FF     call        004753F0
+  0049E50D: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  0049E510: 89 10              mov         dword ptr [eax],edx
+  0049E512: EB 05              jmp         0049E519
+  0049E514: E9 76 FF FF FF     jmp         0049E48F
+  0049E519: E9 52 FF FF FF     jmp         0049E470
+  0049E51E: C7 45 F0 00 00 00  mov         dword ptr [ebp-10h],0
+            00
+  0049E525: EB 09              jmp         0049E530
+  0049E527: 8B 45 F0           mov         eax,dword ptr [ebp-10h]
+  0049E52A: 83 C0 01           add         eax,1
+  0049E52D: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  0049E530: 81 7D F0 AA 00 00  cmp         dword ptr [ebp-10h],0AAh
+            00
+  0049E537: 7D 4F              jge         0049E588
+  0049E539: 8D 4D F0           lea         ecx,[ebp-10h]
+  0049E53C: 51                 push        ecx
+  0049E53D: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E540: 81 C1 C0 17 00 00  add         ecx,17C0h
+  0049E546: E8 A5 6E FD FF     call        004753F0
+  0049E54B: 81 38 FF 00 00 00  cmp         dword ptr [eax],0FFh
+  0049E551: 74 33              je          0049E586
+  0049E553: 8D 55 F0           lea         edx,[ebp-10h]
+  0049E556: 52                 push        edx
+  0049E557: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E55A: 81 C1 C0 17 00 00  add         ecx,17C0h
+  0049E560: E8 8B 6E FD FF     call        004753F0
+  0049E565: 8B 00              mov         eax,dword ptr [eax]
+  0049E567: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E56A: 0F B6 B4 01 C0 1E  movzx       esi,byte ptr [ecx+eax+00001EC0h]
+            00 00
+  0049E572: 8D 55 F0           lea         edx,[ebp-10h]
+  0049E575: 52                 push        edx
+  0049E576: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E579: 81 C1 C8 17 00 00  add         ecx,17C8h
+  0049E57F: E8 6C 6E FD FF     call        004753F0
+  0049E584: 89 30              mov         dword ptr [eax],esi
+  0049E586: EB 9F              jmp         0049E527
+  0049E588: 5E                 pop         esi
+  0049E589: 8B E5              mov         esp,ebp
+  0049E58B: 5D                 pop         ebp
+  0049E58C: C3                 ret
+  0049E58D: CC                 int         3
+  0049E58E: CC                 int         3
+  0049E58F: CC                 int         3
+  0049E590: 55                 push        ebp
+  0049E591: 8B EC              mov         ebp,esp
+  0049E593: 81 EC 24 02 00 00  sub         esp,224h
+  0049E599: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0049E59E: 33 C5              xor         eax,ebp
+  0049E5A0: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0049E5A3: 56                 push        esi
+  0049E5A4: 89 8D F4 FD FF FF  mov         dword ptr [ebp+FFFFFDF4h],ecx
+  0049E5AA: C6 85 FC FD FF FF  mov         byte ptr [ebp+FFFFFDFCh],0
+            00
+  0049E5B1: 68 FF 01 00 00     push        1FFh
+  0049E5B6: 6A 00              push        0
+  0049E5B8: 8D 85 FD FD FF FF  lea         eax,[ebp+FFFFFDFDh]
+  0049E5BE: 50                 push        eax
+  0049E5BF: E8 AC 0B 17 00     call        0060F170
+  0049E5C4: 83 C4 0C           add         esp,0Ch
+  0049E5C7: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E5CD: E8 AE BD 02 00     call        004CA380
+  0049E5D2: 85 C0              test        eax,eax
+  0049E5D4: 75 05              jne         0049E5DB
+  0049E5D6: E9 28 03 00 00     jmp         0049E903
+  0049E5DB: C7 85 E8 FD FF FF  mov         dword ptr [ebp+FFFFFDE8h],0
+            00 00 00 00
+  0049E5E5: EB 0F              jmp         0049E5F6
+  0049E5E7: 8B 8D E8 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDE8h]
+  0049E5ED: 83 C1 01           add         ecx,1
+  0049E5F0: 89 8D E8 FD FF FF  mov         dword ptr [ebp+FFFFFDE8h],ecx
+  0049E5F6: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E5FC: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E602: E8 29 F7 FA FF     call        0044DD30
+  0049E607: 39 85 E8 FD FF FF  cmp         dword ptr [ebp+FFFFFDE8h],eax
+  0049E60D: 0F 83 70 02 00 00  jae         0049E883
+  0049E613: 8A 95 E8 FD FF FF  mov         dl,byte ptr [ebp+FFFFFDE8h]
+  0049E619: 88 95 FB FD FF FF  mov         byte ptr [ebp+FFFFFDFBh],dl
+  0049E61F: 8B 85 E8 FD FF FF  mov         eax,dword ptr [ebp+FFFFFDE8h]
+  0049E625: 50                 push        eax
+  0049E626: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E62C: 81 C1 B4 17 00 00  add         ecx,17B4h
+  0049E632: E8 69 FF F7 FF     call        0041E5A0
+  0049E637: 83 38 00           cmp         dword ptr [eax],0
+  0049E63A: 0F 84 E1 00 00 00  je          0049E721
+  0049E640: 8B 8D E8 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDE8h]
+  0049E646: 51                 push        ecx
+  0049E647: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E64D: 81 C1 B4 17 00 00  add         ecx,17B4h
+  0049E653: E8 48 FF F7 FF     call        0041E5A0
+  0049E658: 8B 10              mov         edx,dword ptr [eax]
+  0049E65A: 89 95 E4 FD FF FF  mov         dword ptr [ebp+FFFFFDE4h],edx
+  0049E660: 8B 85 E4 FD FF FF  mov         eax,dword ptr [ebp+FFFFFDE4h]
+  0049E666: 8B 10              mov         edx,dword ptr [eax]
+  0049E668: 8B 8D E4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDE4h]
+  0049E66E: 8B 82 14 01 00 00  mov         eax,dword ptr [edx+00000114h]
+  0049E674: FF D0              call        eax
+  0049E676: 0F B6 C8           movzx       ecx,al
+  0049E679: 85 C9              test        ecx,ecx
+  0049E67B: 0F 84 A0 00 00 00  je          0049E721
+  0049E681: 6A 01              push        1
+  0049E683: 0F B6 95 FB FD FF  movzx       edx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E68A: 52                 push        edx
+  0049E68B: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E691: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E697: E8 04 FF F7 FF     call        0041E5A0
+  0049E69C: 0F B6 40 03        movzx       eax,byte ptr [eax+3]
+  0049E6A0: 50                 push        eax
+  0049E6A1: 0F B6 8D FB FD FF  movzx       ecx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E6A8: 51                 push        ecx
+  0049E6A9: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E6AF: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E6B5: E8 E6 FE F7 FF     call        0041E5A0
+  0049E6BA: 0F B6 30           movzx       esi,byte ptr [eax]
+  0049E6BD: 0F B6 95 FB FD FF  movzx       edx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E6C4: 52                 push        edx
+  0049E6C5: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E6CB: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E6D1: E8 CA FE F7 FF     call        0041E5A0
+  0049E6D6: 0F B6 40 02        movzx       eax,byte ptr [eax+2]
+  0049E6DA: C1 E0 08           shl         eax,8
+  0049E6DD: 0B F0              or          esi,eax
+  0049E6DF: 0F B6 8D FB FD FF  movzx       ecx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E6E6: 51                 push        ecx
+  0049E6E7: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E6ED: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E6F3: E8 A8 FE F7 FF     call        0041E5A0
+  0049E6F8: 0F B6 50 01        movzx       edx,byte ptr [eax+1]
+  0049E6FC: C1 E2 10           shl         edx,10h
+  0049E6FF: 0B F2              or          esi,edx
+  0049E701: 56                 push        esi
+  0049E702: 8B 85 E8 FD FF FF  mov         eax,dword ptr [ebp+FFFFFDE8h]
+  0049E708: 50                 push        eax
+  0049E709: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E70F: 81 C1 B4 17 00 00  add         ecx,17B4h
+  0049E715: E8 86 FE F7 FF     call        0041E5A0
+  0049E71A: 8B 08              mov         ecx,dword ptr [eax]
+  0049E71C: E8 7F F3 FE FF     call        0048DAA0
+  0049E721: 0F B6 8D FB FD FF  movzx       ecx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E728: 89 8D DC FD FF FF  mov         dword ptr [ebp+FFFFFDDCh],ecx
+  0049E72E: 8D 95 DC FD FF FF  lea         edx,[ebp+FFFFFDDCh]
+  0049E734: 52                 push        edx
+  0049E735: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E73B: 81 C1 C8 17 00 00  add         ecx,17C8h
+  0049E741: E8 AA 6C FD FF     call        004753F0
+  0049E746: 8A 00              mov         al,byte ptr [eax]
+  0049E748: 88 85 F3 FD FF FF  mov         byte ptr [ebp+FFFFFDF3h],al
+  0049E74E: 0F B6 8D F3 FD FF  movzx       ecx,byte ptr [ebp+FFFFFDF3h]
+            FF
+  0049E755: 81 F9 FF 00 00 00  cmp         ecx,0FFh
+  0049E75B: 7C 05              jl          0049E762
+  0049E75D: E9 85 FE FF FF     jmp         0049E5E7
+  0049E762: 0F B6 95 FB FD FF  movzx       edx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E769: 52                 push        edx
+  0049E76A: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E770: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E776: E8 25 FE F7 FF     call        0041E5A0
+  0049E77B: 0F B6 30           movzx       esi,byte ptr [eax]
+  0049E77E: 0F B6 85 FB FD FF  movzx       eax,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E785: 50                 push        eax
+  0049E786: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E78C: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E792: E8 09 FE F7 FF     call        0041E5A0
+  0049E797: 0F B6 48 03        movzx       ecx,byte ptr [eax+3]
+  0049E79B: 0F AF F1           imul        esi,ecx
+  0049E79E: 66 89 B5 EC FD FF  mov         word ptr [ebp+FFFFFDECh],si
+            FF
+  0049E7A5: 0F B7 95 EC FD FF  movzx       edx,word ptr [ebp+FFFFFDECh]
+            FF
+  0049E7AC: C1 FA 08           sar         edx,8
+  0049E7AF: 0F B6 85 F3 FD FF  movzx       eax,byte ptr [ebp+FFFFFDF3h]
+            FF
+  0049E7B6: 6B C8 03           imul        ecx,eax,3
+  0049E7B9: 88 94 0D FC FD FF  mov         byte ptr [ebp+ecx+FFFFFDFCh],dl
+            FF
+  0049E7C0: 0F B6 95 FB FD FF  movzx       edx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E7C7: 52                 push        edx
+  0049E7C8: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E7CE: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E7D4: E8 C7 FD F7 FF     call        0041E5A0
+  0049E7D9: 0F B6 70 01        movzx       esi,byte ptr [eax+1]
+  0049E7DD: 0F B6 85 FB FD FF  movzx       eax,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E7E4: 50                 push        eax
+  0049E7E5: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E7EB: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E7F1: E8 AA FD F7 FF     call        0041E5A0
+  0049E7F6: 0F B6 48 03        movzx       ecx,byte ptr [eax+3]
+  0049E7FA: 0F AF F1           imul        esi,ecx
+  0049E7FD: 66 89 B5 EC FD FF  mov         word ptr [ebp+FFFFFDECh],si
+            FF
+  0049E804: 0F B7 95 EC FD FF  movzx       edx,word ptr [ebp+FFFFFDECh]
+            FF
+  0049E80B: C1 FA 08           sar         edx,8
+  0049E80E: 0F B6 85 F3 FD FF  movzx       eax,byte ptr [ebp+FFFFFDF3h]
+            FF
+  0049E815: 6B C8 03           imul        ecx,eax,3
+  0049E818: 88 94 0D FD FD FF  mov         byte ptr [ebp+ecx+FFFFFDFDh],dl
+            FF
+  0049E81F: 0F B6 95 FB FD FF  movzx       edx,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E826: 52                 push        edx
+  0049E827: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E82D: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E833: E8 68 FD F7 FF     call        0041E5A0
+  0049E838: 0F B6 70 02        movzx       esi,byte ptr [eax+2]
+  0049E83C: 0F B6 85 FB FD FF  movzx       eax,byte ptr [ebp+FFFFFDFBh]
+            FF
+  0049E843: 50                 push        eax
+  0049E844: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E84A: 81 C1 D8 17 00 00  add         ecx,17D8h
+  0049E850: E8 4B FD F7 FF     call        0041E5A0
+  0049E855: 0F B6 48 03        movzx       ecx,byte ptr [eax+3]
+  0049E859: 0F AF F1           imul        esi,ecx
+  0049E85C: 66 89 B5 EC FD FF  mov         word ptr [ebp+FFFFFDECh],si
+            FF
+  0049E863: 0F B7 95 EC FD FF  movzx       edx,word ptr [ebp+FFFFFDECh]
+            FF
+  0049E86A: C1 FA 08           sar         edx,8
+  0049E86D: 0F B6 85 F3 FD FF  movzx       eax,byte ptr [ebp+FFFFFDF3h]
+            FF
+  0049E874: 6B C8 03           imul        ecx,eax,3
+  0049E877: 88 94 0D FE FD FF  mov         byte ptr [ebp+ecx+FFFFFDFEh],dl
+            FF
+  0049E87E: E9 64 FD FF FF     jmp         0049E5E7
+  0049E883: C7 85 E0 FD FF FF  mov         dword ptr [ebp+FFFFFDE0h],1
+            01 00 00 00
+  0049E88D: 8B 95 F4 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDF4h]
+  0049E893: 83 BA C8 0E 00 00  cmp         dword ptr [edx+00000EC8h],0
+            00
+  0049E89A: 75 53              jne         0049E8EF
+  0049E89C: 8B 85 F4 FD FF FF  mov         eax,dword ptr [ebp+FFFFFDF4h]
+  0049E8A2: 0F B6 88 E4 17 00  movzx       ecx,byte ptr [eax+000017E4h]
+            00
+  0049E8A9: 83 F9 1D           cmp         ecx,1Dh
+  0049E8AC: 74 12              je          0049E8C0
+  0049E8AE: 8B 95 F4 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDF4h]
+  0049E8B4: 0F B6 82 E4 17 00  movzx       eax,byte ptr [edx+000017E4h]
+            00
+  0049E8BB: 83 F8 1E           cmp         eax,1Eh
+  0049E8BE: 75 2F              jne         0049E8EF
+  0049E8C0: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E8C6: 0F B6 91 39 15 00  movzx       edx,byte ptr [ecx+00001539h]
+            00
+  0049E8CD: 6B C2 03           imul        eax,edx,3
+  0049E8D0: 50                 push        eax
+  0049E8D1: 8D 8D FC FD FF FF  lea         ecx,[ebp+FFFFFDFCh]
+  0049E8D7: 51                 push        ecx
+  0049E8D8: 8B 8D F4 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDF4h]
+  0049E8DE: 81 C1 7C 08 00 00  add         ecx,87Ch
+  0049E8E4: E8 47 20 FE FF     call        00480930
+  0049E8E9: 89 85 E0 FD FF FF  mov         dword ptr [ebp+FFFFFDE0h],eax
+  0049E8EF: 83 BD E0 FD FF FF  cmp         dword ptr [ebp+FFFFFDE0h],1
+            01
+  0049E8F6: 74 0B              je          0049E903
+  0049E8F8: 68 C8 00 00 00     push        0C8h
+  0049E8FD: FF 15 E4 7B 66 00  call        dword ptr ds:[00667BE4h]
+  0049E903: 5E                 pop         esi
+  0049E904: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E907: 33 CD              xor         ecx,ebp
+  0049E909: E8 C7 AC 16 00     call        006095D5
+  0049E90E: 8B E5              mov         esp,ebp
+  0049E910: 5D                 pop         ebp
+  0049E911: C3                 ret
+  0049E912: CC                 int         3
+  0049E913: CC                 int         3
+  0049E914: CC                 int         3
+  0049E915: CC                 int         3
+  0049E916: CC                 int         3
+  0049E917: CC                 int         3
+  0049E918: CC                 int         3
+  0049E919: CC                 int         3
+  0049E91A: CC                 int         3
+  0049E91B: CC                 int         3
+  0049E91C: CC                 int         3
+  0049E91D: CC                 int         3
+  0049E91E: CC                 int         3
+  0049E91F: CC                 int         3
+  0049E920: 55                 push        ebp
+  0049E921: 8B EC              mov         ebp,esp
+  0049E923: 51                 push        ecx
+  0049E924: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  0049E927: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  0049E92A: C6 80 A8 18 00 00  mov         byte ptr [eax+000018A8h],0
+            00
+  0049E931: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E934: C6 81 E0 28 00 00  mov         byte ptr [ecx+000028E0h],0
+            00
+  0049E93B: 68 AA 00 00 00     push        0AAh
+  0049E940: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  0049E943: 81 C2 5A 19 00 00  add         edx,195Ah
+  0049E949: 52                 push        edx
+  0049E94A: E8 F1 0C FB FF     call        0044F640
+  0049E94F: 83 C4 08           add         esp,8
+  0049E952: 68 AA 00 00 00     push        0AAh
+  0049E957: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  0049E95A: 05 3D 29 00 00     add         eax,293Dh
+  0049E95F: 50                 push        eax
+  0049E960: E8 DB 0C FB FF     call        0044F640
+  0049E965: 83 C4 08           add         esp,8
+  0049E968: 68 AA 00 00 00     push        0AAh
+  0049E96D: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E970: 81 C1 B0 18 00 00  add         ecx,18B0h
+  0049E976: 51                 push        ecx
+  0049E977: E8 C4 0C FB FF     call        0044F640
+  0049E97C: 83 C4 08           add         esp,8
+  0049E97F: 6A 17              push        17h
+  0049E981: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  0049E984: 81 C2 E1 28 00 00  add         edx,28E1h
+  0049E98A: 52                 push        edx
+  0049E98B: E8 B0 0C FB FF     call        0044F640
+  0049E990: 83 C4 08           add         esp,8
+  0049E993: 6A 17              push        17h
+  0049E995: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  0049E998: 05 F8 28 00 00     add         eax,28F8h
+  0049E99D: 50                 push        eax
+  0049E99E: E8 9D 0C FB FF     call        0044F640
+  0049E9A3: 83 C4 08           add         esp,8
+  0049E9A6: 6A 17              push        17h
+  0049E9A8: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E9AB: 81 C1 0F 29 00 00  add         ecx,290Fh
+  0049E9B1: 51                 push        ecx
+  0049E9B2: E8 89 0C FB FF     call        0044F640
+  0049E9B7: 83 C4 08           add         esp,8
+  0049E9BA: 6A 17              push        17h
+  0049E9BC: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  0049E9BF: 81 C2 26 29 00 00  add         edx,2926h
+  0049E9C5: 52                 push        edx
+  0049E9C6: E8 75 0C FB FF     call        0044F640
+  0049E9CB: 83 C4 08           add         esp,8
+  0049E9CE: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  0049E9D1: 8B 10              mov         edx,dword ptr [eax]
+  0049E9D3: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0049E9D6: 8B 82 54 03 00 00  mov         eax,dword ptr [edx+00000354h]
+  0049E9DC: FF D0              call        eax
+  0049E9DE: 8B E5              mov         esp,ebp
+  0049E9E0: 5D                 pop         ebp
+  0049E9E1: C3                 ret
+  0049E9E2: CC                 int         3
+  0049E9E3: CC                 int         3
+  0049E9E4: CC                 int         3
+  0049E9E5: CC                 int         3
+  0049E9E6: CC                 int         3
+  0049E9E7: CC                 int         3
+  0049E9E8: CC                 int         3
+  0049E9E9: CC                 int         3
+  0049E9EA: CC                 int         3
+  0049E9EB: CC                 int         3
+  0049E9EC: CC                 int         3
+  0049E9ED: CC                 int         3
+  0049E9EE: CC                 int         3
+  0049E9EF: CC                 int         3
+  0049E9F0: 55                 push        ebp
+  0049E9F1: 8B EC              mov         ebp,esp
+  0049E9F3: 83 EC 0C           sub         esp,0Ch
+  0049E9F6: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  0049E9F9: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  0049E9FD: EB 08              jmp         0049EA07
+  0049E9FF: 8A 45 FF           mov         al,byte ptr [ebp-1]
+  0049EA02: 04 01              add         al,1
+  0049EA04: 88 45 FF           mov         byte ptr [ebp-1],al
+  0049EA07: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  0049EA0B: 83 F9 17           cmp         ecx,17h
+  0049EA0E: 0F 8D 06 01 00 00  jge         0049EB1A
+  0049EA14: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049EA18: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  0049EA1B: 0F B6 8C 10 E1 28  movzx       ecx,byte ptr [eax+edx+000028E1h]
+            00 00
+  0049EA23: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049EA27: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  0049EA2A: 0F B6 94 10 F8 28  movzx       edx,byte ptr [eax+edx+000028F8h]
+            00 00
+  0049EA32: 0B CA              or          ecx,edx
+  0049EA34: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049EA38: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  0049EA3B: 0F B6 84 02 0F 29  movzx       eax,byte ptr [edx+eax+0000290Fh]
+            00 00
+  0049EA43: 0B C8              or          ecx,eax
+  0049EA45: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049EA49: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  0049EA4C: 0F B6 94 10 26 29  movzx       edx,byte ptr [eax+edx+00002926h]
+            00 00
+  0049EA54: 0B CA              or          ecx,edx
+  0049EA56: 88 4D FB           mov         byte ptr [ebp-5],cl
+  0049EA59: C6 45 FE 00        mov         byte ptr [ebp-2],0
+  0049EA5D: EB 08              jmp         0049EA67
+  0049EA5F: 8A 45 FE           mov         al,byte ptr [ebp-2]
+  0049EA62: 04 01              add         al,1
+  0049EA64: 88 45 FE           mov         byte ptr [ebp-2],al
+  0049EA67: 0F B6 4D FE        movzx       ecx,byte ptr [ebp-2]
+  0049EA6B: 83 F9 06           cmp         ecx,6
+  0049EA6E: 0F 8D A1 00 00 00  jge         0049EB15
+  0049EA74: 0F B6 55 FB        movzx       edx,byte ptr [ebp-5]
+  0049EA78: 0F B6 4D FE        movzx       ecx,byte ptr [ebp-2]
+  0049EA7C: B8 01 00 00 00     mov         eax,1
+  0049EA81: D3 E0              shl         eax,cl
+  0049EA83: 23 D0              and         edx,eax
+  0049EA85: 0F 84 85 00 00 00  je          0049EB10
+  0049EA8B: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  0049EA8F: 6B D1 06           imul        edx,ecx,6
+  0049EA92: 0F B6 45 FE        movzx       eax,byte ptr [ebp-2]
+  0049EA96: 8A 8C 02 E8 37 6B  mov         cl,byte ptr [edx+eax+006B37E8h]
+            00
+  0049EA9D: 88 4D FD           mov         byte ptr [ebp-3],cl
+  0049EAA0: 0F B6 55 FD        movzx       edx,byte ptr [ebp-3]
+  0049EAA4: 81 FA AA 00 00 00  cmp         edx,0AAh
+  0049EAAA: 7C 02              jl          0049EAAE
+  0049EAAC: EB B1              jmp         0049EA5F
+  0049EAAE: 0F B6 45 FD        movzx       eax,byte ptr [ebp-3]
+  0049EAB2: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  0049EAB5: C6 84 01 B0 18 00  mov         byte ptr [ecx+eax+000018B0h],0FFh
+            00 FF
+  0049EABD: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  0049EAC0: 0F B6 82 E8 17 00  movzx       eax,byte ptr [edx+000017E8h]
+            00
+  0049EAC7: 85 C0              test        eax,eax
+  0049EAC9: 74 45              je          0049EB10
+  0049EACB: 6A 01              push        1
+  0049EACD: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  0049EAD0: 0F B6 91 A8 18 00  movzx       edx,byte ptr [ecx+000018A8h]
+            00
+  0049EAD7: 52                 push        edx
+  0049EAD8: 68 C0 00 00 00     push        0C0h
+  0049EADD: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  0049EAE0: 0F B6 88 E7 17 00  movzx       ecx,byte ptr [eax+000017E7h]
+            00
+  0049EAE7: 51                 push        ecx
+  0049EAE8: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  0049EAEB: E8 70 BD 02 00     call        004CA860
+  0049EAF0: 88 45 FC           mov         byte ptr [ebp-4],al
+  0049EAF3: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  0049EAF6: 8A 45 FC           mov         al,byte ptr [ebp-4]
+  0049EAF9: 88 82 A8 18 00 00  mov         byte ptr [edx+000018A8h],al
+  0049EAFF: 0F B6 4D FD        movzx       ecx,byte ptr [ebp-3]
+  0049EB03: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  0049EB06: 8A 45 FC           mov         al,byte ptr [ebp-4]
+  0049EB09: 88 84 0A 5A 19 00  mov         byte ptr [edx+ecx+0000195Ah],al
+            00
+  0049EB10: E9 4A FF FF FF     jmp         0049EA5F
+  0049EB15: E9 E5 FE FF FF     jmp         0049E9FF
+  0049EB1A: 8B E5              mov         esp,ebp
+  0049EB1C: 5D                 pop         ebp
+  0049EB1D: C3                 ret
+  0049EB1E: CC                 int         3
+  0049EB1F: CC                 int         3
+  0049EB20: 55                 push        ebp
+  0049EB21: 8B EC              mov         ebp,esp
+  0049EB23: 83 EC 08           sub         esp,8
+  0049EB26: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  0049EB29: B8 01 00 00 00     mov         eax,1
+  0049EB2E: 6B C8 00           imul        ecx,eax,0
+  0049EB31: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049EB34: 8A 84 0A E1 28 00  mov         al,byte ptr [edx+ecx+000028E1h]
+            00
+  0049EB3B: D0 E8              shr         al,1
+  0049EB3D: B9 01 00 00 00     mov         ecx,1
+  0049EB42: 6B D1 00           imul        edx,ecx,0
+  0049EB45: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049EB48: 88 84 11 E1 28 00  mov         byte ptr [ecx+edx+000028E1h],al
+            00
+  0049EB4F: BA 01 00 00 00     mov         edx,1
+  0049EB54: 6B C2 00           imul        eax,edx,0
+  0049EB57: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049EB5A: 8A 94 01 26 29 00  mov         dl,byte ptr [ecx+eax+00002926h]
+            00
+  0049EB61: D0 E2              shl         dl,1
+  0049EB63: B8 01 00 00 00     mov         eax,1
+  0049EB68: 6B C8 00           imul        ecx,eax,0
+  0049EB6B: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  0049EB6E: 88 94 08 26 29 00  mov         byte ptr [eax+ecx+00002926h],dl
+            00
+  0049EB75: C6 45 FF 01        mov         byte ptr [ebp-1],1
+  0049EB79: EB 09              jmp         0049EB84
+  0049EB7B: 8A 4D FF           mov         cl,byte ptr [ebp-1]
+  0049EB7E: 80 C1 01           add         cl,1
+  0049EB81: 88 4D FF           mov         byte ptr [ebp-1],cl
+  0049EB84: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049EB88: 83 FA 17           cmp         edx,17h
+  0049EB8B: 0F 8D 9D 00 00 00  jge         0049EC2E
+  0049EB91: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049EB95: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  0049EB99: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049EB9C: 0F B6 8C 0A E1 28  movzx       ecx,byte ptr [edx+ecx+000028E1h]
+            00 00
+  0049EBA4: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049EBA7: 0F B6 84 02 E0 28  movzx       eax,byte ptr [edx+eax+000028E0h]
+            00 00
+  0049EBAF: 0B C1              or          eax,ecx
+  0049EBB1: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  0049EBB5: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049EBB8: 88 84 0A E0 28 00  mov         byte ptr [edx+ecx+000028E0h],al
+            00
+  0049EBBF: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049EBC3: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049EBC6: 8A 94 01 E1 28 00  mov         dl,byte ptr [ecx+eax+000028E1h]
+            00
+  0049EBCD: D0 EA              shr         dl,1
+  0049EBCF: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049EBD3: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049EBD6: 88 94 01 E1 28 00  mov         byte ptr [ecx+eax+000028E1h],dl
+            00
+  0049EBDD: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049EBE1: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049EBE5: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049EBE8: 0F B6 84 01 26 29  movzx       eax,byte ptr [ecx+eax+00002926h]
+            00 00
+  0049EBF0: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049EBF3: 0F B6 94 11 25 29  movzx       edx,byte ptr [ecx+edx+00002925h]
+            00 00
+  0049EBFB: 0B D0              or          edx,eax
+  0049EBFD: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049EC01: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049EC04: 88 94 01 25 29 00  mov         byte ptr [ecx+eax+00002925h],dl
+            00
+  0049EC0B: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049EC0F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  0049EC12: 8A 8C 10 26 29 00  mov         cl,byte ptr [eax+edx+00002926h]
+            00
+  0049EC19: D0 E1              shl         cl,1
+  0049EC1B: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049EC1F: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  0049EC22: 88 8C 10 26 29 00  mov         byte ptr [eax+edx+00002926h],cl
+            00
+  0049EC29: E9 4D FF FF FF     jmp         0049EB7B
+  0049EC2E: B9 01 00 00 00     mov         ecx,1
+  0049EC33: 6B D1 16           imul        edx,ecx,16h
+  0049EC36: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  0049EC39: 8A 8C 10 F8 28 00  mov         cl,byte ptr [eax+edx+000028F8h]
+            00
+  0049EC40: D0 E9              shr         cl,1
+  0049EC42: BA 01 00 00 00     mov         edx,1
+  0049EC47: 6B C2 16           imul        eax,edx,16h
+  0049EC4A: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049EC4D: 88 8C 02 F8 28 00  mov         byte ptr [edx+eax+000028F8h],cl
+            00
+  0049EC54: B8 01 00 00 00     mov         eax,1
+  0049EC59: 6B C8 16           imul        ecx,eax,16h
+  0049EC5C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049EC5F: 8A 84 0A 0F 29 00  mov         al,byte ptr [edx+ecx+0000290Fh]
+            00
+  0049EC66: D0 E0              shl         al,1
+  0049EC68: B9 01 00 00 00     mov         ecx,1
+  0049EC6D: 6B D1 16           imul        edx,ecx,16h
+  0049EC70: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049EC73: 88 84 11 0F 29 00  mov         byte ptr [ecx+edx+0000290Fh],al
+            00
+  0049EC7A: C6 45 FF 15        mov         byte ptr [ebp-1],15h
+  0049EC7E: EB 09              jmp         0049EC89
+  0049EC80: 8A 55 FF           mov         dl,byte ptr [ebp-1]
+  0049EC83: 80 EA 01           sub         dl,1
+  0049EC86: 88 55 FF           mov         byte ptr [ebp-1],dl
+  0049EC89: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049EC8D: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  0049EC91: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049EC94: 0F B6 8C 0A F8 28  movzx       ecx,byte ptr [edx+ecx+000028F8h]
+            00 00
+  0049EC9C: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049EC9F: 0F B6 84 02 F9 28  movzx       eax,byte ptr [edx+eax+000028F9h]
+            00 00
+  0049ECA7: 0B C1              or          eax,ecx
+  0049ECA9: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  0049ECAD: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  0049ECB0: 88 84 0A F9 28 00  mov         byte ptr [edx+ecx+000028F9h],al
+            00
+  0049ECB7: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049ECBB: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049ECBE: 8A 94 01 F8 28 00  mov         dl,byte ptr [ecx+eax+000028F8h]
+            00
+  0049ECC5: D0 EA              shr         dl,1
+  0049ECC7: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049ECCB: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049ECCE: 88 94 01 F8 28 00  mov         byte ptr [ecx+eax+000028F8h],dl
+            00
+  0049ECD5: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049ECD9: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049ECDD: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049ECE0: 0F B6 84 01 0F 29  movzx       eax,byte ptr [ecx+eax+0000290Fh]
+            00 00
+  0049ECE8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049ECEB: 0F B6 94 11 10 29  movzx       edx,byte ptr [ecx+edx+00002910h]
+            00 00
+  0049ECF3: 0B D0              or          edx,eax
+  0049ECF5: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  0049ECF9: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  0049ECFC: 88 94 01 10 29 00  mov         byte ptr [ecx+eax+00002910h],dl
+            00
+  0049ED03: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049ED07: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  0049ED0A: 8A 8C 10 0F 29 00  mov         cl,byte ptr [eax+edx+0000290Fh]
+            00
+  0049ED11: D0 E1              shl         cl,1
+  0049ED13: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  0049ED17: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  0049ED1A: 88 8C 10 0F 29 00  mov         byte ptr [eax+edx+0000290Fh],cl
+            00
+  0049ED21: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  0049ED25: 85 C9              test        ecx,ecx
+  0049ED27: 75 02              jne         0049ED2B
+  0049ED29: EB 05              jmp         0049ED30
+  0049ED2B: E9 50 FF FF FF     jmp         0049EC80
+  0049ED30: 8B E5              mov         esp,ebp
+  0049ED32: 5D                 pop         ebp
+  0049ED33: C3                 ret
+  0049ED34: CC                 int         3
+  0049ED35: CC                 int         3
+  0049ED36: CC                 int         3
+  0049ED37: CC                 int         3
+  0049ED38: CC                 int         3
+  0049ED39: CC                 int         3
+  0049ED3A: CC                 int         3
+  0049ED3B: CC                 int         3
+  0049ED3C: CC                 int         3
+  0049ED3D: CC                 int         3
+  0049ED3E: CC                 int         3
+  0049ED3F: CC                 int         3
+  0049ED40: 55                 push        ebp
+  0049ED41: 8B EC              mov         ebp,esp
+  0049ED43: 83 EC 08           sub         esp,8
+  0049ED46: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  0049ED49: B8 01 00 00 00     mov         eax,1
+  0049ED4E: 6B C8 00           imul        ecx,eax,0
+
+  Summary
+
+      266000 .text

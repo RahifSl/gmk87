@@ -1,0 +1,147 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0047E910: 55                 push        ebp
+  0047E911: 8B EC              mov         ebp,esp
+  0047E913: 81 EC A8 00 00 00  sub         esp,0A8h
+  0047E919: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047E91E: 33 C5              xor         eax,ebp
+  0047E920: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047E923: 89 8D 70 FF FF FF  mov         dword ptr [ebp+FFFFFF70h],ecx
+  0047E929: C6 45 BC 00        mov         byte ptr [ebp-44h],0
+  0047E92D: 6A 3F              push        3Fh
+  0047E92F: 6A 00              push        0
+  0047E931: 8D 45 BD           lea         eax,[ebp-43h]
+  0047E934: 50                 push        eax
+  0047E935: E8 36 08 19 00     call        0060F170
+  0047E93A: 83 C4 0C           add         esp,0Ch
+  0047E93D: B9 01 00 00 00     mov         ecx,1
+  0047E942: 6B D1 00           imul        edx,ecx,0
+  0047E945: C6 44 15 BC 04     mov         byte ptr [ebp+edx-44h],4
+  0047E94A: B8 01 00 00 00     mov         eax,1
+  0047E94F: 6B C8 03           imul        ecx,eax,3
+  0047E952: C6 44 0D BC 01     mov         byte ptr [ebp+ecx-44h],1
+  0047E957: BA 01 00 00 00     mov         edx,1
+  0047E95C: 6B C2 07           imul        eax,edx,7
+  0047E95F: 89 85 6C FF FF FF  mov         dword ptr [ebp+FFFFFF6Ch],eax
+  0047E965: 83 BD 6C FF FF FF  cmp         dword ptr [ebp+FFFFFF6Ch],40h
+            40
+  0047E96C: 73 02              jae         0047E970
+  0047E96E: EB 05              jmp         0047E975
+  0047E970: E8 C4 B3 18 00     call        00609D39
+  0047E975: 8B 8D 6C FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047E97B: C6 44 0D BC 00     mov         byte ptr [ebp+ecx-44h],0
+  0047E980: BA 01 00 00 00     mov         edx,1
+  0047E985: C1 E2 02           shl         edx,2
+  0047E988: 89 95 68 FF FF FF  mov         dword ptr [ebp+FFFFFF68h],edx
+  0047E98E: 83 BD 68 FF FF FF  cmp         dword ptr [ebp+FFFFFF68h],40h
+            40
+  0047E995: 73 02              jae         0047E999
+  0047E997: EB 05              jmp         0047E99E
+  0047E999: E8 9B B3 18 00     call        00609D39
+  0047E99E: 8B 85 68 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF68h]
+  0047E9A4: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047E9A9: B9 01 00 00 00     mov         ecx,1
+  0047E9AE: 6B D1 05           imul        edx,ecx,5
+  0047E9B1: 89 95 64 FF FF FF  mov         dword ptr [ebp+FFFFFF64h],edx
+  0047E9B7: 83 BD 64 FF FF FF  cmp         dword ptr [ebp+FFFFFF64h],40h
+            40
+  0047E9BE: 73 02              jae         0047E9C2
+  0047E9C0: EB 05              jmp         0047E9C7
+  0047E9C2: E8 72 B3 18 00     call        00609D39
+  0047E9C7: 8B 85 64 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF64h]
+  0047E9CD: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047E9D2: B9 01 00 00 00     mov         ecx,1
+  0047E9D7: 6B D1 06           imul        edx,ecx,6
+  0047E9DA: 89 95 60 FF FF FF  mov         dword ptr [ebp+FFFFFF60h],edx
+  0047E9E0: 83 BD 60 FF FF FF  cmp         dword ptr [ebp+FFFFFF60h],40h
+            40
+  0047E9E7: 73 02              jae         0047E9EB
+  0047E9E9: EB 05              jmp         0047E9F0
+  0047E9EB: E8 49 B3 18 00     call        00609D39
+  0047E9F0: 8B 85 60 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047E9F6: C6 44 05 BC 00     mov         byte ptr [ebp+eax-44h],0
+  0047E9FB: C7 85 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],3
+            03 00 00 00
+  0047EA05: C7 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],0
+            00 00 00 00
+  0047EA0F: EB 0F              jmp         0047EA20
+  0047EA11: 8B 8D 78 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047EA17: 83 C1 01           add         ecx,1
+  0047EA1A: 89 8D 78 FF FF FF  mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047EA20: 83 BD 78 FF FF FF  cmp         dword ptr [ebp+FFFFFF78h],40h
+            40
+  0047EA27: 73 19              jae         0047EA42
+  0047EA29: 8B 95 78 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047EA2F: 0F B6 44 15 BC     movzx       eax,byte ptr [ebp+edx-44h]
+  0047EA34: 03 85 74 FF FF FF  add         eax,dword ptr [ebp+FFFFFF74h]
+  0047EA3A: 89 85 74 FF FF FF  mov         dword ptr [ebp+FFFFFF74h],eax
+  0047EA40: EB CF              jmp         0047EA11
+  0047EA42: B9 01 00 00 00     mov         ecx,1
+  0047EA47: C1 E1 00           shl         ecx,0
+  0047EA4A: 8A 95 74 FF FF FF  mov         dl,byte ptr [ebp+FFFFFF74h]
+  0047EA50: 88 54 0D BC        mov         byte ptr [ebp+ecx-44h],dl
+  0047EA54: 8B 85 74 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047EA5A: C1 E8 08           shr         eax,8
+  0047EA5D: B9 01 00 00 00     mov         ecx,1
+  0047EA62: D1 E1              shl         ecx,1
+  0047EA64: 88 44 0D BC        mov         byte ptr [ebp+ecx-44h],al
+  0047EA68: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EA6E: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047EA74: E8 47 B3 FF FF     call        00479DC0
+  0047EA79: 8D 95 58 FF FF FF  lea         edx,[ebp+FFFFFF58h]
+  0047EA7F: 52                 push        edx
+  0047EA80: 6A 40              push        40h
+  0047EA82: 8D 85 7C FF FF FF  lea         eax,[ebp+FFFFFF7Ch]
+  0047EA88: 50                 push        eax
+  0047EA89: 6A 40              push        40h
+  0047EA8B: 8D 4D BC           lea         ecx,[ebp-44h]
+  0047EA8E: 51                 push        ecx
+  0047EA8F: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EA95: E8 D6 E7 FF FF     call        0047D270
+  0047EA9A: 89 85 5C FF FF FF  mov         dword ptr [ebp+FFFFFF5Ch],eax
+  0047EAA0: 8B 8D 70 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EAA6: 81 C1 0C 06 00 00  add         ecx,60Ch
+  0047EAAC: 8B 95 70 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047EAB2: 8B 82 0C 06 00 00  mov         eax,dword ptr [edx+0000060Ch]
+  0047EAB8: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047EABB: FF D2              call        edx
+  0047EABD: 83 BD 5C FF FF FF  cmp         dword ptr [ebp+FFFFFF5Ch],1
+            01
+  0047EAC4: 74 08              je          0047EACE
+  0047EAC6: 8B 85 5C FF FF FF  mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  0047EACC: EB 43              jmp         0047EB11
+  0047EACE: B8 01 00 00 00     mov         eax,1
+  0047EAD3: 6B C8 07           imul        ecx,eax,7
+  0047EAD6: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047EADE: 81 FA FF 00 00 00  cmp         edx,0FFh
+  0047EAE4: 75 07              jne         0047EAED
+  0047EAE6: B8 9A FF FF FF     mov         eax,0FFFFFF9Ah
+  0047EAEB: EB 24              jmp         0047EB11
+  0047EAED: B8 01 00 00 00     mov         eax,1
+  0047EAF2: 6B C8 07           imul        ecx,eax,7
+  0047EAF5: 0F B6 94 0D 7C FF  movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+            FF FF
+  0047EAFD: 81 FA FE 00 00 00  cmp         edx,0FEh
+  0047EB03: 75 07              jne         0047EB0C
+  0047EB05: B8 99 FF FF FF     mov         eax,0FFFFFF99h
+  0047EB0A: EB 05              jmp         0047EB11
+  0047EB0C: B8 01 00 00 00     mov         eax,1
+  0047EB11: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047EB14: 33 CD              xor         ecx,ebp
+  0047EB16: E8 BA AA 18 00     call        006095D5
+  0047EB1B: 8B E5              mov         esp,ebp
+  0047EB1D: 5D                 pop         ebp
+  0047EB1E: C3                 ret
+  0047EB1F: CC                 int         3
+  0047EB20: 55                 push        ebp
+
+  Summary
+
+      266000 .text

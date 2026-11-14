@@ -81,7 +81,7 @@ export const CYBER_MOD_GLYPHS: Record<string, string> = {
   r3c0: '[++++]', // Caps Lock
   r3c13: '∿∿∿∿∿', // Enter - Red Waveform
   r4c0: '[==---]', // LShift
-  r4c12: '[+ ++ ---]', // RShift
+  r4c13: '[+ ++ ---]', // RShift [4,13]
   r5c0: '☵', // LCtrl
   r5c1: '❖', // Win
   r5c2: '▲▼', // LAlt
@@ -89,13 +89,13 @@ export const CYBER_MOD_GLYPHS: Record<string, string> = {
   r5c10: 'FN', // Fn
   r5c11: '🗲', // Menu
   r5c12: '☵', // RCtrl
-  // Nav Cluster
-  r1c14: '⤾', // Ins
-  r3c14: '☊', // Home
-  r5c14: '⤿', // PgUp
-  r2c14: '※', // Del
-  r4c14: '≈', // End
-  r6c14: '⛶', // PgDn
+  // Nav Cluster (verified with GMK87_VIA_JSON_File__Wired__V2.JSON)
+  r1c14: '⤾', // Ins [1,14]
+  r5c4: '☊', // Home [5,4]
+  r3c14: '⤿', // PgUp [3,14]
+  r2c14: '※', // Del [2,14]
+  r5c5: '≈', // End [5,5]
+  r5c6: '⛶', // PgDn [5,6]
 };
 
 export const GMK_KEYCAP_THEMES: Record<

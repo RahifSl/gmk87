@@ -1,0 +1,155 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00438280: 13 1D 00 8B E5 5D  adc         ebx,dword ptr ds:[5DE58B00h]
+  00438286: C2 18 00           ret         18h
+  00438289: CC                 int         3
+  0043828A: CC                 int         3
+  0043828B: CC                 int         3
+  0043828C: CC                 int         3
+  0043828D: CC                 int         3
+  0043828E: CC                 int         3
+  0043828F: CC                 int         3
+  00438290: 55                 push        ebp
+  00438291: 8B EC              mov         ebp,esp
+  00438293: 83 EC 20           sub         esp,20h
+  00438296: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0043829B: 33 C5              xor         eax,ebp
+  0043829D: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004382A0: 89 4D E0           mov         dword ptr [ebp-20h],ecx
+  004382A3: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  004382A6: FF 15 5C 70 66 00  call        dword ptr ds:[0066705Ch]
+  004382AC: 0F B6 C0           movzx       eax,al
+  004382AF: 85 C0              test        eax,eax
+  004382B1: 74 07              je          004382BA
+  004382B3: 32 C0              xor         al,al
+  004382B5: E9 55 01 00 00     jmp         0043840F
+  004382BA: C7 45 E4 00 00 00  mov         dword ptr [ebp-1Ch],0
+            00
+  004382C1: 8B 4D 1C           mov         ecx,dword ptr [ebp+1Ch]
+  004382C4: FF 15 5C 70 66 00  call        dword ptr ds:[0066705Ch]
+  004382CA: 0F B6 C8           movzx       ecx,al
+  004382CD: 85 C9              test        ecx,ecx
+  004382CF: 74 24              je          004382F5
+  004382D1: 8B 55 64           mov         edx,dword ptr [ebp+64h]
+  004382D4: 52                 push        edx
+  004382D5: 6A 00              push        0
+  004382D7: 8B 45 50           mov         eax,dword ptr [ebp+50h]
+  004382DA: 50                 push        eax
+  004382DB: 6A 00              push        0
+  004382DD: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  004382E0: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  004382E6: 50                 push        eax
+  004382E7: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  004382EA: FF 15 4C 75 66 00  call        dword ptr ds:[0066754Ch]
+  004382F0: 89 45 E4           mov         dword ptr [ebp-1Ch],eax
+  004382F3: EB 2A              jmp         0043831F
+  004382F5: 8B 4D 64           mov         ecx,dword ptr [ebp+64h]
+  004382F8: 51                 push        ecx
+  004382F9: 6A 00              push        0
+  004382FB: 8B 55 50           mov         edx,dword ptr [ebp+50h]
+  004382FE: 52                 push        edx
+  004382FF: 8B 4D 1C           mov         ecx,dword ptr [ebp+1Ch]
+  00438302: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  00438308: 50                 push        eax
+  00438309: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  0043830C: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  00438312: 50                 push        eax
+  00438313: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  00438316: FF 15 4C 75 66 00  call        dword ptr ds:[0066754Ch]
+  0043831C: 89 45 E4           mov         dword ptr [ebp-1Ch],eax
+  0043831F: 83 7D E4 00        cmp         dword ptr [ebp-1Ch],0
+  00438323: 75 07              jne         0043832C
+  00438325: 32 C0              xor         al,al
+  00438327: E9 E3 00 00 00     jmp         0043840F
+  0043832C: 83 7D 30 00        cmp         dword ptr [ebp+30h],0
+  00438330: 75 24              jne         00438356
+  00438332: 83 7D 38 00        cmp         dword ptr [ebp+38h],0
+  00438336: 75 1E              jne         00438356
+  00438338: 83 7D 34 00        cmp         dword ptr [ebp+34h],0
+  0043833C: 75 18              jne         00438356
+  0043833E: 83 7D 3C 00        cmp         dword ptr [ebp+3Ch],0
+  00438342: 75 12              jne         00438356
+  00438344: 8B 45 E4           mov         eax,dword ptr [ebp-1Ch]
+  00438347: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  0043834A: 89 4D 38           mov         dword ptr [ebp+38h],ecx
+  0043834D: 8B 55 E4           mov         edx,dword ptr [ebp-1Ch]
+  00438350: 8B 42 10           mov         eax,dword ptr [edx+10h]
+  00438353: 89 45 3C           mov         dword ptr [ebp+3Ch],eax
+  00438356: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  00438359: 8B 55 38           mov         edx,dword ptr [ebp+38h]
+  0043835C: 3B 51 0C           cmp         edx,dword ptr [ecx+0Ch]
+  0043835F: 7E 09              jle         0043836A
+  00438361: 8B 45 E4           mov         eax,dword ptr [ebp-1Ch]
+  00438364: 8B 48 0C           mov         ecx,dword ptr [eax+0Ch]
+  00438367: 89 4D 38           mov         dword ptr [ebp+38h],ecx
+  0043836A: 8B 55 E4           mov         edx,dword ptr [ebp-1Ch]
+  0043836D: 8B 45 3C           mov         eax,dword ptr [ebp+3Ch]
+  00438370: 3B 42 10           cmp         eax,dword ptr [edx+10h]
+  00438373: 7E 09              jle         0043837E
+  00438375: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  00438378: 8B 51 10           mov         edx,dword ptr [ecx+10h]
+  0043837B: 89 55 3C           mov         dword ptr [ebp+3Ch],edx
+  0043837E: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  00438381: 50                 push        eax
+  00438382: 8D 4D 20           lea         ecx,[ebp+20h]
+  00438385: 51                 push        ecx
+  00438386: 8D 55 EC           lea         edx,[ebp-14h]
+  00438389: 52                 push        edx
+  0043838A: FF 15 74 7D 66 00  call        dword ptr ds:[00667D74h]
+  00438390: 85 C0              test        eax,eax
+  00438392: 75 04              jne         00438398
+  00438394: B0 01              mov         al,1
+  00438396: EB 77              jmp         0043840F
+  00438398: 8B 45 14           mov         eax,dword ptr [ebp+14h]
+  0043839B: 50                 push        eax
+  0043839C: 8D 4D 20           lea         ecx,[ebp+20h]
+  0043839F: 51                 push        ecx
+  004383A0: 8D 55 EC           lea         edx,[ebp-14h]
+  004383A3: 52                 push        edx
+  004383A4: FF 15 74 7D 66 00  call        dword ptr ds:[00667D74h]
+  004383AA: 85 C0              test        eax,eax
+  004383AC: 75 04              jne         004383B2
+  004383AE: B0 01              mov         al,1
+  004383B0: EB 5D              jmp         0043840F
+  004383B2: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  004383B5: FF 15 44 75 66 00  call        dword ptr ds:[00667544h]
+  004383BB: 0F B6 C0           movzx       eax,al
+  004383BE: 85 C0              test        eax,eax
+  004383C0: 74 06              je          004383C8
+  004383C2: C6 45 EB 01        mov         byte ptr [ebp-15h],1
+  004383C6: EB 09              jmp         004383D1
+  004383C8: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  004383CB: 8A 51 14           mov         dl,byte ptr [ecx+14h]
+  004383CE: 88 55 EB           mov         byte ptr [ebp-15h],dl
+  004383D1: 0F B6 45 60        movzx       eax,byte ptr [ebp+60h]
+  004383D5: 50                 push        eax
+  004383D6: 0F B6 4D 5C        movzx       ecx,byte ptr [ebp+5Ch]
+  004383DA: 51                 push        ecx
+  004383DB: 0F B6 55 58        movzx       edx,byte ptr [ebp+58h]
+  004383DF: 52                 push        edx
+  004383E0: 0F B6 45 54        movzx       eax,byte ptr [ebp+54h]
+  004383E4: 50                 push        eax
+  004383E5: 0F B6 4D EB        movzx       ecx,byte ptr [ebp-15h]
+  004383E9: 51                 push        ecx
+  004383EA: 8D 55 40           lea         edx,[ebp+40h]
+  004383ED: 52                 push        edx
+  004383EE: 8D 45 30           lea         eax,[ebp+30h]
+  004383F1: 50                 push        eax
+  004383F2: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  004383F5: 51                 push        ecx
+  004383F6: 8D 55 20           lea         edx,[ebp+20h]
+  004383F9: 52                 push        edx
+  004383FA: 8B 45 E4           mov         eax,dword ptr [ebp-1Ch]
+  004383FD: 8B 08              mov         ecx,dword ptr [eax]
+  004383FF: 51                 push        ecx
+  00438400: 8B
+
+  Summary
+
+      266000 .text

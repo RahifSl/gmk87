@@ -1,0 +1,247 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00461340: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  00461346: 81 C1 E4 16 00 00  add         ecx,16E4h
+  0046134C: E8 CF 38 01 00     call        00474C20
+  00461351: 0F B7 48 12        movzx       ecx,word ptr [eax+12h]
+  00461355: 85 C9              test        ecx,ecx
+  00461357: 74 64              je          004613BD
+  00461359: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  0046135C: 52                 push        edx
+  0046135D: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  00461363: 81 C1 E4 16 00 00  add         ecx,16E4h
+  00461369: E8 B2 38 01 00     call        00474C20
+  0046136E: 0F B7 40 14        movzx       eax,word ptr [eax+14h]
+  00461372: 89 85 8C FE FF FF  mov         dword ptr [ebp+FFFFFE8Ch],eax
+  00461378: 8B 8D 8C FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE8Ch]
+  0046137E: 51                 push        ecx
+  0046137F: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  00461385: 81 C1 E4 16 00 00  add         ecx,16E4h
+  0046138B: E8 90 38 01 00     call        00474C20
+  00461390: 0F B7 50 14        movzx       edx,word ptr [eax+14h]
+  00461394: 39 55 08           cmp         dword ptr [ebp+8],edx
+  00461397: 75 24              jne         004613BD
+  00461399: 8B 85 8C FE FF FF  mov         eax,dword ptr [ebp+FFFFFE8Ch]
+  0046139F: 50                 push        eax
+  004613A0: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  004613A6: 81 C1 E4 16 00 00  add         ecx,16E4h
+  004613AC: E8 6F 38 01 00     call        00474C20
+  004613B1: 50                 push        eax
+  004613B2: 8D 8D 54 FF FF FF  lea         ecx,[ebp+FFFFFF54h]
+  004613B8: E8 F3 03 00 00     call        004617B0
+  004613BD: E9 57 01 00 00     jmp         00461519
+  004613C2: C7 85 B0 FE FF FF  mov         dword ptr [ebp+FFFFFEB0h],0
+            00 00 00 00
+  004613CC: EB 0F              jmp         004613DD
+  004613CE: 8B 8D B0 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB0h]
+  004613D4: 83 C1 01           add         ecx,1
+  004613D7: 89 8D B0 FE FF FF  mov         dword ptr [ebp+FFFFFEB0h],ecx
+  004613DD: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  004613E3: 81 C1 E4 16 00 00  add         ecx,16E4h
+  004613E9: E8 52 38 01 00     call        00474C40
+  004613EE: 39 85 B0 FE FF FF  cmp         dword ptr [ebp+FFFFFEB0h],eax
+  004613F4: 0F 83 1F 01 00 00  jae         00461519
+  004613FA: 8B 95 B0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEB0h]
+  00461400: 52                 push        edx
+  00461401: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  00461407: 81 C1 E4 16 00 00  add         ecx,16E4h
+  0046140D: E8 0E 38 01 00     call        00474C20
+  00461412: 0F B7 40 02        movzx       eax,word ptr [eax+2]
+  00461416: 0F B7 8D 56 FF FF  movzx       ecx,word ptr [ebp+FFFFFF56h]
+            FF
+  0046141D: 3B C1              cmp         eax,ecx
+  0046141F: 0F 85 EF 00 00 00  jne         00461514
+  00461425: 8B 95 B0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEB0h]
+  0046142B: 52                 push        edx
+  0046142C: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  00461432: 81 C1 E4 16 00 00  add         ecx,16E4h
+  00461438: E8 E3 37 01 00     call        00474C20
+  0046143D: 0F B7 00           movzx       eax,word ptr [eax]
+  00461440: 0F B7 8D 54 FF FF  movzx       ecx,word ptr [ebp+FFFFFF54h]
+            FF
+  00461447: 3B C1              cmp         eax,ecx
+  00461449: 0F 85 C5 00 00 00  jne         00461514
+  0046144F: 8B 95 B0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEB0h]
+  00461455: 52                 push        edx
+  00461456: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  0046145C: 81 C1 E4 16 00 00  add         ecx,16E4h
+  00461462: E8 B9 37 01 00     call        00474C20
+  00461467: 0F B7 40 08        movzx       eax,word ptr [eax+8]
+  0046146B: 0F B7 8D 5C FF FF  movzx       ecx,word ptr [ebp+FFFFFF5Ch]
+            FF
+  00461472: 3B C1              cmp         eax,ecx
+  00461474: 0F 85 9A 00 00 00  jne         00461514
+  0046147A: 8B 95 B0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEB0h]
+  00461480: 52                 push        edx
+  00461481: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  00461487: 81 C1 E4 16 00 00  add         ecx,16E4h
+  0046148D: E8 8E 37 01 00     call        00474C20
+  00461492: 0F B7 40 0A        movzx       eax,word ptr [eax+0Ah]
+  00461496: 85 C0              test        eax,eax
+  00461498: 75 7A              jne         00461514
+  0046149A: 8B 8D B0 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB0h]
+  004614A0: 51                 push        ecx
+  004614A1: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  004614A7: 81 C1 E4 16 00 00  add         ecx,16E4h
+  004614AD: E8 6E 37 01 00     call        00474C20
+  004614B2: 50                 push        eax
+  004614B3: 8D 8D 54 FF FF FF  lea         ecx,[ebp+FFFFFF54h]
+  004614B9: E8 F2 02 00 00     call        004617B0
+  004614BE: 0F B7 95 5C FF FF  movzx       edx,word ptr [ebp+FFFFFF5Ch]
+            FF
+  004614C5: 83 FA 06           cmp         edx,6
+  004614C8: 74 0C              je          004614D6
+  004614CA: 0F B7 85 5C FF FF  movzx       eax,word ptr [ebp+FFFFFF5Ch]
+            FF
+  004614D1: 83 F8 09           cmp         eax,9
+  004614D4: 75 3C              jne         00461512
+  004614D6: 0F B7 8D 66 FF FF  movzx       ecx,word ptr [ebp+FFFFFF66h]
+            FF
+  004614DD: 85 C9              test        ecx,ecx
+  004614DF: 74 31              je          00461512
+  004614E1: 0F B7 95 68 FF FF  movzx       edx,word ptr [ebp+FFFFFF68h]
+            FF
+  004614E8: 89 95 7C FE FF FF  mov         dword ptr [ebp+FFFFFE7Ch],edx
+  004614EE: 8B 85 7C FE FF FF  mov         eax,dword ptr [ebp+FFFFFE7Ch]
+  004614F4: 50                 push        eax
+  004614F5: 8B 8D B4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEB4h]
+  004614FB: 81 C1 E4 16 00 00  add         ecx,16E4h
+  00461501: E8 1A 37 01 00     call        00474C20
+  00461506: 50                 push        eax
+  00461507: 8D 8D 54 FF FF FF  lea         ecx,[ebp+FFFFFF54h]
+  0046150D: E8 9E 02 00 00     call        004617B0
+  00461512: EB 05              jmp         00461519
+  00461514: E9 B5 FE FF FF     jmp         004613CE
+  00461519: C7 85 A4 FE FF FF  mov         dword ptr [ebp+FFFFFEA4h],0
+            00 00 00 00
+  00461523: EB 0F              jmp         00461534
+  00461525: 8B 8D A4 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEA4h]
+  0046152B: 83 C1 01           add         ecx,1
+  0046152E: 89 8D A4 FE FF FF  mov         dword ptr [ebp+FFFFFEA4h],ecx
+  00461534: 8B 8D A0 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEA0h]
+  0046153A: 81 C1 F0 06 00 00  add         ecx,6F0h
+  00461540: 8B 95 A0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEA0h]
+  00461546: 8B 82 F0 06 00 00  mov         eax,dword ptr [edx+000006F0h]
+  0046154C: 8B 50 0C           mov         edx,dword ptr [eax+0Ch]
+  0046154F: FF D2              call        edx
+  00461551: 39 85 A4 FE FF FF  cmp         dword ptr [ebp+FFFFFEA4h],eax
+  00461557: 0F 8D 51 01 00 00  jge         004616AE
+  0046155D: 8B 85 A4 FE FF FF  mov         eax,dword ptr [ebp+FFFFFEA4h]
+  00461563: 50                 push        eax
+  00461564: 8B 8D A0 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEA0h]
+  0046156A: 81 C1 F0 06 00 00  add         ecx,6F0h
+  00461570: 8B 95 A0 FE FF FF  mov         edx,dword ptr [ebp+FFFFFEA0h]
+  00461576: 8B 82 F0 06 00 00  mov         eax,dword ptr [edx+000006F0h]
+  0046157C: 8B 10              mov         edx,dword ptr [eax]
+  0046157E: FF D2              call        edx
+  00461580: 89 85 A8 FE FF FF  mov         dword ptr [ebp+FFFFFEA8h],eax
+  00461586: 83 BD A8 FE FF FF  cmp         dword ptr [ebp+FFFFFEA8h],0
+            00
+  0046158D: 0F 84 16 01 00 00  je          004616A9
+  00461593: C7 85 98 FE FF FF  mov         dword ptr [ebp+FFFFFE98h],6B6AB0h
+            B0 6A 6B 00
+  0046159D: 8B 85 A8 FE FF FF  mov         eax,dword ptr [ebp+FFFFFEA8h]
+  004615A3: 8B 10              mov         edx,dword ptr [eax]
+  004615A5: 8B 8D A8 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEA8h]
+  004615AB: 8B 42 0C           mov         eax,dword ptr [edx+0Ch]
+  004615AE: FF D0              call        eax
+  004615B0: 89 85 9C FE FF FF  mov         dword ptr [ebp+FFFFFE9Ch],eax
+  004615B6: 8B 8D 9C FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE9Ch]
+  004615BC: 66 8B 11           mov         dx,word ptr [ecx]
+  004615BF: 66 89 95 96 FE FF  mov         word ptr [ebp+FFFFFE96h],dx
+            FF
+  004615C6: 8B 85 98 FE FF FF  mov         eax,dword ptr [ebp+FFFFFE98h]
+  004615CC: 66 3B 10           cmp         dx,word ptr [eax]
+  004615CF: 75 4B              jne         0046161C
+  004615D1: 66 83 BD 96 FE FF  cmp         word ptr [ebp+FFFFFE96h],0
+            FF 00
+  004615D9: 74 35              je          00461610
+  004615DB: 8B 8D 9C FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE9Ch]
+  004615E1: 66 8B 51 02        mov         dx,word ptr [ecx+2]
+  004615E5: 66 89 95 94 FE FF  mov         word ptr [ebp+FFFFFE94h],dx
+            FF
+  004615EC: 8B 85 98 FE FF FF  mov         eax,dword ptr [ebp+FFFFFE98h]
+  004615F2: 66 3B 50 02        cmp         dx,word ptr [eax+2]
+  004615F6: 75 24              jne         0046161C
+  004615F8: 83 85 9C FE FF FF  add         dword ptr [ebp+FFFFFE9Ch],4
+            04
+  004615FF: 83 85 98 FE FF FF  add         dword ptr [ebp+FFFFFE98h],4
+            04
+  00461606: 66 83 BD 94 FE FF  cmp         word ptr [ebp+FFFFFE94h],0
+            FF 00
+  0046160E: 75 A6              jne         004615B6
+  00461610: C7 85 88 FE FF FF  mov         dword ptr [ebp+FFFFFE88h],0
+            00 00 00 00
+  0046161A: EB 0B              jmp         00461627
+  0046161C: 1B C9              sbb         ecx,ecx
+  0046161E: 83 C9 01           or          ecx,1
+  00461621: 89 8D 88 FE FF FF  mov         dword ptr [ebp+FFFFFE88h],ecx
+  00461627: 8B 95 88 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE88h]
+  0046162D: 89 95 78 FE FF FF  mov         dword ptr [ebp+FFFFFE78h],edx
+  00461633: 83 BD 78 FE FF FF  cmp         dword ptr [ebp+FFFFFE78h],0
+            00
+  0046163A: 75 6D              jne         004616A9
+  0046163C: 8D 85 B8 FE FF FF  lea         eax,[ebp+FFFFFEB8h]
+  00461642: 50                 push        eax
+  00461643: 8B 8D A8 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFEA8h]
+  00461649: E8 A2 E7 FA FF     call        0040FDF0
+  0046164E: 8B C8              mov         ecx,eax
+  00461650: E8 CB 9A 06 00     call        004CB120
+  00461655: 89 85 74 FE FF FF  mov         dword ptr [ebp+FFFFFE74h],eax
+  0046165B: 8B 8D 74 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE74h]
+  00461661: 89 8D 70 FE FF FF  mov         dword ptr [ebp+FFFFFE70h],ecx
+  00461667: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  0046166B: 8B 95 70 FE FF FF  mov         edx,dword ptr [ebp+FFFFFE70h]
+  00461671: 52                 push        edx
+  00461672: 8D 8D 54 FF FF FF  lea         ecx,[ebp+FFFFFF54h]
+  00461678: E8 73 1E FF FF     call        004534F0
+  0046167D: 88 85 AF FE FF FF  mov         byte ptr [ebp+FFFFFEAFh],al
+  00461683: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  00461687: 8D 8D B8 FE FF FF  lea         ecx,[ebp+FFFFFEB8h]
+  0046168D: E8 3E 2F FF FF     call        004545D0
+  00461692: 0F B6 85 AF FE FF  movzx       eax,byte ptr [ebp+FFFFFEAFh]
+            FF
+  00461699: 85 C0              test        eax,eax
+  0046169B: 74 0C              je          004616A9
+  0046169D: C7 85 84 FE FF FF  mov         dword ptr [ebp+FFFFFE84h],1
+            01 00 00 00
+  004616A7: EB 05              jmp         004616AE
+  004616A9: E9 77 FE FF FF     jmp         00461525
+  004616AE: 8B 8D 84 FE FF FF  mov         ecx,dword ptr [ebp+FFFFFE84h]
+  004616B4: 89 8D 6C FE FF FF  mov         dword ptr [ebp+FFFFFE6Ch],ecx
+  004616BA: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004616C1: 8D 8D 54 FF FF FF  lea         ecx,[ebp+FFFFFF54h]
+  004616C7: E8 04 2F FF FF     call        004545D0
+  004616CC: 8B 85 6C FE FF FF  mov         eax,dword ptr [ebp+FFFFFE6Ch]
+  004616D2: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004616D5: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  004616DC: 59                 pop         ecx
+  004616DD: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004616E0: 33 CD              xor         ecx,ebp
+  004616E2: E8 EE 7E 1A 00     call        006095D5
+  004616E7: 8B E5              mov         esp,ebp
+  004616E9: 5D                 pop         ebp
+  004616EA: C2 04 00           ret         4
+  004616ED: CC                 int         3
+  004616EE: CC                 int         3
+  004616EF: CC                 int         3
+  004616F0: 55                 push        ebp
+  004616F1: 8B EC              mov         ebp,esp
+  004616F3: 51                 push        ecx
+  004616F4: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004616F7: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004616FA: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004616FD: 66 8B 11           mov         dx,word ptr [ecx]
+  00461700: 66
+
+  Summary
+
+      266000 .text

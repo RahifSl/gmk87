@@ -1,0 +1,1629 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0047D270: 55                 push        ebp
+  0047D271: 8B EC              mov         ebp,esp
+  0047D273: 6A FF              push        0FFFFFFFFh
+  0047D275: 68 BC 4C 65 00     push        654CBCh
+  0047D27A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  0047D280: 50                 push        eax
+  0047D281: 81 EC E4 00 00 00  sub         esp,0E4h
+  0047D287: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047D28C: 33 C5              xor         eax,ebp
+  0047D28E: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  0047D291: 50                 push        eax
+  0047D292: 8D 45 F4           lea         eax,[ebp-0Ch]
+  0047D295: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  0047D29B: 89 8D 28 FF FF FF  mov         dword ptr [ebp+FFFFFF28h],ecx
+  0047D2A1: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047D2A7: C6 40 04 01        mov         byte ptr [eax+4],1
+  0047D2AB: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],40h
+            40 00 00 00
+  0047D2B5: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  0047D2BF: C7 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],0
+            00 00 00 00
+  0047D2C9: C7 85 1C FF FF FF  mov         dword ptr [ebp+FFFFFF1Ch],0
+            00 00 00 00
+  0047D2D3: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047D2D9: FF 15 64 71 66 00  call        dword ptr ds:[00667164h]
+  0047D2DF: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  0047D2E6: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  0047D2E9: C7 01 00 00 00 00  mov         dword ptr [ecx],0
+  0047D2EF: 8B 95 28 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF28h]
+  0047D2F5: 83 7A 14 00        cmp         dword ptr [edx+14h],0
+  0047D2F9: 74 0C              je          0047D307
+  0047D2FB: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047D301: 83 78 10 00        cmp         dword ptr [eax+10h],0
+  0047D305: 74 0F              je          0047D316
+  0047D307: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  0047D311: E9 EF 09 00 00     jmp         0047DD05
+  0047D316: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  0047D319: 3B 8D 20 FF FF FF  cmp         ecx,dword ptr [ebp+FFFFFF20h]
+  0047D31F: 73 32              jae         0047D353
+  0047D321: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  0047D324: 52                 push        edx
+  0047D325: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  0047D328: 50                 push        eax
+  0047D329: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047D32C: 51                 push        ecx
+  0047D32D: E8 BE 18 19 00     call        0060EBF0
+  0047D332: 83 C4 0C           add         esp,0Ch
+  0047D335: 8B 95 20 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF20h]
+  0047D33B: 2B 55 0C           sub         edx,dword ptr [ebp+0Ch]
+  0047D33E: 52                 push        edx
+  0047D33F: 6A 00              push        0
+  0047D341: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  0047D344: 8D 4C 05 B0        lea         ecx,[ebp+eax-50h]
+  0047D348: 51                 push        ecx
+  0047D349: E8 22 1E 19 00     call        0060F170
+  0047D34E: 83 C4 0C           add         esp,0Ch
+  0047D351: EB 17              jmp         0047D36A
+  0047D353: 8B 95 20 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF20h]
+  0047D359: 52                 push        edx
+  0047D35A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  0047D35D: 50                 push        eax
+  0047D35E: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047D361: 51                 push        ecx
+  0047D362: E8 89 18 19 00     call        0060EBF0
+  0047D367: 83 C4 0C           add         esp,0Ch
+  0047D36A: 68 6C C1 6B 00     push        6BC16Ch
+  0047D36F: E8 1C 07 01 00     call        0048DA90
+  0047D374: 83 C4 04           add         esp,4
+  0047D377: BA 01 00 00 00     mov         edx,1
+  0047D37C: 6B C2 1F           imul        eax,edx,1Fh
+  0047D37F: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D384: 51                 push        ecx
+  0047D385: BA 01 00 00 00     mov         edx,1
+  0047D38A: 6B C2 1E           imul        eax,edx,1Eh
+  0047D38D: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D392: 51                 push        ecx
+  0047D393: BA 01 00 00 00     mov         edx,1
+  0047D398: 6B C2 1D           imul        eax,edx,1Dh
+  0047D39B: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D3A0: 51                 push        ecx
+  0047D3A1: BA 01 00 00 00     mov         edx,1
+  0047D3A6: 6B C2 1C           imul        eax,edx,1Ch
+  0047D3A9: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D3AE: 51                 push        ecx
+  0047D3AF: BA 01 00 00 00     mov         edx,1
+  0047D3B4: 6B C2 1B           imul        eax,edx,1Bh
+  0047D3B7: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D3BC: 51                 push        ecx
+  0047D3BD: BA 01 00 00 00     mov         edx,1
+  0047D3C2: 6B C2 1A           imul        eax,edx,1Ah
+  0047D3C5: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D3CA: 51                 push        ecx
+  0047D3CB: BA 01 00 00 00     mov         edx,1
+  0047D3D0: 6B C2 19           imul        eax,edx,19h
+  0047D3D3: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D3D8: 51                 push        ecx
+  0047D3D9: BA 01 00 00 00     mov         edx,1
+  0047D3DE: 6B C2 18           imul        eax,edx,18h
+  0047D3E1: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D3E6: 51                 push        ecx
+  0047D3E7: BA 01 00 00 00     mov         edx,1
+  0047D3EC: 6B C2 17           imul        eax,edx,17h
+  0047D3EF: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D3F4: 51                 push        ecx
+  0047D3F5: BA 01 00 00 00     mov         edx,1
+  0047D3FA: 6B C2 16           imul        eax,edx,16h
+  0047D3FD: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D402: 51                 push        ecx
+  0047D403: BA 01 00 00 00     mov         edx,1
+  0047D408: 6B C2 15           imul        eax,edx,15h
+  0047D40B: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D410: 51                 push        ecx
+  0047D411: BA 01 00 00 00     mov         edx,1
+  0047D416: 6B C2 14           imul        eax,edx,14h
+  0047D419: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D41E: 51                 push        ecx
+  0047D41F: BA 01 00 00 00     mov         edx,1
+  0047D424: 6B C2 13           imul        eax,edx,13h
+  0047D427: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D42C: 51                 push        ecx
+  0047D42D: BA 01 00 00 00     mov         edx,1
+  0047D432: 6B C2 12           imul        eax,edx,12h
+  0047D435: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D43A: 51                 push        ecx
+  0047D43B: BA 01 00 00 00     mov         edx,1
+  0047D440: 6B C2 11           imul        eax,edx,11h
+  0047D443: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D448: 51                 push        ecx
+  0047D449: BA 01 00 00 00     mov         edx,1
+  0047D44E: C1 E2 04           shl         edx,4
+  0047D451: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D456: 50                 push        eax
+  0047D457: B9 01 00 00 00     mov         ecx,1
+  0047D45C: 6B D1 0F           imul        edx,ecx,0Fh
+  0047D45F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D464: 50                 push        eax
+  0047D465: B9 01 00 00 00     mov         ecx,1
+  0047D46A: 6B D1 0E           imul        edx,ecx,0Eh
+  0047D46D: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D472: 50                 push        eax
+  0047D473: B9 01 00 00 00     mov         ecx,1
+  0047D478: 6B D1 0D           imul        edx,ecx,0Dh
+  0047D47B: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D480: 50                 push        eax
+  0047D481: B9 01 00 00 00     mov         ecx,1
+  0047D486: 6B D1 0C           imul        edx,ecx,0Ch
+  0047D489: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D48E: 50                 push        eax
+  0047D48F: B9 01 00 00 00     mov         ecx,1
+  0047D494: 6B D1 0B           imul        edx,ecx,0Bh
+  0047D497: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D49C: 50                 push        eax
+  0047D49D: B9 01 00 00 00     mov         ecx,1
+  0047D4A2: 6B D1 0A           imul        edx,ecx,0Ah
+  0047D4A5: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D4AA: 50                 push        eax
+  0047D4AB: B9 01 00 00 00     mov         ecx,1
+  0047D4B0: 6B D1 09           imul        edx,ecx,9
+  0047D4B3: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D4B8: 50                 push        eax
+  0047D4B9: B9 01 00 00 00     mov         ecx,1
+  0047D4BE: C1 E1 03           shl         ecx,3
+  0047D4C1: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047D4C6: 52                 push        edx
+  0047D4C7: B8 01 00 00 00     mov         eax,1
+  0047D4CC: 6B C8 07           imul        ecx,eax,7
+  0047D4CF: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047D4D4: 52                 push        edx
+  0047D4D5: B8 01 00 00 00     mov         eax,1
+  0047D4DA: 6B C8 06           imul        ecx,eax,6
+  0047D4DD: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047D4E2: 52                 push        edx
+  0047D4E3: B8 01 00 00 00     mov         eax,1
+  0047D4E8: 6B C8 05           imul        ecx,eax,5
+  0047D4EB: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047D4F0: 52                 push        edx
+  0047D4F1: B8 01 00 00 00     mov         eax,1
+  0047D4F6: C1 E0 02           shl         eax,2
+  0047D4F9: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D4FE: 51                 push        ecx
+  0047D4FF: BA 01 00 00 00     mov         edx,1
+  0047D504: 6B C2 03           imul        eax,edx,3
+  0047D507: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D50C: 51                 push        ecx
+  0047D50D: BA 01 00 00 00     mov         edx,1
+  0047D512: D1 E2              shl         edx,1
+  0047D514: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D519: 50                 push        eax
+  0047D51A: B9 01 00 00 00     mov         ecx,1
+  0047D51F: C1 E1 00           shl         ecx,0
+  0047D522: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047D527: 52                 push        edx
+  0047D528: B8 01 00 00 00     mov         eax,1
+  0047D52D: 6B C8 00           imul        ecx,eax,0
+  0047D530: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047D535: 52                 push        edx
+  0047D536: 68 E8 C9 6B 00     push        6BC9E8h
+  0047D53B: 8D 85 2C FF FF FF  lea         eax,[ebp+FFFFFF2Ch]
+  0047D541: 50                 push        eax
+  0047D542: FF 15 50 71 66 00  call        dword ptr ds:[00667150h]
+  0047D548: 81 C4 88 00 00 00  add         esp,88h
+  0047D54E: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047D554: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  0047D55A: 50                 push        eax
+  0047D55B: E8 30 05 01 00     call        0048DA90
+  0047D560: 83 C4 04           add         esp,4
+  0047D563: B9 01 00 00 00     mov         ecx,1
+  0047D568: 6B D1 3F           imul        edx,ecx,3Fh
+  0047D56B: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D570: 50                 push        eax
+  0047D571: B9 01 00 00 00     mov         ecx,1
+  0047D576: 6B D1 3E           imul        edx,ecx,3Eh
+  0047D579: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D57E: 50                 push        eax
+  0047D57F: B9 01 00 00 00     mov         ecx,1
+  0047D584: 6B D1 3D           imul        edx,ecx,3Dh
+  0047D587: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D58C: 50                 push        eax
+  0047D58D: B9 01 00 00 00     mov         ecx,1
+  0047D592: 6B D1 3C           imul        edx,ecx,3Ch
+  0047D595: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D59A: 50                 push        eax
+  0047D59B: B9 01 00 00 00     mov         ecx,1
+  0047D5A0: 6B D1 3B           imul        edx,ecx,3Bh
+  0047D5A3: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D5A8: 50                 push        eax
+  0047D5A9: B9 01 00 00 00     mov         ecx,1
+  0047D5AE: 6B D1 3A           imul        edx,ecx,3Ah
+  0047D5B1: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D5B6: 50                 push        eax
+  0047D5B7: B9 01 00 00 00     mov         ecx,1
+  0047D5BC: 6B D1 39           imul        edx,ecx,39h
+  0047D5BF: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D5C4: 50                 push        eax
+  0047D5C5: B9 01 00 00 00     mov         ecx,1
+  0047D5CA: 6B D1 38           imul        edx,ecx,38h
+  0047D5CD: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D5D2: 50                 push        eax
+  0047D5D3: B9 01 00 00 00     mov         ecx,1
+  0047D5D8: 6B D1 37           imul        edx,ecx,37h
+  0047D5DB: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D5E0: 50                 push        eax
+  0047D5E1: B9 01 00 00 00     mov         ecx,1
+  0047D5E6: 6B D1 36           imul        edx,ecx,36h
+  0047D5E9: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D5EE: 50                 push        eax
+  0047D5EF: B9 01 00 00 00     mov         ecx,1
+  0047D5F4: 6B D1 35           imul        edx,ecx,35h
+  0047D5F7: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D5FC: 50                 push        eax
+  0047D5FD: B9 01 00 00 00     mov         ecx,1
+  0047D602: 6B D1 34           imul        edx,ecx,34h
+  0047D605: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D60A: 50                 push        eax
+  0047D60B: B9 01 00 00 00     mov         ecx,1
+  0047D610: 6B D1 33           imul        edx,ecx,33h
+  0047D613: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D618: 50                 push        eax
+  0047D619: B9 01 00 00 00     mov         ecx,1
+  0047D61E: 6B D1 32           imul        edx,ecx,32h
+  0047D621: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D626: 50                 push        eax
+  0047D627: B9 01 00 00 00     mov         ecx,1
+  0047D62C: 6B D1 31           imul        edx,ecx,31h
+  0047D62F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D634: 50                 push        eax
+  0047D635: B9 01 00 00 00     mov         ecx,1
+  0047D63A: 6B D1 30           imul        edx,ecx,30h
+  0047D63D: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D642: 50                 push        eax
+  0047D643: B9 01 00 00 00     mov         ecx,1
+  0047D648: 6B D1 2F           imul        edx,ecx,2Fh
+  0047D64B: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D650: 50                 push        eax
+  0047D651: B9 01 00 00 00     mov         ecx,1
+  0047D656: 6B D1 2E           imul        edx,ecx,2Eh
+  0047D659: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D65E: 50                 push        eax
+  0047D65F: B9 01 00 00 00     mov         ecx,1
+  0047D664: 6B D1 2D           imul        edx,ecx,2Dh
+  0047D667: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D66C: 50                 push        eax
+  0047D66D: B9 01 00 00 00     mov         ecx,1
+  0047D672: 6B D1 2C           imul        edx,ecx,2Ch
+  0047D675: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D67A: 50                 push        eax
+  0047D67B: B9 01 00 00 00     mov         ecx,1
+  0047D680: 6B D1 2B           imul        edx,ecx,2Bh
+  0047D683: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D688: 50                 push        eax
+  0047D689: B9 01 00 00 00     mov         ecx,1
+  0047D68E: 6B D1 2A           imul        edx,ecx,2Ah
+  0047D691: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D696: 50                 push        eax
+  0047D697: B9 01 00 00 00     mov         ecx,1
+  0047D69C: 6B D1 29           imul        edx,ecx,29h
+  0047D69F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D6A4: 50                 push        eax
+  0047D6A5: B9 01 00 00 00     mov         ecx,1
+  0047D6AA: 6B D1 28           imul        edx,ecx,28h
+  0047D6AD: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D6B2: 50                 push        eax
+  0047D6B3: B9 01 00 00 00     mov         ecx,1
+  0047D6B8: 6B D1 27           imul        edx,ecx,27h
+  0047D6BB: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D6C0: 50                 push        eax
+  0047D6C1: B9 01 00 00 00     mov         ecx,1
+  0047D6C6: 6B D1 26           imul        edx,ecx,26h
+  0047D6C9: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D6CE: 50                 push        eax
+  0047D6CF: B9 01 00 00 00     mov         ecx,1
+  0047D6D4: 6B D1 25           imul        edx,ecx,25h
+  0047D6D7: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D6DC: 50                 push        eax
+  0047D6DD: B9 01 00 00 00     mov         ecx,1
+  0047D6E2: 6B D1 24           imul        edx,ecx,24h
+  0047D6E5: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D6EA: 50                 push        eax
+  0047D6EB: B9 01 00 00 00     mov         ecx,1
+  0047D6F0: 6B D1 23           imul        edx,ecx,23h
+  0047D6F3: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D6F8: 50                 push        eax
+  0047D6F9: B9 01 00 00 00     mov         ecx,1
+  0047D6FE: 6B D1 22           imul        edx,ecx,22h
+  0047D701: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D706: 50                 push        eax
+  0047D707: B9 01 00 00 00     mov         ecx,1
+  0047D70C: 6B D1 21           imul        edx,ecx,21h
+  0047D70F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D714: 50                 push        eax
+  0047D715: B9 01 00 00 00     mov         ecx,1
+  0047D71A: C1 E1 05           shl         ecx,5
+  0047D71D: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047D722: 52                 push        edx
+  0047D723: 68 78 CB 6B 00     push        6BCB78h
+  0047D728: 8D 85 2C FF FF FF  lea         eax,[ebp+FFFFFF2Ch]
+  0047D72E: 50                 push        eax
+  0047D72F: FF 15 50 71 66 00  call        dword ptr ds:[00667150h]
+  0047D735: 81 C4 88 00 00 00  add         esp,88h
+  0047D73B: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047D741: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  0047D747: 50                 push        eax
+  0047D748: E8 43 03 01 00     call        0048DA90
+  0047D74D: 83 C4 04           add         esp,4
+  0047D750: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D756: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047D75C: E8 5F C6 FF FF     call        00479DC0
+  0047D761: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D767: 83 B9 4C 06 00 00  cmp         dword ptr [ecx+0000064Ch],0
+            00
+  0047D76E: 74 30              je          0047D7A0
+  0047D770: 68 88 13 00 00     push        1388h
+  0047D775: 8D 95 18 FF FF FF  lea         edx,[ebp+FFFFFF18h]
+  0047D77B: 52                 push        edx
+  0047D77C: 8B 85 20 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF20h]
+  0047D782: 50                 push        eax
+  0047D783: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047D786: 51                 push        ecx
+  0047D787: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D78D: 81 C1 F4 02 00 00  add         ecx,2F4h
+  0047D793: E8 68 EE 04 00     call        004CC600
+  0047D798: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  0047D79E: EB 2B              jmp         0047D7CB
+  0047D7A0: 68 E8 03 00 00     push        3E8h
+  0047D7A5: 8D 95 18 FF FF FF  lea         edx,[ebp+FFFFFF18h]
+  0047D7AB: 52                 push        edx
+  0047D7AC: 8B 85 20 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF20h]
+  0047D7B2: 50                 push        eax
+  0047D7B3: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047D7B6: 51                 push        ecx
+  0047D7B7: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D7BD: 83 C1 1C           add         ecx,1Ch
+  0047D7C0: E8 3B EE 04 00     call        004CC600
+  0047D7C5: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  0047D7CB: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D7D1: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047D7D7: 8B 95 28 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF28h]
+  0047D7DD: 8B 82 CC 05 00 00  mov         eax,dword ptr [edx+000005CCh]
+  0047D7E3: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047D7E6: FF D2              call        edx
+  0047D7E8: 83 BD 24 FF FF FF  cmp         dword ptr [ebp+FFFFFF24h],0
+            00
+  0047D7EF: 7F 0F              jg          0047D800
+  0047D7F1: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0FFFFFFFFh
+            FF FF FF FF
+  0047D7FB: E9 05 05 00 00     jmp         0047DD05
+  0047D800: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D806: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047D80C: E8 AF C5 FF FF     call        00479DC0
+  0047D811: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047D817: 83 B8 4C 06 00 00  cmp         dword ptr [eax+0000064Ch],0
+            00
+  0047D81E: 74 2A              je          0047D84A
+  0047D820: 68 88 13 00 00     push        1388h
+  0047D825: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  0047D828: 51                 push        ecx
+  0047D829: 8B 55 14           mov         edx,dword ptr [ebp+14h]
+  0047D82C: 52                 push        edx
+  0047D82D: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  0047D830: 50                 push        eax
+  0047D831: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D837: 81 C1 F4 02 00 00  add         ecx,2F4h
+  0047D83D: E8 FE EC 04 00     call        004CC540
+  0047D842: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  0047D848: EB 25              jmp         0047D86F
+  0047D84A: 68 C0 D4 01 00     push        1D4C0h
+  0047D84F: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  0047D852: 51                 push        ecx
+  0047D853: 8B 55 14           mov         edx,dword ptr [ebp+14h]
+  0047D856: 52                 push        edx
+  0047D857: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  0047D85A: 50                 push        eax
+  0047D85B: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D861: 83 C1 1C           add         ecx,1Ch
+  0047D864: E8 D7 EC 04 00     call        004CC540
+  0047D869: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  0047D86F: B9 01 00 00 00     mov         ecx,1
+  0047D874: 6B D1 03           imul        edx,ecx,3
+  0047D877: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047D87C: B9 01 00 00 00     mov         ecx,1
+  0047D881: 6B D1 03           imul        edx,ecx,3
+  0047D884: 8B 4D 10           mov         ecx,dword ptr [ebp+10h]
+  0047D887: 0F B6 14 11        movzx       edx,byte ptr [ecx+edx]
+  0047D88B: 3B C2              cmp         eax,edx
+  0047D88D: 74 4F              je          0047D8DE
+  0047D88F: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047D895: 83 B8 4C 06 00 00  cmp         dword ptr [eax+0000064Ch],0
+            00
+  0047D89C: 74 23              je          0047D8C1
+  0047D89E: B9 01 00 00 00     mov         ecx,1
+  0047D8A3: 6B D1 03           imul        edx,ecx,3
+  0047D8A6: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  0047D8A9: 0F B6 0C 10        movzx       ecx,byte ptr [eax+edx]
+  0047D8AD: 81 F9 AA 00 00 00  cmp         ecx,0AAh
+  0047D8B3: 75 0C              jne         0047D8C1
+  0047D8B5: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0FFFFFF9Bh
+            9B FF FF FF
+  0047D8BF: EB 1D              jmp         0047D8DE
+  0047D8C1: 8B 95 1C FF FF FF  mov         edx,dword ptr [ebp+FFFFFF1Ch]
+  0047D8C7: 83 C2 01           add         edx,1
+  0047D8CA: 89 95 1C FF FF FF  mov         dword ptr [ebp+FFFFFF1Ch],edx
+  0047D8D0: 83 BD 1C FF FF FF  cmp         dword ptr [ebp+FFFFFF1Ch],2
+            02
+  0047D8D7: 73 05              jae         0047D8DE
+  0047D8D9: E9 33 FF FF FF     jmp         0047D811
+  0047D8DE: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047D8E4: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047D8EA: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047D8F0: 8B 90 CC 05 00 00  mov         edx,dword ptr [eax+000005CCh]
+  0047D8F6: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  0047D8F9: FF D0              call        eax
+  0047D8FB: 6A 40              push        40h
+  0047D8FD: 6A 00              push        0
+  0047D8FF: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047D902: 51                 push        ecx
+  0047D903: E8 68 18 19 00     call        0060F170
+  0047D908: 83 C4 0C           add         esp,0Ch
+  0047D90B: 8B 55 14           mov         edx,dword ptr [ebp+14h]
+  0047D90E: 52                 push        edx
+  0047D90F: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  0047D912: 50                 push        eax
+  0047D913: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047D916: 51                 push        ecx
+  0047D917: E8 D4 12 19 00     call        0060EBF0
+  0047D91C: 83 C4 0C           add         esp,0Ch
+  0047D91F: 68 04 C3 6B 00     push        6BC304h
+  0047D924: E8 67 01 01 00     call        0048DA90
+  0047D929: 83 C4 04           add         esp,4
+  0047D92C: BA 01 00 00 00     mov         edx,1
+  0047D931: 6B C2 1F           imul        eax,edx,1Fh
+  0047D934: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D939: 51                 push        ecx
+  0047D93A: BA 01 00 00 00     mov         edx,1
+  0047D93F: 6B C2 1E           imul        eax,edx,1Eh
+  0047D942: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D947: 51                 push        ecx
+  0047D948: BA 01 00 00 00     mov         edx,1
+  0047D94D: 6B C2 1D           imul        eax,edx,1Dh
+  0047D950: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D955: 51                 push        ecx
+  0047D956: BA 01 00 00 00     mov         edx,1
+  0047D95B: 6B C2 1C           imul        eax,edx,1Ch
+  0047D95E: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D963: 51                 push        ecx
+  0047D964: BA 01 00 00 00     mov         edx,1
+  0047D969: 6B C2 1B           imul        eax,edx,1Bh
+  0047D96C: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D971: 51                 push        ecx
+  0047D972: BA 01 00 00 00     mov         edx,1
+  0047D977: 6B C2 1A           imul        eax,edx,1Ah
+  0047D97A: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D97F: 51                 push        ecx
+  0047D980: BA 01 00 00 00     mov         edx,1
+  0047D985: 6B C2 19           imul        eax,edx,19h
+  0047D988: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D98D: 51                 push        ecx
+  0047D98E: BA 01 00 00 00     mov         edx,1
+  0047D993: 6B C2 18           imul        eax,edx,18h
+  0047D996: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D99B: 51                 push        ecx
+  0047D99C: BA 01 00 00 00     mov         edx,1
+  0047D9A1: 6B C2 17           imul        eax,edx,17h
+  0047D9A4: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D9A9: 51                 push        ecx
+  0047D9AA: BA 01 00 00 00     mov         edx,1
+  0047D9AF: 6B C2 16           imul        eax,edx,16h
+  0047D9B2: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D9B7: 51                 push        ecx
+  0047D9B8: BA 01 00 00 00     mov         edx,1
+  0047D9BD: 6B C2 15           imul        eax,edx,15h
+  0047D9C0: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D9C5: 51                 push        ecx
+  0047D9C6: BA 01 00 00 00     mov         edx,1
+  0047D9CB: 6B C2 14           imul        eax,edx,14h
+  0047D9CE: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D9D3: 51                 push        ecx
+  0047D9D4: BA 01 00 00 00     mov         edx,1
+  0047D9D9: 6B C2 13           imul        eax,edx,13h
+  0047D9DC: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D9E1: 51                 push        ecx
+  0047D9E2: BA 01 00 00 00     mov         edx,1
+  0047D9E7: 6B C2 12           imul        eax,edx,12h
+  0047D9EA: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D9EF: 51                 push        ecx
+  0047D9F0: BA 01 00 00 00     mov         edx,1
+  0047D9F5: 6B C2 11           imul        eax,edx,11h
+  0047D9F8: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047D9FD: 51                 push        ecx
+  0047D9FE: BA 01 00 00 00     mov         edx,1
+  0047DA03: C1 E2 04           shl         edx,4
+  0047DA06: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DA0B: 50                 push        eax
+  0047DA0C: B9 01 00 00 00     mov         ecx,1
+  0047DA11: 6B D1 0F           imul        edx,ecx,0Fh
+  0047DA14: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DA19: 50                 push        eax
+  0047DA1A: B9 01 00 00 00     mov         ecx,1
+  0047DA1F: 6B D1 0E           imul        edx,ecx,0Eh
+  0047DA22: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DA27: 50                 push        eax
+  0047DA28: B9 01 00 00 00     mov         ecx,1
+  0047DA2D: 6B D1 0D           imul        edx,ecx,0Dh
+  0047DA30: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DA35: 50                 push        eax
+  0047DA36: B9 01 00 00 00     mov         ecx,1
+  0047DA3B: 6B D1 0C           imul        edx,ecx,0Ch
+  0047DA3E: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DA43: 50                 push        eax
+  0047DA44: B9 01 00 00 00     mov         ecx,1
+  0047DA49: 6B D1 0B           imul        edx,ecx,0Bh
+  0047DA4C: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DA51: 50                 push        eax
+  0047DA52: B9 01 00 00 00     mov         ecx,1
+  0047DA57: 6B D1 0A           imul        edx,ecx,0Ah
+  0047DA5A: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DA5F: 50                 push        eax
+  0047DA60: B9 01 00 00 00     mov         ecx,1
+  0047DA65: 6B D1 09           imul        edx,ecx,9
+  0047DA68: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DA6D: 50                 push        eax
+  0047DA6E: B9 01 00 00 00     mov         ecx,1
+  0047DA73: C1 E1 03           shl         ecx,3
+  0047DA76: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DA7B: 52                 push        edx
+  0047DA7C: B8 01 00 00 00     mov         eax,1
+  0047DA81: 6B C8 07           imul        ecx,eax,7
+  0047DA84: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DA89: 52                 push        edx
+  0047DA8A: B8 01 00 00 00     mov         eax,1
+  0047DA8F: 6B C8 06           imul        ecx,eax,6
+  0047DA92: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DA97: 52                 push        edx
+  0047DA98: B8 01 00 00 00     mov         eax,1
+  0047DA9D: 6B C8 05           imul        ecx,eax,5
+  0047DAA0: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DAA5: 52                 push        edx
+  0047DAA6: B8 01 00 00 00     mov         eax,1
+  0047DAAB: C1 E0 02           shl         eax,2
+  0047DAAE: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DAB3: 51                 push        ecx
+  0047DAB4: BA 01 00 00 00     mov         edx,1
+  0047DAB9: 6B C2 03           imul        eax,edx,3
+  0047DABC: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DAC1: 51                 push        ecx
+  0047DAC2: BA 01 00 00 00     mov         edx,1
+  0047DAC7: D1 E2              shl         edx,1
+  0047DAC9: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DACE: 50                 push        eax
+  0047DACF: B9 01 00 00 00     mov         ecx,1
+  0047DAD4: C1 E1 00           shl         ecx,0
+  0047DAD7: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DADC: 52                 push        edx
+  0047DADD: B8 01 00 00 00     mov         eax,1
+  0047DAE2: 6B C8 00           imul        ecx,eax,0
+  0047DAE5: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DAEA: 52                 push        edx
+  0047DAEB: 68 08 CD 6B 00     push        6BCD08h
+  0047DAF0: 8D 85 2C FF FF FF  lea         eax,[ebp+FFFFFF2Ch]
+  0047DAF6: 50                 push        eax
+  0047DAF7: FF 15 50 71 66 00  call        dword ptr ds:[00667150h]
+  0047DAFD: 81 C4 88 00 00 00  add         esp,88h
+  0047DB03: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047DB09: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  0047DB0F: 50                 push        eax
+  0047DB10: E8 7B FF 00 00     call        0048DA90
+  0047DB15: 83 C4 04           add         esp,4
+  0047DB18: B9 01 00 00 00     mov         ecx,1
+  0047DB1D: 6B D1 3F           imul        edx,ecx,3Fh
+  0047DB20: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB25: 50                 push        eax
+  0047DB26: B9 01 00 00 00     mov         ecx,1
+  0047DB2B: 6B D1 3E           imul        edx,ecx,3Eh
+  0047DB2E: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB33: 50                 push        eax
+  0047DB34: B9 01 00 00 00     mov         ecx,1
+  0047DB39: 6B D1 3D           imul        edx,ecx,3Dh
+  0047DB3C: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB41: 50                 push        eax
+  0047DB42: B9 01 00 00 00     mov         ecx,1
+  0047DB47: 6B D1 3C           imul        edx,ecx,3Ch
+  0047DB4A: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB4F: 50                 push        eax
+  0047DB50: B9 01 00 00 00     mov         ecx,1
+  0047DB55: 6B D1 3B           imul        edx,ecx,3Bh
+  0047DB58: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB5D: 50                 push        eax
+  0047DB5E: B9 01 00 00 00     mov         ecx,1
+  0047DB63: 6B D1 3A           imul        edx,ecx,3Ah
+  0047DB66: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB6B: 50                 push        eax
+  0047DB6C: B9 01 00 00 00     mov         ecx,1
+  0047DB71: 6B D1 39           imul        edx,ecx,39h
+  0047DB74: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB79: 50                 push        eax
+  0047DB7A: B9 01 00 00 00     mov         ecx,1
+  0047DB7F: 6B D1 38           imul        edx,ecx,38h
+  0047DB82: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB87: 50                 push        eax
+  0047DB88: B9 01 00 00 00     mov         ecx,1
+  0047DB8D: 6B D1 37           imul        edx,ecx,37h
+  0047DB90: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DB95: 50                 push        eax
+  0047DB96: B9 01 00 00 00     mov         ecx,1
+  0047DB9B: 6B D1 36           imul        edx,ecx,36h
+  0047DB9E: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DBA3: 50                 push        eax
+  0047DBA4: B9 01 00 00 00     mov         ecx,1
+  0047DBA9: 6B D1 35           imul        edx,ecx,35h
+  0047DBAC: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DBB1: 50                 push        eax
+  0047DBB2: B9 01 00 00 00     mov         ecx,1
+  0047DBB7: 6B D1 34           imul        edx,ecx,34h
+  0047DBBA: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DBBF: 50                 push        eax
+  0047DBC0: B9 01 00 00 00     mov         ecx,1
+  0047DBC5: 6B D1 33           imul        edx,ecx,33h
+  0047DBC8: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DBCD: 50                 push        eax
+  0047DBCE: B9 01 00 00 00     mov         ecx,1
+  0047DBD3: 6B D1 32           imul        edx,ecx,32h
+  0047DBD6: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DBDB: 50                 push        eax
+  0047DBDC: B9 01 00 00 00     mov         ecx,1
+  0047DBE1: 6B D1 31           imul        edx,ecx,31h
+  0047DBE4: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DBE9: 50                 push        eax
+  0047DBEA: B9 01 00 00 00     mov         ecx,1
+  0047DBEF: 6B D1 30           imul        edx,ecx,30h
+  0047DBF2: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DBF7: 50                 push        eax
+  0047DBF8: B9 01 00 00 00     mov         ecx,1
+  0047DBFD: 6B D1 2F           imul        edx,ecx,2Fh
+  0047DC00: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC05: 50                 push        eax
+  0047DC06: B9 01 00 00 00     mov         ecx,1
+  0047DC0B: 6B D1 2E           imul        edx,ecx,2Eh
+  0047DC0E: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC13: 50                 push        eax
+  0047DC14: B9 01 00 00 00     mov         ecx,1
+  0047DC19: 6B D1 2D           imul        edx,ecx,2Dh
+  0047DC1C: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC21: 50                 push        eax
+  0047DC22: B9 01 00 00 00     mov         ecx,1
+  0047DC27: 6B D1 2C           imul        edx,ecx,2Ch
+  0047DC2A: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC2F: 50                 push        eax
+  0047DC30: B9 01 00 00 00     mov         ecx,1
+  0047DC35: 6B D1 2B           imul        edx,ecx,2Bh
+  0047DC38: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC3D: 50                 push        eax
+  0047DC3E: B9 01 00 00 00     mov         ecx,1
+  0047DC43: 6B D1 2A           imul        edx,ecx,2Ah
+  0047DC46: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC4B: 50                 push        eax
+  0047DC4C: B9 01 00 00 00     mov         ecx,1
+  0047DC51: 6B D1 29           imul        edx,ecx,29h
+  0047DC54: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC59: 50                 push        eax
+  0047DC5A: B9 01 00 00 00     mov         ecx,1
+  0047DC5F: 6B D1 28           imul        edx,ecx,28h
+  0047DC62: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC67: 50                 push        eax
+  0047DC68: B9 01 00 00 00     mov         ecx,1
+  0047DC6D: 6B D1 27           imul        edx,ecx,27h
+  0047DC70: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC75: 50                 push        eax
+  0047DC76: B9 01 00 00 00     mov         ecx,1
+  0047DC7B: 6B D1 26           imul        edx,ecx,26h
+  0047DC7E: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC83: 50                 push        eax
+  0047DC84: B9 01 00 00 00     mov         ecx,1
+  0047DC89: 6B D1 25           imul        edx,ecx,25h
+  0047DC8C: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC91: 50                 push        eax
+  0047DC92: B9 01 00 00 00     mov         ecx,1
+  0047DC97: 6B D1 24           imul        edx,ecx,24h
+  0047DC9A: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DC9F: 50                 push        eax
+  0047DCA0: B9 01 00 00 00     mov         ecx,1
+  0047DCA5: 6B D1 23           imul        edx,ecx,23h
+  0047DCA8: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DCAD: 50                 push        eax
+  0047DCAE: B9 01 00 00 00     mov         ecx,1
+  0047DCB3: 6B D1 22           imul        edx,ecx,22h
+  0047DCB6: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DCBB: 50                 push        eax
+  0047DCBC: B9 01 00 00 00     mov         ecx,1
+  0047DCC1: 6B D1 21           imul        edx,ecx,21h
+  0047DCC4: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DCC9: 50                 push        eax
+  0047DCCA: B9 01 00 00 00     mov         ecx,1
+  0047DCCF: C1 E1 05           shl         ecx,5
+  0047DCD2: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DCD7: 52                 push        edx
+  0047DCD8: 68 98 CE 6B 00     push        6BCE98h
+  0047DCDD: 8D 85 2C FF FF FF  lea         eax,[ebp+FFFFFF2Ch]
+  0047DCE3: 50                 push        eax
+  0047DCE4: FF 15 50 71 66 00  call        dword ptr ds:[00667150h]
+  0047DCEA: 81 C4 88 00 00 00  add         esp,88h
+  0047DCF0: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047DCF6: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  0047DCFC: 50                 push        eax
+  0047DCFD: E8 8E FD 00 00     call        0048DA90
+  0047DD02: 83 C4 04           add         esp,4
+  0047DD05: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047DD0B: C6 41 04 00        mov         byte ptr [ecx+4],0
+  0047DD0F: 8B 95 24 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF24h]
+  0047DD15: 89 95 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],edx
+  0047DD1B: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  0047DD22: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047DD28: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  0047DD2E: 8B 85 14 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF14h]
+  0047DD34: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  0047DD37: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  0047DD3E: 59                 pop         ecx
+  0047DD3F: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  0047DD42: 33 CD              xor         ecx,ebp
+  0047DD44: E8 8C B8 18 00     call        006095D5
+  0047DD49: 8B E5              mov         esp,ebp
+  0047DD4B: 5D                 pop         ebp
+  0047DD4C: C2 14 00           ret         14h
+  0047DD4F: CC                 int         3
+  0047DD50: 55                 push        ebp
+  0047DD51: 8B EC              mov         ebp,esp
+  0047DD53: 6A FF              push        0FFFFFFFFh
+  0047DD55: 68 BC 4C 65 00     push        654CBCh
+  0047DD5A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  0047DD60: 50                 push        eax
+  0047DD61: 81 EC E4 00 00 00  sub         esp,0E4h
+  0047DD67: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047DD6C: 33 C5              xor         eax,ebp
+  0047DD6E: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  0047DD71: 50                 push        eax
+  0047DD72: 8D 45 F4           lea         eax,[ebp-0Ch]
+  0047DD75: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  0047DD7B: 89 8D 28 FF FF FF  mov         dword ptr [ebp+FFFFFF28h],ecx
+  0047DD81: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047DD87: C6 40 04 01        mov         byte ptr [eax+4],1
+  0047DD8B: C7 85 20 FF FF FF  mov         dword ptr [ebp+FFFFFF20h],40h
+            40 00 00 00
+  0047DD95: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  0047DD9F: C7 85 14 FF FF FF  mov         dword ptr [ebp+FFFFFF14h],0
+            00 00 00 00
+  0047DDA9: C7 85 10 FF FF FF  mov         dword ptr [ebp+FFFFFF10h],0
+            00 00 00 00
+  0047DDB3: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047DDB9: FF 15 64 71 66 00  call        dword ptr ds:[00667164h]
+  0047DDBF: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  0047DDC6: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  0047DDC9: C7 01 00 00 00 00  mov         dword ptr [ecx],0
+  0047DDCF: 8B 95 28 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF28h]
+  0047DDD5: 83 7A 14 00        cmp         dword ptr [edx+14h],0
+  0047DDD9: 74 0C              je          0047DDE7
+  0047DDDB: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047DDE1: 83 78 10 00        cmp         dword ptr [eax+10h],0
+  0047DDE5: 74 0F              je          0047DDF6
+  0047DDE7: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0
+            00 00 00 00
+  0047DDF1: E9 80 09 00 00     jmp         0047E776
+  0047DDF6: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  0047DDF9: 3B 8D 20 FF FF FF  cmp         ecx,dword ptr [ebp+FFFFFF20h]
+  0047DDFF: 73 32              jae         0047DE33
+  0047DE01: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  0047DE04: 52                 push        edx
+  0047DE05: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  0047DE08: 50                 push        eax
+  0047DE09: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047DE0C: 51                 push        ecx
+  0047DE0D: E8 DE 0D 19 00     call        0060EBF0
+  0047DE12: 83 C4 0C           add         esp,0Ch
+  0047DE15: 8B 95 20 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF20h]
+  0047DE1B: 2B 55 0C           sub         edx,dword ptr [ebp+0Ch]
+  0047DE1E: 52                 push        edx
+  0047DE1F: 6A 00              push        0
+  0047DE21: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  0047DE24: 8D 4C 05 B0        lea         ecx,[ebp+eax-50h]
+  0047DE28: 51                 push        ecx
+  0047DE29: E8 42 13 19 00     call        0060F170
+  0047DE2E: 83 C4 0C           add         esp,0Ch
+  0047DE31: EB 17              jmp         0047DE4A
+  0047DE33: 8B 95 20 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF20h]
+  0047DE39: 52                 push        edx
+  0047DE3A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  0047DE3D: 50                 push        eax
+  0047DE3E: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047DE41: 51                 push        ecx
+  0047DE42: E8 A9 0D 19 00     call        0060EBF0
+  0047DE47: 83 C4 0C           add         esp,0Ch
+  0047DE4A: 68 EC CF 6B 00     push        6BCFECh
+  0047DE4F: E8 3C FC 00 00     call        0048DA90
+  0047DE54: 83 C4 04           add         esp,4
+  0047DE57: BA 01 00 00 00     mov         edx,1
+  0047DE5C: 6B C2 1F           imul        eax,edx,1Fh
+  0047DE5F: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DE64: 51                 push        ecx
+  0047DE65: BA 01 00 00 00     mov         edx,1
+  0047DE6A: 6B C2 1E           imul        eax,edx,1Eh
+  0047DE6D: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DE72: 51                 push        ecx
+  0047DE73: BA 01 00 00 00     mov         edx,1
+  0047DE78: 6B C2 1D           imul        eax,edx,1Dh
+  0047DE7B: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DE80: 51                 push        ecx
+  0047DE81: BA 01 00 00 00     mov         edx,1
+  0047DE86: 6B C2 1C           imul        eax,edx,1Ch
+  0047DE89: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DE8E: 51                 push        ecx
+  0047DE8F: BA 01 00 00 00     mov         edx,1
+  0047DE94: 6B C2 1B           imul        eax,edx,1Bh
+  0047DE97: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DE9C: 51                 push        ecx
+  0047DE9D: BA 01 00 00 00     mov         edx,1
+  0047DEA2: 6B C2 1A           imul        eax,edx,1Ah
+  0047DEA5: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DEAA: 51                 push        ecx
+  0047DEAB: BA 01 00 00 00     mov         edx,1
+  0047DEB0: 6B C2 19           imul        eax,edx,19h
+  0047DEB3: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DEB8: 51                 push        ecx
+  0047DEB9: BA 01 00 00 00     mov         edx,1
+  0047DEBE: 6B C2 18           imul        eax,edx,18h
+  0047DEC1: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DEC6: 51                 push        ecx
+  0047DEC7: BA 01 00 00 00     mov         edx,1
+  0047DECC: 6B C2 17           imul        eax,edx,17h
+  0047DECF: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DED4: 51                 push        ecx
+  0047DED5: BA 01 00 00 00     mov         edx,1
+  0047DEDA: 6B C2 16           imul        eax,edx,16h
+  0047DEDD: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DEE2: 51                 push        ecx
+  0047DEE3: BA 01 00 00 00     mov         edx,1
+  0047DEE8: 6B C2 15           imul        eax,edx,15h
+  0047DEEB: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DEF0: 51                 push        ecx
+  0047DEF1: BA 01 00 00 00     mov         edx,1
+  0047DEF6: 6B C2 14           imul        eax,edx,14h
+  0047DEF9: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DEFE: 51                 push        ecx
+  0047DEFF: BA 01 00 00 00     mov         edx,1
+  0047DF04: 6B C2 13           imul        eax,edx,13h
+  0047DF07: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DF0C: 51                 push        ecx
+  0047DF0D: BA 01 00 00 00     mov         edx,1
+  0047DF12: 6B C2 12           imul        eax,edx,12h
+  0047DF15: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DF1A: 51                 push        ecx
+  0047DF1B: BA 01 00 00 00     mov         edx,1
+  0047DF20: 6B C2 11           imul        eax,edx,11h
+  0047DF23: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DF28: 51                 push        ecx
+  0047DF29: BA 01 00 00 00     mov         edx,1
+  0047DF2E: C1 E2 04           shl         edx,4
+  0047DF31: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DF36: 50                 push        eax
+  0047DF37: B9 01 00 00 00     mov         ecx,1
+  0047DF3C: 6B D1 0F           imul        edx,ecx,0Fh
+  0047DF3F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DF44: 50                 push        eax
+  0047DF45: B9 01 00 00 00     mov         ecx,1
+  0047DF4A: 6B D1 0E           imul        edx,ecx,0Eh
+  0047DF4D: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DF52: 50                 push        eax
+  0047DF53: B9 01 00 00 00     mov         ecx,1
+  0047DF58: 6B D1 0D           imul        edx,ecx,0Dh
+  0047DF5B: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DF60: 50                 push        eax
+  0047DF61: B9 01 00 00 00     mov         ecx,1
+  0047DF66: 6B D1 0C           imul        edx,ecx,0Ch
+  0047DF69: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DF6E: 50                 push        eax
+  0047DF6F: B9 01 00 00 00     mov         ecx,1
+  0047DF74: 6B D1 0B           imul        edx,ecx,0Bh
+  0047DF77: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DF7C: 50                 push        eax
+  0047DF7D: B9 01 00 00 00     mov         ecx,1
+  0047DF82: 6B D1 0A           imul        edx,ecx,0Ah
+  0047DF85: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DF8A: 50                 push        eax
+  0047DF8B: B9 01 00 00 00     mov         ecx,1
+  0047DF90: 6B D1 09           imul        edx,ecx,9
+  0047DF93: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DF98: 50                 push        eax
+  0047DF99: B9 01 00 00 00     mov         ecx,1
+  0047DF9E: C1 E1 03           shl         ecx,3
+  0047DFA1: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DFA6: 52                 push        edx
+  0047DFA7: B8 01 00 00 00     mov         eax,1
+  0047DFAC: 6B C8 07           imul        ecx,eax,7
+  0047DFAF: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DFB4: 52                 push        edx
+  0047DFB5: B8 01 00 00 00     mov         eax,1
+  0047DFBA: 6B C8 06           imul        ecx,eax,6
+  0047DFBD: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DFC2: 52                 push        edx
+  0047DFC3: B8 01 00 00 00     mov         eax,1
+  0047DFC8: 6B C8 05           imul        ecx,eax,5
+  0047DFCB: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047DFD0: 52                 push        edx
+  0047DFD1: B8 01 00 00 00     mov         eax,1
+  0047DFD6: C1 E0 02           shl         eax,2
+  0047DFD9: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DFDE: 51                 push        ecx
+  0047DFDF: BA 01 00 00 00     mov         edx,1
+  0047DFE4: 6B C2 03           imul        eax,edx,3
+  0047DFE7: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047DFEC: 51                 push        ecx
+  0047DFED: BA 01 00 00 00     mov         edx,1
+  0047DFF2: D1 E2              shl         edx,1
+  0047DFF4: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047DFF9: 50                 push        eax
+  0047DFFA: B9 01 00 00 00     mov         ecx,1
+  0047DFFF: C1 E1 00           shl         ecx,0
+  0047E002: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E007: 52                 push        edx
+  0047E008: B8 01 00 00 00     mov         eax,1
+  0047E00D: 6B C8 00           imul        ecx,eax,0
+  0047E010: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E015: 52                 push        edx
+  0047E016: 68 60 D0 6B 00     push        6BD060h
+  0047E01B: 8D 85 2C FF FF FF  lea         eax,[ebp+FFFFFF2Ch]
+  0047E021: 50                 push        eax
+  0047E022: FF 15 50 71 66 00  call        dword ptr ds:[00667150h]
+  0047E028: 81 C4 88 00 00 00  add         esp,88h
+  0047E02E: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047E034: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  0047E03A: 50                 push        eax
+  0047E03B: E8 50 FA 00 00     call        0048DA90
+  0047E040: 83 C4 04           add         esp,4
+  0047E043: B9 01 00 00 00     mov         ecx,1
+  0047E048: 6B D1 3F           imul        edx,ecx,3Fh
+  0047E04B: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E050: 50                 push        eax
+  0047E051: B9 01 00 00 00     mov         ecx,1
+  0047E056: 6B D1 3E           imul        edx,ecx,3Eh
+  0047E059: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E05E: 50                 push        eax
+  0047E05F: B9 01 00 00 00     mov         ecx,1
+  0047E064: 6B D1 3D           imul        edx,ecx,3Dh
+  0047E067: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E06C: 50                 push        eax
+  0047E06D: B9 01 00 00 00     mov         ecx,1
+  0047E072: 6B D1 3C           imul        edx,ecx,3Ch
+  0047E075: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E07A: 50                 push        eax
+  0047E07B: B9 01 00 00 00     mov         ecx,1
+  0047E080: 6B D1 3B           imul        edx,ecx,3Bh
+  0047E083: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E088: 50                 push        eax
+  0047E089: B9 01 00 00 00     mov         ecx,1
+  0047E08E: 6B D1 3A           imul        edx,ecx,3Ah
+  0047E091: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E096: 50                 push        eax
+  0047E097: B9 01 00 00 00     mov         ecx,1
+  0047E09C: 6B D1 39           imul        edx,ecx,39h
+  0047E09F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E0A4: 50                 push        eax
+  0047E0A5: B9 01 00 00 00     mov         ecx,1
+  0047E0AA: 6B D1 38           imul        edx,ecx,38h
+  0047E0AD: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E0B2: 50                 push        eax
+  0047E0B3: B9 01 00 00 00     mov         ecx,1
+  0047E0B8: 6B D1 37           imul        edx,ecx,37h
+  0047E0BB: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E0C0: 50                 push        eax
+  0047E0C1: B9 01 00 00 00     mov         ecx,1
+  0047E0C6: 6B D1 36           imul        edx,ecx,36h
+  0047E0C9: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E0CE: 50                 push        eax
+  0047E0CF: B9 01 00 00 00     mov         ecx,1
+  0047E0D4: 6B D1 35           imul        edx,ecx,35h
+  0047E0D7: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E0DC: 50                 push        eax
+  0047E0DD: B9 01 00 00 00     mov         ecx,1
+  0047E0E2: 6B D1 34           imul        edx,ecx,34h
+  0047E0E5: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E0EA: 50                 push        eax
+  0047E0EB: B9 01 00 00 00     mov         ecx,1
+  0047E0F0: 6B D1 33           imul        edx,ecx,33h
+  0047E0F3: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E0F8: 50                 push        eax
+  0047E0F9: B9 01 00 00 00     mov         ecx,1
+  0047E0FE: 6B D1 32           imul        edx,ecx,32h
+  0047E101: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E106: 50                 push        eax
+  0047E107: B9 01 00 00 00     mov         ecx,1
+  0047E10C: 6B D1 31           imul        edx,ecx,31h
+  0047E10F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E114: 50                 push        eax
+  0047E115: B9 01 00 00 00     mov         ecx,1
+  0047E11A: 6B D1 30           imul        edx,ecx,30h
+  0047E11D: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E122: 50                 push        eax
+  0047E123: B9 01 00 00 00     mov         ecx,1
+  0047E128: 6B D1 2F           imul        edx,ecx,2Fh
+  0047E12B: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E130: 50                 push        eax
+  0047E131: B9 01 00 00 00     mov         ecx,1
+  0047E136: 6B D1 2E           imul        edx,ecx,2Eh
+  0047E139: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E13E: 50                 push        eax
+  0047E13F: B9 01 00 00 00     mov         ecx,1
+  0047E144: 6B D1 2D           imul        edx,ecx,2Dh
+  0047E147: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E14C: 50                 push        eax
+  0047E14D: B9 01 00 00 00     mov         ecx,1
+  0047E152: 6B D1 2C           imul        edx,ecx,2Ch
+  0047E155: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E15A: 50                 push        eax
+  0047E15B: B9 01 00 00 00     mov         ecx,1
+  0047E160: 6B D1 2B           imul        edx,ecx,2Bh
+  0047E163: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E168: 50                 push        eax
+  0047E169: B9 01 00 00 00     mov         ecx,1
+  0047E16E: 6B D1 2A           imul        edx,ecx,2Ah
+  0047E171: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E176: 50                 push        eax
+  0047E177: B9 01 00 00 00     mov         ecx,1
+  0047E17C: 6B D1 29           imul        edx,ecx,29h
+  0047E17F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E184: 50                 push        eax
+  0047E185: B9 01 00 00 00     mov         ecx,1
+  0047E18A: 6B D1 28           imul        edx,ecx,28h
+  0047E18D: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E192: 50                 push        eax
+  0047E193: B9 01 00 00 00     mov         ecx,1
+  0047E198: 6B D1 27           imul        edx,ecx,27h
+  0047E19B: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E1A0: 50                 push        eax
+  0047E1A1: B9 01 00 00 00     mov         ecx,1
+  0047E1A6: 6B D1 26           imul        edx,ecx,26h
+  0047E1A9: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E1AE: 50                 push        eax
+  0047E1AF: B9 01 00 00 00     mov         ecx,1
+  0047E1B4: 6B D1 25           imul        edx,ecx,25h
+  0047E1B7: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E1BC: 50                 push        eax
+  0047E1BD: B9 01 00 00 00     mov         ecx,1
+  0047E1C2: 6B D1 24           imul        edx,ecx,24h
+  0047E1C5: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E1CA: 50                 push        eax
+  0047E1CB: B9 01 00 00 00     mov         ecx,1
+  0047E1D0: 6B D1 23           imul        edx,ecx,23h
+  0047E1D3: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E1D8: 50                 push        eax
+  0047E1D9: B9 01 00 00 00     mov         ecx,1
+  0047E1DE: 6B D1 22           imul        edx,ecx,22h
+  0047E1E1: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E1E6: 50                 push        eax
+  0047E1E7: B9 01 00 00 00     mov         ecx,1
+  0047E1EC: 6B D1 21           imul        edx,ecx,21h
+  0047E1EF: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E1F4: 50                 push        eax
+  0047E1F5: B9 01 00 00 00     mov         ecx,1
+  0047E1FA: C1 E1 05           shl         ecx,5
+  0047E1FD: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E202: 52                 push        edx
+  0047E203: 68 B8 D1 6B 00     push        6BD1B8h
+  0047E208: 8D 85 2C FF FF FF  lea         eax,[ebp+FFFFFF2Ch]
+  0047E20E: 50                 push        eax
+  0047E20F: FF 15 50 71 66 00  call        dword ptr ds:[00667150h]
+  0047E215: 81 C4 88 00 00 00  add         esp,88h
+  0047E21B: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047E221: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  0047E227: 50                 push        eax
+  0047E228: E8 63 F8 00 00     call        0048DA90
+  0047E22D: 83 C4 04           add         esp,4
+  0047E230: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E236: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047E23C: E8 7F BB FF FF     call        00479DC0
+  0047E241: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E247: 83 B9 4C 06 00 00  cmp         dword ptr [ecx+0000064Ch],0
+            00
+  0047E24E: 74 30              je          0047E280
+  0047E250: 68 88 13 00 00     push        1388h
+  0047E255: 8D 95 1C FF FF FF  lea         edx,[ebp+FFFFFF1Ch]
+  0047E25B: 52                 push        edx
+  0047E25C: 8B 85 20 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF20h]
+  0047E262: 50                 push        eax
+  0047E263: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047E266: 51                 push        ecx
+  0047E267: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E26D: 81 C1 F4 02 00 00  add         ecx,2F4h
+  0047E273: E8 88 E3 04 00     call        004CC600
+  0047E278: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  0047E27E: EB 2B              jmp         0047E2AB
+  0047E280: 68 E8 03 00 00     push        3E8h
+  0047E285: 8D 95 1C FF FF FF  lea         edx,[ebp+FFFFFF1Ch]
+  0047E28B: 52                 push        edx
+  0047E28C: 8B 85 20 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF20h]
+  0047E292: 50                 push        eax
+  0047E293: 8D 4D B0           lea         ecx,[ebp-50h]
+  0047E296: 51                 push        ecx
+  0047E297: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E29D: 83 C1 1C           add         ecx,1Ch
+  0047E2A0: E8 5B E3 04 00     call        004CC600
+  0047E2A5: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  0047E2AB: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E2B1: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047E2B7: 8B 95 28 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF28h]
+  0047E2BD: 8B 82 CC 05 00 00  mov         eax,dword ptr [edx+000005CCh]
+  0047E2C3: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047E2C6: FF D2              call        edx
+  0047E2C8: 83 BD 24 FF FF FF  cmp         dword ptr [ebp+FFFFFF24h],0
+            00
+  0047E2CF: 7F 0F              jg          0047E2E0
+  0047E2D1: C7 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],0FFFFFFFFh
+            FF FF FF FF
+  0047E2DB: E9 96 04 00 00     jmp         0047E776
+  0047E2E0: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E2E6: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047E2EC: E8 CF BA FF FF     call        00479DC0
+  0047E2F1: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047E2F7: 83 B8 4C 06 00 00  cmp         dword ptr [eax+0000064Ch],0
+            00
+  0047E2FE: 74 2A              je          0047E32A
+  0047E300: 68 88 13 00 00     push        1388h
+  0047E305: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  0047E308: 51                 push        ecx
+  0047E309: 8B 55 14           mov         edx,dword ptr [ebp+14h]
+  0047E30C: 52                 push        edx
+  0047E30D: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  0047E310: 50                 push        eax
+  0047E311: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E317: 81 C1 F4 02 00 00  add         ecx,2F4h
+  0047E31D: E8 1E E2 04 00     call        004CC540
+  0047E322: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  0047E328: EB 25              jmp         0047E34F
+  0047E32A: 68 E8 03 00 00     push        3E8h
+  0047E32F: 8B 4D 18           mov         ecx,dword ptr [ebp+18h]
+  0047E332: 51                 push        ecx
+  0047E333: 8B 55 14           mov         edx,dword ptr [ebp+14h]
+  0047E336: 52                 push        edx
+  0047E337: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  0047E33A: 50                 push        eax
+  0047E33B: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E341: 83 C1 1C           add         ecx,1Ch
+  0047E344: E8 F7 E1 04 00     call        004CC540
+  0047E349: 89 85 24 FF FF FF  mov         dword ptr [ebp+FFFFFF24h],eax
+  0047E34F: 8B 8D 28 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF28h]
+  0047E355: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047E35B: 8B 95 28 FF FF FF  mov         edx,dword ptr [ebp+FFFFFF28h]
+  0047E361: 8B 82 CC 05 00 00  mov         eax,dword ptr [edx+000005CCh]
+  0047E367: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047E36A: FF D2              call        edx
+  0047E36C: 6A 40              push        40h
+  0047E36E: 6A 00              push        0
+  0047E370: 8D 45 B0           lea         eax,[ebp-50h]
+  0047E373: 50                 push        eax
+  0047E374: E8 F7 0D 19 00     call        0060F170
+  0047E379: 83 C4 0C           add         esp,0Ch
+  0047E37C: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  0047E37F: 51                 push        ecx
+  0047E380: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  0047E383: 52                 push        edx
+  0047E384: 8D 45 B0           lea         eax,[ebp-50h]
+  0047E387: 50                 push        eax
+  0047E388: E8 63 08 19 00     call        0060EBF0
+  0047E38D: 83 C4 0C           add         esp,0Ch
+  0047E390: 68 0C D3 6B 00     push        6BD30Ch
+  0047E395: E8 F6 F6 00 00     call        0048DA90
+  0047E39A: 83 C4 04           add         esp,4
+  0047E39D: B9 01 00 00 00     mov         ecx,1
+  0047E3A2: 6B D1 1F           imul        edx,ecx,1Fh
+  0047E3A5: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E3AA: 50                 push        eax
+  0047E3AB: B9 01 00 00 00     mov         ecx,1
+  0047E3B0: 6B D1 1E           imul        edx,ecx,1Eh
+  0047E3B3: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E3B8: 50                 push        eax
+  0047E3B9: B9 01 00 00 00     mov         ecx,1
+  0047E3BE: 6B D1 1D           imul        edx,ecx,1Dh
+  0047E3C1: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E3C6: 50                 push        eax
+  0047E3C7: B9 01 00 00 00     mov         ecx,1
+  0047E3CC: 6B D1 1C           imul        edx,ecx,1Ch
+  0047E3CF: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E3D4: 50                 push        eax
+  0047E3D5: B9 01 00 00 00     mov         ecx,1
+  0047E3DA: 6B D1 1B           imul        edx,ecx,1Bh
+  0047E3DD: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E3E2: 50                 push        eax
+  0047E3E3: B9 01 00 00 00     mov         ecx,1
+  0047E3E8: 6B D1 1A           imul        edx,ecx,1Ah
+  0047E3EB: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E3F0: 50                 push        eax
+  0047E3F1: B9 01 00 00 00     mov         ecx,1
+  0047E3F6: 6B D1 19           imul        edx,ecx,19h
+  0047E3F9: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E3FE: 50                 push        eax
+  0047E3FF: B9 01 00 00 00     mov         ecx,1
+  0047E404: 6B D1 18           imul        edx,ecx,18h
+  0047E407: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E40C: 50                 push        eax
+  0047E40D: B9 01 00 00 00     mov         ecx,1
+  0047E412: 6B D1 17           imul        edx,ecx,17h
+  0047E415: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E41A: 50                 push        eax
+  0047E41B: B9 01 00 00 00     mov         ecx,1
+  0047E420: 6B D1 16           imul        edx,ecx,16h
+  0047E423: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E428: 50                 push        eax
+  0047E429: B9 01 00 00 00     mov         ecx,1
+  0047E42E: 6B D1 15           imul        edx,ecx,15h
+  0047E431: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E436: 50                 push        eax
+  0047E437: B9 01 00 00 00     mov         ecx,1
+  0047E43C: 6B D1 14           imul        edx,ecx,14h
+  0047E43F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E444: 50                 push        eax
+  0047E445: B9 01 00 00 00     mov         ecx,1
+  0047E44A: 6B D1 13           imul        edx,ecx,13h
+  0047E44D: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E452: 50                 push        eax
+  0047E453: B9 01 00 00 00     mov         ecx,1
+  0047E458: 6B D1 12           imul        edx,ecx,12h
+  0047E45B: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E460: 50                 push        eax
+  0047E461: B9 01 00 00 00     mov         ecx,1
+  0047E466: 6B D1 11           imul        edx,ecx,11h
+  0047E469: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E46E: 50                 push        eax
+  0047E46F: B9 01 00 00 00     mov         ecx,1
+  0047E474: C1 E1 04           shl         ecx,4
+  0047E477: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E47C: 52                 push        edx
+  0047E47D: B8 01 00 00 00     mov         eax,1
+  0047E482: 6B C8 0F           imul        ecx,eax,0Fh
+  0047E485: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E48A: 52                 push        edx
+  0047E48B: B8 01 00 00 00     mov         eax,1
+  0047E490: 6B C8 0E           imul        ecx,eax,0Eh
+  0047E493: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E498: 52                 push        edx
+  0047E499: B8 01 00 00 00     mov         eax,1
+  0047E49E: 6B C8 0D           imul        ecx,eax,0Dh
+  0047E4A1: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E4A6: 52                 push        edx
+  0047E4A7: B8 01 00 00 00     mov         eax,1
+  0047E4AC: 6B C8 0C           imul        ecx,eax,0Ch
+  0047E4AF: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E4B4: 52                 push        edx
+  0047E4B5: B8 01 00 00 00     mov         eax,1
+  0047E4BA: 6B C8 0B           imul        ecx,eax,0Bh
+  0047E4BD: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E4C2: 52                 push        edx
+  0047E4C3: B8 01 00 00 00     mov         eax,1
+  0047E4C8: 6B C8 0A           imul        ecx,eax,0Ah
+  0047E4CB: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E4D0: 52                 push        edx
+  0047E4D1: B8 01 00 00 00     mov         eax,1
+  0047E4D6: 6B C8 09           imul        ecx,eax,9
+  0047E4D9: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E4DE: 52                 push        edx
+  0047E4DF: B8 01 00 00 00     mov         eax,1
+  0047E4E4: C1 E0 03           shl         eax,3
+  0047E4E7: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047E4EC: 51                 push        ecx
+  0047E4ED: BA 01 00 00 00     mov         edx,1
+  0047E4F2: 6B C2 07           imul        eax,edx,7
+  0047E4F5: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047E4FA: 51                 push        ecx
+  0047E4FB: BA 01 00 00 00     mov         edx,1
+  0047E500: 6B C2 06           imul        eax,edx,6
+  0047E503: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047E508: 51                 push        ecx
+  0047E509: BA 01 00 00 00     mov         edx,1
+  0047E50E: 6B C2 05           imul        eax,edx,5
+  0047E511: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047E516: 51                 push        ecx
+  0047E517: BA 01 00 00 00     mov         edx,1
+  0047E51C: C1 E2 02           shl         edx,2
+  0047E51F: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E524: 50                 push        eax
+  0047E525: B9 01 00 00 00     mov         ecx,1
+  0047E52A: 6B D1 03           imul        edx,ecx,3
+  0047E52D: 0F B6 44 15 B0     movzx       eax,byte ptr [ebp+edx-50h]
+  0047E532: 50                 push        eax
+  0047E533: B9 01 00 00 00     mov         ecx,1
+  0047E538: D1 E1              shl         ecx,1
+  0047E53A: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E53F: 52                 push        edx
+  0047E540: B8 01 00 00 00     mov         eax,1
+  0047E545: C1 E0 00           shl         eax,0
+  0047E548: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047E54D: 51                 push        ecx
+  0047E54E: BA 01 00 00 00     mov         edx,1
+  0047E553: 6B C2 00           imul        eax,edx,0
+  0047E556: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047E55B: 51                 push        ecx
+  0047E55C: 68 58 D3 6B 00     push        6BD358h
+  0047E561: 8D 95 2C FF FF FF  lea         edx,[ebp+FFFFFF2Ch]
+  0047E567: 52                 push        edx
+  0047E568: FF 15 50 71 66 00  call        dword ptr ds:[00667150h]
+  0047E56E: 81 C4 88 00 00 00  add         esp,88h
+  0047E574: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047E57A: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  0047E580: 50                 push        eax
+  0047E581: E8 0A F5 00 00     call        0048DA90
+  0047E586: 83 C4 04           add         esp,4
+  0047E589: B8 01 00 00 00     mov         eax,1
+  0047E58E: 6B C8 3F           imul        ecx,eax,3Fh
+  0047E591: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E596: 52                 push        edx
+  0047E597: B8 01 00 00 00     mov         eax,1
+  0047E59C: 6B C8 3E           imul        ecx,eax,3Eh
+  0047E59F: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E5A4: 52                 push        edx
+  0047E5A5: B8 01 00 00 00     mov         eax,1
+  0047E5AA: 6B C8 3D           imul        ecx,eax,3Dh
+  0047E5AD: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E5B2: 52                 push        edx
+  0047E5B3: B8 01 00 00 00     mov         eax,1
+  0047E5B8: 6B C8 3C           imul        ecx,eax,3Ch
+  0047E5BB: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E5C0: 52                 push        edx
+  0047E5C1: B8 01 00 00 00     mov         eax,1
+  0047E5C6: 6B C8 3B           imul        ecx,eax,3Bh
+  0047E5C9: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E5CE: 52                 push        edx
+  0047E5CF: B8 01 00 00 00     mov         eax,1
+  0047E5D4: 6B C8 3A           imul        ecx,eax,3Ah
+  0047E5D7: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E5DC: 52                 push        edx
+  0047E5DD: B8 01 00 00 00     mov         eax,1
+  0047E5E2: 6B C8 39           imul        ecx,eax,39h
+  0047E5E5: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E5EA: 52                 push        edx
+  0047E5EB: B8 01 00 00 00     mov         eax,1
+  0047E5F0: 6B C8 38           imul        ecx,eax,38h
+  0047E5F3: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E5F8: 52                 push        edx
+  0047E5F9: B8 01 00 00 00     mov         eax,1
+  0047E5FE: 6B C8 37           imul        ecx,eax,37h
+  0047E601: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E606: 52                 push        edx
+  0047E607: B8 01 00 00 00     mov         eax,1
+  0047E60C: 6B C8 36           imul        ecx,eax,36h
+  0047E60F: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E614: 52                 push        edx
+  0047E615: B8 01 00 00 00     mov         eax,1
+  0047E61A: 6B C8 35           imul        ecx,eax,35h
+  0047E61D: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E622: 52                 push        edx
+  0047E623: B8 01 00 00 00     mov         eax,1
+  0047E628: 6B C8 34           imul        ecx,eax,34h
+  0047E62B: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E630: 52                 push        edx
+  0047E631: B8 01 00 00 00     mov         eax,1
+  0047E636: 6B C8 33           imul        ecx,eax,33h
+  0047E639: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E63E: 52                 push        edx
+  0047E63F: B8 01 00 00 00     mov         eax,1
+  0047E644: 6B C8 32           imul        ecx,eax,32h
+  0047E647: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E64C: 52                 push        edx
+  0047E64D: B8 01 00 00 00     mov         eax,1
+  0047E652: 6B C8 31           imul        ecx,eax,31h
+  0047E655: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E65A: 52                 push        edx
+  0047E65B: B8 01 00 00 00     mov         eax,1
+  0047E660: 6B C8 30           imul        ecx,eax,30h
+  0047E663: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E668: 52                 push        edx
+  0047E669: B8 01 00 00 00     mov         eax,1
+  0047E66E: 6B C8 2F           imul        ecx,eax,2Fh
+  0047E671: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E676: 52                 push        edx
+  0047E677: B8 01 00 00 00     mov         eax,1
+  0047E67C: 6B C8 2E           imul        ecx,eax,2Eh
+  0047E67F: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E684: 52                 push        edx
+  0047E685: B8 01 00 00 00     mov         eax,1
+  0047E68A: 6B C8 2D           imul        ecx,eax,2Dh
+  0047E68D: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E692: 52                 push        edx
+  0047E693: B8 01 00 00 00     mov         eax,1
+  0047E698: 6B C8 2C           imul        ecx,eax,2Ch
+  0047E69B: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E6A0: 52                 push        edx
+  0047E6A1: B8 01 00 00 00     mov         eax,1
+  0047E6A6: 6B C8 2B           imul        ecx,eax,2Bh
+  0047E6A9: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E6AE: 52                 push        edx
+  0047E6AF: B8 01 00 00 00     mov         eax,1
+  0047E6B4: 6B C8 2A           imul        ecx,eax,2Ah
+  0047E6B7: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E6BC: 52                 push        edx
+  0047E6BD: B8 01 00 00 00     mov         eax,1
+  0047E6C2: 6B C8 29           imul        ecx,eax,29h
+  0047E6C5: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E6CA: 52                 push        edx
+  0047E6CB: B8 01 00 00 00     mov         eax,1
+  0047E6D0: 6B C8 28           imul        ecx,eax,28h
+  0047E6D3: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E6D8: 52                 push        edx
+  0047E6D9: B8 01 00 00 00     mov         eax,1
+  0047E6DE: 6B C8 27           imul        ecx,eax,27h
+  0047E6E1: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E6E6: 52                 push        edx
+  0047E6E7: B8 01 00 00 00     mov         eax,1
+  0047E6EC: 6B C8 26           imul        ecx,eax,26h
+  0047E6EF: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E6F4: 52                 push        edx
+  0047E6F5: B8 01 00 00 00     mov         eax,1
+  0047E6FA: 6B C8 25           imul        ecx,eax,25h
+  0047E6FD: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E702: 52                 push        edx
+  0047E703: B8 01 00 00 00     mov         eax,1
+  0047E708: 6B C8 24           imul        ecx,eax,24h
+  0047E70B: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E710: 52                 push        edx
+  0047E711: B8 01 00 00 00     mov         eax,1
+  0047E716: 6B C8 23           imul        ecx,eax,23h
+  0047E719: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E71E: 52                 push        edx
+  0047E71F: B8 01 00 00 00     mov         eax,1
+  0047E724: 6B C8 22           imul        ecx,eax,22h
+  0047E727: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E72C: 52                 push        edx
+  0047E72D: B8 01 00 00 00     mov         eax,1
+  0047E732: 6B C8 21           imul        ecx,eax,21h
+  0047E735: 0F B6 54 0D B0     movzx       edx,byte ptr [ebp+ecx-50h]
+  0047E73A: 52                 push        edx
+  0047E73B: B8 01 00 00 00     mov         eax,1
+  0047E740: C1 E0 05           shl         eax,5
+  0047E743: 0F B6 4C 05 B0     movzx       ecx,byte ptr [ebp+eax-50h]
+  0047E748: 51                 push        ecx
+  0047E749: 68 C0 D4 6B 00     push        6BD4C0h
+  0047E74E: 8D 95 2C FF FF FF  lea         edx,[ebp+FFFFFF2Ch]
+  0047E754: 52                 push        edx
+  0047E755: FF 15 50 71 66 00  call        dword ptr ds:[00667150h]
+  0047E75B: 81 C4 88 00 00 00  add         esp,88h
+  0047E761: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047E767: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  0047E76D: 50                 push        eax
+  0047E76E: E8 1D F3 00 00     call        0048DA90
+  0047E773: 83 C4 04           add         esp,4
+  0047E776: 8B 85 28 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF28h]
+  0047E77C: C6 40 04 00        mov         byte ptr [eax+4],0
+  0047E780: 8B 8D 24 FF FF FF  mov         ecx,dword ptr [ebp+FFFFFF24h]
+  0047E786: 89 8D 18 FF FF FF  mov         dword ptr [ebp+FFFFFF18h],ecx
+  0047E78C: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  0047E793: 8D 8D 2C FF FF FF  lea         ecx,[ebp+FFFFFF2Ch]
+  0047E799: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  0047E79F: 8B 85 18 FF FF FF  mov         eax,dword ptr [ebp+FFFFFF18h]
+  0047E7A5: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  0047E7A8: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  0047E7AF: 59                 pop         ecx
+  0047E7B0: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  0047E7B3: 33 CD              xor         ecx,ebp
+  0047E7B5: E8 1B AE 18 00     call        006095D5
+  0047E7BA: 8B E5              mov         esp,ebp
+  0047E7BC: 5D                 pop         ebp
+  0047E7BD: C2 14 00           ret         14h
+  0047E7C0: 55                 push        ebp
+  0047E7C1: 8B EC              mov         ebp,esp
+  0047E7C3: 83 EC 58           sub         esp,58h
+  0047E7C6: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  0047E7CB: 33 C5              xor         eax,ebp
+  0047E7CD: 89 45 FC           mov         dword ptr [ebp-4],eax
+  0047E7D0: 89 4D B8           mov         dword ptr [ebp-48h],ecx
+  0047E7D3: C7 45 B0 40 00 00  mov         dword ptr [ebp-50h],40h
+            00
+  0047E7DA: C7 45 B4 00 00 00  mov         dword ptr [ebp-4Ch],0
+            00
+  0047E7E1: C7 45 AC 00 00 00  mov         dword ptr [ebp-54h],0
+            00
+  0047E7E8: 8B 45 18           mov         eax,dword ptr [ebp+18h]
+  0047E7EB: C7 00 00 00 00 00  mov         dword ptr [eax],0
+  0047E7F1: 8B 4D B8           mov         ecx,dword ptr [ebp-48h]
+  0047E7F4: 83 79 14 00        cmp         dword ptr [ecx+14h],0
+  0047E7F8: 74 09              je          0047E803
+  0047E7FA: 8B 55 B8           mov         edx,dword ptr [ebp-48h]
+  0047E7FD: 83 7A 10 00        cmp         dword ptr [edx+10h],0
+  0047E801: 74 11              je          0047E814
+  0047E803: C7 45 B4 00 00 00  mov         dword ptr [ebp-4Ch],0
+            00
+  0047E80A: E9 E9 00 00 00     jmp         0047E8F8
+  0047E80F: E9 E4 00 00 00     jmp         0047E8F8
+  0047E814: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  0047E817: 3B 45 B0           cmp         eax,dword ptr [ebp-50h]
+  0047E81A: 73 2F              jae         0047E84B
+  0047E81C: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  0047E81F: 51                 push        ecx
+  0047E820: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  0047E823: 52                 push        edx
+  0047E824: 8D 45 BC           lea         eax,[ebp-44h]
+  0047E827: 50                 push        eax
+  0047E828: E8 C3 03 19 00     call        0060EBF0
+  0047E82D: 83 C4 0C           add         esp,0Ch
+  0047E830: 8B 4D B0           mov         ecx,dword ptr [ebp-50h]
+  0047E833: 2B 4D 0C           sub         ecx,dword ptr [ebp+0Ch]
+  0047E836: 51                 push        ecx
+  0047E837: 6A 00              push        0
+  0047E839: 8B 55 0C           mov         edx,dword ptr [ebp+0Ch]
+  0047E83C: 8D 44 15 BC        lea         eax,[ebp+edx-44h]
+  0047E840: 50                 push        eax
+  0047E841: E8 2A 09 19 00     call        0060F170
+  0047E846: 83 C4 0C           add         esp,0Ch
+  0047E849: EB 14              jmp         0047E85F
+  0047E84B: 8B 4D B0           mov         ecx,dword ptr [ebp-50h]
+  0047E84E: 51                 push        ecx
+  0047E84F: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  0047E852: 52                 push        edx
+  0047E853: 8D 45 BC           lea         eax,[ebp-44h]
+  0047E856: 50                 push        eax
+  0047E857: E8 94 03 19 00     call        0060EBF0
+  0047E85C: 83 C4 0C           add         esp,0Ch
+  0047E85F: 8B 4D B8           mov         ecx,dword ptr [ebp-48h]
+  0047E862: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047E868: E8 53 B5 FF FF     call        00479DC0
+  0047E86D: 68 E8 03 00 00     push        3E8h
+  0047E872: 8D 4D A8           lea         ecx,[ebp-58h]
+  0047E875: 51                 push        ecx
+  0047E876: 8B 55 B0           mov         edx,dword ptr [ebp-50h]
+  0047E879: 52                 push        edx
+  0047E87A: 8D 45 BC           lea         eax,[ebp-44h]
+  0047E87D: 50                 push        eax
+  0047E87E: 8B 4D B8           mov         ecx,dword ptr [ebp-48h]
+  0047E881: 83 C1 1C           add         ecx,1Ch
+  0047E884: E8 77 DD 04 00     call        004CC600
+  0047E889: 89 45 B4           mov         dword ptr [ebp-4Ch],eax
+  0047E88C: 8B 4D B8           mov         ecx,dword ptr [ebp-48h]
+  0047E88F: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047E895: 8B 55 B8           mov         edx,dword ptr [ebp-48h]
+  0047E898: 8B 82 CC 05 00 00  mov         eax,dword ptr [edx+000005CCh]
+  0047E89E: 8B 50 14           mov         edx,dword ptr [eax+14h]
+  0047E8A1: FF D2              call        edx
+  0047E8A3: 83 7D B4 00        cmp         dword ptr [ebp-4Ch],0
+  0047E8A7: 7F 0B              jg          0047E8B4
+  0047E8A9: C7 45 B4 FF FF FF  mov         dword ptr [ebp-4Ch],0FFFFFFFFh
+            FF
+  0047E8B0: EB 46              jmp         0047E8F8
+  0047E8B2: EB 44              jmp         0047E8F8
+  0047E8B4: 8B 4D B8           mov         ecx,dword ptr [ebp-48h]
+  0047E8B7: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047E8BD: E8 FE B4 FF FF     call        00479DC0
+  0047E8C2: 68 E8 03 00 00     push        3E8h
+  0047E8C7: 8B 45 18           mov         eax,dword ptr [ebp+18h]
+  0047E8CA: 50                 push        eax
+  0047E8CB: 8B 4D 14           mov         ecx,dword ptr [ebp+14h]
+  0047E8CE: 51                 push        ecx
+  0047E8CF: 8B 55 10           mov         edx,dword ptr [ebp+10h]
+  0047E8D2: 52                 push        edx
+  0047E8D3: 8B 4D B8           mov         ecx,dword ptr [ebp-48h]
+  0047E8D6: 83 C1 1C           add         ecx,1Ch
+  0047E8D9: E8 62 DC 04 00     call        004CC540
+  0047E8DE: 89 45 B4           mov         dword ptr [ebp-4Ch],eax
+  0047E8E1: 8B 4D B8           mov         ecx,dword ptr [ebp-48h]
+  0047E8E4: 81 C1 CC 05 00 00  add         ecx,5CCh
+  0047E8EA: 8B 45 B8           mov         eax,dword ptr [ebp-48h]
+  0047E8ED: 8B 90 CC 05 00 00  mov         edx,dword ptr [eax+000005CCh]
+  0047E8F3: 8B 42 14           mov         eax,dword ptr [edx+14h]
+  0047E8F6: FF D0              call        eax
+  0047E8F8: 8B 45 B4           mov         eax,dword ptr [ebp-4Ch]
+  0047E8FB: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  0047E8FE: 33 CD              xor         ecx,ebp
+  0047E900: E8 D0 AC 18 00     call        006095D5
+  0047E905: 8B E5              mov         esp,ebp
+  0047E907: 5D                 pop         ebp
+  0047E908: C2 14 00           ret         14h
+  0047E90B: CC                 int         3
+  0047E90C: CC                 int         3
+  0047E90D: CC                 int         3
+  0047E90E: CC                 int         3
+  0047E90F: CC                 int         3
+  0047E910: 55                 push        ebp
+
+  Summary
+
+      266000 .text

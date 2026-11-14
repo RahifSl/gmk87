@@ -1,0 +1,6 @@
+{
+  "name": "GMK87 Master Control Center",
+  "description": "WebHID hardware configurator, VIA keymap studio, RGB565 TFT LCD frame streamer, procedural GIF generator, and smart rotary knob engine for the Zuoya GMK87 mechanical keyboard.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

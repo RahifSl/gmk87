@@ -157,7 +157,7 @@ export const KEYCODE_CATALOG: KeycodeItem[] = [
   { code: 0x5221, shortLabel: 'MO1_V11', name: 'Momentary Layer 1 (V0112)', category: 'Layers' },
   { code: 0x5223, shortLabel: 'MO3_V11', name: 'Momentary Layer 3 (V0112)', category: 'Layers' },
 
-  // Lighting & Hardware (Verified GMK87 V0104 Protocol 9 EEPROM codes)
+  // Lighting & Hardware (Verified from official GMK87_VIA_JSON_File__Wired__V2.JSON customKeycodes)
   { code: 0x5CC2, shortLabel: 'RGB_TOG', name: 'RGB Toggle On/Off', category: 'Lighting & Hardware' },
   { code: 0x5CC3, shortLabel: 'RGB_MOD', name: 'RGB Mode Next', category: 'Lighting & Hardware' },
   { code: 0x5CC4, shortLabel: 'RGB_RMOD', name: 'RGB Mode Previous', category: 'Lighting & Hardware' },
@@ -169,15 +169,17 @@ export const KEYCODE_CATALOG: KeycodeItem[] = [
   { code: 0x5CCA, shortLabel: 'RGB_VAD', name: 'RGB Brightness Down', category: 'Lighting & Hardware' },
   { code: 0x5CCB, shortLabel: 'RGB_SPI', name: 'RGB Speed Up', category: 'Lighting & Hardware' },
   { code: 0x5CCC, shortLabel: 'RGB_SPD', name: 'RGB Speed Down', category: 'Lighting & Hardware' },
-  { code: 0x5F81, shortLabel: 'BT_1', name: 'Bluetooth Host 1', category: 'Lighting & Hardware' },
-  { code: 0x5F82, shortLabel: 'BT_2', name: 'Bluetooth Host 2', category: 'Lighting & Hardware' },
-  { code: 0x5F83, shortLabel: 'BT_3', name: 'Bluetooth Host 3', category: 'Lighting & Hardware' },
-  { code: 0x5F80, shortLabel: '2.4G', name: '2.4GHz Wireless Dongle', category: 'Lighting & Hardware' },
-  { code: 0x5F84, shortLabel: 'WIN_LCK', name: 'Lock Windows Key', category: 'Lighting & Hardware' },
-  { code: 0x5F87, shortLabel: 'LOGO_MOD', name: 'Logo LED Mode', category: 'Lighting & Hardware' },
-  { code: 0x5F88, shortLabel: 'LOGO_CLR', name: 'Logo LED Color', category: 'Lighting & Hardware' },
-  { code: 0x5F89, shortLabel: 'LCD_NXT', name: 'TFT Next Slot / Mode', category: 'Lighting & Hardware' },
-  { code: 0x5F8B, shortLabel: 'LCD_PWR', name: 'TFT Screen Power Toggle', category: 'Lighting & Hardware' },
+  { code: 0x5F80, shortLabel: '2.4G MODE', name: '2.4G Wireless Mode (USER00)', category: 'Lighting & Hardware' },
+  { code: 0x5F81, shortLabel: 'BT 1', name: 'Bluetooth Connection 1 (USER01)', category: 'Lighting & Hardware' },
+  { code: 0x5F82, shortLabel: 'BT 2', name: 'Bluetooth Connection 2 (USER02)', category: 'Lighting & Hardware' },
+  { code: 0x5F83, shortLabel: 'BT 3', name: 'Bluetooth Connection 3 (USER03)', category: 'Lighting & Hardware' },
+  { code: 0x5F84, shortLabel: 'LOCK WIN', name: 'Lock Windows Key (USER04)', category: 'Lighting & Hardware' },
+  { code: 0x5F85, shortLabel: 'LOGO MODE', name: 'LED Logo Bar Mode (USER05)', category: 'Lighting & Hardware' },
+  { code: 0x5F86, shortLabel: 'LOGO CLR', name: 'LED Logo Bar Colour (USER06)', category: 'Lighting & Hardware' },
+  { code: 0x5F87, shortLabel: 'OLEDSDOWN', name: 'OLED / TFT Next Screen Mode (USER07)', category: 'Lighting & Hardware' },
+  { code: 0x5F88, shortLabel: 'KS DELAY', name: 'Key Scan Delay (USER08)', category: 'Lighting & Hardware' },
+  { code: 0x5F89, shortLabel: 'OLEDPOWER', name: 'OLED / TFT Power Toggle (USER09)', category: 'Lighting & Hardware' },
+  { code: 0x5F8A, shortLabel: 'VIA_2_3.0', name: 'VIA V2 / V3 Work Mode Change (USER10)', category: 'Lighting & Hardware' },
   { code: 0x5C00, shortLabel: 'RESET_P9', name: 'Factory Reset (P9)', category: 'Lighting & Hardware' },
   { code: 0x7C00, shortLabel: 'QK_BOOT', name: 'Bootloader / Reset (V11)', category: 'Lighting & Hardware' },
 ];
@@ -190,6 +192,11 @@ export function getKeycodeLabel(code: number, viaProtocol = 9): string {
   const found = KEYCODE_BY_CODE.get(code);
   if (found) return found.shortLabel;
   if (code === 0) return 'NONE';
+  // Map V3/Protocol 11 USER00..USER10 (0x7E00..0x7E0A) to the same GMK87 custom keycodes
+  if (code >= 0x7e00 && code <= 0x7e0a) {
+    const p9Equiv = KEYCODE_BY_CODE.get(0x5f80 + (code - 0x7e00));
+    if (p9Equiv) return p9Equiv.shortLabel;
+  }
   if (code >= 0x5100 && code <= 0x510f) return `MO(${code & 0x0f})`;
   if (code >= 0x5010 && code <= 0x501f) return `TO(${code & 0x0f})`;
   if (viaProtocol >= 11 && code >= 0x5220 && code <= 0x523f) return `MO(${code & 0x1f})`;
@@ -210,21 +217,21 @@ export function getKeycodeLabel(code: number, viaProtocol = 9): string {
  * - Turn CW: [Row 7, Col 1]
  */
 export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
-  // Row 0: Function Row + Rotary Knob Cluster at top right
+  // Row 0: Function Row (15.0U main block: Esc + F1..F4 + F5..F8 + F9..F12 + PrtSc) + TFT Screen & Rotary Knob in Nav Cluster (15.25..18.25U)
   { id: 'r0c0', label: 'Esc', row: 0, col: 0, x: 0, y: 0, w: 1 },
-  { id: 'r0c1', label: 'F1', row: 0, col: 1, x: 1.5, y: 0, w: 1 },
-  { id: 'r0c2', label: 'F2', row: 0, col: 2, x: 2.5, y: 0, w: 1 },
-  { id: 'r0c3', label: 'F3', row: 0, col: 3, x: 3.5, y: 0, w: 1 },
-  { id: 'r0c4', label: 'F4', row: 0, col: 4, x: 4.5, y: 0, w: 1 },
-  { id: 'r0c5', label: 'F5', row: 0, col: 5, x: 6, y: 0, w: 1 },
-  { id: 'r0c6', label: 'F6', row: 0, col: 6, x: 7, y: 0, w: 1 },
-  { id: 'r0c7', label: 'F7', row: 0, col: 7, x: 8, y: 0, w: 1 },
-  { id: 'r0c8', label: 'F8', row: 0, col: 8, x: 9, y: 0, w: 1 },
-  { id: 'r0c9', label: 'F9', row: 0, col: 9, x: 10.5, y: 0, w: 1 },
-  { id: 'r0c10', label: 'F10', row: 0, col: 10, x: 11.5, y: 0, w: 1 },
-  { id: 'r0c11', label: 'F11', row: 0, col: 11, x: 12.5, y: 0, w: 1 },
-  { id: 'r0c12', label: 'F12', row: 0, col: 12, x: 13.5, y: 0, w: 1 },
-  { id: 'r0c13', label: 'PrtSc', row: 0, col: 13, x: 14.65, y: 0, w: 1 },
+  { id: 'r0c1', label: 'F1', row: 0, col: 1, x: 1.25, y: 0, w: 1 },
+  { id: 'r0c2', label: 'F2', row: 0, col: 2, x: 2.25, y: 0, w: 1 },
+  { id: 'r0c3', label: 'F3', row: 0, col: 3, x: 3.25, y: 0, w: 1 },
+  { id: 'r0c4', label: 'F4', row: 0, col: 4, x: 4.25, y: 0, w: 1 },
+  { id: 'r0c5', label: 'F5', row: 0, col: 5, x: 5.5, y: 0, w: 1 },
+  { id: 'r0c6', label: 'F6', row: 0, col: 6, x: 6.5, y: 0, w: 1 },
+  { id: 'r0c7', label: 'F7', row: 0, col: 7, x: 7.5, y: 0, w: 1 },
+  { id: 'r0c8', label: 'F8', row: 0, col: 8, x: 8.5, y: 0, w: 1 },
+  { id: 'r0c9', label: 'F9', row: 0, col: 9, x: 9.75, y: 0, w: 1 },
+  { id: 'r0c10', label: 'F10', row: 0, col: 10, x: 10.75, y: 0, w: 1 },
+  { id: 'r0c11', label: 'F11', row: 0, col: 11, x: 11.75, y: 0, w: 1 },
+  { id: 'r0c12', label: 'F12', row: 0, col: 12, x: 12.75, y: 0, w: 1 },
+  { id: 'r0c13', label: 'PrtSc', row: 0, col: 13, x: 14, y: 0, w: 1 },
   // Rotary Knob actions (handled via CNC encoder dial overlay, filtered out of keycap array)
   { id: 'r7c0', label: '↺ CCW', row: 7, col: 0, x: 17.4, y: 0, w: 1, isKnob: true },
   { id: 'r0c14', label: '● CLICK', row: 0, col: 14, x: 17.4, y: 0, w: 1, isKnob: true },
@@ -246,10 +253,10 @@ export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
   { id: 'r1c12', label: '=', row: 1, col: 12, x: 12, y: 1.35, w: 1 },
   { id: 'r1c13', label: 'Backspace', row: 1, col: 13, x: 13, y: 1.35, w: 2 },
   { id: 'r1c14', label: 'Ins', row: 1, col: 14, x: 15.25, y: 1.35, w: 1 },
-  { id: 'r3c14', label: 'Home', row: 3, col: 14, x: 16.25, y: 1.35, w: 1 },
-  { id: 'r5c14', label: 'PgUp', row: 5, col: 14, x: 17.25, y: 1.35, w: 1 },
+  { id: 'r5c4', label: 'Home', row: 5, col: 4, x: 16.25, y: 1.35, w: 1 },
+  { id: 'r3c14', label: 'PgUp', row: 3, col: 14, x: 17.25, y: 1.35, w: 1 },
 
-  // Row 2: QWERTY Row + Nav Bottom Row (Del, End, PgDn)
+  // Row 2: QWERTY Row + Nav Bottom Row (Del=2,14, End=5,5, PgDn=5,6 per official VIA V2 JSON)
   { id: 'r2c0', label: 'Tab', row: 2, col: 0, x: 0, y: 2.35, w: 1.5 },
   { id: 'r2c1', label: 'Q', row: 2, col: 1, x: 1.5, y: 2.35, w: 1 },
   { id: 'r2c2', label: 'W', row: 2, col: 2, x: 2.5, y: 2.35, w: 1 },
@@ -265,8 +272,8 @@ export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
   { id: 'r2c12', label: ']', row: 2, col: 12, x: 12.5, y: 2.35, w: 1 },
   { id: 'r2c13', label: '\\', row: 2, col: 13, x: 13.5, y: 2.35, w: 1.5 },
   { id: 'r2c14', label: 'Del', row: 2, col: 14, x: 15.25, y: 2.35, w: 1 },
-  { id: 'r4c14', label: 'End', row: 4, col: 14, x: 16.25, y: 2.35, w: 1 },
-  { id: 'r6c14', label: 'PgDn', row: 6, col: 14, x: 17.25, y: 2.35, w: 1 },
+  { id: 'r5c5', label: 'End', row: 5, col: 5, x: 16.25, y: 2.35, w: 1 },
+  { id: 'r5c6', label: 'PgDn', row: 5, col: 6, x: 17.25, y: 2.35, w: 1 },
 
   // Row 3: ASDF Row (clean gasket plate below nav cluster)
   { id: 'r3c0', label: 'Caps', row: 3, col: 0, x: 0, y: 3.35, w: 1.75 },
@@ -283,7 +290,7 @@ export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
   { id: 'r3c11', label: "'", row: 3, col: 11, x: 11.75, y: 3.35, w: 1 },
   { id: 'r3c13', label: 'Enter', row: 3, col: 13, x: 12.75, y: 3.35, w: 2.25 },
 
-  // Row 4: ZXCV Row + Up Arrow
+  // Row 4: ZXCV Row + Up Arrow (RShift=4,13, Up=4,14 per official VIA V2 JSON)
   { id: 'r4c0', label: 'LShift', row: 4, col: 0, x: 0, y: 4.35, w: 2.25 },
   { id: 'r4c2', label: 'Z', row: 4, col: 2, x: 2.25, y: 4.35, w: 1 },
   { id: 'r4c3', label: 'X', row: 4, col: 3, x: 3.25, y: 4.35, w: 1 },
@@ -295,27 +302,29 @@ export const GMK87_PHYSICAL_KEYS: KeyDefinition[] = [
   { id: 'r4c9', label: ',', row: 4, col: 9, x: 9.25, y: 4.35, w: 1 },
   { id: 'r4c10', label: '.', row: 4, col: 10, x: 10.25, y: 4.35, w: 1 },
   { id: 'r4c11', label: '/', row: 4, col: 11, x: 11.25, y: 4.35, w: 1 },
-  { id: 'r4c12', label: 'RShift', row: 4, col: 12, x: 12.25, y: 4.35, w: 2.75 },
-  { id: 'r4c13', label: '▲', row: 4, col: 13, x: 16.25, y: 4.35, w: 1 },
+  { id: 'r4c13', label: 'RShift', row: 4, col: 13, x: 12.25, y: 4.35, w: 2.75 },
+  { id: 'r4c14', label: '▲', row: 4, col: 14, x: 16.25, y: 4.35, w: 1 },
 
-  // Row 5: Bottom Modifiers + Arrow Cluster
+  // Row 5: Bottom Modifiers + Arrow Cluster (Space=5,8, Left=5,13, Down=5,14, Right=5,7)
   { id: 'r5c0', label: 'LCtrl', row: 5, col: 0, x: 0, y: 5.35, w: 1.25 },
   { id: 'r5c1', label: 'Win', row: 5, col: 1, x: 1.25, y: 5.35, w: 1.25 },
   { id: 'r5c2', label: 'LAlt', row: 5, col: 2, x: 2.5, y: 5.35, w: 1.25 },
-  { id: 'r5c6', label: 'Space', row: 5, col: 6, x: 3.75, y: 5.35, w: 6.25 },
+  { id: 'r5c8', label: 'Space', row: 5, col: 8, x: 3.75, y: 5.35, w: 6.25 },
   { id: 'r5c9', label: 'RAlt', row: 5, col: 9, x: 10, y: 5.35, w: 1.25 },
   { id: 'r5c10', label: 'Fn', row: 5, col: 10, x: 11.25, y: 5.35, w: 1.25 },
   { id: 'r5c11', label: 'Menu', row: 5, col: 11, x: 12.5, y: 5.35, w: 1.25 },
   { id: 'r5c12', label: 'RCtrl', row: 5, col: 12, x: 13.75, y: 5.35, w: 1.25 },
   { id: 'r5c13', label: '◄', row: 5, col: 13, x: 15.25, y: 5.35, w: 1 },
-  { id: 'r6c12', label: '▼', row: 6, col: 12, x: 16.25, y: 5.35, w: 1 },
-  { id: 'r6c13', label: '►', row: 6, col: 13, x: 17.25, y: 5.35, w: 1 },
+  { id: 'r5c14', label: '▼', row: 5, col: 14, x: 16.25, y: 5.35, w: 1 },
+  { id: 'r5c7', label: '►', row: 5, col: 7, x: 17.25, y: 5.35, w: 1 },
 ];
 
 export function createDefaultKeymap(): number[][][] {
   // 4 layers x 8 rows x 15 cols
-  const layers: number[][][] = Array.from({ length: 4 }, () =>
-    Array.from({ length: 8 }, () => Array.from({ length: 15 }, () => 0x0001))
+  const layers: number[][][] = Array.from({ length: 4 }, (_, l) =>
+    Array.from({ length: 8 }, () =>
+      Array.from({ length: 15 }, () => (l === 1 || l === 3 ? 0x0001 : 0x0000))
+    )
   );
 
   // Layer 0 (Win Base)
@@ -388,7 +397,7 @@ export function createDefaultKeymap(): number[][][] {
   l0[3][10] = 0x0033; // ;
   l0[3][11] = 0x0034; // '
   l0[3][13] = 0x0028; // Enter
-  l0[3][14] = 0x004A; // Home
+  l0[3][14] = 0x004B; // PgUp [3,14]
 
   // Row 4
   l0[4][0] = 0x00E1; // LShift
@@ -402,43 +411,46 @@ export function createDefaultKeymap(): number[][][] {
   l0[4][9] = 0x0036; // ,
   l0[4][10] = 0x0037; // .
   l0[4][11] = 0x0038; // /
-  l0[4][12] = 0x00E5; // RShift
-  l0[4][13] = 0x0052; // Up
-  l0[4][14] = 0x004D; // End
+  l0[4][13] = 0x00E5; // RShift [4,13]
+  l0[4][14] = 0x0052; // Up Arrow [4,14]
 
-  // Row 5 & 6
+  // Row 5 (Modifiers, Nav Home/End/PgDn, Spacebar, Left/Down/Right Arrows)
   l0[5][0] = 0x00E0; // LCtrl
   l0[5][1] = 0x00E3; // LWin
   l0[5][2] = 0x00E2; // LAlt
-  l0[5][6] = 0x002C; // Space
+  l0[5][4] = 0x004A; // Home [5,4]
+  l0[5][5] = 0x004D; // End [5,5]
+  l0[5][6] = 0x004E; // PgDn [5,6]
+  l0[5][7] = 0x004F; // Right Arrow [5,7]
+  l0[5][8] = 0x002C; // Space [5,8]
   l0[5][9] = 0x00E6; // RAlt
-  l0[5][10] = 0x5F10; // GMK87 Hardware Fn Key
+  l0[5][10] = 0x5101; // MO(1) Win Fn Key (VIA Protocol 9 standard)
   l0[5][11] = 0x00E7; // Menu/RGUI
   l0[5][12] = 0x00E4; // RCtrl
-  l0[5][13] = 0x0050; // Left
-  l0[5][14] = 0x004B; // PgUp
-  l0[6][12] = 0x0051; // Down
-  l0[6][13] = 0x004F; // Right
-  l0[6][14] = 0x004E; // PgDn
+  l0[5][13] = 0x0050; // Left Arrow [5,13]
+  l0[5][14] = 0x0051; // Down Arrow [5,14]
 
-  // Layer 1 (Win Fn — Protocol 9)
+  // Layer 1 (Win Fn — Protocol 9 verified with GMK87_VIA_JSON_File__Wired__V2.JSON)
   const l1 = layers[1];
   l1[0][0] = 0x5C00; // Fn+Esc Reset
   l1[2][1] = 0x5F81; // Fn+Q BT1
   l1[2][2] = 0x5F82; // Fn+W BT2
   l1[2][3] = 0x5F83; // Fn+E BT3
-  l1[2][4] = 0x5F80; // Fn+R 2.4G
+  l1[2][4] = 0x5F80; // Fn+R 2.4G MODE
+  l1[5][1] = 0x5F84; // Fn+Win LOCK WIN KEY
   l1[2][13] = 0x5CC3; // Fn+\ RGB Mode
   l1[2][14] = 0x5CC5; // Fn+Del RGB Hue
   l1[1][13] = 0x5CC2; // Fn+Backspace RGB Toggle
-  l1[3][13] = 0x5F89; // Fn+Enter Next Screen Slot
-  l1[4][12] = 0x5F8B; // Fn+RShift Toggle Screen
-  l1[4][13] = 0x5CC9; // Fn+Up RGB Bri+
-  l1[6][12] = 0x5CCA; // Fn+Down RGB Bri-
+  l1[1][14] = 0x5F85; // Fn+Ins LED LOGO MODE
+  l1[5][4] = 0x5F86; // Fn+Home LED LOGO COLOUR
+  l1[3][13] = 0x5F87; // Fn+Enter OLED SET DOWN (Next Screen Mode)
+  l1[4][13] = 0x5F89; // Fn+RShift OLED POWER SET (Toggle Screen Power)
+  l1[4][14] = 0x5CC9; // Fn+Up RGB Bri+
+  l1[5][14] = 0x5CCA; // Fn+Down RGB Bri-
   l1[5][13] = 0x5CCC; // Fn+Left RGB Spd-
-  l1[6][13] = 0x5CCB; // Fn+Right RGB Spd+
+  l1[5][7] = 0x5CCB; // Fn+Right RGB Spd+
 
-  // Layer 2 (Mac Base) - copy Layer 0 with swapped Win/Alt
+  // Layer 2 (Mac Base) - copy Layer 0 with swapped Win/Alt & MO(3) Fn
   for (let r = 0; r < 8; r++) {
     for (let c = 0; c < 15; c++) {
       layers[2][r][c] = l0[r][c];
@@ -447,7 +459,7 @@ export function createDefaultKeymap(): number[][][] {
   layers[2][5][1] = 0x00E2; // LOpt
   layers[2][5][2] = 0x00E3; // LCmd
   layers[2][5][9] = 0x00E7; // RCmd
-  layers[2][5][10] = 0x5F10; // Fn
+  layers[2][5][10] = 0x5103; // MO(3) Mac Fn
 
   // Layer 3 (Mac Fn)
   for (let r = 0; r < 8; r++) {
@@ -457,6 +469,46 @@ export function createDefaultKeymap(): number[][][] {
   }
 
   return layers;
+}
+
+/**
+ * Checks whether a 4-layer VIA keymap read from hardware has missing, zeroed, or shifted keys
+ * on Layer 0 (Win Base).
+ */
+export function isKeymapMangled(keymap: number[][][] | null | undefined): boolean {
+  if (!Array.isArray(keymap) || keymap.length < 4) return true;
+  const l0 = keymap[0];
+  if (!Array.isArray(l0) || l0.length < 6) return true;
+
+  // Check essential alphanumeric + control keys on Layer 0
+  const essentialCoords: Array<[number, number]> = [
+    [0, 0],  // Esc
+    [1, 1],  // 1
+    [1, 13], // Backspace
+    [2, 0],  // Tab
+    [2, 1],  // Q
+    [2, 2],  // W
+    [2, 3],  // E
+    [2, 4],  // R
+    [3, 1],  // A
+    [3, 2],  // S
+    [3, 3],  // D
+    [3, 4],  // F
+    [3, 13], // Enter
+    [4, 0],  // LShift
+    [4, 2],  // Z
+    [5, 0],  // LCtrl
+    [5, 8],  // Space
+  ];
+
+  let invalidCount = 0;
+  for (const [r, c] of essentialCoords) {
+    const code = l0[r]?.[c] ?? 0;
+    if (code === 0x0000 || code === 0x0001 || code === 0xffff) {
+      invalidCount++;
+    }
+  }
+  return invalidCount >= 2;
 }
 
 export interface ShortcutEntry {

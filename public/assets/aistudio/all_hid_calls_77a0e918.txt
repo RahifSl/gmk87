@@ -1,0 +1,3051 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  0047E800: add         byte ptr [ecx+edx-39h],dh
+  0047E804: inc         ebp
+  0047E805: mov         ah,0
+  0047E807: add         byte ptr [eax],al
+  0047E809: add         cl,ch
+  0047E80B: jmp         E947E810
+  0047E810: in          al,0
+  0047E812: add         byte ptr [eax],al
+  0047E814: mov         eax,dword ptr [ebp+0Ch]
+  0047E817: cmp         eax,dword ptr [ebp-50h]
+  0047E81A: jae         0047E84B
+  0047E81C: mov         ecx,dword ptr [ebp+0Ch]
+  0047E81F: push        ecx
+  0047E820: mov         edx,dword ptr [ebp+8]
+  0047E823: push        edx
+  0047E824: lea         eax,[ebp-44h]
+  0047E827: push        eax
+  0047E828: call        0060EBF0
+  0047E82D: add         esp,0Ch
+  0047E830: mov         ecx,dword ptr [ebp-50h]
+  0047E833: sub         ecx,dword ptr [ebp+0Ch]
+  0047E836: push        ecx
+  0047E837: push        0
+  0047E839: mov         edx,dword ptr [ebp+0Ch]
+  0047E83C: lea         eax,[ebp+edx-44h]
+  0047E840: push        eax
+  0047E841: call        0060F170
+  0047E846: add         esp,0Ch
+  0047E849: jmp         0047E85F
+  0047E84B: mov         ecx,dword ptr [ebp-50h]
+  0047E84E: push        ecx
+  0047E84F: mov         edx,dword ptr [ebp+8]
+  0047E852: push        edx
+  0047E853: lea         eax,[ebp-44h]
+  0047E856: push        eax
+  0047E857: call        0060EBF0
+  0047E85C: add         esp,0Ch
+  0047E85F: mov         ecx,dword ptr [ebp-48h]
+  0047E862: add         ecx,5CCh
+  0047E868: call        00479DC0
+  0047E86D: push        3E8h
+  0047E872: lea         ecx,[ebp-58h]
+  0047E875: push        ecx
+  0047E876: mov         edx,dword ptr [ebp-50h]
+  0047E879: push        edx
+  0047E87A: lea         eax,[ebp-44h]
+  0047E87D: push        eax
+  0047E87E: mov         ecx,dword ptr [ebp-48h]
+  0047E881: add         ecx,1Ch
+  0047E884: call        004CC600
+  0047E889: mov         dword ptr [ebp-4Ch],eax
+  0047E88C: mov         ecx,dword ptr [ebp-48h]
+  0047E88F: add         ecx,5CCh
+  0047E895: mov         edx,dword ptr [ebp-48h]
+  0047E898: mov         eax,dword ptr [edx+000005CCh]
+  0047E89E: mov         edx,dword ptr [eax+14h]
+  0047E8A1: call        edx
+  0047E8A3: cmp         dword ptr [ebp-4Ch],0
+  0047E8A7: jg          0047E8B4
+  0047E8A9: mov         dword ptr [ebp-4Ch],0FFFFFFFFh
+  0047E8B0: jmp         0047E8F8
+  0047E8B2: jmp         0047E8F8
+  0047E8B4: mov         ecx,dword ptr [ebp-48h]
+  0047E8B7: add         ecx,5CCh
+  0047E8BD: call        00479DC0
+  0047E8C2: push        3E8h
+  0047E8C7: mov         eax,dword ptr [ebp+18h]
+  0047E8CA: push        eax
+  0047E8CB: mov         ecx,dword ptr [ebp+14h]
+  0047E8CE: push        ecx
+  0047E8CF: mov         edx,dword ptr [ebp+10h]
+  0047E8D2: push        edx
+  0047E8D3: mov         ecx,dword ptr [ebp-48h]
+  0047E8D6: add         ecx,1Ch
+  0047E8D9: call        004CC540
+  0047E8DE: mov         dword ptr [ebp-4Ch],eax
+  0047E8E1: mov         ecx,dword ptr [ebp-48h]
+  0047E8E4: add         ecx,5CCh
+  0047E8EA: mov         eax,dword ptr [ebp-48h]
+  0047E8ED: mov         edx,dword ptr [eax+000005CCh]
+  0047E8F3: mov         eax,dword ptr [edx+14h]
+  0047E8F6: call        eax
+  0047E8F8: mov         eax,dword ptr [ebp-4Ch]
+  0047E8FB: mov         ecx,dword ptr [ebp-4]
+  0047E8FE: xor         ecx,ebp
+  0047E900: call        006095D5
+  0047E905: mov         esp,ebp
+  0047E907: pop         ebp
+  0047E908: ret         14h
+  0047E90B: int         3
+  0047E90C: int         3
+  0047E90D: int         3
+  0047E90E: int         3
+  0047E90F: int         3
+  0047E910: push        ebp
+  0047E911: mov         ebp,esp
+  0047E913: sub         esp,0A8h
+  0047E919: mov         eax,dword ptr ds:[00702F64h]
+  0047E91E: xor         eax,ebp
+  0047E920: mov         dword ptr [ebp-4],eax
+  0047E923: mov         dword ptr [ebp+FFFFFF70h],ecx
+  0047E929: mov         byte ptr [ebp-44h],0
+  0047E92D: push        3Fh
+  0047E92F: push        0
+  0047E931: lea         eax,[ebp-43h]
+  0047E934: push        eax
+  0047E935: call        0060F170
+  0047E93A: add         esp,0Ch
+  0047E93D: mov         ecx,1
+  0047E942: imul        edx,ecx,0
+  0047E945: mov         byte ptr [ebp+edx-44h],4
+  0047E94A: mov         eax,1
+  0047E94F: imul        ecx,eax,3
+  0047E952: mov         byte ptr [ebp+ecx-44h],1
+  0047E957: mov         edx,1
+  0047E95C: imul        eax,edx,7
+  0047E95F: mov         dword ptr [ebp+FFFFFF6Ch],eax
+  0047E965: cmp         dword ptr [ebp+FFFFFF6Ch],40h
+  0047E96C: jae         0047E970
+  0047E96E: jmp         0047E975
+  0047E970: call        00609D39
+  0047E975: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047E97B: mov         byte ptr [ebp+ecx-44h],0
+  0047E980: mov         edx,1
+  0047E985: shl         edx,2
+  0047E988: mov         dword ptr [ebp+FFFFFF68h],edx
+  0047E98E: cmp         dword ptr [ebp+FFFFFF68h],40h
+  0047E995: jae         0047E999
+  0047E997: jmp         0047E99E
+  0047E999: call        00609D39
+  0047E99E: mov         eax,dword ptr [ebp+FFFFFF68h]
+  0047E9A4: mov         byte ptr [ebp+eax-44h],0
+  0047E9A9: mov         ecx,1
+  0047E9AE: imul        edx,ecx,5
+  0047E9B1: mov         dword ptr [ebp+FFFFFF64h],edx
+  0047E9B7: cmp         dword ptr [ebp+FFFFFF64h],40h
+  0047E9BE: jae         0047E9C2
+  0047E9C0: jmp         0047E9C7
+  0047E9C2: call        00609D39
+  0047E9C7: mov         eax,dword ptr [ebp+FFFFFF64h]
+  0047E9CD: mov         byte ptr [ebp+eax-44h],0
+  0047E9D2: mov         ecx,1
+  0047E9D7: imul        edx,ecx,6
+  0047E9DA: mov         dword ptr [ebp+FFFFFF60h],edx
+  0047E9E0: cmp         dword ptr [ebp+FFFFFF60h],40h
+  0047E9E7: jae         0047E9EB
+  0047E9E9: jmp         0047E9F0
+  0047E9EB: call        00609D39
+  0047E9F0: mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047E9F6: mov         byte ptr [ebp+eax-44h],0
+  0047E9FB: mov         dword ptr [ebp+FFFFFF78h],3
+  0047EA05: mov         dword ptr [ebp+FFFFFF74h],0
+  0047EA0F: jmp         0047EA20
+  0047EA11: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047EA17: add         ecx,1
+  0047EA1A: mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047EA20: cmp         dword ptr [ebp+FFFFFF78h],40h
+  0047EA27: jae         0047EA42
+  0047EA29: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047EA2F: movzx       eax,byte ptr [ebp+edx-44h]
+  0047EA34: add         eax,dword ptr [ebp+FFFFFF74h]
+  0047EA3A: mov         dword ptr [ebp+FFFFFF74h],eax
+  0047EA40: jmp         0047EA11
+  0047EA42: mov         ecx,1
+  0047EA47: shl         ecx,0
+  0047EA4A: mov         dl,byte ptr [ebp+FFFFFF74h]
+  0047EA50: mov         byte ptr [ebp+ecx-44h],dl
+  0047EA54: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047EA5A: shr         eax,8
+  0047EA5D: mov         ecx,1
+  0047EA62: shl         ecx,1
+  0047EA64: mov         byte ptr [ebp+ecx-44h],al
+  0047EA68: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EA6E: add         ecx,60Ch
+  0047EA74: call        00479DC0
+  0047EA79: lea         edx,[ebp+FFFFFF58h]
+  0047EA7F: push        edx
+  0047EA80: push        40h
+  0047EA82: lea         eax,[ebp+FFFFFF7Ch]
+  0047EA88: push        eax
+  0047EA89: push        40h
+  0047EA8B: lea         ecx,[ebp-44h]
+  0047EA8E: push        ecx
+  0047EA8F: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EA95: call        0047D270
+  0047EA9A: mov         dword ptr [ebp+FFFFFF5Ch],eax
+  0047EAA0: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EAA6: add         ecx,60Ch
+  0047EAAC: mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047EAB2: mov         eax,dword ptr [edx+0000060Ch]
+  0047EAB8: mov         edx,dword ptr [eax+14h]
+  0047EABB: call        edx
+  0047EABD: cmp         dword ptr [ebp+FFFFFF5Ch],1
+  0047EAC4: je          0047EACE
+  0047EAC6: mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  0047EACC: jmp         0047EB11
+  0047EACE: mov         eax,1
+  0047EAD3: imul        ecx,eax,7
+  0047EAD6: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047EADE: cmp         edx,0FFh
+  0047EAE4: jne         0047EAED
+  0047EAE6: mov         eax,0FFFFFF9Ah
+  0047EAEB: jmp         0047EB11
+  0047EAED: mov         eax,1
+  0047EAF2: imul        ecx,eax,7
+  0047EAF5: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047EAFD: cmp         edx,0FEh
+  0047EB03: jne         0047EB0C
+  0047EB05: mov         eax,0FFFFFF99h
+  0047EB0A: jmp         0047EB11
+  0047EB0C: mov         eax,1
+  0047EB11: mov         ecx,dword ptr [ebp-4]
+  0047EB14: xor         ecx,ebp
+  0047EB16: call        006095D5
+  0047EB1B: mov         esp,ebp
+  0047EB1D: pop         ebp
+  0047EB1E: ret
+  0047EB1F: int         3
+  0047EB20: push        ebp
+  0047EB21: mov         ebp,esp
+  0047EB23: sub         esp,0A8h
+  0047EB29: mov         eax,dword ptr ds:[00702F64h]
+  0047EB2E: xor         eax,ebp
+  0047EB30: mov         dword ptr [ebp-4],eax
+  0047EB33: mov         dword ptr [ebp+FFFFFF70h],ecx
+  0047EB39: mov         byte ptr [ebp-44h],0
+  0047EB3D: push        3Fh
+  0047EB3F: push        0
+  0047EB41: lea         eax,[ebp-43h]
+  0047EB44: push        eax
+  0047EB45: call        0060F170
+  0047EB4A: add         esp,0Ch
+  0047EB4D: mov         ecx,1
+  0047EB52: imul        edx,ecx,0
+  0047EB55: mov         byte ptr [ebp+edx-44h],4
+  0047EB5A: mov         eax,1
+  0047EB5F: imul        ecx,eax,3
+  0047EB62: mov         byte ptr [ebp+ecx-44h],2
+  0047EB67: mov         edx,1
+  0047EB6C: imul        eax,edx,7
+  0047EB6F: mov         dword ptr [ebp+FFFFFF6Ch],eax
+  0047EB75: cmp         dword ptr [ebp+FFFFFF6Ch],40h
+  0047EB7C: jae         0047EB80
+  0047EB7E: jmp         0047EB85
+  0047EB80: call        00609D39
+  0047EB85: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047EB8B: mov         byte ptr [ebp+ecx-44h],0
+  0047EB90: mov         edx,1
+  0047EB95: shl         edx,2
+  0047EB98: mov         dword ptr [ebp+FFFFFF68h],edx
+  0047EB9E: cmp         dword ptr [ebp+FFFFFF68h],40h
+  0047EBA5: jae         0047EBA9
+  0047EBA7: jmp         0047EBAE
+  0047EBA9: call        00609D39
+  0047EBAE: mov         eax,dword ptr [ebp+FFFFFF68h]
+  0047EBB4: mov         byte ptr [ebp+eax-44h],0
+  0047EBB9: mov         ecx,1
+  0047EBBE: imul        edx,ecx,5
+  0047EBC1: mov         dword ptr [ebp+FFFFFF64h],edx
+  0047EBC7: cmp         dword ptr [ebp+FFFFFF64h],40h
+  0047EBCE: jae         0047EBD2
+  0047EBD0: jmp         0047EBD7
+  0047EBD2: call        00609D39
+  0047EBD7: mov         eax,dword ptr [ebp+FFFFFF64h]
+  0047EBDD: mov         byte ptr [ebp+eax-44h],0
+  0047EBE2: mov         ecx,1
+  0047EBE7: imul        edx,ecx,6
+  0047EBEA: mov         dword ptr [ebp+FFFFFF60h],edx
+  0047EBF0: cmp         dword ptr [ebp+FFFFFF60h],40h
+  0047EBF7: jae         0047EBFB
+  0047EBF9: jmp         0047EC00
+  0047EBFB: call        00609D39
+  0047EC00: mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047EC06: mov         byte ptr [ebp+eax-44h],0
+  0047EC0B: mov         dword ptr [ebp+FFFFFF78h],3
+  0047EC15: mov         dword ptr [ebp+FFFFFF74h],0
+  0047EC1F: jmp         0047EC30
+  0047EC21: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047EC27: add         ecx,1
+  0047EC2A: mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047EC30: cmp         dword ptr [ebp+FFFFFF78h],40h
+  0047EC37: jae         0047EC52
+  0047EC39: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047EC3F: movzx       eax,byte ptr [ebp+edx-44h]
+  0047EC44: add         eax,dword ptr [ebp+FFFFFF74h]
+  0047EC4A: mov         dword ptr [ebp+FFFFFF74h],eax
+  0047EC50: jmp         0047EC21
+  0047EC52: mov         ecx,1
+  0047EC57: shl         ecx,0
+  0047EC5A: mov         dl,byte ptr [ebp+FFFFFF74h]
+  0047EC60: mov         byte ptr [ebp+ecx-44h],dl
+  0047EC64: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047EC6A: shr         eax,8
+  0047EC6D: mov         ecx,1
+  0047EC72: shl         ecx,1
+  0047EC74: mov         byte ptr [ebp+ecx-44h],al
+  0047EC78: push        0Ah
+  0047EC7A: call        dword ptr ds:[00667BE4h]
+  0047EC80: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EC86: add         ecx,60Ch
+  0047EC8C: call        00479DC0
+  0047EC91: lea         edx,[ebp+FFFFFF58h]
+  0047EC97: push        edx
+  0047EC98: push        40h
+  0047EC9A: lea         eax,[ebp+FFFFFF7Ch]
+  0047ECA0: push        eax
+  0047ECA1: push        40h
+  0047ECA3: lea         ecx,[ebp-44h]
+  0047ECA6: push        ecx
+  0047ECA7: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047ECAD: call        0047D270
+  0047ECB2: mov         dword ptr [ebp+FFFFFF5Ch],eax
+  0047ECB8: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047ECBE: add         ecx,60Ch
+  0047ECC4: mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047ECCA: mov         eax,dword ptr [edx+0000060Ch]
+  0047ECD0: mov         edx,dword ptr [eax+14h]
+  0047ECD3: call        edx
+  0047ECD5: cmp         dword ptr [ebp+FFFFFF5Ch],1
+  0047ECDC: je          0047ECE6
+  0047ECDE: mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  0047ECE4: jmp         0047ED29
+  0047ECE6: mov         eax,1
+  0047ECEB: imul        ecx,eax,7
+  0047ECEE: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047ECF6: cmp         edx,0FFh
+  0047ECFC: jne         0047ED05
+  0047ECFE: mov         eax,0FFFFFF9Ah
+  0047ED03: jmp         0047ED29
+  0047ED05: mov         eax,1
+  0047ED0A: imul        ecx,eax,7
+  0047ED0D: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047ED15: cmp         edx,0FEh
+  0047ED1B: jne         0047ED24
+  0047ED1D: mov         eax,0FFFFFF99h
+  0047ED22: jmp         0047ED29
+  0047ED24: mov         eax,1
+  0047ED29: mov         ecx,dword ptr [ebp-4]
+  0047ED2C: xor         ecx,ebp
+  0047ED2E: call        006095D5
+  0047ED33: mov         esp,ebp
+  0047ED35: pop         ebp
+  0047ED36: ret         4
+  0047ED39: int         3
+  0047ED3A: int         3
+  0047ED3B: int         3
+  0047ED3C: int         3
+  0047ED3D: int         3
+  0047ED3E: int         3
+  0047ED3F: int         3
+  0047ED40: push        ebp
+  0047ED41: mov         ebp,esp
+  0047ED43: sub         esp,0A8h
+  0047ED49: mov         eax,dword ptr ds:[00702F64h]
+  0047ED4E: xor         eax,ebp
+  0047ED50: mov         dword ptr [ebp-4],eax
+  0047ED53: mov         dword ptr [ebp+FFFFFF70h],ecx
+  0047ED59: mov         byte ptr [ebp-44h],0
+  0047ED5D: push        3Fh
+  0047ED5F: push        0
+  0047ED61: lea         eax,[ebp-43h]
+  0047ED64: push        eax
+  0047ED65: call        0060F170
+  0047ED6A: add         esp,0Ch
+  0047ED6D: mov         ecx,1
+  0047ED72: imul        edx,ecx,0
+  0047ED75: mov         byte ptr [ebp+edx-44h],4
+  0047ED7A: mov         eax,1
+  0047ED7F: imul        ecx,eax,3
+  0047ED82: mov         byte ptr [ebp+ecx-44h],1Ch
+  0047ED87: mov         edx,1
+  0047ED8C: imul        eax,edx,7
+  0047ED8F: mov         dword ptr [ebp+FFFFFF6Ch],eax
+  0047ED95: cmp         dword ptr [ebp+FFFFFF6Ch],40h
+  0047ED9C: jae         0047EDA0
+  0047ED9E: jmp         0047EDA5
+  0047EDA0: call        00609D39
+  0047EDA5: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047EDAB: mov         byte ptr [ebp+ecx-44h],0
+  0047EDB0: mov         edx,1
+  0047EDB5: shl         edx,2
+  0047EDB8: mov         dword ptr [ebp+FFFFFF68h],edx
+  0047EDBE: cmp         dword ptr [ebp+FFFFFF68h],40h
+  0047EDC5: jae         0047EDC9
+  0047EDC7: jmp         0047EDCE
+  0047EDC9: call        00609D39
+  0047EDCE: mov         eax,dword ptr [ebp+FFFFFF68h]
+  0047EDD4: mov         byte ptr [ebp+eax-44h],0
+  0047EDD9: mov         ecx,1
+  0047EDDE: imul        edx,ecx,5
+  0047EDE1: mov         dword ptr [ebp+FFFFFF64h],edx
+  0047EDE7: cmp         dword ptr [ebp+FFFFFF64h],40h
+  0047EDEE: jae         0047EDF2
+  0047EDF0: jmp         0047EDF7
+  0047EDF2: call        00609D39
+  0047EDF7: mov         eax,dword ptr [ebp+FFFFFF64h]
+  0047EDFD: mov         byte ptr [ebp+eax-44h],0
+  0047EE02: mov         ecx,1
+  0047EE07: imul        edx,ecx,6
+  0047EE0A: mov         dword ptr [ebp+FFFFFF60h],edx
+  0047EE10: cmp         dword ptr [ebp+FFFFFF60h],40h
+  0047EE17: jae         0047EE1B
+  0047EE19: jmp         0047EE20
+  0047EE1B: call        00609D39
+  0047EE20: mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047EE26: mov         byte ptr [ebp+eax-44h],0
+  0047EE2B: mov         dword ptr [ebp+FFFFFF78h],3
+  0047EE35: mov         dword ptr [ebp+FFFFFF74h],0
+  0047EE3F: jmp         0047EE50
+  0047EE41: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047EE47: add         ecx,1
+  0047EE4A: mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047EE50: cmp         dword ptr [ebp+FFFFFF78h],40h
+  0047EE57: jae         0047EE72
+  0047EE59: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047EE5F: movzx       eax,byte ptr [ebp+edx-44h]
+  0047EE64: add         eax,dword ptr [ebp+FFFFFF74h]
+  0047EE6A: mov         dword ptr [ebp+FFFFFF74h],eax
+  0047EE70: jmp         0047EE41
+  0047EE72: mov         ecx,1
+  0047EE77: shl         ecx,0
+  0047EE7A: mov         dl,byte ptr [ebp+FFFFFF74h]
+  0047EE80: mov         byte ptr [ebp+ecx-44h],dl
+  0047EE84: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047EE8A: shr         eax,8
+  0047EE8D: mov         ecx,1
+  0047EE92: shl         ecx,1
+  0047EE94: mov         byte ptr [ebp+ecx-44h],al
+  0047EE98: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EE9E: add         ecx,60Ch
+  0047EEA4: call        00479DC0
+  0047EEA9: lea         edx,[ebp+FFFFFF58h]
+  0047EEAF: push        edx
+  0047EEB0: push        40h
+  0047EEB2: lea         eax,[ebp+FFFFFF7Ch]
+  0047EEB8: push        eax
+  0047EEB9: push        40h
+  0047EEBB: lea         ecx,[ebp-44h]
+  0047EEBE: push        ecx
+  0047EEBF: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EEC5: call        0047D270
+  0047EECA: mov         dword ptr [ebp+FFFFFF5Ch],eax
+  0047EED0: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047EED6: add         ecx,60Ch
+  0047EEDC: mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047EEE2: mov         eax,dword ptr [edx+0000060Ch]
+  0047EEE8: mov         edx,dword ptr [eax+14h]
+  0047EEEB: call        edx
+  0047EEED: cmp         dword ptr [ebp+FFFFFF5Ch],1
+  0047EEF4: je          0047EEFE
+  0047EEF6: mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  0047EEFC: jmp         0047EF41
+  0047EEFE: mov         eax,1
+  0047EF03: imul        ecx,eax,7
+  0047EF06: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047EF0E: cmp         edx,0FFh
+  0047EF14: jne         0047EF1D
+  0047EF16: mov         eax,0FFFFFF9Ah
+  0047EF1B: jmp         0047EF41
+  0047EF1D: mov         eax,1
+  0047EF22: imul        ecx,eax,7
+  0047EF25: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047EF2D: cmp         edx,0FEh
+  0047EF33: jne         0047EF3C
+  0047EF35: mov         eax,0FFFFFF99h
+  0047EF3A: jmp         0047EF41
+  0047EF3C: mov         eax,1
+  0047EF41: mov         ecx,dword ptr [ebp-4]
+  0047EF44: xor         ecx,ebp
+  0047EF46: call        006095D5
+  0047EF4B: mov         esp,ebp
+  0047EF4D: pop         ebp
+  0047EF4E: ret
+  0047EF4F: int         3
+  0047EF50: push        ebp
+  0047EF51: mov         ebp,esp
+  0047EF53: sub         esp,0D0h
+  0047EF59: mov         eax,dword ptr ds:[00702F64h]
+  0047EF5E: xor         eax,ebp
+  0047EF60: mov         dword ptr [ebp-4],eax
+  0047EF63: push        esi
+  0047EF64: push        edi
+  0047EF65: mov         dword ptr [ebp+FFFFFF44h],ecx
+  0047EF6B: mov         byte ptr [ebp-6Ch],0
+  0047EF6F: push        3Fh
+  0047EF71: push        0
+  0047EF73: lea         eax,[ebp-6Bh]
+  0047EF76: push        eax
+  0047EF77: call        0060F170
+  0047EF7C: add         esp,0Ch
+  0047EF7F: mov         byte ptr [ebp-2Ch],0
+  0047EF83: xor         ecx,ecx
+  0047EF85: mov         dword ptr [ebp-2Bh],ecx
+  0047EF88: mov         dword ptr [ebp-27h],ecx
+  0047EF8B: mov         dword ptr [ebp-23h],ecx
+  0047EF8E: mov         dword ptr [ebp-1Fh],ecx
+  0047EF91: mov         dword ptr [ebp-1Bh],ecx
+  0047EF94: mov         dword ptr [ebp-17h],ecx
+  0047EF97: mov         dword ptr [ebp-13h],ecx
+  0047EF9A: mov         dword ptr [ebp-0Fh],ecx
+  0047EF9D: mov         dword ptr [ebp-0Bh],ecx
+  0047EFA0: mov         dword ptr [ebp+FFFFFF40h],0
+  0047EFAA: mov         dword ptr [ebp+FFFFFF3Ch],25h
+  0047EFB4: mov         edx,1
+  0047EFB9: imul        eax,edx,0
+  0047EFBC: mov         byte ptr [ebp+eax-6Ch],4
+  0047EFC1: mov         ecx,1
+  0047EFC6: imul        edx,ecx,3
+  0047EFC9: mov         byte ptr [ebp+edx-6Ch],3
+  0047EFCE: mov         eax,1
+  0047EFD3: imul        ecx,eax,7
+  0047EFD6: mov         dword ptr [ebp+FFFFFF38h],ecx
+  0047EFDC: cmp         dword ptr [ebp+FFFFFF38h],40h
+  0047EFE3: jae         0047EFE7
+  0047EFE5: jmp         0047EFEC
+  0047EFE7: call        00609D39
+  0047EFEC: mov         edx,dword ptr [ebp+FFFFFF38h]
+  0047EFF2: mov         byte ptr [ebp+edx-6Ch],0
+  0047EFF7: mov         dword ptr [ebp+FFFFFF50h],0
+  0047F001: jmp         0047F012
+  0047F003: mov         eax,dword ptr [ebp+FFFFFF50h]
+  0047F009: add         eax,4
+  0047F00C: mov         dword ptr [ebp+FFFFFF50h],eax
+  0047F012: mov         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F018: cmp         ecx,dword ptr [ebp+FFFFFF3Ch]
+  0047F01E: jae         0047F1D6
+  0047F024: mov         edx,dword ptr [ebp+FFFFFF50h]
+  0047F02A: add         edx,4
+  0047F02D: cmp         edx,dword ptr [ebp+FFFFFF3Ch]
+  0047F033: jae         0047F041
+  0047F035: mov         dword ptr [ebp+FFFFFF40h],4
+  0047F03F: jmp         0047F053
+  0047F041: mov         eax,dword ptr [ebp+FFFFFF3Ch]
+  0047F047: sub         eax,dword ptr [ebp+FFFFFF50h]
+  0047F04D: mov         dword ptr [ebp+FFFFFF40h],eax
+  0047F053: mov         ecx,1
+  0047F058: shl         ecx,2
+  0047F05B: mov         dl,byte ptr [ebp+FFFFFF40h]
+  0047F061: mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F065: mov         eax,dword ptr [ebp+FFFFFF50h]
+  0047F06B: xor         edx,edx
+  0047F06D: mov         ecx,100h
+  0047F072: div         eax,ecx
+  0047F074: mov         eax,1
+  0047F079: imul        ecx,eax,5
+  0047F07C: mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F080: mov         edx,dword ptr [ebp+FFFFFF50h]
+  0047F086: shr         edx,8
+  0047F089: mov         eax,1
+  0047F08E: imul        ecx,eax,6
+  0047F091: mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F095: mov         dword ptr [ebp+FFFFFF4Ch],3
+  0047F09F: mov         dword ptr [ebp+FFFFFF48h],0
+  0047F0A9: jmp         0047F0BA
+  0047F0AB: mov         edx,dword ptr [ebp+FFFFFF4Ch]
+  0047F0B1: add         edx,1
+  0047F0B4: mov         dword ptr [ebp+FFFFFF4Ch],edx
+  0047F0BA: cmp         dword ptr [ebp+FFFFFF4Ch],40h
+  0047F0C1: jae         0047F0DC
+  0047F0C3: mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  0047F0C9: movzx       ecx,byte ptr [ebp+eax-6Ch]
+  0047F0CE: add         ecx,dword ptr [ebp+FFFFFF48h]
+  0047F0D4: mov         dword ptr [ebp+FFFFFF48h],ecx
+  0047F0DA: jmp         0047F0AB
+  0047F0DC: mov         edx,1
+  0047F0E1: shl         edx,0
+  0047F0E4: mov         al,byte ptr [ebp+FFFFFF48h]
+  0047F0EA: mov         byte ptr [ebp+edx-6Ch],al
+  0047F0EE: mov         ecx,dword ptr [ebp+FFFFFF48h]
+  0047F0F4: shr         ecx,8
+  0047F0F7: mov         edx,1
+  0047F0FC: shl         edx,1
+  0047F0FE: mov         byte ptr [ebp+edx-6Ch],cl
+  0047F102: mov         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F108: add         ecx,60Ch
+  0047F10E: call        00479DC0
+  0047F113: lea         eax,[ebp+FFFFFF30h]
+  0047F119: push        eax
+  0047F11A: push        40h
+  0047F11C: lea         ecx,[ebp+FFFFFF54h]
+  0047F122: push        ecx
+  0047F123: push        40h
+  0047F125: lea         edx,[ebp-6Ch]
+  0047F128: push        edx
+  0047F129: mov         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F12F: call        0047D270
+  0047F134: mov         dword ptr [ebp+FFFFFF34h],eax
+  0047F13A: mov         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F140: add         ecx,60Ch
+  0047F146: mov         eax,dword ptr [ebp+FFFFFF44h]
+  0047F14C: mov         edx,dword ptr [eax+0000060Ch]
+  0047F152: mov         eax,dword ptr [edx+14h]
+  0047F155: call        eax
+  0047F157: cmp         dword ptr [ebp+FFFFFF34h],1
+  0047F15E: je          0047F16B
+  0047F160: mov         eax,dword ptr [ebp+FFFFFF34h]
+  0047F166: jmp         0047F1F2
+  0047F16B: mov         ecx,1
+  0047F170: imul        edx,ecx,7
+  0047F173: movzx       eax,byte ptr [ebp+edx+FFFFFF54h]
+  0047F17B: cmp         eax,0FFh
+  0047F180: jne         0047F189
+  0047F182: mov         eax,0FFFFFF9Ah
+  0047F187: jmp         0047F1F2
+  0047F189: mov         ecx,1
+  0047F18E: imul        edx,ecx,7
+  0047F191: movzx       eax,byte ptr [ebp+edx+FFFFFF54h]
+  0047F199: cmp         eax,0FEh
+  0047F19E: jne         0047F1A7
+  0047F1A0: mov         eax,0FFFFFF99h
+  0047F1A5: jmp         0047F1F2
+  0047F1A7: mov         ecx,dword ptr [ebp+FFFFFF40h]
+  0047F1AD: push        ecx
+  0047F1AE: mov         edx,1
+  0047F1B3: shl         edx,2
+  0047F1B6: lea         eax,[ebp+edx+FFFFFF54h]
+  0047F1BD: push        eax
+  0047F1BE: mov         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F1C4: lea         edx,[ebp+ecx-2Ch]
+  0047F1C8: push        edx
+  0047F1C9: call        0060EBF0
+  0047F1CE: add         esp,0Ch
+  0047F1D1: jmp         0047F003
+  0047F1D6: mov         eax,1
+  0047F1DB: imul        ecx,eax,0
+  0047F1DE: lea         esi,[ebp+ecx-2Ch]
+  0047F1E2: mov         ecx,9
+  0047F1E7: mov         edi,dword ptr [ebp+8]
+  0047F1EA: rep movs    dword ptr es:[edi],dword ptr [esi]
+  0047F1EC: movs        byte ptr es:[edi],byte ptr [esi]
+  0047F1ED: mov         eax,1
+  0047F1F2: pop         edi
+  0047F1F3: pop         esi
+  0047F1F4: mov         ecx,dword ptr [ebp-4]
+  0047F1F7: xor         ecx,ebp
+  0047F1F9: call        006095D5
+  0047F1FE: mov         esp,ebp
+  0047F200: pop         ebp
+  0047F201: ret         4
+  0047F204: int         3
+  0047F205: int         3
+  0047F206: int         3
+  0047F207: int         3
+  0047F208: int         3
+  0047F209: int         3
+  0047F20A: int         3
+  0047F20B: int         3
+  0047F20C: int         3
+  0047F20D: int         3
+  0047F20E: int         3
+  0047F20F: int         3
+  0047F210: push        ebp
+  0047F211: mov         ebp,esp
+  0047F213: sub         esp,0D0h
+  0047F219: mov         eax,dword ptr ds:[00702F64h]
+  0047F21E: xor         eax,ebp
+  0047F220: mov         dword ptr [ebp-4],eax
+  0047F223: push        esi
+  0047F224: push        edi
+  0047F225: mov         dword ptr [ebp+FFFFFF4Ch],ecx
+  0047F22B: mov         byte ptr [ebp-6Ch],0
+  0047F22F: push        3Fh
+  0047F231: push        0
+  0047F233: lea         eax,[ebp-6Bh]
+  0047F236: push        eax
+  0047F237: call        0060F170
+  0047F23C: add         esp,0Ch
+  0047F23F: mov         byte ptr [ebp-2Ch],0
+  0047F243: xor         ecx,ecx
+  0047F245: mov         dword ptr [ebp-2Bh],ecx
+  0047F248: mov         dword ptr [ebp-27h],ecx
+  0047F24B: mov         dword ptr [ebp-23h],ecx
+  0047F24E: mov         dword ptr [ebp-1Fh],ecx
+  0047F251: mov         dword ptr [ebp-1Bh],ecx
+  0047F254: mov         dword ptr [ebp-17h],ecx
+  0047F257: mov         dword ptr [ebp-13h],ecx
+  0047F25A: mov         dword ptr [ebp-0Fh],ecx
+  0047F25D: mov         dword ptr [ebp-0Bh],ecx
+  0047F260: mov         dword ptr [ebp+FFFFFF40h],0
+  0047F26A: mov         dword ptr [ebp+FFFFFF3Ch],25h
+  0047F274: mov         edx,1
+  0047F279: imul        eax,edx,0
+  0047F27C: mov         byte ptr [ebp+eax-6Ch],4
+  0047F281: mov         ecx,1
+  0047F286: imul        edx,ecx,3
+  0047F289: mov         byte ptr [ebp+edx-6Ch],3
+  0047F28E: mov         eax,1
+  0047F293: imul        ecx,eax,7
+  0047F296: mov         dword ptr [ebp+FFFFFF38h],ecx
+  0047F29C: cmp         dword ptr [ebp+FFFFFF38h],40h
+  0047F2A3: jae         0047F2A7
+  0047F2A5: jmp         0047F2AC
+  0047F2A7: call        00609D39
+  0047F2AC: mov         edx,dword ptr [ebp+FFFFFF38h]
+  0047F2B2: mov         byte ptr [ebp+edx-6Ch],0
+  0047F2B7: mov         dword ptr [ebp+FFFFFF50h],0
+  0047F2C1: jmp         0047F2DC
+  0047F2C3: mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  0047F2C9: movzx       ecx,byte ptr [eax+00000658h]
+  0047F2D0: add         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F2D6: mov         dword ptr [ebp+FFFFFF50h],ecx
+  0047F2DC: mov         edx,dword ptr [ebp+FFFFFF50h]
+  0047F2E2: cmp         edx,dword ptr [ebp+FFFFFF3Ch]
+  0047F2E8: jae         0047F4B3
+  0047F2EE: mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  0047F2F4: movzx       ecx,byte ptr [eax+00000658h]
+  0047F2FB: add         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F301: cmp         ecx,dword ptr [ebp+FFFFFF3Ch]
+  0047F307: jae         0047F31E
+  0047F309: mov         edx,dword ptr [ebp+FFFFFF4Ch]
+  0047F30F: movzx       eax,byte ptr [edx+00000658h]
+  0047F316: mov         dword ptr [ebp+FFFFFF40h],eax
+  0047F31C: jmp         0047F330
+  0047F31E: mov         ecx,dword ptr [ebp+FFFFFF3Ch]
+  0047F324: sub         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F32A: mov         dword ptr [ebp+FFFFFF40h],ecx
+  0047F330: mov         edx,1
+  0047F335: shl         edx,2
+  0047F338: mov         al,byte ptr [ebp+FFFFFF40h]
+  0047F33E: mov         byte ptr [ebp+edx-6Ch],al
+  0047F342: mov         eax,dword ptr [ebp+FFFFFF50h]
+  0047F348: xor         edx,edx
+  0047F34A: mov         ecx,100h
+  0047F34F: div         eax,ecx
+  0047F351: mov         eax,1
+  0047F356: imul        ecx,eax,5
+  0047F359: mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F35D: mov         edx,dword ptr [ebp+FFFFFF50h]
+  0047F363: shr         edx,8
+  0047F366: mov         eax,1
+  0047F36B: imul        ecx,eax,6
+  0047F36E: mov         byte ptr [ebp+ecx-6Ch],dl
+  0047F372: mov         dword ptr [ebp+FFFFFF48h],3
+  0047F37C: mov         dword ptr [ebp+FFFFFF44h],0
+  0047F386: jmp         0047F397
+  0047F388: mov         edx,dword ptr [ebp+FFFFFF48h]
+  0047F38E: add         edx,1
+  0047F391: mov         dword ptr [ebp+FFFFFF48h],edx
+  0047F397: cmp         dword ptr [ebp+FFFFFF48h],40h
+  0047F39E: jae         0047F3B9
+  0047F3A0: mov         eax,dword ptr [ebp+FFFFFF48h]
+  0047F3A6: movzx       ecx,byte ptr [ebp+eax-6Ch]
+  0047F3AB: add         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F3B1: mov         dword ptr [ebp+FFFFFF44h],ecx
+  0047F3B7: jmp         0047F388
+  0047F3B9: mov         edx,1
+  0047F3BE: shl         edx,0
+  0047F3C1: mov         al,byte ptr [ebp+FFFFFF44h]
+  0047F3C7: mov         byte ptr [ebp+edx-6Ch],al
+  0047F3CB: mov         ecx,dword ptr [ebp+FFFFFF44h]
+  0047F3D1: shr         ecx,8
+  0047F3D4: mov         edx,1
+  0047F3D9: shl         edx,1
+  0047F3DB: mov         byte ptr [ebp+edx-6Ch],cl
+  0047F3DF: mov         ecx,dword ptr [ebp+FFFFFF4Ch]
+  0047F3E5: add         ecx,60Ch
+  0047F3EB: call        00479DC0
+  0047F3F0: lea         eax,[ebp+FFFFFF30h]
+  0047F3F6: push        eax
+  0047F3F7: push        40h
+  0047F3F9: lea         ecx,[ebp+FFFFFF54h]
+  0047F3FF: push        ecx
+  0047F400: push        40h
+  0047F402: lea         edx,[ebp-6Ch]
+  0047F405: push        edx
+  0047F406: mov         ecx,dword ptr [ebp+FFFFFF4Ch]
+  0047F40C: call        0047D270
+  0047F411: mov         dword ptr [ebp+FFFFFF34h],eax
+  0047F417: mov         ecx,dword ptr [ebp+FFFFFF4Ch]
+  0047F41D: add         ecx,60Ch
+  0047F423: mov         eax,dword ptr [ebp+FFFFFF4Ch]
+  0047F429: mov         edx,dword ptr [eax+0000060Ch]
+  0047F42F: mov         eax,dword ptr [edx+14h]
+  0047F432: call        eax
+  0047F434: cmp         dword ptr [ebp+FFFFFF34h],1
+  0047F43B: je          0047F448
+  0047F43D: mov         eax,dword ptr [ebp+FFFFFF34h]
+  0047F443: jmp         0047F4CF
+  0047F448: mov         ecx,1
+  0047F44D: imul        edx,ecx,7
+  0047F450: movzx       eax,byte ptr [ebp+edx+FFFFFF54h]
+  0047F458: cmp         eax,0FFh
+  0047F45D: jne         0047F466
+  0047F45F: mov         eax,0FFFFFF9Ah
+  0047F464: jmp         0047F4CF
+  0047F466: mov         ecx,1
+  0047F46B: imul        edx,ecx,7
+  0047F46E: movzx       eax,byte ptr [ebp+edx+FFFFFF54h]
+  0047F476: cmp         eax,0FEh
+  0047F47B: jne         0047F484
+  0047F47D: mov         eax,0FFFFFF99h
+  0047F482: jmp         0047F4CF
+  0047F484: mov         ecx,dword ptr [ebp+FFFFFF40h]
+  0047F48A: push        ecx
+  0047F48B: mov         edx,1
+  0047F490: shl         edx,3
+  0047F493: lea         eax,[ebp+edx+FFFFFF54h]
+  0047F49A: push        eax
+  0047F49B: mov         ecx,dword ptr [ebp+FFFFFF50h]
+  0047F4A1: lea         edx,[ebp+ecx-2Ch]
+  0047F4A5: push        edx
+  0047F4A6: call        0060EBF0
+  0047F4AB: add         esp,0Ch
+  0047F4AE: jmp         0047F2C3
+  0047F4B3: mov         eax,1
+  0047F4B8: imul        ecx,eax,0
+  0047F4BB: lea         esi,[ebp+ecx-2Ch]
+  0047F4BF: mov         ecx,9
+  0047F4C4: mov         edi,dword ptr [ebp+8]
+  0047F4C7: rep movs    dword ptr es:[edi],dword ptr [esi]
+  0047F4C9: movs        byte ptr es:[edi],byte ptr [esi]
+  0047F4CA: mov         eax,1
+  0047F4CF: pop         edi
+  0047F4D0: pop         esi
+  0047F4D1: mov         ecx,dword ptr [ebp-4]
+  0047F4D4: xor         ecx,ebp
+  0047F4D6: call        006095D5
+  0047F4DB: mov         esp,ebp
+  0047F4DD: pop         ebp
+  0047F4DE: ret         4
+  0047F4E1: int         3
+  0047F4E2: int         3
+  0047F4E3: int         3
+  0047F4E4: int         3
+  0047F4E5: int         3
+  0047F4E6: int         3
+  0047F4E7: int         3
+  0047F4E8: int         3
+  0047F4E9: int         3
+  0047F4EA: int         3
+  0047F4EB: int         3
+  0047F4EC: int         3
+  0047F4ED: int         3
+  0047F4EE: int         3
+  0047F4EF: int         3
+  0047F4F0: push        ebp
+  0047F4F1: mov         ebp,esp
+  0047F4F3: sub         esp,0A4h
+  0047F4F9: mov         eax,dword ptr ds:[00702F64h]
+  0047F4FE: xor         eax,ebp
+  0047F500: mov         dword ptr [ebp-4],eax
+  0047F503: mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047F509: mov         byte ptr [ebp-44h],0
+  0047F50D: push        3Fh
+  0047F50F: push        0
+  0047F511: lea         eax,[ebp-43h]
+  0047F514: push        eax
+  0047F515: call        0060F170
+  0047F51A: add         esp,0Ch
+  0047F51D: cmp         dword ptr [ebp+0Ch],1
+  0047F521: jb          0047F52D
+  0047F523: mov         eax,0FFFFFF37h
+  0047F528: jmp         0047F793
+  0047F52D: push        40h
+  0047F52F: push        0
+  0047F531: lea         ecx,[ebp-44h]
+  0047F534: push        ecx
+  0047F535: call        0060F170
+  0047F53A: add         esp,0Ch
+  0047F53D: mov         edx,1
+  0047F542: imul        eax,edx,0
+  0047F545: mov         byte ptr [ebp+eax-44h],4
+  0047F54A: mov         ecx,1
+  0047F54F: imul        edx,ecx,3
+  0047F552: mov         byte ptr [ebp+edx-44h],9
+  0047F557: mov         eax,1
+  0047F55C: imul        ecx,eax,7
+  0047F55F: mov         dword ptr [ebp+FFFFFF64h],ecx
+  0047F565: cmp         dword ptr [ebp+FFFFFF64h],40h
+  0047F56C: jae         0047F570
+  0047F56E: jmp         0047F575
+  0047F570: call        00609D39
+  0047F575: mov         edx,dword ptr [ebp+FFFFFF64h]
+  0047F57B: mov         byte ptr [ebp+edx-44h],0
+  0047F580: mov         dword ptr [ebp+FFFFFF74h],0
+  0047F58A: jmp         0047F5A5
+  0047F58C: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047F592: movzx       ecx,byte ptr [eax+00000658h]
+  0047F599: add         ecx,dword ptr [ebp+FFFFFF74h]
+  0047F59F: mov         dword ptr [ebp+FFFFFF74h],ecx
+  0047F5A5: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F5AB: movzx       eax,word ptr [edx]
+  0047F5AE: cmp         dword ptr [ebp+FFFFFF74h],eax
+  0047F5B4: jae         0047F78E
+  0047F5BA: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F5C0: movzx       edx,byte ptr [ecx+00000658h]
+  0047F5C7: add         edx,dword ptr [ebp+FFFFFF74h]
+  0047F5CD: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047F5D3: movzx       ecx,word ptr [eax]
+  0047F5D6: cmp         edx,ecx
+  0047F5D8: jae         0047F5EF
+  0047F5DA: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F5E0: movzx       eax,byte ptr [edx+00000658h]
+  0047F5E7: mov         dword ptr [ebp+FFFFFF68h],eax
+  0047F5ED: jmp         0047F604
+  0047F5EF: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F5F5: movzx       edx,word ptr [ecx]
+  0047F5F8: sub         edx,dword ptr [ebp+FFFFFF74h]
+  0047F5FE: mov         dword ptr [ebp+FFFFFF68h],edx
+  0047F604: mov         eax,1
+  0047F609: shl         eax,2
+  0047F60C: mov         cl,byte ptr [ebp+FFFFFF68h]
+  0047F612: mov         byte ptr [ebp+eax-44h],cl
+  0047F616: mov         eax,dword ptr [ebp+0Ch]
+  0047F619: shl         eax,9
+  0047F61C: add         eax,dword ptr [ebp+FFFFFF74h]
+  0047F622: xor         edx,edx
+  0047F624: mov         ecx,100h
+  0047F629: div         eax,ecx
+  0047F62B: mov         eax,1
+  0047F630: imul        ecx,eax,5
+  0047F633: mov         byte ptr [ebp+ecx-44h],dl
+  0047F637: mov         edx,dword ptr [ebp+0Ch]
+  0047F63A: shl         edx,9
+  0047F63D: add         edx,dword ptr [ebp+FFFFFF74h]
+  0047F643: shr         edx,8
+  0047F646: mov         eax,1
+  0047F64B: imul        ecx,eax,6
+  0047F64E: mov         byte ptr [ebp+ecx-44h],dl
+  0047F652: mov         edx,dword ptr [ebp+FFFFFF68h]
+  0047F658: push        edx
+  0047F659: mov         eax,dword ptr [ebp+8]
+  0047F65C: add         eax,dword ptr [ebp+FFFFFF74h]
+  0047F662: push        eax
+  0047F663: mov         ecx,1
+  0047F668: shl         ecx,3
+  0047F66B: lea         edx,[ebp+ecx-44h]
+  0047F66F: push        edx
+  0047F670: call        0060EBF0
+  0047F675: add         esp,0Ch
+  0047F678: mov         dword ptr [ebp+FFFFFF70h],3
+  0047F682: mov         dword ptr [ebp+FFFFFF6Ch],0
+  0047F68C: jmp         0047F69D
+  0047F68E: mov         eax,dword ptr [ebp+FFFFFF70h]
+  0047F694: add         eax,1
+  0047F697: mov         dword ptr [ebp+FFFFFF70h],eax
+  0047F69D: cmp         dword ptr [ebp+FFFFFF70h],40h
+  0047F6A4: jae         0047F6BF
+  0047F6A6: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047F6AC: movzx       edx,byte ptr [ebp+ecx-44h]
+  0047F6B1: add         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047F6B7: mov         dword ptr [ebp+FFFFFF6Ch],edx
+  0047F6BD: jmp         0047F68E
+  0047F6BF: mov         eax,1
+  0047F6C4: shl         eax,0
+  0047F6C7: mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  0047F6CD: mov         byte ptr [ebp+eax-44h],cl
+  0047F6D1: mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047F6D7: shr         edx,8
+  0047F6DA: mov         eax,1
+  0047F6DF: shl         eax,1
+  0047F6E1: mov         byte ptr [ebp+eax-44h],dl
+  0047F6E5: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F6EB: add         ecx,60Ch
+  0047F6F1: call        00479DC0
+  0047F6F6: lea         ecx,[ebp+FFFFFF5Ch]
+  0047F6FC: push        ecx
+  0047F6FD: push        40h
+  0047F6FF: lea         edx,[ebp+FFFFFF7Ch]
+  0047F705: push        edx
+  0047F706: push        40h
+  0047F708: lea         eax,[ebp-44h]
+  0047F70B: push        eax
+  0047F70C: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F712: call        0047D270
+  0047F717: mov         dword ptr [ebp+FFFFFF60h],eax
+  0047F71D: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F723: add         ecx,60Ch
+  0047F729: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F72F: mov         eax,dword ptr [edx+0000060Ch]
+  0047F735: mov         edx,dword ptr [eax+14h]
+  0047F738: call        edx
+  0047F73A: cmp         dword ptr [ebp+FFFFFF60h],1
+  0047F741: je          0047F74B
+  0047F743: mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047F749: jmp         0047F793
+  0047F74B: mov         eax,1
+  0047F750: imul        ecx,eax,7
+  0047F753: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047F75B: cmp         edx,0FFh
+  0047F761: jne         0047F76A
+  0047F763: mov         eax,0FFFFFF9Ah
+  0047F768: jmp         0047F793
+  0047F76A: mov         eax,1
+  0047F76F: imul        ecx,eax,7
+  0047F772: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047F77A: cmp         edx,0FEh
+  0047F780: jne         0047F789
+  0047F782: mov         eax,0FFFFFF99h
+  0047F787: jmp         0047F793
+  0047F789: jmp         0047F58C
+  0047F78E: mov         eax,1
+  0047F793: mov         ecx,dword ptr [ebp-4]
+  0047F796: xor         ecx,ebp
+  0047F798: call        006095D5
+  0047F79D: mov         esp,ebp
+  0047F79F: pop         ebp
+  0047F7A0: ret         8
+  0047F7A3: int         3
+  0047F7A4: int         3
+  0047F7A5: int         3
+  0047F7A6: int         3
+  0047F7A7: int         3
+  0047F7A8: int         3
+  0047F7A9: int         3
+  0047F7AA: int         3
+  0047F7AB: int         3
+  0047F7AC: int         3
+  0047F7AD: int         3
+  0047F7AE: int         3
+  0047F7AF: int         3
+  0047F7B0: push        ebp
+  0047F7B1: mov         ebp,esp
+  0047F7B3: sub         esp,0A4h
+  0047F7B9: mov         eax,dword ptr ds:[00702F64h]
+  0047F7BE: xor         eax,ebp
+  0047F7C0: mov         dword ptr [ebp-4],eax
+  0047F7C3: mov         dword ptr [ebp+FFFFFF74h],ecx
+  0047F7C9: mov         byte ptr [ebp-44h],0
+  0047F7CD: push        3Fh
+  0047F7CF: push        0
+  0047F7D1: lea         eax,[ebp-43h]
+  0047F7D4: push        eax
+  0047F7D5: call        0060F170
+  0047F7DA: add         esp,0Ch
+  0047F7DD: push        40h
+  0047F7DF: push        0
+  0047F7E1: lea         ecx,[ebp-44h]
+  0047F7E4: push        ecx
+  0047F7E5: call        0060F170
+  0047F7EA: add         esp,0Ch
+  0047F7ED: mov         edx,1
+  0047F7F2: imul        eax,edx,0
+  0047F7F5: mov         byte ptr [ebp+eax-44h],4
+  0047F7FA: mov         ecx,1
+  0047F7FF: imul        edx,ecx,3
+  0047F802: mov         byte ptr [ebp+edx-44h],15h
+  0047F807: mov         eax,1
+  0047F80C: imul        ecx,eax,7
+  0047F80F: mov         dword ptr [ebp+FFFFFF64h],ecx
+  0047F815: cmp         dword ptr [ebp+FFFFFF64h],40h
+  0047F81C: jae         0047F820
+  0047F81E: jmp         0047F825
+  0047F820: call        00609D39
+  0047F825: mov         edx,dword ptr [ebp+FFFFFF64h]
+  0047F82B: mov         byte ptr [ebp+edx-44h],0
+  0047F830: mov         dword ptr [ebp+FFFFFF78h],0
+  0047F83A: jmp         0047F855
+  0047F83C: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047F842: movzx       ecx,byte ptr [eax+00000658h]
+  0047F849: add         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F84F: mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047F855: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F85B: cmp         edx,dword ptr [ebp+0Ch]
+  0047F85E: jae         0047FA1E
+  0047F864: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047F86A: movzx       ecx,byte ptr [eax+00000658h]
+  0047F871: add         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F877: cmp         ecx,dword ptr [ebp+0Ch]
+  0047F87A: jae         0047F891
+  0047F87C: mov         edx,dword ptr [ebp+FFFFFF74h]
+  0047F882: movzx       eax,byte ptr [edx+00000658h]
+  0047F889: mov         dword ptr [ebp+FFFFFF68h],eax
+  0047F88F: jmp         0047F8A0
+  0047F891: mov         ecx,dword ptr [ebp+0Ch]
+  0047F894: sub         ecx,dword ptr [ebp+FFFFFF78h]
+  0047F89A: mov         dword ptr [ebp+FFFFFF68h],ecx
+  0047F8A0: mov         edx,1
+  0047F8A5: shl         edx,2
+  0047F8A8: mov         al,byte ptr [ebp+FFFFFF68h]
+  0047F8AE: mov         byte ptr [ebp+edx-44h],al
+  0047F8B2: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047F8B8: xor         edx,edx
+  0047F8BA: mov         ecx,100h
+  0047F8BF: div         eax,ecx
+  0047F8C1: mov         eax,1
+  0047F8C6: imul        ecx,eax,5
+  0047F8C9: mov         byte ptr [ebp+ecx-44h],dl
+  0047F8CD: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047F8D3: shr         edx,8
+  0047F8D6: mov         eax,1
+  0047F8DB: imul        ecx,eax,6
+  0047F8DE: mov         byte ptr [ebp+ecx-44h],dl
+  0047F8E2: mov         edx,dword ptr [ebp+FFFFFF68h]
+  0047F8E8: push        edx
+  0047F8E9: mov         eax,dword ptr [ebp+8]
+  0047F8EC: add         eax,dword ptr [ebp+FFFFFF78h]
+  0047F8F2: push        eax
+  0047F8F3: mov         ecx,1
+  0047F8F8: shl         ecx,3
+  0047F8FB: lea         edx,[ebp+ecx-44h]
+  0047F8FF: push        edx
+  0047F900: call        0060EBF0
+  0047F905: add         esp,0Ch
+  0047F908: mov         dword ptr [ebp+FFFFFF70h],3
+  0047F912: mov         dword ptr [ebp+FFFFFF6Ch],0
+  0047F91C: jmp         0047F92D
+  0047F91E: mov         eax,dword ptr [ebp+FFFFFF70h]
+  0047F924: add         eax,1
+  0047F927: mov         dword ptr [ebp+FFFFFF70h],eax
+  0047F92D: cmp         dword ptr [ebp+FFFFFF70h],40h
+  0047F934: jae         0047F94F
+  0047F936: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0047F93C: movzx       edx,byte ptr [ebp+ecx-44h]
+  0047F941: add         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047F947: mov         dword ptr [ebp+FFFFFF6Ch],edx
+  0047F94D: jmp         0047F91E
+  0047F94F: mov         eax,1
+  0047F954: shl         eax,0
+  0047F957: mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  0047F95D: mov         byte ptr [ebp+eax-44h],cl
+  0047F961: mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047F967: shr         edx,8
+  0047F96A: mov         eax,1
+  0047F96F: shl         eax,1
+  0047F971: mov         byte ptr [ebp+eax-44h],dl
+  0047F975: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0047F97B: add         ecx,60Ch
+  0047F981: call        00479DC0
+  0047F986: lea         ecx,[ebp+FFFFFF5Ch]
+  0047F98C: push        ecx
+  0047F98D: push        40h
+  0047F98F: lea         edx,[ebp+FFFFFF7Ch]
+  0047F995: push        edx
+  0047F996: push        40h
+  0047F998: lea         eax,[ebp-44h]
+  0047F99B: push        eax
+  0047F99C: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0047F9A2: call        0047D270
+  0047F9A7: mov         dword ptr [ebp+FFFFFF60h],eax
+  0047F9AD: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0047F9B3: add         ecx,60Ch
+  0047F9B9: mov         edx,dword ptr [ebp+FFFFFF74h]
+  0047F9BF: mov         eax,dword ptr [edx+0000060Ch]
+  0047F9C5: mov         edx,dword ptr [eax+14h]
+  0047F9C8: call        edx
+  0047F9CA: cmp         dword ptr [ebp+FFFFFF60h],1
+  0047F9D1: je          0047F9DB
+  0047F9D3: mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047F9D9: jmp         0047FA23
+  0047F9DB: mov         eax,1
+  0047F9E0: imul        ecx,eax,7
+  0047F9E3: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047F9EB: cmp         edx,0FFh
+  0047F9F1: jne         0047F9FA
+  0047F9F3: mov         eax,0FFFFFF9Ah
+  0047F9F8: jmp         0047FA23
+  0047F9FA: mov         eax,1
+  0047F9FF: imul        ecx,eax,7
+  0047FA02: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0047FA0A: cmp         edx,0FEh
+  0047FA10: jne         0047FA19
+  0047FA12: mov         eax,0FFFFFF99h
+  0047FA17: jmp         0047FA23
+  0047FA19: jmp         0047F83C
+  0047FA1E: mov         eax,1
+  0047FA23: mov         ecx,dword ptr [ebp-4]
+  0047FA26: xor         ecx,ebp
+  0047FA28: call        006095D5
+  0047FA2D: mov         esp,ebp
+  0047FA2F: pop         ebp
+  0047FA30: ret         8
+  0047FA33: int         3
+  0047FA34: int         3
+  0047FA35: int         3
+  0047FA36: int         3
+  0047FA37: int         3
+  0047FA38: int         3
+  0047FA39: int         3
+  0047FA3A: int         3
+  0047FA3B: int         3
+  0047FA3C: int         3
+  0047FA3D: int         3
+  0047FA3E: int         3
+  0047FA3F: int         3
+  0047FA40: push        ebp
+  0047FA41: mov         ebp,esp
+  0047FA43: sub         esp,0A4h
+  0047FA49: mov         eax,dword ptr ds:[00702F64h]
+  0047FA4E: xor         eax,ebp
+  0047FA50: mov         dword ptr [ebp-4],eax
+  0047FA53: mov         dword ptr [ebp+FFFFFF60h],ecx
+  0047FA59: mov         byte ptr [ebp-44h],0
+  0047FA5D: push        3Fh
+  0047FA5F: push        0
+  0047FA61: lea         eax,[ebp-43h]
+  0047FA64: push        eax
+  0047FA65: call        0060F170
+  0047FA6A: add         esp,0Ch
+  0047FA6D: push        40h
+  0047FA6F: push        0
+  0047FA71: lea         ecx,[ebp-44h]
+  0047FA74: push        ecx
+  0047FA75: call        0060F170
+  0047FA7A: add         esp,0Ch
+  0047FA7D: mov         edx,1
+  0047FA82: imul        eax,edx,0
+  0047FA85: mov         byte ptr [ebp+eax-44h],4
+  0047FA8A: mov         ecx,1
+  0047FA8F: imul        edx,ecx,3
+  0047FA92: mov         byte ptr [ebp+edx-44h],17h
+  0047FA97: mov         eax,1
+  0047FA9C: imul        ecx,eax,7
+  0047FA9F: mov         dword ptr [ebp+FFFFFF68h],ecx
+  0047FAA5: cmp         dword ptr [ebp+FFFFFF68h],40h
+  0047FAAC: jae         0047FAB0
+  0047FAAE: jmp         0047FAB5
+  0047FAB0: call        00609D39
+  0047FAB5: mov         edx,dword ptr [ebp+FFFFFF68h]
+  0047FABB: mov         byte ptr [ebp+edx-44h],0
+  0047FAC0: mov         dword ptr [ebp+FFFFFF78h],0
+  0047FACA: jmp         0047FADB
+  0047FACC: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FAD2: add         eax,38h
+  0047FAD5: mov         dword ptr [ebp+FFFFFF78h],eax
+  0047FADB: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FAE1: cmp         ecx,dword ptr [ebp+0Ch]
+  0047FAE4: jae         0047FC61
+  0047FAEA: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047FAF0: add         edx,38h
+  0047FAF3: cmp         edx,dword ptr [ebp+0Ch]
+  0047FAF6: jae         0047FB04
+  0047FAF8: mov         dword ptr [ebp+FFFFFF6Ch],38h
+  0047FB02: jmp         0047FB13
+  0047FB04: mov         eax,dword ptr [ebp+0Ch]
+  0047FB07: sub         eax,dword ptr [ebp+FFFFFF78h]
+  0047FB0D: mov         dword ptr [ebp+FFFFFF6Ch],eax
+  0047FB13: mov         ecx,1
+  0047FB18: shl         ecx,2
+  0047FB1B: mov         dl,byte ptr [ebp+FFFFFF6Ch]
+  0047FB21: mov         byte ptr [ebp+ecx-44h],dl
+  0047FB25: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FB2B: xor         edx,edx
+  0047FB2D: mov         ecx,100h
+  0047FB32: div         eax,ecx
+  0047FB34: mov         eax,1
+  0047FB39: imul        ecx,eax,5
+  0047FB3C: mov         byte ptr [ebp+ecx-44h],dl
+  0047FB40: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047FB46: shr         edx,8
+  0047FB49: mov         eax,1
+  0047FB4E: imul        ecx,eax,6
+  0047FB51: mov         byte ptr [ebp+ecx-44h],dl
+  0047FB55: mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  0047FB5B: push        edx
+  0047FB5C: mov         eax,dword ptr [ebp+8]
+  0047FB5F: add         eax,dword ptr [ebp+FFFFFF78h]
+  0047FB65: push        eax
+  0047FB66: mov         ecx,1
+  0047FB6B: shl         ecx,3
+  0047FB6E: lea         edx,[ebp+ecx-44h]
+  0047FB72: push        edx
+  0047FB73: call        0060EBF0
+  0047FB78: add         esp,0Ch
+  0047FB7B: mov         dword ptr [ebp+FFFFFF74h],3
+  0047FB85: mov         dword ptr [ebp+FFFFFF70h],0
+  0047FB8F: jmp         0047FBA0
+  0047FB91: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047FB97: add         eax,1
+  0047FB9A: mov         dword ptr [ebp+FFFFFF74h],eax
+  0047FBA0: cmp         dword ptr [ebp+FFFFFF74h],40h
+  0047FBA7: jae         0047FBC2
+  0047FBA9: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0047FBAF: movzx       edx,byte ptr [ebp+ecx-44h]
+  0047FBB4: add         edx,dword ptr [ebp+FFFFFF70h]
+  0047FBBA: mov         dword ptr [ebp+FFFFFF70h],edx
+  0047FBC0: jmp         0047FB91
+  0047FBC2: mov         eax,1
+  0047FBC7: shl         eax,0
+  0047FBCA: mov         cl,byte ptr [ebp+FFFFFF70h]
+  0047FBD0: mov         byte ptr [ebp+eax-44h],cl
+  0047FBD4: mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047FBDA: shr         edx,8
+  0047FBDD: mov         eax,1
+  0047FBE2: shl         eax,1
+  0047FBE4: mov         byte ptr [ebp+eax-44h],dl
+  0047FBE8: lea         ecx,[ebp+FFFFFF5Ch]
+  0047FBEE: push        ecx
+  0047FBEF: push        40h
+  0047FBF1: lea         edx,[ebp+FFFFFF7Ch]
+  0047FBF7: push        edx
+  0047FBF8: push        40h
+  0047FBFA: lea         eax,[ebp-44h]
+  0047FBFD: push        eax
+  0047FBFE: mov         ecx,dword ptr [ebp+FFFFFF60h]
+  0047FC04: call        0047D270
+  0047FC09: mov         dword ptr [ebp+FFFFFF64h],eax
+  0047FC0F: cmp         dword ptr [ebp+FFFFFF64h],1
+  0047FC16: je          0047FC20
+  0047FC18: mov         eax,dword ptr [ebp+FFFFFF64h]
+  0047FC1E: jmp         0047FC66
+  0047FC20: mov         ecx,1
+  0047FC25: imul        edx,ecx,7
+  0047FC28: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  0047FC30: cmp         eax,0FFh
+  0047FC35: jne         0047FC3E
+  0047FC37: mov         eax,0FFFFFF9Ah
+  0047FC3C: jmp         0047FC66
+  0047FC3E: mov         ecx,1
+  0047FC43: imul        edx,ecx,7
+  0047FC46: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  0047FC4E: cmp         eax,0FEh
+  0047FC53: jne         0047FC5C
+  0047FC55: mov         eax,0FFFFFF99h
+  0047FC5A: jmp         0047FC66
+  0047FC5C: jmp         0047FACC
+  0047FC61: mov         eax,1
+  0047FC66: mov         ecx,dword ptr [ebp-4]
+  0047FC69: xor         ecx,ebp
+  0047FC6B: call        006095D5
+  0047FC70: mov         esp,ebp
+  0047FC72: pop         ebp
+  0047FC73: ret         8
+  0047FC76: int         3
+  0047FC77: int         3
+  0047FC78: int         3
+  0047FC79: int         3
+  0047FC7A: int         3
+  0047FC7B: int         3
+  0047FC7C: int         3
+  0047FC7D: int         3
+  0047FC7E: int         3
+  0047FC7F: int         3
+  0047FC80: push        ebp
+  0047FC81: mov         ebp,esp
+  0047FC83: sub         esp,0A4h
+  0047FC89: mov         eax,dword ptr ds:[00702F64h]
+  0047FC8E: xor         eax,ebp
+  0047FC90: mov         dword ptr [ebp-4],eax
+  0047FC93: mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047FC99: mov         byte ptr [ebp-44h],0
+  0047FC9D: push        3Fh
+  0047FC9F: push        0
+  0047FCA1: lea         eax,[ebp-43h]
+  0047FCA4: push        eax
+  0047FCA5: call        0060F170
+  0047FCAA: add         esp,0Ch
+  0047FCAD: push        40h
+  0047FCAF: push        0
+  0047FCB1: lea         ecx,[ebp-44h]
+  0047FCB4: push        ecx
+  0047FCB5: call        0060F170
+  0047FCBA: add         esp,0Ch
+  0047FCBD: mov         edx,1
+  0047FCC2: imul        eax,edx,0
+  0047FCC5: mov         byte ptr [ebp+eax-44h],4
+  0047FCCA: mov         ecx,1
+  0047FCCF: imul        edx,ecx,3
+  0047FCD2: mov         byte ptr [ebp+edx-44h],7
+  0047FCD7: mov         eax,1
+  0047FCDC: imul        ecx,eax,7
+  0047FCDF: mov         dword ptr [ebp+FFFFFF64h],ecx
+  0047FCE5: cmp         dword ptr [ebp+FFFFFF64h],40h
+  0047FCEC: jae         0047FCF0
+  0047FCEE: jmp         0047FCF5
+  0047FCF0: call        00609D39
+  0047FCF5: mov         edx,dword ptr [ebp+FFFFFF64h]
+  0047FCFB: mov         byte ptr [ebp+edx-44h],0
+  0047FD00: mov         dword ptr [ebp+FFFFFF74h],0
+  0047FD0A: jmp         0047FD25
+  0047FD0C: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FD12: movzx       ecx,byte ptr [eax+00000658h]
+  0047FD19: add         ecx,dword ptr [ebp+FFFFFF74h]
+  0047FD1F: mov         dword ptr [ebp+FFFFFF74h],ecx
+  0047FD25: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047FD2B: movzx       eax,word ptr [edx]
+  0047FD2E: cmp         dword ptr [ebp+FFFFFF74h],eax
+  0047FD34: jae         0047FF03
+  0047FD3A: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FD40: movzx       edx,byte ptr [ecx+00000658h]
+  0047FD47: add         edx,dword ptr [ebp+FFFFFF74h]
+  0047FD4D: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FD53: movzx       ecx,word ptr [eax]
+  0047FD56: cmp         edx,ecx
+  0047FD58: jae         0047FD6F
+  0047FD5A: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0047FD60: movzx       eax,byte ptr [edx+00000658h]
+  0047FD67: mov         dword ptr [ebp+FFFFFF68h],eax
+  0047FD6D: jmp         0047FD84
+  0047FD6F: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FD75: movzx       edx,word ptr [ecx]
+  0047FD78: sub         edx,dword ptr [ebp+FFFFFF74h]
+  0047FD7E: mov         dword ptr [ebp+FFFFFF68h],edx
+  0047FD84: mov         eax,1
+  0047FD89: shl         eax,2
+  0047FD8C: mov         cl,byte ptr [ebp+FFFFFF68h]
+  0047FD92: mov         byte ptr [ebp+eax-44h],cl
+  0047FD96: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047FD9C: xor         edx,edx
+  0047FD9E: mov         ecx,100h
+  0047FDA3: div         eax,ecx
+  0047FDA5: mov         eax,1
+  0047FDAA: imul        ecx,eax,5
+  0047FDAD: mov         byte ptr [ebp+ecx-44h],dl
+  0047FDB1: mov         edx,dword ptr [ebp+FFFFFF74h]
+  0047FDB7: shr         edx,8
+  0047FDBA: mov         eax,1
+  0047FDBF: imul        ecx,eax,6
+  0047FDC2: mov         byte ptr [ebp+ecx-44h],dl
+  0047FDC6: mov         dword ptr [ebp+FFFFFF70h],3
+  0047FDD0: mov         dword ptr [ebp+FFFFFF6Ch],0
+  0047FDDA: jmp         0047FDEB
+  0047FDDC: mov         edx,dword ptr [ebp+FFFFFF70h]
+  0047FDE2: add         edx,1
+  0047FDE5: mov         dword ptr [ebp+FFFFFF70h],edx
+  0047FDEB: cmp         dword ptr [ebp+FFFFFF70h],40h
+  0047FDF2: jae         0047FE0D
+  0047FDF4: mov         eax,dword ptr [ebp+FFFFFF70h]
+  0047FDFA: movzx       ecx,byte ptr [ebp+eax-44h]
+  0047FDFF: add         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047FE05: mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  0047FE0B: jmp         0047FDDC
+  0047FE0D: mov         edx,1
+  0047FE12: shl         edx,0
+  0047FE15: mov         al,byte ptr [ebp+FFFFFF6Ch]
+  0047FE1B: mov         byte ptr [ebp+edx-44h],al
+  0047FE1F: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0047FE25: shr         ecx,8
+  0047FE28: mov         edx,1
+  0047FE2D: shl         edx,1
+  0047FE2F: mov         byte ptr [ebp+edx-44h],cl
+  0047FE33: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FE39: add         ecx,60Ch
+  0047FE3F: call        00479DC0
+  0047FE44: lea         eax,[ebp+FFFFFF5Ch]
+  0047FE4A: push        eax
+  0047FE4B: push        40h
+  0047FE4D: lea         ecx,[ebp+FFFFFF7Ch]
+  0047FE53: push        ecx
+  0047FE54: push        40h
+  0047FE56: lea         edx,[ebp-44h]
+  0047FE59: push        edx
+  0047FE5A: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FE60: call        0047D270
+  0047FE65: mov         dword ptr [ebp+FFFFFF60h],eax
+  0047FE6B: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FE71: add         ecx,60Ch
+  0047FE77: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0047FE7D: mov         edx,dword ptr [eax+0000060Ch]
+  0047FE83: mov         eax,dword ptr [edx+14h]
+  0047FE86: call        eax
+  0047FE88: cmp         dword ptr [ebp+FFFFFF60h],1
+  0047FE8F: je          0047FE99
+  0047FE91: mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047FE97: jmp         0047FF08
+  0047FE99: mov         ecx,1
+  0047FE9E: imul        edx,ecx,7
+  0047FEA1: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  0047FEA9: cmp         eax,0FFh
+  0047FEAE: jne         0047FEB7
+  0047FEB0: mov         eax,0FFFFFF9Ah
+  0047FEB5: jmp         0047FF08
+  0047FEB7: mov         ecx,1
+  0047FEBC: imul        edx,ecx,7
+  0047FEBF: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  0047FEC7: cmp         eax,0FEh
+  0047FECC: jne         0047FED5
+  0047FECE: mov         eax,0FFFFFF99h
+  0047FED3: jmp         0047FF08
+  0047FED5: mov         ecx,dword ptr [ebp+FFFFFF68h]
+  0047FEDB: push        ecx
+  0047FEDC: mov         edx,1
+  0047FEE1: shl         edx,3
+  0047FEE4: lea         eax,[ebp+edx+FFFFFF7Ch]
+  0047FEEB: push        eax
+  0047FEEC: mov         ecx,dword ptr [ebp+8]
+  0047FEEF: add         ecx,dword ptr [ebp+FFFFFF74h]
+  0047FEF5: push        ecx
+  0047FEF6: call        0060EBF0
+  0047FEFB: add         esp,0Ch
+  0047FEFE: jmp         0047FD0C
+  0047FF03: mov         eax,1
+  0047FF08: mov         ecx,dword ptr [ebp-4]
+  0047FF0B: xor         ecx,ebp
+  0047FF0D: call        006095D5
+  0047FF12: mov         esp,ebp
+  0047FF14: pop         ebp
+  0047FF15: ret         4
+  0047FF18: int         3
+  0047FF19: int         3
+  0047FF1A: int         3
+  0047FF1B: int         3
+  0047FF1C: int         3
+  0047FF1D: int         3
+  0047FF1E: int         3
+  0047FF1F: int         3
+  0047FF20: push        ebp
+  0047FF21: mov         ebp,esp
+  0047FF23: sub         esp,0A8h
+  0047FF29: mov         eax,dword ptr ds:[00702F64h]
+  0047FF2E: xor         eax,ebp
+  0047FF30: mov         dword ptr [ebp-4],eax
+  0047FF33: mov         dword ptr [ebp+FFFFFF78h],ecx
+  0047FF39: mov         byte ptr [ebp-44h],0
+  0047FF3D: push        3Fh
+  0047FF3F: push        0
+  0047FF41: lea         eax,[ebp-43h]
+  0047FF44: push        eax
+  0047FF45: call        0060F170
+  0047FF4A: add         esp,0Ch
+  0047FF4D: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FF53: movzx       eax,word ptr [ecx]
+  0047FF56: cdq
+  0047FF57: mov         ecx,3
+  0047FF5C: idiv        eax,ecx
+  0047FF5E: mov         dword ptr [ebp+FFFFFF68h],eax
+  0047FF64: push        40h
+  0047FF66: push        0
+  0047FF68: lea         edx,[ebp-44h]
+  0047FF6B: push        edx
+  0047FF6C: call        0060F170
+  0047FF71: add         esp,0Ch
+  0047FF74: mov         eax,1
+  0047FF79: imul        ecx,eax,0
+  0047FF7C: mov         byte ptr [ebp+ecx-44h],4
+  0047FF81: mov         edx,1
+  0047FF86: imul        eax,edx,3
+  0047FF89: mov         byte ptr [ebp+eax-44h],1Bh
+  0047FF8E: mov         ecx,1
+  0047FF93: imul        edx,ecx,7
+  0047FF96: mov         dword ptr [ebp+FFFFFF60h],edx
+  0047FF9C: cmp         dword ptr [ebp+FFFFFF60h],40h
+  0047FFA3: jae         0047FFA7
+  0047FFA5: jmp         0047FFAC
+  0047FFA7: call        00609D39
+  0047FFAC: mov         eax,dword ptr [ebp+FFFFFF60h]
+  0047FFB2: mov         byte ptr [ebp+eax-44h],0
+  0047FFB7: mov         dword ptr [ebp+FFFFFF74h],0
+  0047FFC1: jmp         0047FFDC
+  0047FFC3: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FFC9: movzx       edx,byte ptr [ecx+00000658h]
+  0047FFD0: add         edx,dword ptr [ebp+FFFFFF74h]
+  0047FFD6: mov         dword ptr [ebp+FFFFFF74h],edx
+  0047FFDC: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0047FFE2: cmp         eax,dword ptr [ebp+FFFFFF68h]
+  0047FFE8: jae         004801AF
+  0047FFEE: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0047FFF4: movzx       edx,byte ptr [ecx+00000658h]
+  0047FFFB: add         edx,dword ptr [ebp+FFFFFF74h]
+  00480001: cmp         edx,dword ptr [ebp+FFFFFF68h]
+  00480007: jae         0048001E
+  00480009: mov         eax,dword ptr [ebp+FFFFFF78h]
+  0048000F: movzx       ecx,byte ptr [eax+00000658h]
+  00480016: mov         dword ptr [ebp+FFFFFF64h],ecx
+  0048001C: jmp         00480030
+  0048001E: mov         edx,dword ptr [ebp+FFFFFF68h]
+  00480024: sub         edx,dword ptr [ebp+FFFFFF74h]
+  0048002A: mov         dword ptr [ebp+FFFFFF64h],edx
+  00480030: mov         eax,1
+  00480035: shl         eax,2
+  00480038: mov         cl,byte ptr [ebp+FFFFFF64h]
+  0048003E: mov         byte ptr [ebp+eax-44h],cl
+  00480042: mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480048: xor         edx,edx
+  0048004A: mov         ecx,100h
+  0048004F: div         eax,ecx
+  00480051: mov         eax,1
+  00480056: imul        ecx,eax,5
+  00480059: mov         byte ptr [ebp+ecx-44h],dl
+  0048005D: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480063: shr         edx,8
+  00480066: mov         eax,1
+  0048006B: imul        ecx,eax,6
+  0048006E: mov         byte ptr [ebp+ecx-44h],dl
+  00480072: mov         dword ptr [ebp+FFFFFF70h],3
+  0048007C: mov         dword ptr [ebp+FFFFFF6Ch],0
+  00480086: jmp         00480097
+  00480088: mov         edx,dword ptr [ebp+FFFFFF70h]
+  0048008E: add         edx,1
+  00480091: mov         dword ptr [ebp+FFFFFF70h],edx
+  00480097: cmp         dword ptr [ebp+FFFFFF70h],40h
+  0048009E: jae         004800B9
+  004800A0: mov         eax,dword ptr [ebp+FFFFFF70h]
+  004800A6: movzx       ecx,byte ptr [ebp+eax-44h]
+  004800AB: add         ecx,dword ptr [ebp+FFFFFF6Ch]
+  004800B1: mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  004800B7: jmp         00480088
+  004800B9: mov         edx,1
+  004800BE: shl         edx,0
+  004800C1: mov         al,byte ptr [ebp+FFFFFF6Ch]
+  004800C7: mov         byte ptr [ebp+edx-44h],al
+  004800CB: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  004800D1: shr         ecx,8
+  004800D4: mov         edx,1
+  004800D9: shl         edx,1
+  004800DB: mov         byte ptr [ebp+edx-44h],cl
+  004800DF: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004800E5: add         ecx,60Ch
+  004800EB: call        00479DC0
+  004800F0: lea         eax,[ebp+FFFFFF58h]
+  004800F6: push        eax
+  004800F7: push        40h
+  004800F9: lea         ecx,[ebp+FFFFFF7Ch]
+  004800FF: push        ecx
+  00480100: push        40h
+  00480102: lea         edx,[ebp-44h]
+  00480105: push        edx
+  00480106: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0048010C: call        0047D270
+  00480111: mov         dword ptr [ebp+FFFFFF5Ch],eax
+  00480117: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  0048011D: add         ecx,60Ch
+  00480123: mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480129: mov         edx,dword ptr [eax+0000060Ch]
+  0048012F: mov         eax,dword ptr [edx+14h]
+  00480132: call        eax
+  00480134: cmp         dword ptr [ebp+FFFFFF5Ch],1
+  0048013B: je          00480145
+  0048013D: mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  00480143: jmp         004801B4
+  00480145: mov         ecx,1
+  0048014A: imul        edx,ecx,7
+  0048014D: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  00480155: cmp         eax,0FFh
+  0048015A: jne         00480163
+  0048015C: mov         eax,0FFFFFF9Ah
+  00480161: jmp         004801B4
+  00480163: mov         ecx,1
+  00480168: imul        edx,ecx,7
+  0048016B: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  00480173: cmp         eax,0FEh
+  00480178: jne         00480181
+  0048017A: mov         eax,0FFFFFF99h
+  0048017F: jmp         004801B4
+  00480181: mov         ecx,dword ptr [ebp+FFFFFF64h]
+  00480187: push        ecx
+  00480188: mov         edx,1
+  0048018D: shl         edx,3
+  00480190: lea         eax,[ebp+edx+FFFFFF7Ch]
+  00480197: push        eax
+  00480198: mov         ecx,dword ptr [ebp+8]
+  0048019B: add         ecx,dword ptr [ebp+FFFFFF74h]
+  004801A1: push        ecx
+  004801A2: call        0060EBF0
+  004801A7: add         esp,0Ch
+  004801AA: jmp         0047FFC3
+  004801AF: mov         eax,1
+  004801B4: mov         ecx,dword ptr [ebp-4]
+  004801B7: xor         ecx,ebp
+  004801B9: call        006095D5
+  004801BE: mov         esp,ebp
+  004801C0: pop         ebp
+  004801C1: ret         4
+  004801C4: int         3
+  004801C5: int         3
+  004801C6: int         3
+  004801C7: int         3
+  004801C8: int         3
+  004801C9: int         3
+  004801CA: int         3
+  004801CB: int         3
+  004801CC: int         3
+  004801CD: int         3
+  004801CE: int         3
+  004801CF: int         3
+  004801D0: push        ebp
+  004801D1: mov         ebp,esp
+  004801D3: sub         esp,0A0h
+  004801D9: mov         eax,dword ptr ds:[00702F64h]
+  004801DE: xor         eax,ebp
+  004801E0: mov         dword ptr [ebp-4],eax
+  004801E3: mov         dword ptr [ebp+FFFFFF74h],ecx
+  004801E9: mov         byte ptr [ebp-44h],0
+  004801ED: push        3Fh
+  004801EF: push        0
+  004801F1: lea         eax,[ebp-43h]
+  004801F4: push        eax
+  004801F5: call        0060F170
+  004801FA: add         esp,0Ch
+  004801FD: push        40h
+  004801FF: push        0
+  00480201: lea         ecx,[ebp-44h]
+  00480204: push        ecx
+  00480205: call        0060F170
+  0048020A: add         esp,0Ch
+  0048020D: mov         edx,1
+  00480212: imul        eax,edx,0
+  00480215: mov         byte ptr [ebp+eax-44h],4
+  0048021A: mov         ecx,1
+  0048021F: imul        edx,ecx,3
+  00480222: mov         byte ptr [ebp+edx-44h],21h
+  00480227: mov         dword ptr [ebp+FFFFFF78h],0
+  00480231: jmp         0048024C
+  00480233: mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480239: movzx       ecx,byte ptr [eax+00000658h]
+  00480240: add         ecx,dword ptr [ebp+FFFFFF78h]
+  00480246: mov         dword ptr [ebp+FFFFFF78h],ecx
+  0048024C: mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480252: cmp         edx,dword ptr [ebp+0Ch]
+  00480255: jae         00480469
+  0048025B: mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480261: movzx       ecx,byte ptr [eax+00000658h]
+  00480268: add         ecx,dword ptr [ebp+FFFFFF78h]
+  0048026E: cmp         ecx,dword ptr [ebp+0Ch]
+  00480271: jae         00480288
+  00480273: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480279: movzx       eax,byte ptr [edx+00000658h]
+  00480280: mov         dword ptr [ebp+FFFFFF68h],eax
+  00480286: jmp         00480297
+  00480288: mov         ecx,dword ptr [ebp+0Ch]
+  0048028B: sub         ecx,dword ptr [ebp+FFFFFF78h]
+  00480291: mov         dword ptr [ebp+FFFFFF68h],ecx
+  00480297: mov         edx,1
+  0048029C: shl         edx,2
+  0048029F: mov         al,byte ptr [ebp+FFFFFF68h]
+  004802A5: mov         byte ptr [ebp+edx-44h],al
+  004802A9: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004802AF: and         ecx,0FFh
+  004802B5: mov         edx,1
+  004802BA: imul        eax,edx,5
+  004802BD: mov         byte ptr [ebp+eax-44h],cl
+  004802C1: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004802C7: shr         ecx,8
+  004802CA: and         ecx,0FFh
+  004802D0: mov         edx,1
+  004802D5: imul        eax,edx,6
+  004802D8: mov         byte ptr [ebp+eax-44h],cl
+  004802DC: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004802E2: shr         ecx,10h
+  004802E5: and         ecx,0FFh
+  004802EB: mov         edx,1
+  004802F0: imul        eax,edx,7
+  004802F3: mov         byte ptr [ebp+eax-44h],cl
+  004802F7: mov         ecx,dword ptr [ebp+FFFFFF68h]
+  004802FD: push        ecx
+  004802FE: mov         edx,dword ptr [ebp+8]
+  00480301: add         edx,dword ptr [ebp+FFFFFF78h]
+  00480307: push        edx
+  00480308: mov         eax,1
+  0048030D: shl         eax,3
+  00480310: lea         ecx,[ebp+eax-44h]
+  00480314: push        ecx
+  00480315: call        0060EBF0
+  0048031A: add         esp,0Ch
+  0048031D: mov         dword ptr [ebp+FFFFFF70h],3
+  00480327: mov         dword ptr [ebp+FFFFFF6Ch],0
+  00480331: jmp         00480342
+  00480333: mov         edx,dword ptr [ebp+FFFFFF70h]
+  00480339: add         edx,1
+  0048033C: mov         dword ptr [ebp+FFFFFF70h],edx
+  00480342: cmp         dword ptr [ebp+FFFFFF70h],40h
+  00480349: jae         00480364
+  0048034B: mov         eax,dword ptr [ebp+FFFFFF70h]
+  00480351: movzx       ecx,byte ptr [ebp+eax-44h]
+  00480356: add         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0048035C: mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  00480362: jmp         00480333
+  00480364: mov         edx,1
+  00480369: shl         edx,0
+  0048036C: mov         al,byte ptr [ebp+FFFFFF6Ch]
+  00480372: mov         byte ptr [ebp+edx-44h],al
+  00480376: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0048037C: shr         ecx,8
+  0048037F: mov         edx,1
+  00480384: shl         edx,1
+  00480386: mov         byte ptr [ebp+edx-44h],cl
+  0048038A: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480390: add         ecx,60Ch
+  00480396: call        00479DC0
+  0048039B: lea         eax,[ebp+FFFFFF60h]
+  004803A1: push        eax
+  004803A2: push        40h
+  004803A4: lea         ecx,[ebp+FFFFFF7Ch]
+  004803AA: push        ecx
+  004803AB: push        40h
+  004803AD: lea         edx,[ebp-44h]
+  004803B0: push        edx
+  004803B1: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004803B7: call        0047D270
+  004803BC: mov         dword ptr [ebp+FFFFFF64h],eax
+  004803C2: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004803C8: add         ecx,60Ch
+  004803CE: mov         eax,dword ptr [ebp+FFFFFF74h]
+  004803D4: mov         edx,dword ptr [eax+0000060Ch]
+  004803DA: mov         eax,dword ptr [edx+14h]
+  004803DD: call        eax
+  004803DF: cmp         dword ptr [ebp+FFFFFF64h],1
+  004803E6: je          004803F0
+  004803E8: mov         eax,dword ptr [ebp+FFFFFF64h]
+  004803EE: jmp         0048046E
+  004803F0: mov         ecx,1
+  004803F5: imul        edx,ecx,7
+  004803F8: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  00480400: cmp         eax,0FFh
+  00480405: jne         0048040E
+  00480407: mov         eax,0FFFFFF9Ah
+  0048040C: jmp         0048046E
+  0048040E: mov         ecx,1
+  00480413: imul        edx,ecx,7
+  00480416: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  0048041E: cmp         eax,0FEh
+  00480423: jne         0048042C
+  00480425: mov         eax,0FFFFFF99h
+  0048042A: jmp         0048046E
+  0048042C: mov         ecx,1
+  00480431: imul        edx,ecx,5
+  00480434: movzx       eax,byte ptr [ebp+edx-44h]
+  00480439: mov         ecx,1
+  0048043E: imul        edx,ecx,6
+  00480441: movzx       ecx,byte ptr [ebp+edx-44h]
+  00480446: or          eax,ecx
+  00480448: mov         edx,1
+  0048044D: imul        ecx,edx,7
+  00480450: movzx       edx,byte ptr [ebp+ecx-44h]
+  00480455: or          eax,edx
+  00480457: jne         00480464
+  00480459: push        1F4h
+  0048045E: call        dword ptr ds:[00667BE4h]
+  00480464: jmp         00480233
+  00480469: mov         eax,1
+  0048046E: mov         ecx,dword ptr [ebp-4]
+  00480471: xor         ecx,ebp
+  00480473: call        006095D5
+  00480478: mov         esp,ebp
+  0048047A: pop         ebp
+  0048047B: ret         8
+  0048047E: int         3
+  0048047F: int         3
+  00480480: push        ebp
+  00480481: mov         ebp,esp
+  00480483: sub         esp,0A8h
+  00480489: mov         eax,dword ptr ds:[00702F64h]
+  0048048E: xor         eax,ebp
+  00480490: mov         dword ptr [ebp-4],eax
+  00480493: mov         dword ptr [ebp+FFFFFF70h],ecx
+  00480499: mov         byte ptr [ebp-44h],0
+  0048049D: push        3Fh
+  0048049F: push        0
+  004804A1: lea         eax,[ebp-43h]
+  004804A4: push        eax
+  004804A5: call        0060F170
+  004804AA: add         esp,0Ch
+  004804AD: mov         ecx,1
+  004804B2: imul        edx,ecx,0
+  004804B5: mov         byte ptr [ebp+edx-44h],4
+  004804BA: mov         eax,1
+  004804BF: imul        ecx,eax,3
+  004804C2: mov         byte ptr [ebp+ecx-44h],23h
+  004804C7: mov         edx,1
+  004804CC: imul        eax,edx,7
+  004804CF: mov         dword ptr [ebp+FFFFFF6Ch],eax
+  004804D5: cmp         dword ptr [ebp+FFFFFF6Ch],40h
+  004804DC: jae         004804E0
+  004804DE: jmp         004804E5
+  004804E0: call        00609D39
+  004804E5: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  004804EB: mov         byte ptr [ebp+ecx-44h],0
+  004804F0: mov         edx,1
+  004804F5: shl         edx,2
+  004804F8: mov         dword ptr [ebp+FFFFFF68h],edx
+  004804FE: cmp         dword ptr [ebp+FFFFFF68h],40h
+  00480505: jae         00480509
+  00480507: jmp         0048050E
+  00480509: call        00609D39
+  0048050E: mov         eax,dword ptr [ebp+FFFFFF68h]
+  00480514: mov         byte ptr [ebp+eax-44h],0
+  00480519: mov         ecx,1
+  0048051E: imul        edx,ecx,5
+  00480521: mov         dword ptr [ebp+FFFFFF64h],edx
+  00480527: cmp         dword ptr [ebp+FFFFFF64h],40h
+  0048052E: jae         00480532
+  00480530: jmp         00480537
+  00480532: call        00609D39
+  00480537: mov         eax,dword ptr [ebp+FFFFFF64h]
+  0048053D: mov         byte ptr [ebp+eax-44h],0
+  00480542: mov         ecx,1
+  00480547: imul        edx,ecx,6
+  0048054A: mov         dword ptr [ebp+FFFFFF60h],edx
+  00480550: cmp         dword ptr [ebp+FFFFFF60h],40h
+  00480557: jae         0048055B
+  00480559: jmp         00480560
+  0048055B: call        00609D39
+  00480560: mov         eax,dword ptr [ebp+FFFFFF60h]
+  00480566: mov         byte ptr [ebp+eax-44h],0
+  0048056B: mov         dword ptr [ebp+FFFFFF78h],3
+  00480575: mov         dword ptr [ebp+FFFFFF74h],0
+  0048057F: jmp         00480590
+  00480581: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480587: add         ecx,1
+  0048058A: mov         dword ptr [ebp+FFFFFF78h],ecx
+  00480590: cmp         dword ptr [ebp+FFFFFF78h],40h
+  00480597: jae         004805B2
+  00480599: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0048059F: movzx       eax,byte ptr [ebp+edx-44h]
+  004805A4: add         eax,dword ptr [ebp+FFFFFF74h]
+  004805AA: mov         dword ptr [ebp+FFFFFF74h],eax
+  004805B0: jmp         00480581
+  004805B2: mov         ecx,1
+  004805B7: shl         ecx,0
+  004805BA: mov         dl,byte ptr [ebp+FFFFFF74h]
+  004805C0: mov         byte ptr [ebp+ecx-44h],dl
+  004805C4: mov         eax,dword ptr [ebp+FFFFFF74h]
+  004805CA: shr         eax,8
+  004805CD: mov         ecx,1
+  004805D2: shl         ecx,1
+  004805D4: mov         byte ptr [ebp+ecx-44h],al
+  004805D8: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  004805DE: add         ecx,60Ch
+  004805E4: call        00479DC0
+  004805E9: lea         edx,[ebp+FFFFFF58h]
+  004805EF: push        edx
+  004805F0: push        40h
+  004805F2: lea         eax,[ebp+FFFFFF7Ch]
+  004805F8: push        eax
+  004805F9: push        40h
+  004805FB: lea         ecx,[ebp-44h]
+  004805FE: push        ecx
+  004805FF: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480605: call        0047D270
+  0048060A: mov         dword ptr [ebp+FFFFFF5Ch],eax
+  00480610: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480616: add         ecx,60Ch
+  0048061C: mov         edx,dword ptr [ebp+FFFFFF70h]
+  00480622: mov         eax,dword ptr [edx+0000060Ch]
+  00480628: mov         edx,dword ptr [eax+14h]
+  0048062B: call        edx
+  0048062D: cmp         dword ptr [ebp+FFFFFF5Ch],1
+  00480634: je          0048063E
+  00480636: mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  0048063C: jmp         00480681
+  0048063E: mov         eax,1
+  00480643: imul        ecx,eax,7
+  00480646: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0048064E: cmp         edx,0FFh
+  00480654: jne         0048065D
+  00480656: mov         eax,0FFFFFF9Ah
+  0048065B: jmp         00480681
+  0048065D: mov         eax,1
+  00480662: imul        ecx,eax,7
+  00480665: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  0048066D: cmp         edx,0FEh
+  00480673: jne         0048067C
+  00480675: mov         eax,0FFFFFF99h
+  0048067A: jmp         00480681
+  0048067C: mov         eax,1
+  00480681: mov         ecx,dword ptr [ebp-4]
+  00480684: xor         ecx,ebp
+  00480686: call        006095D5
+  0048068B: mov         esp,ebp
+  0048068D: pop         ebp
+  0048068E: ret
+  0048068F: int         3
+  00480690: push        ebp
+  00480691: mov         ebp,esp
+  00480693: sub         esp,0A4h
+  00480699: mov         eax,dword ptr ds:[00702F64h]
+  0048069E: xor         eax,ebp
+  004806A0: mov         dword ptr [ebp-4],eax
+  004806A3: mov         dword ptr [ebp+FFFFFF74h],ecx
+  004806A9: mov         byte ptr [ebp-44h],0
+  004806AD: push        3Fh
+  004806AF: push        0
+  004806B1: lea         eax,[ebp-43h]
+  004806B4: push        eax
+  004806B5: call        0060F170
+  004806BA: add         esp,0Ch
+  004806BD: push        40h
+  004806BF: push        0
+  004806C1: lea         ecx,[ebp-44h]
+  004806C4: push        ecx
+  004806C5: call        0060F170
+  004806CA: add         esp,0Ch
+  004806CD: mov         edx,1
+  004806D2: imul        eax,edx,0
+  004806D5: mov         byte ptr [ebp+eax-44h],4
+  004806DA: mov         ecx,1
+  004806DF: imul        edx,ecx,3
+  004806E2: mov         byte ptr [ebp+edx-44h],0Bh
+  004806E7: mov         eax,1
+  004806EC: imul        ecx,eax,7
+  004806EF: mov         dword ptr [ebp+FFFFFF60h],ecx
+  004806F5: cmp         dword ptr [ebp+FFFFFF60h],40h
+  004806FC: jae         00480700
+  004806FE: jmp         00480705
+  00480700: call        00609D39
+  00480705: mov         edx,dword ptr [ebp+FFFFFF60h]
+  0048070B: mov         byte ptr [ebp+edx-44h],0
+  00480710: mov         dword ptr [ebp+FFFFFF78h],0
+  0048071A: jmp         00480735
+  0048071C: mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480722: movzx       ecx,byte ptr [eax+00000658h]
+  00480729: add         ecx,dword ptr [ebp+FFFFFF78h]
+  0048072F: mov         dword ptr [ebp+FFFFFF78h],ecx
+  00480735: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0048073B: cmp         edx,dword ptr [ebp+0Ch]
+  0048073E: jae         00480916
+  00480744: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0048074A: movzx       ecx,byte ptr [eax+00000658h]
+  00480751: add         ecx,dword ptr [ebp+FFFFFF78h]
+  00480757: cmp         ecx,dword ptr [ebp+0Ch]
+  0048075A: jae         00480771
+  0048075C: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480762: movzx       eax,byte ptr [edx+00000658h]
+  00480769: mov         dword ptr [ebp+FFFFFF68h],eax
+  0048076F: jmp         00480780
+  00480771: mov         ecx,dword ptr [ebp+0Ch]
+  00480774: sub         ecx,dword ptr [ebp+FFFFFF78h]
+  0048077A: mov         dword ptr [ebp+FFFFFF68h],ecx
+  00480780: mov         edx,1
+  00480785: shl         edx,2
+  00480788: mov         al,byte ptr [ebp+FFFFFF68h]
+  0048078E: mov         byte ptr [ebp+edx-44h],al
+  00480792: mov         eax,dword ptr [ebp+10h]
+  00480795: imul        eax,dword ptr [ebp+14h]
+  00480799: add         eax,dword ptr [ebp+FFFFFF78h]
+  0048079F: xor         edx,edx
+  004807A1: mov         ecx,100h
+  004807A6: div         eax,ecx
+  004807A8: mov         eax,1
+  004807AD: imul        ecx,eax,5
+  004807B0: mov         byte ptr [ebp+ecx-44h],dl
+  004807B4: mov         edx,dword ptr [ebp+10h]
+  004807B7: imul        edx,dword ptr [ebp+14h]
+  004807BB: add         edx,dword ptr [ebp+FFFFFF78h]
+  004807C1: shr         edx,8
+  004807C4: mov         eax,1
+  004807C9: imul        ecx,eax,6
+  004807CC: mov         byte ptr [ebp+ecx-44h],dl
+  004807D0: mov         edx,dword ptr [ebp+FFFFFF68h]
+  004807D6: push        edx
+  004807D7: mov         eax,dword ptr [ebp+8]
+  004807DA: add         eax,dword ptr [ebp+FFFFFF78h]
+  004807E0: push        eax
+  004807E1: mov         ecx,1
+  004807E6: shl         ecx,3
+  004807E9: lea         edx,[ebp+ecx-44h]
+  004807ED: push        edx
+  004807EE: call        0060EBF0
+  004807F3: add         esp,0Ch
+  004807F6: mov         dword ptr [ebp+FFFFFF70h],3
+  00480800: mov         dword ptr [ebp+FFFFFF6Ch],0
+  0048080A: jmp         0048081B
+  0048080C: mov         eax,dword ptr [ebp+FFFFFF70h]
+  00480812: add         eax,1
+  00480815: mov         dword ptr [ebp+FFFFFF70h],eax
+  0048081B: cmp         dword ptr [ebp+FFFFFF70h],40h
+  00480822: jae         0048083D
+  00480824: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0048082A: movzx       edx,byte ptr [ebp+ecx-44h]
+  0048082F: add         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480835: mov         dword ptr [ebp+FFFFFF6Ch],edx
+  0048083B: jmp         0048080C
+  0048083D: mov         eax,1
+  00480842: shl         eax,0
+  00480845: mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  0048084B: mov         byte ptr [ebp+eax-44h],cl
+  0048084F: mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480855: shr         edx,8
+  00480858: mov         eax,1
+  0048085D: shl         eax,1
+  0048085F: mov         byte ptr [ebp+eax-44h],dl
+  00480863: mov         dword ptr [ebp+FFFFFF64h],1
+  0048086D: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480873: add         ecx,62Ch
+  00480879: call        00479DC0
+  0048087E: lea         ecx,[ebp+FFFFFF5Ch]
+  00480884: push        ecx
+  00480885: push        40h
+  00480887: lea         edx,[ebp+FFFFFF7Ch]
+  0048088D: push        edx
+  0048088E: push        40h
+  00480890: lea         eax,[ebp-44h]
+  00480893: push        eax
+  00480894: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0048089A: call        0047D270
+  0048089F: mov         dword ptr [ebp+FFFFFF64h],eax
+  004808A5: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004808AB: add         ecx,62Ch
+  004808B1: mov         edx,dword ptr [ebp+FFFFFF74h]
+  004808B7: mov         eax,dword ptr [edx+0000062Ch]
+  004808BD: mov         edx,dword ptr [eax+14h]
+  004808C0: call        edx
+  004808C2: cmp         dword ptr [ebp+FFFFFF64h],1
+  004808C9: je          004808D3
+  004808CB: mov         eax,dword ptr [ebp+FFFFFF64h]
+  004808D1: jmp         0048091B
+  004808D3: mov         eax,1
+  004808D8: imul        ecx,eax,7
+  004808DB: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  004808E3: cmp         edx,0FFh
+  004808E9: jne         004808F2
+  004808EB: mov         eax,0FFFFFF9Ah
+  004808F0: jmp         0048091B
+  004808F2: mov         eax,1
+  004808F7: imul        ecx,eax,7
+  004808FA: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  00480902: cmp         edx,0FEh
+  00480908: jne         00480911
+  0048090A: mov         eax,0FFFFFF99h
+  0048090F: jmp         0048091B
+  00480911: jmp         0048071C
+  00480916: mov         eax,1
+  0048091B: mov         ecx,dword ptr [ebp-4]
+  0048091E: xor         ecx,ebp
+  00480920: call        006095D5
+  00480925: mov         esp,ebp
+  00480927: pop         ebp
+  00480928: ret         10h
+  0048092B: int         3
+  0048092C: int         3
+  0048092D: int         3
+  0048092E: int         3
+  0048092F: int         3
+  00480930: push        ebp
+  00480931: mov         ebp,esp
+  00480933: sub         esp,0A4h
+  00480939: mov         eax,dword ptr ds:[00702F64h]
+  0048093E: xor         eax,ebp
+  00480940: mov         dword ptr [ebp-4],eax
+  00480943: mov         dword ptr [ebp+FFFFFF78h],ecx
+  00480949: mov         byte ptr [ebp-44h],0
+  0048094D: push        3Fh
+  0048094F: push        0
+  00480951: lea         eax,[ebp-43h]
+  00480954: push        eax
+  00480955: call        0060F170
+  0048095A: add         esp,0Ch
+  0048095D: push        40h
+  0048095F: push        0
+  00480961: lea         ecx,[ebp-44h]
+  00480964: push        ecx
+  00480965: call        0060F170
+  0048096A: add         esp,0Ch
+  0048096D: mov         edx,1
+  00480972: imul        eax,edx,0
+  00480975: mov         byte ptr [ebp+eax-44h],4
+  0048097A: mov         ecx,1
+  0048097F: imul        edx,ecx,3
+  00480982: mov         byte ptr [ebp+edx-44h],12h
+  00480987: mov         eax,1
+  0048098C: imul        ecx,eax,7
+  0048098F: mov         dword ptr [ebp+FFFFFF60h],ecx
+  00480995: cmp         dword ptr [ebp+FFFFFF60h],40h
+  0048099C: jae         004809A0
+  0048099E: jmp         004809A5
+  004809A0: call        00609D39
+  004809A5: mov         edx,dword ptr [ebp+FFFFFF60h]
+  004809AB: mov         byte ptr [ebp+edx-44h],0
+  004809B0: mov         dword ptr [ebp+FFFFFF74h],0
+  004809BA: jmp         004809D5
+  004809BC: mov         eax,dword ptr [ebp+FFFFFF78h]
+  004809C2: movzx       ecx,byte ptr [eax+00000658h]
+  004809C9: add         ecx,dword ptr [ebp+FFFFFF74h]
+  004809CF: mov         dword ptr [ebp+FFFFFF74h],ecx
+  004809D5: mov         edx,dword ptr [ebp+FFFFFF74h]
+  004809DB: cmp         edx,dword ptr [ebp+0Ch]
+  004809DE: jae         00480BD4
+  004809E4: mov         eax,dword ptr [ebp+FFFFFF78h]
+  004809EA: movzx       ecx,byte ptr [eax+00000658h]
+  004809F1: add         ecx,dword ptr [ebp+FFFFFF74h]
+  004809F7: cmp         ecx,dword ptr [ebp+0Ch]
+  004809FA: jae         00480A11
+  004809FC: mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480A02: movzx       eax,byte ptr [edx+00000658h]
+  00480A09: mov         dword ptr [ebp+FFFFFF68h],eax
+  00480A0F: jmp         00480A20
+  00480A11: mov         ecx,dword ptr [ebp+0Ch]
+  00480A14: sub         ecx,dword ptr [ebp+FFFFFF74h]
+  00480A1A: mov         dword ptr [ebp+FFFFFF68h],ecx
+  00480A20: mov         edx,1
+  00480A25: shl         edx,2
+  00480A28: mov         al,byte ptr [ebp+FFFFFF68h]
+  00480A2E: mov         byte ptr [ebp+edx-44h],al
+  00480A32: mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480A38: xor         edx,edx
+  00480A3A: mov         ecx,100h
+  00480A3F: div         eax,ecx
+  00480A41: mov         eax,1
+  00480A46: imul        ecx,eax,5
+  00480A49: mov         byte ptr [ebp+ecx-44h],dl
+  00480A4D: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480A53: shr         edx,8
+  00480A56: mov         eax,1
+  00480A5B: imul        ecx,eax,6
+  00480A5E: mov         byte ptr [ebp+ecx-44h],dl
+  00480A62: mov         edx,dword ptr [ebp+FFFFFF68h]
+  00480A68: push        edx
+  00480A69: mov         eax,dword ptr [ebp+8]
+  00480A6C: add         eax,dword ptr [ebp+FFFFFF74h]
+  00480A72: push        eax
+  00480A73: mov         ecx,1
+  00480A78: shl         ecx,3
+  00480A7B: lea         edx,[ebp+ecx-44h]
+  00480A7F: push        edx
+  00480A80: call        0060EBF0
+  00480A85: add         esp,0Ch
+  00480A88: mov         dword ptr [ebp+FFFFFF70h],3
+  00480A92: mov         dword ptr [ebp+FFFFFF6Ch],0
+  00480A9C: jmp         00480AAD
+  00480A9E: mov         eax,dword ptr [ebp+FFFFFF70h]
+  00480AA4: add         eax,1
+  00480AA7: mov         dword ptr [ebp+FFFFFF70h],eax
+  00480AAD: cmp         dword ptr [ebp+FFFFFF70h],40h
+  00480AB4: jae         00480ACF
+  00480AB6: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480ABC: movzx       edx,byte ptr [ebp+ecx-44h]
+  00480AC1: add         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480AC7: mov         dword ptr [ebp+FFFFFF6Ch],edx
+  00480ACD: jmp         00480A9E
+  00480ACF: mov         eax,1
+  00480AD4: shl         eax,0
+  00480AD7: mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  00480ADD: mov         byte ptr [ebp+eax-44h],cl
+  00480AE1: mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480AE7: shr         edx,8
+  00480AEA: mov         eax,1
+  00480AEF: shl         eax,1
+  00480AF1: mov         byte ptr [ebp+eax-44h],dl
+  00480AF5: mov         dword ptr [ebp+FFFFFF64h],1
+  00480AFF: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480B05: movzx       edx,byte ptr [ecx+4]
+  00480B09: test        edx,edx
+  00480B0B: jne         00480B73
+  00480B0D: mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480B13: cmp         dword ptr [eax+0000064Ch],0
+  00480B1A: jne         00480B71
+  00480B1C: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480B22: add         ecx,62Ch
+  00480B28: call        00479DC0
+  00480B2D: lea         ecx,[ebp+FFFFFF5Ch]
+  00480B33: push        ecx
+  00480B34: push        40h
+  00480B36: lea         edx,[ebp+FFFFFF7Ch]
+  00480B3C: push        edx
+  00480B3D: push        40h
+  00480B3F: lea         eax,[ebp-44h]
+  00480B42: push        eax
+  00480B43: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480B49: call        0047E7C0
+  00480B4E: mov         dword ptr [ebp+FFFFFF64h],eax
+  00480B54: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480B5A: add         ecx,62Ch
+  00480B60: mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480B66: mov         eax,dword ptr [edx+0000062Ch]
+  00480B6C: mov         edx,dword ptr [eax+14h]
+  00480B6F: call        edx
+  00480B71: jmp         00480B80
+  00480B73: push        6BD614h
+  00480B78: call        0048DA90
+  00480B7D: add         esp,4
+  00480B80: cmp         dword ptr [ebp+FFFFFF64h],1
+  00480B87: je          00480B91
+  00480B89: mov         eax,dword ptr [ebp+FFFFFF64h]
+  00480B8F: jmp         00480BD9
+  00480B91: mov         eax,1
+  00480B96: imul        ecx,eax,7
+  00480B99: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  00480BA1: cmp         edx,0FFh
+  00480BA7: jne         00480BB0
+  00480BA9: mov         eax,0FFFFFF9Ah
+  00480BAE: jmp         00480BD9
+  00480BB0: mov         eax,1
+  00480BB5: imul        ecx,eax,7
+  00480BB8: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  00480BC0: cmp         edx,0FEh
+  00480BC6: jne         00480BCF
+  00480BC8: mov         eax,0FFFFFF99h
+  00480BCD: jmp         00480BD9
+  00480BCF: jmp         004809BC
+  00480BD4: mov         eax,1
+  00480BD9: mov         ecx,dword ptr [ebp-4]
+  00480BDC: xor         ecx,ebp
+  00480BDE: call        006095D5
+  00480BE3: mov         esp,ebp
+  00480BE5: pop         ebp
+  00480BE6: ret         8
+  00480BE9: int         3
+  00480BEA: int         3
+  00480BEB: int         3
+  00480BEC: int         3
+  00480BED: int         3
+  00480BEE: int         3
+  00480BEF: int         3
+  00480BF0: push        ebp
+  00480BF1: mov         ebp,esp
+  00480BF3: sub         esp,0A4h
+  00480BF9: mov         eax,dword ptr ds:[00702F64h]
+  00480BFE: xor         eax,ebp
+  00480C00: mov         dword ptr [ebp-4],eax
+  00480C03: mov         dword ptr [ebp+FFFFFF74h],ecx
+  00480C09: mov         byte ptr [ebp-44h],0
+  00480C0D: push        3Fh
+  00480C0F: push        0
+  00480C11: lea         eax,[ebp-43h]
+  00480C14: push        eax
+  00480C15: call        0060F170
+  00480C1A: add         esp,0Ch
+  00480C1D: mov         ecx,1
+  00480C22: imul        edx,ecx,0
+  00480C25: mov         byte ptr [ebp+edx-44h],4
+  00480C2A: mov         eax,1
+  00480C2F: imul        ecx,eax,3
+  00480C32: mov         byte ptr [ebp+ecx-44h],6
+  00480C37: mov         edx,1
+  00480C3C: imul        eax,edx,7
+  00480C3F: mov         dword ptr [ebp+FFFFFF64h],eax
+  00480C45: cmp         dword ptr [ebp+FFFFFF64h],40h
+  00480C4C: jae         00480C50
+  00480C4E: jmp         00480C55
+  00480C50: call        00609D39
+  00480C55: mov         ecx,dword ptr [ebp+FFFFFF64h]
+  00480C5B: mov         byte ptr [ebp+ecx-44h],0
+  00480C60: mov         dword ptr [ebp+FFFFFF78h],0
+  00480C6A: jmp         00480C85
+  00480C6C: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480C72: movzx       eax,byte ptr [edx+00000658h]
+  00480C79: add         eax,dword ptr [ebp+FFFFFF78h]
+  00480C7F: mov         dword ptr [ebp+FFFFFF78h],eax
+  00480C85: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480C8B: cmp         ecx,dword ptr [ebp+0Ch]
+  00480C8E: jae         00480E54
+  00480C94: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480C9A: movzx       eax,byte ptr [edx+00000658h]
+  00480CA1: add         eax,dword ptr [ebp+FFFFFF78h]
+  00480CA7: cmp         eax,dword ptr [ebp+0Ch]
+  00480CAA: jae         00480CC1
+  00480CAC: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480CB2: movzx       edx,byte ptr [ecx+00000658h]
+  00480CB9: mov         dword ptr [ebp+FFFFFF68h],edx
+  00480CBF: jmp         00480CD0
+  00480CC1: mov         eax,dword ptr [ebp+0Ch]
+  00480CC4: sub         eax,dword ptr [ebp+FFFFFF78h]
+  00480CCA: mov         dword ptr [ebp+FFFFFF68h],eax
+  00480CD0: mov         ecx,1
+  00480CD5: shl         ecx,2
+  00480CD8: mov         dl,byte ptr [ebp+FFFFFF68h]
+  00480CDE: mov         byte ptr [ebp+ecx-44h],dl
+  00480CE2: mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480CE8: add         eax,dword ptr [ebp+10h]
+  00480CEB: xor         edx,edx
+  00480CED: mov         ecx,100h
+  00480CF2: div         eax,ecx
+  00480CF4: mov         eax,1
+  00480CF9: imul        ecx,eax,5
+  00480CFC: mov         byte ptr [ebp+ecx-44h],dl
+  00480D00: mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480D06: add         edx,dword ptr [ebp+10h]
+  00480D09: shr         edx,8
+  00480D0C: mov         eax,1
+  00480D11: imul        ecx,eax,6
+  00480D14: mov         byte ptr [ebp+ecx-44h],dl
+  00480D18: mov         edx,dword ptr [ebp+FFFFFF68h]
+  00480D1E: push        edx
+  00480D1F: mov         eax,dword ptr [ebp+8]
+  00480D22: add         eax,dword ptr [ebp+FFFFFF78h]
+  00480D28: push        eax
+  00480D29: mov         ecx,1
+  00480D2E: shl         ecx,3
+  00480D31: lea         edx,[ebp+ecx-44h]
+  00480D35: push        edx
+  00480D36: call        0060EBF0
+  00480D3B: add         esp,0Ch
+  00480D3E: mov         dword ptr [ebp+FFFFFF70h],3
+  00480D48: mov         dword ptr [ebp+FFFFFF6Ch],0
+  00480D52: jmp         00480D63
+  00480D54: mov         eax,dword ptr [ebp+FFFFFF70h]
+  00480D5A: add         eax,1
+  00480D5D: mov         dword ptr [ebp+FFFFFF70h],eax
+  00480D63: cmp         dword ptr [ebp+FFFFFF70h],40h
+  00480D6A: jae         00480D85
+  00480D6C: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480D72: movzx       edx,byte ptr [ebp+ecx-44h]
+  00480D77: add         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480D7D: mov         dword ptr [ebp+FFFFFF6Ch],edx
+  00480D83: jmp         00480D54
+  00480D85: mov         eax,1
+  00480D8A: shl         eax,0
+  00480D8D: mov         cl,byte ptr [ebp+FFFFFF6Ch]
+  00480D93: mov         byte ptr [ebp+eax-44h],cl
+  00480D97: mov         edx,dword ptr [ebp+FFFFFF6Ch]
+  00480D9D: shr         edx,8
+  00480DA0: mov         eax,1
+  00480DA5: shl         eax,1
+  00480DA7: mov         byte ptr [ebp+eax-44h],dl
+  00480DAB: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480DB1: add         ecx,60Ch
+  00480DB7: call        00479DC0
+  00480DBC: lea         ecx,[ebp+FFFFFF5Ch]
+  00480DC2: push        ecx
+  00480DC3: push        40h
+  00480DC5: lea         edx,[ebp+FFFFFF7Ch]
+  00480DCB: push        edx
+  00480DCC: push        40h
+  00480DCE: lea         eax,[ebp-44h]
+  00480DD1: push        eax
+  00480DD2: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480DD8: call        0047D270
+  00480DDD: mov         dword ptr [ebp+FFFFFF60h],eax
+  00480DE3: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00480DE9: add         ecx,60Ch
+  00480DEF: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480DF5: mov         eax,dword ptr [edx+0000060Ch]
+  00480DFB: mov         edx,dword ptr [eax+14h]
+  00480DFE: call        edx
+  00480E00: cmp         dword ptr [ebp+FFFFFF60h],1
+  00480E07: je          00480E11
+  00480E09: mov         eax,dword ptr [ebp+FFFFFF60h]
+  00480E0F: jmp         00480E59
+  00480E11: mov         eax,1
+  00480E16: imul        ecx,eax,7
+  00480E19: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  00480E21: cmp         edx,0FFh
+  00480E27: jne         00480E30
+  00480E29: mov         eax,0FFFFFF9Ah
+  00480E2E: jmp         00480E59
+  00480E30: mov         eax,1
+  00480E35: imul        ecx,eax,7
+  00480E38: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  00480E40: cmp         edx,0FEh
+  00480E46: jne         00480E4F
+  00480E48: mov         eax,0FFFFFF99h
+  00480E4D: jmp         00480E59
+  00480E4F: jmp         00480C6C
+  00480E54: mov         eax,1
+  00480E59: mov         ecx,dword ptr [ebp-4]
+  00480E5C: xor         ecx,ebp
+  00480E5E: call        006095D5
+  00480E63: mov         esp,ebp
+  00480E65: pop         ebp
+  00480E66: ret         0Ch
+  00480E69: int         3
+  00480E6A: int         3
+  00480E6B: int         3
+  00480E6C: int         3
+  00480E6D: int         3
+  00480E6E: int         3
+  00480E6F: int         3
+  00480E70: push        ebp
+  00480E71: mov         ebp,esp
+  00480E73: sub         esp,0A4h
+  00480E79: mov         eax,dword ptr ds:[00702F64h]
+  00480E7E: xor         eax,ebp
+  00480E80: mov         dword ptr [ebp-4],eax
+  00480E83: mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  00480E89: mov         byte ptr [ebp-44h],0
+  00480E8D: push        3Fh
+  00480E8F: push        0
+  00480E91: lea         eax,[ebp-43h]
+  00480E94: push        eax
+  00480E95: call        0060F170
+  00480E9A: add         esp,0Ch
+  00480E9D: push        40h
+  00480E9F: push        0
+  00480EA1: lea         ecx,[ebp-44h]
+  00480EA4: push        ecx
+  00480EA5: call        0060F170
+  00480EAA: add         esp,0Ch
+  00480EAD: mov         edx,1
+  00480EB2: imul        eax,edx,0
+  00480EB5: mov         byte ptr [ebp+eax-44h],4
+  00480EBA: mov         ecx,1
+  00480EBF: imul        edx,ecx,3
+  00480EC2: mov         byte ptr [ebp+edx-44h],5
+  00480EC7: mov         eax,1
+  00480ECC: imul        ecx,eax,7
+  00480ECF: mov         dword ptr [ebp+FFFFFF64h],ecx
+  00480ED5: cmp         dword ptr [ebp+FFFFFF64h],40h
+  00480EDC: jae         00480EE0
+  00480EDE: jmp         00480EE5
+  00480EE0: call        00609D39
+  00480EE5: mov         edx,dword ptr [ebp+FFFFFF64h]
+  00480EEB: mov         byte ptr [ebp+edx-44h],0
+  00480EF0: mov         dword ptr [ebp+FFFFFF78h],0
+  00480EFA: jmp         00480F0B
+  00480EFC: mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480F02: add         eax,4
+  00480F05: mov         dword ptr [ebp+FFFFFF78h],eax
+  00480F0B: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  00480F11: cmp         ecx,dword ptr [ebp+0Ch]
+  00480F14: jae         0048107B
+  00480F1A: mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480F20: add         edx,4
+  00480F23: cmp         edx,dword ptr [ebp+0Ch]
+  00480F26: jae         00480F34
+  00480F28: mov         dword ptr [ebp+FFFFFF68h],4
+  00480F32: jmp         00480F43
+  00480F34: mov         eax,dword ptr [ebp+0Ch]
+  00480F37: sub         eax,dword ptr [ebp+FFFFFF78h]
+  00480F3D: mov         dword ptr [ebp+FFFFFF68h],eax
+  00480F43: mov         ecx,1
+  00480F48: shl         ecx,2
+  00480F4B: mov         dl,byte ptr [ebp+FFFFFF68h]
+  00480F51: mov         byte ptr [ebp+ecx-44h],dl
+  00480F55: mov         eax,dword ptr [ebp+FFFFFF78h]
+  00480F5B: add         eax,dword ptr [ebp+10h]
+  00480F5E: xor         edx,edx
+  00480F60: mov         ecx,100h
+  00480F65: div         eax,ecx
+  00480F67: mov         eax,1
+  00480F6C: imul        ecx,eax,5
+  00480F6F: mov         byte ptr [ebp+ecx-44h],dl
+  00480F73: mov         edx,dword ptr [ebp+FFFFFF78h]
+  00480F79: add         edx,dword ptr [ebp+10h]
+  00480F7C: shr         edx,8
+  00480F7F: mov         eax,1
+  00480F84: imul        ecx,eax,6
+  00480F87: mov         byte ptr [ebp+ecx-44h],dl
+  00480F8B: mov         dword ptr [ebp+FFFFFF74h],3
+  00480F95: mov         dword ptr [ebp+FFFFFF70h],0
+  00480F9F: jmp         00480FB0
+  00480FA1: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00480FA7: add         edx,1
+  00480FAA: mov         dword ptr [ebp+FFFFFF74h],edx
+  00480FB0: cmp         dword ptr [ebp+FFFFFF74h],40h
+  00480FB7: jae         00480FD2
+  00480FB9: mov         eax,dword ptr [ebp+FFFFFF74h]
+  00480FBF: movzx       ecx,byte ptr [ebp+eax-44h]
+  00480FC4: add         ecx,dword ptr [ebp+FFFFFF70h]
+  00480FCA: mov         dword ptr [ebp+FFFFFF70h],ecx
+  00480FD0: jmp         00480FA1
+  00480FD2: mov         edx,1
+  00480FD7: shl         edx,0
+  00480FDA: mov         al,byte ptr [ebp+FFFFFF70h]
+  00480FE0: mov         byte ptr [ebp+edx-44h],al
+  00480FE4: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00480FEA: shr         ecx,8
+  00480FED: mov         edx,1
+  00480FF2: shl         edx,1
+  00480FF4: mov         byte ptr [ebp+edx-44h],cl
+  00480FF8: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00480FFE: add         ecx,60Ch
+  00481004: call        00479DC0
+  00481009: lea         eax,[ebp+FFFFFF60h]
+  0048100F: push        eax
+  00481010: push        40h
+  00481012: lea         ecx,[ebp+FFFFFF7Ch]
+  00481018: push        ecx
+  00481019: push        40h
+  0048101B: lea         edx,[ebp-44h]
+  0048101E: push        edx
+  0048101F: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00481025: call        0047DD50
+  0048102A: mov         dword ptr [ebp+FFFFFF5Ch],eax
+  00481030: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00481036: add         ecx,60Ch
+  0048103C: mov         eax,dword ptr [ebp+FFFFFF6Ch]
+  00481042: mov         edx,dword ptr [eax+0000060Ch]
+  00481048: mov         eax,dword ptr [edx+14h]
+  0048104B: call        eax
+  0048104D: mov         ecx,dword ptr [ebp+FFFFFF68h]
+  00481053: push        ecx
+  00481054: mov         edx,1
+  00481059: shl         edx,2
+  0048105C: lea         eax,[ebp+edx+FFFFFF7Ch]
+  00481063: push        eax
+  00481064: mov         ecx,dword ptr [ebp+8]
+  00481067: add         ecx,dword ptr [ebp+FFFFFF78h]
+  0048106D: push        ecx
+  0048106E: call        0060EBF0
+  00481073: add         esp,0Ch
+  00481076: jmp         00480EFC
+  0048107B: mov         eax,1
+  00481080: mov         ecx,dword ptr [ebp-4]
+  00481083: xor         ecx,ebp
+  00481085: call        006095D5
+  0048108A: mov         esp,ebp
+  0048108C: pop         ebp
+  0048108D: ret         0Ch
+  00481090: push        ebp
+  00481091: mov         ebp,esp
+  00481093: sub         esp,0A4h
+  00481099: mov         eax,dword ptr ds:[00702F64h]
+  0048109E: xor         eax,ebp
+  004810A0: mov         dword ptr [ebp-4],eax
+  004810A3: mov         dword ptr [ebp+FFFFFF74h],ecx
+  004810A9: mov         byte ptr [ebp-44h],0
+  004810AD: push        3Fh
+  004810AF: push        0
+  004810B1: lea         eax,[ebp-43h]
+  004810B4: push        eax
+  004810B5: call        0060F170
+  004810BA: add         esp,0Ch
+  004810BD: push        40h
+  004810BF: push        0
+  004810C1: lea         ecx,[ebp-44h]
+  004810C4: push        ecx
+  004810C5: call        0060F170
+  004810CA: add         esp,0Ch
+  004810CD: mov         edx,1
+  004810D2: imul        eax,edx,0
+  004810D5: mov         byte ptr [ebp+eax-44h],4
+  004810DA: mov         ecx,1
+  004810DF: imul        edx,ecx,3
+  004810E2: mov         byte ptr [ebp+edx-44h],5
+  004810E7: mov         eax,1
+  004810EC: imul        ecx,eax,7
+  004810EF: mov         dword ptr [ebp+FFFFFF64h],ecx
+  004810F5: cmp         dword ptr [ebp+FFFFFF64h],40h
+  004810FC: jae         00481100
+  004810FE: jmp         00481105
+  00481100: call        00609D39
+  00481105: mov         edx,dword ptr [ebp+FFFFFF64h]
+  0048110B: mov         byte ptr [ebp+edx-44h],0
+  00481110: mov         dword ptr [ebp+FFFFFF78h],0
+  0048111A: jmp         00481135
+  0048111C: mov         eax,dword ptr [ebp+FFFFFF74h]
+  00481122: movzx       ecx,byte ptr [eax+00000658h]
+  00481129: add         ecx,dword ptr [ebp+FFFFFF78h]
+  0048112F: mov         dword ptr [ebp+FFFFFF78h],ecx
+  00481135: mov         edx,dword ptr [ebp+FFFFFF78h]
+  0048113B: cmp         edx,dword ptr [ebp+0Ch]
+  0048113E: jae         00481305
+  00481144: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0048114A: movzx       ecx,byte ptr [eax+00000658h]
+  00481151: add         ecx,dword ptr [ebp+FFFFFF78h]
+  00481157: cmp         ecx,dword ptr [ebp+0Ch]
+  0048115A: jae         00481171
+  0048115C: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00481162: movzx       eax,byte ptr [edx+00000658h]
+  00481169: mov         dword ptr [ebp+FFFFFF68h],eax
+  0048116F: jmp         00481180
+  00481171: mov         ecx,dword ptr [ebp+0Ch]
+  00481174: sub         ecx,dword ptr [ebp+FFFFFF78h]
+  0048117A: mov         dword ptr [ebp+FFFFFF68h],ecx
+  00481180: mov         edx,1
+  00481185: shl         edx,2
+  00481188: mov         al,byte ptr [ebp+FFFFFF68h]
+  0048118E: mov         byte ptr [ebp+edx-44h],al
+  00481192: mov         eax,dword ptr [ebp+FFFFFF78h]
+  00481198: add         eax,dword ptr [ebp+10h]
+  0048119B: xor         edx,edx
+  0048119D: mov         ecx,100h
+  004811A2: div         eax,ecx
+  004811A4: mov         eax,1
+  004811A9: imul        ecx,eax,5
+  004811AC: mov         byte ptr [ebp+ecx-44h],dl
+  004811B0: mov         edx,dword ptr [ebp+FFFFFF78h]
+  004811B6: add         edx,dword ptr [ebp+10h]
+  004811B9: shr         edx,8
+  004811BC: mov         eax,1
+  004811C1: imul        ecx,eax,6
+  004811C4: mov         byte ptr [ebp+ecx-44h],dl
+  004811C8: mov         dword ptr [ebp+FFFFFF70h],3
+  004811D2: mov         dword ptr [ebp+FFFFFF6Ch],0
+  004811DC: jmp         004811ED
+  004811DE: mov         edx,dword ptr [ebp+FFFFFF70h]
+  004811E4: add         edx,1
+  004811E7: mov         dword ptr [ebp+FFFFFF70h],edx
+  004811ED: cmp         dword ptr [ebp+FFFFFF70h],40h
+  004811F4: jae         0048120F
+  004811F6: mov         eax,dword ptr [ebp+FFFFFF70h]
+  004811FC: movzx       ecx,byte ptr [ebp+eax-44h]
+  00481201: add         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00481207: mov         dword ptr [ebp+FFFFFF6Ch],ecx
+  0048120D: jmp         004811DE
+  0048120F: mov         edx,1
+  00481214: shl         edx,0
+  00481217: mov         al,byte ptr [ebp+FFFFFF6Ch]
+  0048121D: mov         byte ptr [ebp+edx-44h],al
+  00481221: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  00481227: shr         ecx,8
+  0048122A: mov         edx,1
+  0048122F: shl         edx,1
+  00481231: mov         byte ptr [ebp+edx-44h],cl
+  00481235: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0048123B: add         ecx,60Ch
+  00481241: call        00479DC0
+  00481246: lea         eax,[ebp+FFFFFF5Ch]
+  0048124C: push        eax
+  0048124D: push        40h
+  0048124F: lea         ecx,[ebp+FFFFFF7Ch]
+  00481255: push        ecx
+  00481256: push        40h
+  00481258: lea         edx,[ebp-44h]
+  0048125B: push        edx
+  0048125C: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00481262: call        0047D270
+  00481267: mov         dword ptr [ebp+FFFFFF60h],eax
+  0048126D: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  00481273: add         ecx,60Ch
+  00481279: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0048127F: mov         edx,dword ptr [eax+0000060Ch]
+  00481285: mov         eax,dword ptr [edx+14h]
+  00481288: call        eax
+  0048128A: cmp         dword ptr [ebp+FFFFFF60h],1
+  00481291: je          0048129B
+  00481293: mov         eax,dword ptr [ebp+FFFFFF60h]
+  00481299: jmp         0048130A
+  0048129B: mov         ecx,1
+  004812A0: imul        edx,ecx,7
+  004812A3: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  004812AB: cmp         eax,0FFh
+  004812B0: jne         004812B9
+  004812B2: mov         eax,0FFFFFF9Ah
+  004812B7: jmp         0048130A
+  004812B9: mov         ecx,1
+  004812BE: imul        edx,ecx,7
+  004812C1: movzx       eax,byte ptr [ebp+edx+FFFFFF7Ch]
+  004812C9: cmp         eax,0FEh
+  004812CE: jne         004812D7
+  004812D0: mov         eax,0FFFFFF99h
+  004812D5: jmp         0048130A
+  004812D7: mov         ecx,dword ptr [ebp+FFFFFF68h]
+  004812DD: push        ecx
+  004812DE: mov         edx,1
+  004812E3: shl         edx,3
+  004812E6: lea         eax,[ebp+edx+FFFFFF7Ch]
+  004812ED: push        eax
+  004812EE: mov         ecx,dword ptr [ebp+8]
+  004812F1: add         ecx,dword ptr [ebp+FFFFFF78h]
+  004812F7: push        ecx
+  004812F8: call        0060EBF0
+  004812FD: add         esp,0Ch
+  00481300: jmp         0048111C
+  00481305: mov         eax,1
+  0048130A: mov         ecx,dword ptr [ebp-4]
+  0048130D: xor         ecx,ebp
+  0048130F: call        006095D5
+  00481314: mov         esp,ebp
+  00481316: pop         ebp
+  00481317: ret         0Ch
+  0048131A: int         3
+  0048131B: int         3
+  0048131C: int         3
+  0048131D: int         3
+  0048131E: int         3
+  0048131F: int         3
+  00481320: push        ebp
+  00481321: mov         ebp,esp
+  00481323: sub         esp,9Ch
+  00481329: mov         eax,dword ptr ds:[00702F64h]
+  0048132E: xor         eax,ebp
+  00481330: mov         dword ptr [ebp-4],eax
+  00481333: mov         dword ptr [ebp+FFFFFF70h],ecx
+  00481339: mov         byte ptr [ebp-44h],0
+  0048133D: push        3Fh
+  0048133F: push        0
+  00481341: lea         eax,[ebp-43h]
+  00481344: push        eax
+  00481345: call        0060F170
+  0048134A: add         esp,0Ch
+  0048134D: mov         ecx,1
+  00481352: imul        edx,ecx,0
+  00481355: mov         byte ptr [ebp+edx-44h],4
+  0048135A: mov         eax,1
+  0048135F: imul        ecx,eax,3
+  00481362: mov         byte ptr [ebp+ecx-44h],1Ah
+  00481367: mov         edx,1
+  0048136C: imul        eax,edx,7
+  0048136F: mov         dword ptr [ebp+FFFFFF6Ch],eax
+  00481375: cmp         dword ptr [ebp+FFFFFF6Ch],40h
+  0048137C: jae         00481380
+  0048137E: jmp         00481385
+  00481380: call        00609D39
+  00481385: mov         ecx,dword ptr [ebp+FFFFFF6Ch]
+  0048138B: mov         byte ptr [ebp+ecx-44h],0
+  00481390: mov         edx,1
+  00481395: shl         edx,2
+  00481398: mov         al,byte ptr [ebp+0Ch]
+  0048139B: mov         byte ptr [ebp+edx-44h],al
+  0048139F: mov         ecx,1
+  004813A4: imul        edx,ecx,5
+  004813A7: mov         al,byte ptr [ebp+10h]
+  004813AA: mov         byte ptr [ebp+edx-44h],al
+  004813AE: mov         ecx,dword ptr [ebp+10h]
+  004813B1: shr         ecx,8
+  004813B4: mov         edx,1
+  004813B9: imul        eax,edx,6
+  004813BC: mov         byte ptr [ebp+eax-44h],cl
+  004813C0: mov         dword ptr [ebp+FFFFFF78h],3
+  004813CA: mov         dword ptr [ebp+FFFFFF74h],0
+  004813D4: jmp         004813E5
+  004813D6: mov         ecx,dword ptr [ebp+FFFFFF78h]
+  004813DC: add         ecx,1
+  004813DF: mov         dword ptr [ebp+FFFFFF78h],ecx
+  004813E5: cmp         dword ptr [ebp+FFFFFF78h],40h
+  004813EC: jae         00481407
+  004813EE: mov         edx,dword ptr [ebp+FFFFFF78h]
+  004813F4: movzx       eax,byte ptr [ebp+edx-44h]
+  004813F9: add         eax,dword ptr [ebp+FFFFFF74h]
+  004813FF: mov         dword ptr [ebp+FFFFFF74h],eax
+  00481405: jmp         004813D6
+  00481407: mov         ecx,1
+  0048140C: shl         ecx,0
+  0048140F: mov         dl,byte ptr [ebp+FFFFFF74h]
+  00481415: mov         byte ptr [ebp+ecx-44h],dl
+  00481419: mov         eax,dword ptr [ebp+FFFFFF74h]
+  0048141F: shr         eax,8
+  00481422: mov         ecx,1
+  00481427: shl         ecx,1
+  00481429: mov         byte ptr [ebp+ecx-44h],al
+  0048142D: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  00481433: add         ecx,60Ch
+  00481439: call        00479DC0
+  0048143E: lea         edx,[ebp+FFFFFF64h]
+  00481444: push        edx
+  00481445: push        40h
+  00481447: lea         eax,[ebp+FFFFFF7Ch]
+  0048144D: push        eax
+  0048144E: push        40h
+  00481450: lea         ecx,[ebp-44h]
+  00481453: push        ecx
+  00481454: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0048145A: call        0047D270
+  0048145F: mov         dword ptr [ebp+FFFFFF68h],eax
+  00481465: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0048146B: add         ecx,60Ch
+  00481471: mov         edx,dword ptr [ebp+FFFFFF70h]
+  00481477: mov         eax,dword ptr [edx+0000060Ch]
+  0048147D: mov         edx,dword ptr [eax+14h]
+  00481480: call        edx
+  00481482: cmp         dword ptr [ebp+FFFFFF68h],1
+  00481489: je          00481493
+  0048148B: mov         eax,dword ptr [ebp+FFFFFF68h]
+  00481491: jmp         004814F6
+  00481493: mov         eax,1
+  00481498: imul        ecx,eax,7
+  0048149B: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  004814A3: cmp         edx,0FFh
+  004814A9: jne         004814B2
+  004814AB: mov         eax,0FFFFFF9Ah
+  004814B0: jmp         004814F6
+  004814B2: mov         eax,1
+  004814B7: imul        ecx,eax,7
+  004814BA: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  004814C2: cmp         edx,0FEh
+  004814C8: jne         004814D1
+  004814CA: mov         eax,0FFFFFF99h
+  004814CF: jmp         004814F6
+  004814D1: mov         eax,dword ptr [ebp+0Ch]
+  004814D4: push        eax
+  004814D5: mov         ecx,1
+  004814DA: shl         ecx,3
+  004814DD: lea         edx,[ebp+ecx+FFFFFF7Ch]
+  004814E4: push        edx
+  004814E5: mov         eax,dword ptr [ebp+8]
+  004814E8: push        eax
+  004814E9: call        0060EBF0
+  004814EE: add         esp,0Ch
+  004814F1: mov         eax,1
+  004814F6: mov         ecx,dword ptr [ebp-4]
+  004814F9: xor         ecx,ebp
+  004814FB: call        006095D5
+  00481500: mov         esp,ebp
+  00481502: pop         ebp
+  00481503: ret         0Ch
+  00481506: int         3
+  00481507: int         3
+  00481508: int         3
+  00481509: int         3
+  0048150A: int         3
+  0048150B: int         3
+  0048150C: int         3
+  0048150D: int         3
+  0048150E: int         3
+  0048150F: int         3
+  00481510: push        ebp
+  00481511: mov         ebp,esp
+  00481513: sub         esp,0ACh
+  00481519: mov         eax,dword ptr ds:[00702F64h]
+  0048151E: xor         eax,ebp
+  00481520: mov         dword ptr [ebp-4],eax
+  00481523: mov         dword ptr [ebp+FFFFFF74h],ecx
+  00481529: mov         byte ptr [ebp-44h],0
+  0048152D: push        3Fh
+  0048152F: push        0
+  00481531: lea         eax,[ebp-43h]
+  00481534: push        eax
+  00481535: call        0060F170
+  0048153A: add         esp,0Ch
+  0048153D: mov         byte ptr [ebp+FFFFFF7Bh],0
+  00481544: mov         ecx,1
+  00481549: imul        edx,ecx,0
+  0048154C: mov         byte ptr [ebp+edx-44h],4
+  00481551: mov         eax,1
+  00481556: imul        ecx,eax,3
+  00481559: mov         byte ptr [ebp+ecx-44h],0AAh
+  0048155E: mov         edx,1
+  00481563: imul        eax,edx,7
+  00481566: mov         dword ptr [ebp+FFFFFF68h],eax
+  0048156C: cmp         dword ptr [ebp+FFFFFF68h],40h
+  00481573: jae         00481577
+  00481575: jmp         0048157C
+  00481577: call        00609D39
+  0048157C: mov         ecx,dword ptr [ebp+FFFFFF68h]
+  00481582: mov         byte ptr [ebp+ecx-44h],0
+  00481587: mov         edx,1
+  0048158C: shl         edx,2
+  0048158F: mov         dword ptr [ebp+FFFFFF64h],edx
+  00481595: cmp         dword ptr [ebp+FFFFFF64h],40h
+  0048159C: jae         004815A0
+  0048159E: jmp         004815A5
+  004815A0: call        00609D39
+  004815A5: mov         eax,dword ptr [ebp+FFFFFF64h]
+  004815AB: mov         byte ptr [ebp+eax-44h],0
+  004815B0: mov         ecx,1
+  004815B5: imul        edx,ecx,5
+  004815B8: mov         dword ptr [ebp+FFFFFF60h],edx
+  004815BE: cmp         dword ptr [ebp+FFFFFF60h],40h
+  004815C5: jae         004815C9
+  004815C7: jmp         004815CE
+  004815C9: call        00609D39
+  004815CE: mov         eax,dword ptr [ebp+FFFFFF60h]
+  004815D4: mov         byte ptr [ebp+eax-44h],0
+  004815D9: mov         ecx,1
+  004815DE: imul        edx,ecx,6
+  004815E1: mov         dword ptr [ebp+FFFFFF5Ch],edx
+  004815E7: cmp         dword ptr [ebp+FFFFFF5Ch],40h
+  004815EE: jae         004815F2
+  004815F0: jmp         004815F7
+  004815F2: call        00609D39
+  004815F7: mov         eax,dword ptr [ebp+FFFFFF5Ch]
+  004815FD: mov         byte ptr [ebp+eax-44h],0
+  00481602: mov         dword ptr [ebp+FFFFFF70h],3
+  0048160C: mov         dword ptr [ebp+FFFFFF6Ch],0
+  00481616: jmp         00481627
+  00481618: mov         ecx,dword ptr [ebp+FFFFFF70h]
+  0048161E: add         ecx,1
+  00481621: mov         dword ptr [ebp+FFFFFF70h],ecx
+  00481627: cmp         dword ptr [ebp+FFFFFF70h],40h
+  0048162E: jae         00481649
+  00481630: mov         edx,dword ptr [ebp+FFFFFF70h]
+  00481636: movzx       eax,byte ptr [ebp+edx-44h]
+  0048163B: add         eax,dword ptr [ebp+FFFFFF6Ch]
+  00481641: mov         dword ptr [ebp+FFFFFF6Ch],eax
+  00481647: jmp         00481618
+  00481649: mov         ecx,1
+  0048164E: shl         ecx,0
+  00481651: mov         dl,byte ptr [ebp+FFFFFF6Ch]
+  00481657: mov         byte ptr [ebp+ecx-44h],dl
+  0048165B: mov         eax,dword ptr [ebp+FFFFFF6Ch]
+  00481661: shr         eax,8
+  00481664: mov         ecx,1
+  00481669: shl         ecx,1
+  0048166B: mov         byte ptr [ebp+ecx-44h],al
+  0048166F: mov         edx,dword ptr [ebp+FFFFFF74h]
+  00481675: cmp         dword ptr [edx+0000064Ch],0
+  0048167C: jne         00481685
+  0048167E: mov         al,1
+  00481680: jmp         00481756
+  00481685: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  0048168B: add         ecx,60Ch
+  00481691: call        00479DC0
+  00481696: lea         eax,[ebp+FFFFFF54h]
+  0048169C: push        eax
+  0048169D: push        40h
+  0048169F: lea         ecx,[ebp+FFFFFF7Ch]
+  004816A5: push        ecx
+  004816A6: push        40h
+  004816A8: lea         edx,[ebp-44h]
+  004816AB: push        edx
+  004816AC: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004816B2: call        0047D270
+  004816B7: mov         dword ptr [ebp+FFFFFF58h],eax
+  004816BD: mov         ecx,dword ptr [ebp+FFFFFF74h]
+  004816C3: add         ecx,60Ch
+  004816C9: mov         eax,dword ptr [ebp+FFFFFF74h]
+  004816CF: mov         edx,dword ptr [eax+0000060Ch]
+  004816D5: mov         eax,dword ptr [edx+14h]
+  004816D8: call        eax
+  004816DA: mov         ecx,1
+  004816DF: shl         ecx,3
+  004816E2: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  004816EA: cmp         edx,0FFh
+  004816F0: jne         004816FB
+  004816F2: mov         byte ptr [ebp+FFFFFF7Bh],1
+  004816F9: jmp         00481702
+  004816FB: mov         byte ptr [ebp+FFFFFF7Bh],0
+  00481702: cmp         dword ptr [ebp+FFFFFF58h],1
+  00481709: je          00481712
+  0048170B: mov         byte ptr [ebp+FFFFFF7Bh],0
+  00481712: mov         eax,1
+  00481717: imul        ecx,eax,7
+  0048171A: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  00481722: cmp         edx,0FFh
+  00481728: jne         00481731
+  0048172A: mov         byte ptr [ebp+FFFFFF7Bh],0
+  00481731: mov         eax,1
+  00481736: imul        ecx,eax,7
+  00481739: movzx       edx,byte ptr [ebp+ecx+FFFFFF7Ch]
+  00481741: cmp         edx,0FEh
+  00481747: jne         00481750
+  00481749: mov         byte ptr [ebp+FFFFFF7Bh],0
+  00481750: mov         al,byte ptr [ebp+FFFFFF7Bh]
+  00481756: mov         ecx,dword ptr [ebp-4]
+  00481759: xor         ecx,ebp
+  0048175B: call        006095D5
+  00481760: mov         esp,ebp
+  00481762: pop         ebp
+  00481763: ret
+  00481764: int         3
+  00481765: int         3
+  00481766: int         3
+  00481767: int         3
+  00481768: int         3
+  00481769: int         3
+  0048176A: int         3
+  0048176B: int         3
+  0048176C: int         3
+  0048176D: int         3
+  0048176E: int         3
+  0048176F: int         3
+  00481770: push        ebp
+  00481771: mov         ebp,esp
+  00481773: push        ecx
+  00481774: mov         dword ptr [ebp-4],ecx
+  00481777: movzx       eax,word ptr [ebp+8]
+  0048177B: cmp         eax,200h
+  00481780: jle         00481786
+  00481782: xor         eax,eax
+  00481784: jmp         00481795
+  00481786: mov         ecx,dword ptr [ebp-4]
+  00481789: mov         dx,word ptr [ebp+8]
+  0048178D: mov         word ptr [ecx],dx
+  00481790: mov         eax,1
+  00481795: mov         esp,ebp
+  00481797: pop         ebp
+  00481798: ret         4
+  0048179B: int         3
+  0048179C: int         3
+  0048179D: int         3
+  0048179E: int         3
+  0048179F: int         3
+  004817A0: push        ebp
+  004817A1: mov         ebp,esp
+  004817A3: push        ecx
+  004817A4: mov         dword ptr [ebp-4],ecx
+  004817A7: cmp         dword ptr [ebp+8],1
+  004817AB: jne         004817C6
+  004817AD: mov         eax,dword ptr [ebp-4]
+  004817B0: mov         dword ptr [eax+0000064Ch],0
+  004817BA: mov         ecx,dword ptr [ebp-4]
+  004817BD: mov         byte ptr [ecx+00000658h],38h
+  004817C4: jmp         004817FC
+  004817C6: cmp         dword ptr [ebp+8],2
+  004817CA: jne         004817E5
+  004817CC: mov         edx,dword ptr [ebp-4]
+  004817CF: mov         dword ptr [edx+0000064Ch],1
+  004817D9: mov         eax,dword ptr [ebp-4]
+  004817DC: mov         byte ptr [eax+00000658h],18h
+  004817E3: jmp         004817FC
+  004817E5: mov         ecx,dword ptr [ebp-4]
+  004817E8: mov         dword ptr [ecx+0000064Ch],0
+  004817F2: mov         edx,dword ptr [ebp-4]
+  004817F5: mov         byte ptr [edx+00000658h],38h
+  004817FC: mov         esp,ebp
+  004817FE: pop         ebp
+  004817FF: C2
+  00481800: 04
+
+  Summary
+
+      266000 .text

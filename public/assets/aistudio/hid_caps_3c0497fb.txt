@@ -1,0 +1,2692 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  004CA450: FE
+  004CA451: FF
+  004CA452: FF
+  004CA453: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA459: 8B 85 DC FD FF FF  mov         eax,dword ptr [ebp+FFFFFDDCh]
+  004CA45F: 05 08 17 00 00     add         eax,1708h
+  004CA464: 50                 push        eax
+  004CA465: 8D 8D 64 FE FF FF  lea         ecx,[ebp+FFFFFE64h]
+  004CA46B: 51                 push        ecx
+  004CA46C: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA472: FF 15 D4 76 66 00  call        dword ptr ds:[006676D4h]
+  004CA478: 89 85 CC FD FF FF  mov         dword ptr [ebp+FFFFFDCCh],eax
+  004CA47E: 8B 95 CC FD FF FF  mov         edx,dword ptr [ebp+FFFFFDCCh]
+  004CA484: 89 95 C8 FD FF FF  mov         dword ptr [ebp+FFFFFDC8h],edx
+  004CA48A: C6 45 FC 02        mov         byte ptr [ebp-4],2
+  004CA48E: 8B 85 C8 FD FF FF  mov         eax,dword ptr [ebp+FFFFFDC8h]
+  004CA494: 50                 push        eax
+  004CA495: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA49B: FF 15 5C 71 66 00  call        dword ptr ds:[0066715Ch]
+  004CA4A1: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  004CA4A5: 8D 8D 64 FE FF FF  lea         ecx,[ebp+FFFFFE64h]
+  004CA4AB: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA4B1: 68 58 90 6C 00     push        6C9058h
+  004CA4B6: 8D 8D E0 FD FF FF  lea         ecx,[ebp+FFFFFDE0h]
+  004CA4BC: 51                 push        ecx
+  004CA4BD: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA4C3: FF 15 D0 76 66 00  call        dword ptr ds:[006676D0h]
+  004CA4C9: 89 85 C4 FD FF FF  mov         dword ptr [ebp+FFFFFDC4h],eax
+  004CA4CF: 8B 95 C4 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDC4h]
+  004CA4D5: 89 95 C0 FD FF FF  mov         dword ptr [ebp+FFFFFDC0h],edx
+  004CA4DB: C6 45 FC 03        mov         byte ptr [ebp-4],3
+  004CA4DF: 8B 85 C0 FD FF FF  mov         eax,dword ptr [ebp+FFFFFDC0h]
+  004CA4E5: 50                 push        eax
+  004CA4E6: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA4EC: FF 15 5C 71 66 00  call        dword ptr ds:[0066715Ch]
+  004CA4F2: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  004CA4F6: 8D 8D E0 FD FF FF  lea         ecx,[ebp+FFFFFDE0h]
+  004CA4FC: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA502: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA508: 51                 push        ecx
+  004CA509: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CA50C: FF 15 88 70 66 00  call        dword ptr ds:[00667088h]
+  004CA512: 8B 95 D8 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDD8h]
+  004CA518: 83 CA 01           or          edx,1
+  004CA51B: 89 95 D8 FD FF FF  mov         dword ptr [ebp+FFFFFDD8h],edx
+  004CA521: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004CA528: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA52E: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA534: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CA537: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004CA53A: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  004CA541: 59                 pop         ecx
+  004CA542: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004CA545: 33 CD              xor         ecx,ebp
+  004CA547: E8 89 F0 13 00     call        006095D5
+  004CA54C: 8B E5              mov         esp,ebp
+  004CA54E: 5D                 pop         ebp
+  004CA54F: C2 04 00           ret         4
+  004CA552: CC                 int         3
+  004CA553: CC                 int         3
+  004CA554: CC                 int         3
+  004CA555: CC                 int         3
+  004CA556: CC                 int         3
+  004CA557: CC                 int         3
+  004CA558: CC                 int         3
+  004CA559: CC                 int         3
+  004CA55A: CC                 int         3
+  004CA55B: CC                 int         3
+  004CA55C: CC                 int         3
+  004CA55D: CC                 int         3
+  004CA55E: CC                 int         3
+  004CA55F: CC                 int         3
+  004CA560: 55                 push        ebp
+  004CA561: 8B EC              mov         ebp,esp
+  004CA563: 6A FF              push        0FFFFFFFFh
+  004CA565: 68 80 35 65 00     push        653580h
+  004CA56A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  004CA570: 50                 push        eax
+  004CA571: 81 EC 34 02 00 00  sub         esp,234h
+  004CA577: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004CA57C: 33 C5              xor         eax,ebp
+  004CA57E: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  004CA581: 50                 push        eax
+  004CA582: 8D 45 F4           lea         eax,[ebp-0Ch]
+  004CA585: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  004CA58B: 89 8D C0 FD FF FF  mov         dword ptr [ebp+FFFFFDC0h],ecx
+  004CA591: C7 85 DC FD FF FF  mov         dword ptr [ebp+FFFFFDDCh],0
+            00 00 00 00
+  004CA59B: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA5A1: FF 15 64 71 66 00  call        dword ptr ds:[00667164h]
+  004CA5A7: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  004CA5AE: 8D 85 E8 FE FF FF  lea         eax,[ebp+FFFFFEE8h]
+  004CA5B4: 50                 push        eax
+  004CA5B5: FF 15 18 74 66 00  call        dword ptr ds:[00667418h]
+  004CA5BB: 83 C4 04           add         esp,4
+  004CA5BE: 89 85 D8 FD FF FF  mov         dword ptr [ebp+FFFFFDD8h],eax
+  004CA5C4: 8B 8D D8 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDD8h]
+  004CA5CA: 89 8D D4 FD FF FF  mov         dword ptr [ebp+FFFFFDD4h],ecx
+  004CA5D0: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  004CA5D4: 8B 95 D4 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDD4h]
+  004CA5DA: 52                 push        edx
+  004CA5DB: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA5E1: FF 15 5C 71 66 00  call        dword ptr ds:[0066715Ch]
+  004CA5E7: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  004CA5EB: 8D 8D E8 FE FF FF  lea         ecx,[ebp+FFFFFEE8h]
+  004CA5F1: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA5F7: 68 A8 8F 6C 00     push        6C8FA8h
+  004CA5FC: 8D 85 64 FE FF FF  lea         eax,[ebp+FFFFFE64h]
+  004CA602: 50                 push        eax
+  004CA603: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA609: FF 15 D0 76 66 00  call        dword ptr ds:[006676D0h]
+  004CA60F: 89 85 D0 FD FF FF  mov         dword ptr [ebp+FFFFFDD0h],eax
+  004CA615: 8B 8D D0 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDD0h]
+  004CA61B: 89 8D CC FD FF FF  mov         dword ptr [ebp+FFFFFDCCh],ecx
+  004CA621: C6 45 FC 02        mov         byte ptr [ebp-4],2
+  004CA625: 8B 95 CC FD FF FF  mov         edx,dword ptr [ebp+FFFFFDCCh]
+  004CA62B: 52                 push        edx
+  004CA62C: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA632: FF 15 5C 71 66 00  call        dword ptr ds:[0066715Ch]
+  004CA638: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  004CA63C: 8D 8D 64 FE FF FF  lea         ecx,[ebp+FFFFFE64h]
+  004CA642: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA648: 68 A4 8F 6C 00     push        6C8FA4h
+  004CA64D: 8D 85 E0 FD FF FF  lea         eax,[ebp+FFFFFDE0h]
+  004CA653: 50                 push        eax
+  004CA654: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA65A: FF 15 D0 76 66 00  call        dword ptr ds:[006676D0h]
+  004CA660: 89 85 C8 FD FF FF  mov         dword ptr [ebp+FFFFFDC8h],eax
+  004CA666: 8B 8D C8 FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDC8h]
+  004CA66C: 89 8D C4 FD FF FF  mov         dword ptr [ebp+FFFFFDC4h],ecx
+  004CA672: C6 45 FC 03        mov         byte ptr [ebp-4],3
+  004CA676: 8B 95 C4 FD FF FF  mov         edx,dword ptr [ebp+FFFFFDC4h]
+  004CA67C: 52                 push        edx
+  004CA67D: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA683: FF 15 5C 71 66 00  call        dword ptr ds:[0066715Ch]
+  004CA689: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  004CA68D: 8D 8D E0 FD FF FF  lea         ecx,[ebp+FFFFFDE0h]
+  004CA693: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA699: 8D 85 6C FF FF FF  lea         eax,[ebp+FFFFFF6Ch]
+  004CA69F: 50                 push        eax
+  004CA6A0: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CA6A3: FF 15 88 70 66 00  call        dword ptr ds:[00667088h]
+  004CA6A9: 8B 8D DC FD FF FF  mov         ecx,dword ptr [ebp+FFFFFDDCh]
+  004CA6AF: 83 C9 01           or          ecx,1
+  004CA6B2: 89 8D DC FD FF FF  mov         dword ptr [ebp+FFFFFDDCh],ecx
+  004CA6B8: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004CA6BF: 8D 8D 6C FF FF FF  lea         ecx,[ebp+FFFFFF6Ch]
+  004CA6C5: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA6CB: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CA6CE: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004CA6D1: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  004CA6D8: 59                 pop         ecx
+  004CA6D9: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004CA6DC: 33 CD              xor         ecx,ebp
+  004CA6DE: E8 F2 EE 13 00     call        006095D5
+  004CA6E3: 8B E5              mov         esp,ebp
+  004CA6E5: 5D                 pop         ebp
+  004CA6E6: C2 04 00           ret         4
+  004CA6E9: CC                 int         3
+  004CA6EA: CC                 int         3
+  004CA6EB: CC                 int         3
+  004CA6EC: CC                 int         3
+  004CA6ED: CC                 int         3
+  004CA6EE: CC                 int         3
+  004CA6EF: CC                 int         3
+  004CA6F0: 55                 push        ebp
+  004CA6F1: 8B EC              mov         ebp,esp
+  004CA6F3: 6A FF              push        0FFFFFFFFh
+  004CA6F5: 68 EC 26 65 00     push        6526ECh
+  004CA6FA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  004CA700: 50                 push        eax
+  004CA701: 81 EC A0 04 00 00  sub         esp,4A0h
+  004CA707: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004CA70C: 33 C5              xor         eax,ebp
+  004CA70E: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  004CA711: 50                 push        eax
+  004CA712: 8D 45 F4           lea         eax,[ebp-0Ch]
+  004CA715: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  004CA71B: 89 8D 54 FB FF FF  mov         dword ptr [ebp+FFFFFB54h],ecx
+  004CA721: C7 85 58 FB FF FF  mov         dword ptr [ebp+FFFFFB58h],0
+            00 00 00 00
+  004CA72B: 8D 8D 5C FB FF FF  lea         ecx,[ebp+FFFFFB5Ch]
+  004CA731: FF 15 64 71 66 00  call        dword ptr ds:[00667164h]
+  004CA737: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  004CA73E: 6A 01              push        1
+  004CA740: 6A 1C              push        1Ch
+  004CA742: 8D 85 E0 FB FF FF  lea         eax,[ebp+FFFFFBE0h]
+  004CA748: 50                 push        eax
+  004CA749: 6A 00              push        0
+  004CA74B: FF 15 0C 7D 66 00  call        dword ptr ds:[00667D0Ch]
+  004CA751: 68 C4 8F 6C 00     push        6C8FC4h
+  004CA756: 8D 8D E0 FB FF FF  lea         ecx,[ebp+FFFFFBE0h]
+  004CA75C: 51                 push        ecx
+  004CA75D: FF 15 38 7D 66 00  call        dword ptr ds:[00667D38h]
+  004CA763: 68 CC 8F 6C 00     push        6C8FCCh
+  004CA768: 8D 95 E0 FB FF FF  lea         edx,[ebp+FFFFFBE0h]
+  004CA76E: 52                 push        edx
+  004CA76F: FF 15 38 7D 66 00  call        dword ptr ds:[00667D38h]
+  004CA775: 8D 85 E0 FB FF FF  lea         eax,[ebp+FFFFFBE0h]
+  004CA77B: 50                 push        eax
+  004CA77C: FF 15 58 7D 66 00  call        dword ptr ds:[00667D58h]
+  004CA782: 85 C0              test        eax,eax
+  004CA784: 75 0F              jne         004CA795
+  004CA786: 6A 00              push        0
+  004CA788: 8D 8D E0 FB FF FF  lea         ecx,[ebp+FFFFFBE0h]
+  004CA78E: 51                 push        ecx
+  004CA78F: FF 15 D8 7B 66 00  call        dword ptr ds:[00667BD8h]
+  004CA795: 68 C0 8F 6C 00     push        6C8FC0h
+  004CA79A: 8D 95 E0 FB FF FF  lea         edx,[ebp+FFFFFBE0h]
+  004CA7A0: 52                 push        edx
+  004CA7A1: FF 15 38 7D 66 00  call        dword ptr ds:[00667D38h]
+  004CA7A7: 8B 8D 54 FB FF FF  mov         ecx,dword ptr [ebp+FFFFFB54h]
+  004CA7AD: 81 C1 08 17 00 00  add         ecx,1708h
+  004CA7B3: FF 15 60 71 66 00  call        dword ptr ds:[00667160h]
+  004CA7B9: 50                 push        eax
+  004CA7BA: 8D 85 E0 FB FF FF  lea         eax,[ebp+FFFFFBE0h]
+  004CA7C0: 50                 push        eax
+  004CA7C1: FF 15 38 7D 66 00  call        dword ptr ds:[00667D38h]
+  004CA7C7: 8D 8D E0 FB FF FF  lea         ecx,[ebp+FFFFFBE0h]
+  004CA7CD: 51                 push        ecx
+  004CA7CE: FF 15 58 7D 66 00  call        dword ptr ds:[00667D58h]
+  004CA7D4: 85 C0              test        eax,eax
+  004CA7D6: 75 0F              jne         004CA7E7
+  004CA7D8: 6A 00              push        0
+  004CA7DA: 8D 95 E0 FB FF FF  lea         edx,[ebp+FFFFFBE0h]
+  004CA7E0: 52                 push        edx
+  004CA7E1: FF 15 D8 7B 66 00  call        dword ptr ds:[00667BD8h]
+  004CA7E7: 68 C8 8F 6C 00     push        6C8FC8h
+  004CA7EC: 8D 85 E0 FB FF FF  lea         eax,[ebp+FFFFFBE0h]
+  004CA7F2: 50                 push        eax
+  004CA7F3: FF 15 38 7D 66 00  call        dword ptr ds:[00667D38h]
+  004CA7F9: 8D 8D E0 FB FF FF  lea         ecx,[ebp+FFFFFBE0h]
+  004CA7FF: 51                 push        ecx
+  004CA800: 8D 8D 5C FB FF FF  lea         ecx,[ebp+FFFFFB5Ch]
+  004CA806: FF 15 80 70 66 00  call        dword ptr ds:[00667080h]
+  004CA80C: 8D 95 5C FB FF FF  lea         edx,[ebp+FFFFFB5Ch]
+  004CA812: 52                 push        edx
+  004CA813: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CA816: FF 15 88 70 66 00  call        dword ptr ds:[00667088h]
+  004CA81C: 8B 85 58 FB FF FF  mov         eax,dword ptr [ebp+FFFFFB58h]
+  004CA822: 83 C8 01           or          eax,1
+  004CA825: 89 85 58 FB FF FF  mov         dword ptr [ebp+FFFFFB58h],eax
+  004CA82B: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004CA832: 8D 8D 5C FB FF FF  lea         ecx,[ebp+FFFFFB5Ch]
+  004CA838: FF 15 68 71 66 00  call        dword ptr ds:[00667168h]
+  004CA83E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CA841: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004CA844: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  004CA84B: 59                 pop         ecx
+  004CA84C: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004CA84F: 33 CD              xor         ecx,ebp
+  004CA851: E8 7F ED 13 00     call        006095D5
+  004CA856: 8B E5              mov         esp,ebp
+  004CA858: 5D                 pop         ebp
+  004CA859: C2 04 00           ret         4
+  004CA85C: CC                 int         3
+  004CA85D: CC                 int         3
+  004CA85E: CC                 int         3
+  004CA85F: CC                 int         3
+  004CA860: 55                 push        ebp
+  004CA861: 8B EC              mov         ebp,esp
+  004CA863: 51                 push        ecx
+  004CA864: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CA867: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CA86B: 85 C0              test        eax,eax
+  004CA86D: 74 1F              je          004CA88E
+  004CA86F: 0F B6 4D 14        movzx       ecx,byte ptr [ebp+14h]
+  004CA873: 0F B6 55 10        movzx       edx,byte ptr [ebp+10h]
+  004CA877: 03 D1              add         edx,ecx
+  004CA879: 88 55 10           mov         byte ptr [ebp+10h],dl
+  004CA87C: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  004CA880: 0F B6 4D 0C        movzx       ecx,byte ptr [ebp+0Ch]
+  004CA884: 3B C1              cmp         eax,ecx
+  004CA886: 7C 04              jl          004CA88C
+  004CA888: C6 45 10 00        mov         byte ptr [ebp+10h],0
+  004CA88C: EB 26              jmp         004CA8B4
+  004CA88E: 0F B6 55 14        movzx       edx,byte ptr [ebp+14h]
+  004CA892: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  004CA896: 2B C2              sub         eax,edx
+  004CA898: 88 45 10           mov         byte ptr [ebp+10h],al
+  004CA89B: 0F B6 4D 10        movzx       ecx,byte ptr [ebp+10h]
+  004CA89F: 0F B6 55 0C        movzx       edx,byte ptr [ebp+0Ch]
+  004CA8A3: 3B CA              cmp         ecx,edx
+  004CA8A5: 7C 0D              jl          004CA8B4
+  004CA8A7: 0F B6 45 0C        movzx       eax,byte ptr [ebp+0Ch]
+  004CA8AB: 0F B6 4D 14        movzx       ecx,byte ptr [ebp+14h]
+  004CA8AF: 2B C1              sub         eax,ecx
+  004CA8B1: 88 45 10           mov         byte ptr [ebp+10h],al
+  004CA8B4: 8A 45 10           mov         al,byte ptr [ebp+10h]
+  004CA8B7: 8B E5              mov         esp,ebp
+  004CA8B9: 5D                 pop         ebp
+  004CA8BA: C2 10 00           ret         10h
+  004CA8BD: CC                 int         3
+  004CA8BE: CC                 int         3
+  004CA8BF: CC                 int         3
+  004CA8C0: 55                 push        ebp
+  004CA8C1: 8B EC              mov         ebp,esp
+  004CA8C3: 83 EC 08           sub         esp,8
+  004CA8C6: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  004CA8C9: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004CA8CD: EB 08              jmp         004CA8D7
+  004CA8CF: 8A 45 FF           mov         al,byte ptr [ebp-1]
+  004CA8D2: 04 01              add         al,1
+  004CA8D4: 88 45 FF           mov         byte ptr [ebp-1],al
+  004CA8D7: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004CA8DB: 83 F9 09           cmp         ecx,9
+  004CA8DE: 7D 3E              jge         004CA91E
+  004CA8E0: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004CA8E4: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CA8E7: 8A 8C 10 04 1A 00  mov         cl,byte ptr [eax+edx+00001A04h]
+            00
+  004CA8EE: 88 4D FD           mov         byte ptr [ebp-3],cl
+  004CA8F1: 0F B6 55 FD        movzx       edx,byte ptr [ebp-3]
+  004CA8F5: 85 D2              test        edx,edx
+  004CA8F7: 74 23              je          004CA91C
+  004CA8F9: 8A 45 FF           mov         al,byte ptr [ebp-1]
+  004CA8FC: 88 45 FE           mov         byte ptr [ebp-2],al
+  004CA8FF: 0F B6 4D FE        movzx       ecx,byte ptr [ebp-2]
+  004CA903: 81 F9 AA 00 00 00  cmp         ecx,0AAh
+  004CA909: 7C 02              jl          004CA90D
+  004CA90B: EB C2              jmp         004CA8CF
+  004CA90D: 0F B6 55 FE        movzx       edx,byte ptr [ebp-2]
+  004CA911: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CA914: C6 84 10 B0 18 00  mov         byte ptr [eax+edx+000018B0h],0FFh
+            00 FF
+  004CA91C: EB B1              jmp         004CA8CF
+  004CA91E: 8B E5              mov         esp,ebp
+  004CA920: 5D                 pop         ebp
+  004CA921: C3                 ret
+  004CA922: CC                 int         3
+  004CA923: CC                 int         3
+  004CA924: CC                 int         3
+  004CA925: CC                 int         3
+  004CA926: CC                 int         3
+  004CA927: CC                 int         3
+  004CA928: CC                 int         3
+  004CA929: CC                 int         3
+  004CA92A: CC                 int         3
+  004CA92B: CC                 int         3
+  004CA92C: CC                 int         3
+  004CA92D: CC                 int         3
+  004CA92E: CC                 int         3
+  004CA92F: CC                 int         3
+  004CA930: 55                 push        ebp
+  004CA931: 8B EC              mov         ebp,esp
+  004CA933: 83 EC 08           sub         esp,8
+  004CA936: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CA939: 8A 45 0C           mov         al,byte ptr [ebp+0Ch]
+  004CA93C: 88 45 F8           mov         byte ptr [ebp-8],al
+  004CA93F: 80 7D F8 00        cmp         byte ptr [ebp-8],0
+  004CA943: 74 0F              je          004CA954
+  004CA945: 80 7D F8 1D        cmp         byte ptr [ebp-8],1Dh
+  004CA949: 0F 84 1C 01 00 00  je          004CAA6B
+  004CA94F: E9 15 03 00 00     jmp         004CAC69
+  004CA954: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CA958: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CA95B: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CA963: 25 80 00 00 00     and         eax,80h
+  004CA968: 74 25              je          004CA98F
+  004CA96A: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CA96E: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CA971: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CA979: 83 E8 28           sub         eax,28h
+  004CA97C: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CA980: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CA983: 88 84 0A B0 18 00  mov         byte ptr [edx+ecx+000018B0h],al
+            00
+  004CA98A: E9 D7 00 00 00     jmp         004CAA66
+  004CA98F: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CA993: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CA996: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CA99E: 83 E2 40           and         edx,40h
+  004CA9A1: 74 25              je          004CA9C8
+  004CA9A3: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CA9A7: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CA9AA: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CA9B2: 83 EA 1E           sub         edx,1Eh
+  004CA9B5: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CA9B9: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CA9BC: 88 94 01 B0 18 00  mov         byte ptr [ecx+eax+000018B0h],dl
+            00
+  004CA9C3: E9 9E 00 00 00     jmp         004CAA66
+  004CA9C8: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CA9CC: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CA9CF: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CA9D7: 83 E1 20           and         ecx,20h
+  004CA9DA: 74 22              je          004CA9FE
+  004CA9DC: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CA9E0: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CA9E3: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CA9EB: 83 E9 0F           sub         ecx,0Fh
+  004CA9EE: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CA9F2: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CA9F5: 88 8C 10 B0 18 00  mov         byte ptr [eax+edx+000018B0h],cl
+            00
+  004CA9FC: EB 68              jmp         004CAA66
+  004CA9FE: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAA02: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAA05: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAA0D: 83 F8 10           cmp         eax,10h
+  004CAA10: 7E 22              jle         004CAA34
+  004CAA12: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAA16: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAA19: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAA21: 83 E8 08           sub         eax,8
+  004CAA24: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAA28: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAA2B: 88 84 0A B0 18 00  mov         byte ptr [edx+ecx+000018B0h],al
+            00
+  004CAA32: EB 32              jmp         004CAA66
+  004CAA34: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAA38: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAA3B: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CAA43: 85 D2              test        edx,edx
+  004CAA45: 74 1F              je          004CAA66
+  004CAA47: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAA4B: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAA4E: 8A 94 01 B0 18 00  mov         dl,byte ptr [ecx+eax+000018B0h]
+            00
+  004CAA55: 80 EA 01           sub         dl,1
+  004CAA58: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAA5C: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAA5F: 88 94 01 B0 18 00  mov         byte ptr [ecx+eax+000018B0h],dl
+            00
+  004CAA66: E9 10 03 00 00     jmp         004CAD7B
+  004CAA6B: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAA6F: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAA72: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CAA7A: 81 E1 90 00 00 00  and         ecx,90h
+  004CAA80: 74 25              je          004CAAA7
+  004CAA82: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAA86: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAA89: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CAA91: 83 E9 2D           sub         ecx,2Dh
+  004CAA94: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAA98: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAA9B: 88 8C 10 B0 18 00  mov         byte ptr [eax+edx+000018B0h],cl
+            00
+  004CAAA2: E9 BD 01 00 00     jmp         004CAC64
+  004CAAA7: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAAAB: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAAAE: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAAB6: 25 80 00 00 00     and         eax,80h
+  004CAABB: 74 25              je          004CAAE2
+  004CAABD: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAAC1: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAAC4: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAACC: 83 E8 28           sub         eax,28h
+  004CAACF: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAAD3: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAAD6: 88 84 0A B0 18 00  mov         byte ptr [edx+ecx+000018B0h],al
+            00
+  004CAADD: E9 82 01 00 00     jmp         004CAC64
+  004CAAE2: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAAE6: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAAE9: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CAAF1: 83 E2 70           and         edx,70h
+  004CAAF4: 74 25              je          004CAB1B
+  004CAAF6: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAAFA: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAAFD: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CAB05: 83 EA 23           sub         edx,23h
+  004CAB08: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAB0C: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAB0F: 88 94 01 B0 18 00  mov         byte ptr [ecx+eax+000018B0h],dl
+            00
+  004CAB16: E9 49 01 00 00     jmp         004CAC64
+  004CAB1B: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAB1F: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAB22: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CAB2A: 83 E1 60           and         ecx,60h
+  004CAB2D: 74 25              je          004CAB54
+  004CAB2F: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAB33: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAB36: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CAB3E: 83 E9 1E           sub         ecx,1Eh
+  004CAB41: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAB45: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAB48: 88 8C 10 B0 18 00  mov         byte ptr [eax+edx+000018B0h],cl
+            00
+  004CAB4F: E9 10 01 00 00     jmp         004CAC64
+  004CAB54: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAB58: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAB5B: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAB63: 83 E0 50           and         eax,50h
+  004CAB66: 74 25              je          004CAB8D
+  004CAB68: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAB6C: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAB6F: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAB77: 83 E8 19           sub         eax,19h
+  004CAB7A: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAB7E: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAB81: 88 84 0A B0 18 00  mov         byte ptr [edx+ecx+000018B0h],al
+            00
+  004CAB88: E9 D7 00 00 00     jmp         004CAC64
+  004CAB8D: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAB91: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAB94: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CAB9C: 83 E2 40           and         edx,40h
+  004CAB9F: 74 25              je          004CABC6
+  004CABA1: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CABA5: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CABA8: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CABB0: 83 EA 14           sub         edx,14h
+  004CABB3: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CABB7: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CABBA: 88 94 01 B0 18 00  mov         byte ptr [ecx+eax+000018B0h],dl
+            00
+  004CABC1: E9 9E 00 00 00     jmp         004CAC64
+  004CABC6: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CABCA: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CABCD: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CABD5: 83 E1 20           and         ecx,20h
+  004CABD8: 74 22              je          004CABFC
+  004CABDA: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CABDE: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CABE1: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CABE9: 83 E9 0A           sub         ecx,0Ah
+  004CABEC: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CABF0: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CABF3: 88 8C 10 B0 18 00  mov         byte ptr [eax+edx+000018B0h],cl
+            00
+  004CABFA: EB 68              jmp         004CAC64
+  004CABFC: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAC00: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAC03: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAC0B: 83 F8 10           cmp         eax,10h
+  004CAC0E: 7E 22              jle         004CAC32
+  004CAC10: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAC14: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAC17: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAC1F: 83 E8 05           sub         eax,5
+  004CAC22: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAC26: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAC29: 88 84 0A B0 18 00  mov         byte ptr [edx+ecx+000018B0h],al
+            00
+  004CAC30: EB 32              jmp         004CAC64
+  004CAC32: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAC36: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAC39: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CAC41: 85 D2              test        edx,edx
+  004CAC43: 74 1F              je          004CAC64
+  004CAC45: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAC49: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAC4C: 8A 94 01 B0 18 00  mov         dl,byte ptr [ecx+eax+000018B0h]
+            00
+  004CAC53: 80 EA 01           sub         dl,1
+  004CAC56: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAC5A: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAC5D: 88 94 01 B0 18 00  mov         byte ptr [ecx+eax+000018B0h],dl
+            00
+  004CAC64: E9 12 01 00 00     jmp         004CAD7B
+  004CAC69: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAC6D: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAC70: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CAC78: 81 E1 80 00 00 00  and         ecx,80h
+  004CAC7E: 74 25              je          004CACA5
+  004CAC80: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAC84: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAC87: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CAC8F: 83 E9 28           sub         ecx,28h
+  004CAC92: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAC96: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAC99: 88 8C 10 B0 18 00  mov         byte ptr [eax+edx+000018B0h],cl
+            00
+  004CACA0: E9 D6 00 00 00     jmp         004CAD7B
+  004CACA5: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CACA9: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CACAC: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CACB4: 83 E0 40           and         eax,40h
+  004CACB7: 74 25              je          004CACDE
+  004CACB9: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CACBD: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CACC0: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CACC8: 83 E8 1E           sub         eax,1Eh
+  004CACCB: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CACCF: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CACD2: 88 84 0A B0 18 00  mov         byte ptr [edx+ecx+000018B0h],al
+            00
+  004CACD9: E9 9D 00 00 00     jmp         004CAD7B
+  004CACDE: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CACE2: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CACE5: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CACED: 83 E2 20           and         edx,20h
+  004CACF0: 74 22              je          004CAD14
+  004CACF2: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CACF6: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CACF9: 0F B6 94 01 B0 18  movzx       edx,byte ptr [ecx+eax+000018B0h]
+            00 00
+  004CAD01: 83 EA 0A           sub         edx,0Ah
+  004CAD04: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CAD08: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAD0B: 88 94 01 B0 18 00  mov         byte ptr [ecx+eax+000018B0h],dl
+            00
+  004CAD12: EB 67              jmp         004CAD7B
+  004CAD14: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAD18: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAD1B: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CAD23: 83 F9 10           cmp         ecx,10h
+  004CAD26: 7E 22              jle         004CAD4A
+  004CAD28: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAD2C: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAD2F: 0F B6 8C 10 B0 18  movzx       ecx,byte ptr [eax+edx+000018B0h]
+            00 00
+  004CAD37: 83 E9 08           sub         ecx,8
+  004CAD3A: 0F B6 55 08        movzx       edx,byte ptr [ebp+8]
+  004CAD3E: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAD41: 88 8C 10 B0 18 00  mov         byte ptr [eax+edx+000018B0h],cl
+            00
+  004CAD48: EB 31              jmp         004CAD7B
+  004CAD4A: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAD4E: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAD51: 0F B6 84 0A B0 18  movzx       eax,byte ptr [edx+ecx+000018B0h]
+            00 00
+  004CAD59: 85 C0              test        eax,eax
+  004CAD5B: 74 1E              je          004CAD7B
+  004CAD5D: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAD61: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAD64: 8A 84 0A B0 18 00  mov         al,byte ptr [edx+ecx+000018B0h]
+            00
+  004CAD6B: 2C 01              sub         al,1
+  004CAD6D: 0F B6 4D 08        movzx       ecx,byte ptr [ebp+8]
+  004CAD71: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAD74: 88 84 0A B0 18 00  mov         byte ptr [edx+ecx+000018B0h],al
+            00
+  004CAD7B: 8B E5              mov         esp,ebp
+  004CAD7D: 5D                 pop         ebp
+  004CAD7E: C2 08 00           ret         8
+  004CAD81: CC                 int         3
+  004CAD82: CC                 int         3
+  004CAD83: CC                 int         3
+  004CAD84: CC                 int         3
+  004CAD85: CC                 int         3
+  004CAD86: CC                 int         3
+  004CAD87: CC                 int         3
+  004CAD88: CC                 int         3
+  004CAD89: CC                 int         3
+  004CAD8A: CC                 int         3
+  004CAD8B: CC                 int         3
+  004CAD8C: CC                 int         3
+  004CAD8D: CC                 int         3
+  004CAD8E: CC                 int         3
+  004CAD8F: CC                 int         3
+  004CAD90: 55                 push        ebp
+  004CAD91: 8B EC              mov         ebp,esp
+  004CAD93: 83 EC 0C           sub         esp,0Ch
+  004CAD96: 56                 push        esi
+  004CAD97: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  004CAD9A: C7 45 F4 00 00 00  mov         dword ptr [ebp-0Ch],0
+            00
+  004CADA1: 0F B6 45 08        movzx       eax,byte ptr [ebp+8]
+  004CADA5: 85 C0              test        eax,eax
+  004CADA7: 74 64              je          004CAE0D
+  004CADA9: B9 01 00 00 00     mov         ecx,1
+  004CADAE: 6B D1 16           imul        edx,ecx,16h
+  004CADB1: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CADB4: 0F B6 8C 10 04 1A  movzx       ecx,byte ptr [eax+edx+00001A04h]
+            00 00
+  004CADBC: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  004CADBF: C6 45 FF 15        mov         byte ptr [ebp-1],15h
+  004CADC3: EB 09              jmp         004CADCE
+  004CADC5: 8A 55 FF           mov         dl,byte ptr [ebp-1]
+  004CADC8: 80 EA 01           sub         dl,1
+  004CADCB: 88 55 FF           mov         byte ptr [ebp-1],dl
+  004CADCE: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004CADD2: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004CADD6: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  004CADD9: 8B 75 F8           mov         esi,dword ptr [ebp-8]
+  004CADDC: 8A 84 06 04 1A 00  mov         al,byte ptr [esi+eax+00001A04h]
+            00
+  004CADE3: 88 84 0A 05 1A 00  mov         byte ptr [edx+ecx+00001A05h],al
+            00
+  004CADEA: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004CADEE: 85 C9              test        ecx,ecx
+  004CADF0: 75 02              jne         004CADF4
+  004CADF2: EB 02              jmp         004CADF6
+  004CADF4: EB CF              jmp         004CADC5
+  004CADF6: BA 01 00 00 00     mov         edx,1
+  004CADFB: 6B C2 00           imul        eax,edx,0
+  004CADFE: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  004CAE01: 8A 55 F4           mov         dl,byte ptr [ebp-0Ch]
+  004CAE04: 88 94 01 04 1A 00  mov         byte ptr [ecx+eax+00001A04h],dl
+            00
+  004CAE0B: EB 61              jmp         004CAE6E
+  004CAE0D: B8 01 00 00 00     mov         eax,1
+  004CAE12: 6B C8 00           imul        ecx,eax,0
+  004CAE15: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  004CAE18: 0F B6 84 0A 04 1A  movzx       eax,byte ptr [edx+ecx+00001A04h]
+            00 00
+  004CAE20: 89 45 F4           mov         dword ptr [ebp-0Ch],eax
+  004CAE23: C6 45 FF 01        mov         byte ptr [ebp-1],1
+  004CAE27: EB 09              jmp         004CAE32
+  004CAE29: 8A 4D FF           mov         cl,byte ptr [ebp-1]
+  004CAE2C: 80 C1 01           add         cl,1
+  004CAE2F: 88 4D FF           mov         byte ptr [ebp-1],cl
+  004CAE32: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004CAE36: 83 FA 17           cmp         edx,17h
+  004CAE39: 7D 1E              jge         004CAE59
+  004CAE3B: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004CAE3F: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004CAE43: 8B 55 F8           mov         edx,dword ptr [ebp-8]
+  004CAE46: 8B 75 F8           mov         esi,dword ptr [ebp-8]
+  004CAE49: 8A 84 06 04 1A 00  mov         al,byte ptr [esi+eax+00001A04h]
+            00
+  004CAE50: 88 84 0A 03 1A 00  mov         byte ptr [edx+ecx+00001A03h],al
+            00
+  004CAE57: EB D0              jmp         004CAE29
+  004CAE59: B9 01 00 00 00     mov         ecx,1
+  004CAE5E: 6B D1 16           imul        edx,ecx,16h
+  004CAE61: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CAE64: 8A 4D F4           mov         cl,byte ptr [ebp-0Ch]
+  004CAE67: 88 8C 10 04 1A 00  mov         byte ptr [eax+edx+00001A04h],cl
+            00
+  004CAE6E: 5E                 pop         esi
+  004CAE6F: 8B E5              mov         esp,ebp
+  004CAE71: 5D                 pop         ebp
+  004CAE72: C2 04 00           ret         4
+  004CAE75: CC                 int         3
+  004CAE76: CC                 int         3
+  004CAE77: CC                 int         3
+  004CAE78: CC                 int         3
+  004CAE79: CC                 int         3
+  004CAE7A: CC                 int         3
+  004CAE7B: CC                 int         3
+  004CAE7C: CC                 int         3
+  004CAE7D: CC                 int         3
+  004CAE7E: CC                 int         3
+  004CAE7F: CC                 int         3
+  004CAE80: 55                 push        ebp
+  004CAE81: 8B EC              mov         ebp,esp
+  004CAE83: 51                 push        ecx
+  004CAE84: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CAE87: 83 7D 08 00        cmp         dword ptr [ebp+8],0
+  004CAE8B: 7C 2A              jl          004CAEB7
+  004CAE8D: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAE90: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004CAE96: E8 95 2E F8 FF     call        0044DD30
+  004CAE9B: 39 45 08           cmp         dword ptr [ebp+8],eax
+  004CAE9E: 73 17              jae         004CAEB7
+  004CAEA0: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CAEA3: 50                 push        eax
+  004CAEA4: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAEA7: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004CAEAD: E8 EE 36 F5 FF     call        0041E5A0
+  004CAEB2: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  004CAEB5: 89 08              mov         dword ptr [eax],ecx
+  004CAEB7: 8B E5              mov         esp,ebp
+  004CAEB9: 5D                 pop         ebp
+  004CAEBA: C2 08 00           ret         8
+  004CAEBD: CC                 int         3
+  004CAEBE: CC                 int         3
+  004CAEBF: CC                 int         3
+  004CAEC0: 55                 push        ebp
+  004CAEC1: 8B EC              mov         ebp,esp
+  004CAEC3: 83 EC 08           sub         esp,8
+  004CAEC6: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  004CAEC9: 83 7D 0C 00        cmp         dword ptr [ebp+0Ch],0
+  004CAECD: 7C 33              jl          004CAF02
+  004CAECF: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  004CAED2: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004CAED8: E8 53 2E F8 FF     call        0044DD30
+  004CAEDD: 39 45 0C           cmp         dword ptr [ebp+0Ch],eax
+  004CAEE0: 73 20              jae         004CAF02
+  004CAEE2: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  004CAEE5: 50                 push        eax
+  004CAEE6: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  004CAEE9: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004CAEEF: E8 AC 36 F5 FF     call        0041E5A0
+  004CAEF4: 8B 08              mov         ecx,dword ptr [eax]
+  004CAEF6: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  004CAEF9: 89 0A              mov         dword ptr [edx],ecx
+  004CAEFB: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CAEFE: EB 1D              jmp         004CAF1D
+  004CAF00: EB 1B              jmp         004CAF1D
+  004CAF02: C6 45 FC 00        mov         byte ptr [ebp-4],0
+  004CAF06: C6 45 FD 00        mov         byte ptr [ebp-3],0
+  004CAF0A: C6 45 FE 00        mov         byte ptr [ebp-2],0
+  004CAF0E: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004CAF12: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CAF15: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CAF18: 89 08              mov         dword ptr [eax],ecx
+  004CAF1A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CAF1D: 8B E5              mov         esp,ebp
+  004CAF1F: 5D                 pop         ebp
+  004CAF20: C2 08 00           ret         8
+  004CAF23: CC                 int         3
+  004CAF24: CC                 int         3
+  004CAF25: CC                 int         3
+  004CAF26: CC                 int         3
+  004CAF27: CC                 int         3
+  004CAF28: CC                 int         3
+  004CAF29: CC                 int         3
+  004CAF2A: CC                 int         3
+  004CAF2B: CC                 int         3
+  004CAF2C: CC                 int         3
+  004CAF2D: CC                 int         3
+  004CAF2E: CC                 int         3
+  004CAF2F: CC                 int         3
+  004CAF30: 55                 push        ebp
+  004CAF31: 8B EC              mov         ebp,esp
+  004CAF33: 51                 push        ecx
+  004CAF34: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CAF37: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAF3A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CAF3D: 89 88 A0 17 00 00  mov         dword ptr [eax+000017A0h],ecx
+  004CAF43: 8B E5              mov         esp,ebp
+  004CAF45: 5D                 pop         ebp
+  004CAF46: C2 04 00           ret         4
+  004CAF49: CC                 int         3
+  004CAF4A: CC                 int         3
+  004CAF4B: CC                 int         3
+  004CAF4C: CC                 int         3
+  004CAF4D: CC                 int         3
+  004CAF4E: CC                 int         3
+  004CAF4F: CC                 int         3
+  004CAF50: 55                 push        ebp
+  004CAF51: 8B EC              mov         ebp,esp
+  004CAF53: 51                 push        ecx
+  004CAF54: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CAF57: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAF5A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CAF5D: 89 88 68 15 00 00  mov         dword ptr [eax+00001568h],ecx
+  004CAF63: 8B E5              mov         esp,ebp
+  004CAF65: 5D                 pop         ebp
+  004CAF66: C2 04 00           ret         4
+  004CAF69: CC                 int         3
+  004CAF6A: CC                 int         3
+  004CAF6B: CC                 int         3
+  004CAF6C: CC                 int         3
+  004CAF6D: CC                 int         3
+  004CAF6E: CC                 int         3
+  004CAF6F: CC                 int         3
+  004CAF70: 55                 push        ebp
+  004CAF71: 8B EC              mov         ebp,esp
+  004CAF73: 51                 push        ecx
+  004CAF74: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CAF77: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAF7A: 8B 80 68 15 00 00  mov         eax,dword ptr [eax+00001568h]
+  004CAF80: 8B E5              mov         esp,ebp
+  004CAF82: 5D                 pop         ebp
+  004CAF83: C3                 ret
+  004CAF84: CC                 int         3
+  004CAF85: CC                 int         3
+  004CAF86: CC                 int         3
+  004CAF87: CC                 int         3
+  004CAF88: CC                 int         3
+  004CAF89: CC                 int         3
+  004CAF8A: CC                 int         3
+  004CAF8B: CC                 int         3
+  004CAF8C: CC                 int         3
+  004CAF8D: CC                 int         3
+  004CAF8E: CC                 int         3
+  004CAF8F: CC                 int         3
+  004CAF90: 55                 push        ebp
+  004CAF91: 8B EC              mov         ebp,esp
+  004CAF93: 51                 push        ecx
+  004CAF94: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CAF97: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAF9A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CAF9D: 89 88 6C 15 00 00  mov         dword ptr [eax+0000156Ch],ecx
+  004CAFA3: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAFA6: 83 BA 6C 15 00 00  cmp         dword ptr [edx+0000156Ch],0
+            00
+  004CAFAD: 74 18              je          004CAFC7
+  004CAFAF: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAFB2: 8B 88 64 1A 00 00  mov         ecx,dword ptr [eax+00001A64h]
+  004CAFB8: 51                 push        ecx
+  004CAFB9: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CAFBC: 8B 8A 6C 15 00 00  mov         ecx,dword ptr [edx+0000156Ch]
+  004CAFC2: E8 19 BE F6 FF     call        00436DE0
+  004CAFC7: 8B E5              mov         esp,ebp
+  004CAFC9: 5D                 pop         ebp
+  004CAFCA: C2 04 00           ret         4
+  004CAFCD: CC                 int         3
+  004CAFCE: CC                 int         3
+  004CAFCF: CC                 int         3
+  004CAFD0: 55                 push        ebp
+  004CAFD1: 8B EC              mov         ebp,esp
+  004CAFD3: 51                 push        ecx
+  004CAFD4: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CAFD7: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAFDA: 8B 80 6C 15 00 00  mov         eax,dword ptr [eax+0000156Ch]
+  004CAFE0: 8B E5              mov         esp,ebp
+  004CAFE2: 5D                 pop         ebp
+  004CAFE3: C3                 ret
+  004CAFE4: CC                 int         3
+  004CAFE5: CC                 int         3
+  004CAFE6: CC                 int         3
+  004CAFE7: CC                 int         3
+  004CAFE8: CC                 int         3
+  004CAFE9: CC                 int         3
+  004CAFEA: CC                 int         3
+  004CAFEB: CC                 int         3
+  004CAFEC: CC                 int         3
+  004CAFED: CC                 int         3
+  004CAFEE: CC                 int         3
+  004CAFEF: CC                 int         3
+  004CAFF0: 55                 push        ebp
+  004CAFF1: 8B EC              mov         ebp,esp
+  004CAFF3: 51                 push        ecx
+  004CAFF4: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CAFF7: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CAFFA: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CAFFD: 89 88 64 1A 00 00  mov         dword ptr [eax+00001A64h],ecx
+  004CB003: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CB006: 83 BA 6C 15 00 00  cmp         dword ptr [edx+0000156Ch],0
+            00
+  004CB00D: 74 18              je          004CB027
+  004CB00F: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CB012: 8B 88 64 1A 00 00  mov         ecx,dword ptr [eax+00001A64h]
+  004CB018: 51                 push        ecx
+  004CB019: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CB01C: 8B 8A 6C 15 00 00  mov         ecx,dword ptr [edx+0000156Ch]
+  004CB022: E8 B9 BD F6 FF     call        00436DE0
+  004CB027: 8B E5              mov         esp,ebp
+  004CB029: 5D                 pop         ebp
+  004CB02A: C2 04 00           ret         4
+  004CB02D: CC                 int         3
+  004CB02E: CC                 int         3
+  004CB02F: CC                 int         3
+  004CB030: 55                 push        ebp
+  004CB031: 8B EC              mov         ebp,esp
+  004CB033: 51                 push        ecx
+  004CB034: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB037: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CB03A: 8B 80 64 1A 00 00  mov         eax,dword ptr [eax+00001A64h]
+  004CB040: 8B E5              mov         esp,ebp
+  004CB042: 5D                 pop         ebp
+  004CB043: C3                 ret
+  004CB044: CC                 int         3
+  004CB045: CC                 int         3
+  004CB046: CC                 int         3
+  004CB047: CC                 int         3
+  004CB048: CC                 int         3
+  004CB049: CC                 int         3
+  004CB04A: CC                 int         3
+  004CB04B: CC                 int         3
+  004CB04C: CC                 int         3
+  004CB04D: CC                 int         3
+  004CB04E: CC                 int         3
+  004CB04F: CC                 int         3
+  004CB050: 55                 push        ebp
+  004CB051: 8B EC              mov         ebp,esp
+  004CB053: 51                 push        ecx
+  004CB054: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB057: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB05A: E8 D1 FF FF FF     call        004CB030
+  004CB05F: 85 C0              test        eax,eax
+  004CB061: 74 0C              je          004CB06F
+  004CB063: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CB066: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB069: 89 88 68 1A 00 00  mov         dword ptr [eax+00001A68h],ecx
+  004CB06F: 8B E5              mov         esp,ebp
+  004CB071: 5D                 pop         ebp
+  004CB072: C2 04 00           ret         4
+  004CB075: CC                 int         3
+  004CB076: CC                 int         3
+  004CB077: CC                 int         3
+  004CB078: CC                 int         3
+  004CB079: CC                 int         3
+  004CB07A: CC                 int         3
+  004CB07B: CC                 int         3
+  004CB07C: CC                 int         3
+  004CB07D: CC                 int         3
+  004CB07E: CC                 int         3
+  004CB07F: CC                 int         3
+  004CB080: 55                 push        ebp
+  004CB081: 8B EC              mov         ebp,esp
+  004CB083: 51                 push        ecx
+  004CB084: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB087: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CB08A: 8B 80 68 1A 00 00  mov         eax,dword ptr [eax+00001A68h]
+  004CB090: 8B E5              mov         esp,ebp
+  004CB092: 5D                 pop         ebp
+  004CB093: C3                 ret
+  004CB094: CC                 int         3
+  004CB095: CC                 int         3
+  004CB096: CC                 int         3
+  004CB097: CC                 int         3
+  004CB098: CC                 int         3
+  004CB099: CC                 int         3
+  004CB09A: CC                 int         3
+  004CB09B: CC                 int         3
+  004CB09C: CC                 int         3
+  004CB09D: CC                 int         3
+  004CB09E: CC                 int         3
+  004CB09F: CC                 int         3
+  004CB0A0: 55                 push        ebp
+  004CB0A1: 8B EC              mov         ebp,esp
+  004CB0A3: 6A FF              push        0FFFFFFFFh
+  004CB0A5: 68 78 7C 65 00     push        657C78h
+  004CB0AA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  004CB0B0: 50                 push        eax
+  004CB0B1: 51                 push        ecx
+  004CB0B2: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004CB0B7: 33 C5              xor         eax,ebp
+  004CB0B9: 50                 push        eax
+  004CB0BA: 8D 45 F4           lea         eax,[ebp-0Ch]
+  004CB0BD: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  004CB0C3: 89 4D F0           mov         dword ptr [ebp-10h],ecx
+  004CB0C6: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  004CB0CD: 8D 45 08           lea         eax,[ebp+8]
+  004CB0D0: 50                 push        eax
+  004CB0D1: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004CB0D4: 81 C1 6C 1A 00 00  add         ecx,1A6Ch
+  004CB0DA: E8 D1 66 F9 FF     call        004617B0
+  004CB0DF: 6A 00              push        0
+  004CB0E1: 0F B7 4D 10        movzx       ecx,word ptr [ebp+10h]
+  004CB0E5: 51                 push        ecx
+  004CB0E6: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004CB0E9: E8 F2 E1 FF FF     call        004C92E0
+  004CB0EE: 0F B7 55 12        movzx       edx,word ptr [ebp+12h]
+  004CB0F2: 52                 push        edx
+  004CB0F3: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004CB0F6: E8 45 E3 FF FF     call        004C9440
+  004CB0FB: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004CB102: 8D 4D 08           lea         ecx,[ebp+8]
+  004CB105: E8 C6 94 F8 FF     call        004545D0
+  004CB10A: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004CB10D: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  004CB114: 59                 pop         ecx
+  004CB115: 8B E5              mov         esp,ebp
+  004CB117: 5D                 pop         ebp
+  004CB118: C2 9C 00           ret         9Ch
+  004CB11B: CC                 int         3
+  004CB11C: CC                 int         3
+  004CB11D: CC                 int         3
+  004CB11E: CC                 int         3
+  004CB11F: CC                 int         3
+  004CB120: 55                 push        ebp
+  004CB121: 8B EC              mov         ebp,esp
+  004CB123: 83 EC 08           sub         esp,8
+  004CB126: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  004CB129: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  004CB130: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CB133: 05 6C 1A 00 00     add         eax,1A6Ch
+  004CB138: 50                 push        eax
+  004CB139: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB13C: E8 AF 65 F9 FF     call        004616F0
+  004CB141: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB144: 83 C9 01           or          ecx,1
+  004CB147: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB14A: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CB14D: 8B E5              mov         esp,ebp
+  004CB14F: 5D                 pop         ebp
+  004CB150: C2 04 00           ret         4
+  004CB153: CC                 int         3
+  004CB154: CC                 int         3
+  004CB155: CC                 int         3
+  004CB156: CC                 int         3
+  004CB157: CC                 int         3
+  004CB158: CC                 int         3
+  004CB159: CC                 int         3
+  004CB15A: CC                 int         3
+  004CB15B: CC                 int         3
+  004CB15C: CC                 int         3
+  004CB15D: CC                 int         3
+  004CB15E: CC                 int         3
+  004CB15F: CC                 int         3
+  004CB160: 55                 push        ebp
+  004CB161: 8B EC              mov         ebp,esp
+  004CB163: 51                 push        ecx
+  004CB164: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB167: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CB16A: 50                 push        eax
+  004CB16B: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB16E: E8 0D 00 00 00     call        004CB180
+  004CB173: 8B 45 FC           mov         eax,dword ptr [ebp-4]
+  004CB176: 8B E5              mov         esp,ebp
+  004CB178: 5D                 pop         ebp
+  004CB179: C2 04 00           ret         4
+  004CB17C: CC                 int         3
+  004CB17D: CC                 int         3
+  004CB17E: CC                 int         3
+  004CB17F: CC                 int         3
+  004CB180: 55                 push        ebp
+  004CB181: 8B EC              mov         ebp,esp
+  004CB183: 83 EC 08           sub         esp,8
+  004CB186: 89 4D F8           mov         dword ptr [ebp-8],ecx
+  004CB189: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CB18C: 3B 45 08           cmp         eax,dword ptr [ebp+8]
+  004CB18F: 74 5F              je          004CB1F0
+  004CB191: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  004CB194: E8 C7 C1 FA FF     call        00477360
+  004CB199: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB19C: E8 1F B9 FA FF     call        00476AC0
+  004CB1A1: 50                 push        eax
+  004CB1A2: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  004CB1A5: E8 16 B9 FA FF     call        00476AC0
+  004CB1AA: 50                 push        eax
+  004CB1AB: E8 E0 15 F4 FF     call        0040C790
+  004CB1B0: 83 C4 08           add         esp,8
+  004CB1B3: 0F B6 C8           movzx       ecx,al
+  004CB1B6: 85 C9              test        ecx,ecx
+  004CB1B8: 74 15              je          004CB1CF
+  004CB1BA: 33 D2              xor         edx,edx
+  004CB1BC: 74 11              je          004CB1CF
+  004CB1BE: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB1C1: E8 FA B8 FA FF     call        00476AC0
+  004CB1C6: 50                 push        eax
+  004CB1C7: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  004CB1CA: E8 31 00 00 00     call        004CB200
+  004CB1CF: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB1D2: E8 39 1C F4 FF     call        0040CE10
+  004CB1D7: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  004CB1DA: E8 31 1C F4 FF     call        0040CE10
+  004CB1DF: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004CB1E3: 50                 push        eax
+  004CB1E4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB1E7: 51                 push        ecx
+  004CB1E8: 8B 4D F8           mov         ecx,dword ptr [ebp-8]
+  004CB1EB: E8 40 00 00 00     call        004CB230
+  004CB1F0: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CB1F3: 8B E5              mov         esp,ebp
+  004CB1F5: 5D                 pop         ebp
+  004CB1F6: C2 04 00           ret         4
+  004CB1F9: CC                 int         3
+  004CB1FA: CC                 int         3
+  004CB1FB: CC                 int         3
+  004CB1FC: CC                 int         3
+  004CB1FD: CC                 int         3
+  004CB1FE: CC                 int         3
+  004CB1FF: CC                 int         3
+  004CB200: 55                 push        ebp
+  004CB201: 8B EC              mov         ebp,esp
+  004CB203: 51                 push        ecx
+  004CB204: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB207: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CB20A: 50                 push        eax
+  004CB20B: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB20E: E8 AD B8 FA FF     call        00476AC0
+  004CB213: 50                 push        eax
+  004CB214: E8 B7 E4 F3 FF     call        004096D0
+  004CB219: 83 C4 08           add         esp,8
+  004CB21C: 8B E5              mov         esp,ebp
+  004CB21E: 5D                 pop         ebp
+  004CB21F: C2 04 00           ret         4
+  004CB222: CC                 int         3
+  004CB223: CC                 int         3
+  004CB224: CC                 int         3
+  004CB225: CC                 int         3
+  004CB226: CC                 int         3
+  004CB227: CC                 int         3
+  004CB228: CC                 int         3
+  004CB229: CC                 int         3
+  004CB22A: CC                 int         3
+  004CB22B: CC                 int         3
+  004CB22C: CC                 int         3
+  004CB22D: CC                 int         3
+  004CB22E: CC                 int         3
+  004CB22F: CC                 int         3
+  004CB230: 55                 push        ebp
+  004CB231: 8B EC              mov         ebp,esp
+  004CB233: 51                 push        ecx
+  004CB234: 56                 push        esi
+  004CB235: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB238: 0F B6 45 0C        movzx       eax,byte ptr [ebp+0Ch]
+  004CB23C: 50                 push        eax
+  004CB23D: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB240: E8 5B B8 FA FF     call        00476AA0
+  004CB245: 8B 08              mov         ecx,dword ptr [eax]
+  004CB247: 51                 push        ecx
+  004CB248: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB24B: E8 E0 BA FA FF     call        00476D30
+  004CB250: 8B 10              mov         edx,dword ptr [eax]
+  004CB252: 52                 push        edx
+  004CB253: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB256: E8 B5 00 00 00     call        004CB310
+  004CB25B: 8B F0              mov         esi,eax
+  004CB25D: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB260: E8 CB BA FA FF     call        00476D30
+  004CB265: 89 30              mov         dword ptr [eax],esi
+  004CB267: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB26A: E8 E1 DE FA FF     call        00479150
+  004CB26F: 8B F0              mov         esi,eax
+  004CB271: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB274: E8 87 B8 FA FF     call        00476B00
+  004CB279: 89 30              mov         dword ptr [eax],esi
+  004CB27B: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB27E: E8 AD BA FA FF     call        00476D30
+  004CB283: 8B 00              mov         eax,dword ptr [eax]
+  004CB285: 50                 push        eax
+  004CB286: E8 35 B9 FA FF     call        00476BC0
+  004CB28B: 83 C4 04           add         esp,4
+  004CB28E: 0F BE 08           movsx       ecx,byte ptr [eax]
+  004CB291: 85 C9              test        ecx,ecx
+  004CB293: 75 40              jne         004CB2D5
+  004CB295: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB298: E8 93 BA FA FF     call        00476D30
+  004CB29D: 8B 10              mov         edx,dword ptr [eax]
+  004CB29F: 52                 push        edx
+  004CB2A0: E8 7B B8 FA FF     call        00476B20
+  004CB2A5: 83 C4 04           add         esp,4
+  004CB2A8: 8B F0              mov         esi,eax
+  004CB2AA: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB2AD: E8 2E B8 FA FF     call        00476AE0
+  004CB2B2: 89 30              mov         dword ptr [eax],esi
+  004CB2B4: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB2B7: E8 74 BA FA FF     call        00476D30
+  004CB2BC: 8B 00              mov         eax,dword ptr [eax]
+  004CB2BE: 50                 push        eax
+  004CB2BF: E8 7C B8 FA FF     call        00476B40
+  004CB2C4: 83 C4 04           add         esp,4
+  004CB2C7: 8B F0              mov         esi,eax
+  004CB2C9: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB2CC: E8 7F BA FA FF     call        00476D50
+  004CB2D1: 89 30              mov         dword ptr [eax],esi
+  004CB2D3: EB 2C              jmp         004CB301
+  004CB2D5: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB2D8: E8 C3 B7 FA FF     call        00476AA0
+  004CB2DD: 8B F0              mov         esi,eax
+  004CB2DF: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB2E2: E8 F9 B7 FA FF     call        00476AE0
+  004CB2E7: 8B 0E              mov         ecx,dword ptr [esi]
+  004CB2E9: 89 08              mov         dword ptr [eax],ecx
+  004CB2EB: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB2EE: E8 AD B7 FA FF     call        00476AA0
+  004CB2F3: 8B F0              mov         esi,eax
+  004CB2F5: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB2F8: E8 53 BA FA FF     call        00476D50
+  004CB2FD: 8B 16              mov         edx,dword ptr [esi]
+  004CB2FF: 89 10              mov         dword ptr [eax],edx
+  004CB301: 5E                 pop         esi
+  004CB302: 8B E5              mov         esp,ebp
+  004CB304: 5D                 pop         ebp
+  004CB305: C2 08 00           ret         8
+  004CB308: CC                 int         3
+  004CB309: CC                 int         3
+  004CB30A: CC                 int         3
+  004CB30B: CC                 int         3
+  004CB30C: CC                 int         3
+  004CB30D: CC                 int         3
+  004CB30E: CC                 int         3
+  004CB30F: CC                 int         3
+  004CB310: 55                 push        ebp
+  004CB311: 8B EC              mov         ebp,esp
+  004CB313: 6A FF              push        0FFFFFFFFh
+  004CB315: 68 A0 7C 65 00     push        657CA0h
+  004CB31A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  004CB320: 50                 push        eax
+  004CB321: 51                 push        ecx
+  004CB322: 83 EC 28           sub         esp,28h
+  004CB325: 53                 push        ebx
+  004CB326: 56                 push        esi
+  004CB327: 57                 push        edi
+  004CB328: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004CB32D: 33 C5              xor         eax,ebp
+  004CB32F: 50                 push        eax
+  004CB330: 8D 45 F4           lea         eax,[ebp-0Ch]
+  004CB333: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  004CB339: 89 65 F0           mov         dword ptr [ebp-10h],esp
+  004CB33C: 89 4D E4           mov         dword ptr [ebp-1Ch],ecx
+  004CB33F: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  004CB342: E8 59 B7 FA FF     call        00476AA0
+  004CB347: 8B 00              mov         eax,dword ptr [eax]
+  004CB349: 89 45 E0           mov         dword ptr [ebp-20h],eax
+  004CB34C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB34F: 51                 push        ecx
+  004CB350: E8 6B B8 FA FF     call        00476BC0
+  004CB355: 83 C4 04           add         esp,4
+  004CB358: 0F BE 10           movsx       edx,byte ptr [eax]
+  004CB35B: 85 D2              test        edx,edx
+  004CB35D: 0F 85 0C 01 00 00  jne         004CB46F
+  004CB363: 0F B6 45 EF        movzx       eax,byte ptr [ebp-11h]
+  004CB367: 50                 push        eax
+  004CB368: 0F B6 4D 10        movzx       ecx,byte ptr [ebp+10h]
+  004CB36C: 51                 push        ecx
+  004CB36D: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  004CB370: 52                 push        edx
+  004CB371: E8 EA B7 FA FF     call        00476B60
+  004CB376: 83 C4 04           add         esp,4
+  004CB379: 50                 push        eax
+  004CB37A: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  004CB37D: E8 0E 01 00 00     call        004CB490
+  004CB382: 89 45 E8           mov         dword ptr [ebp-18h],eax
+  004CB385: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  004CB388: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  004CB38B: 89 48 04           mov         dword ptr [eax+4],ecx
+  004CB38E: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  004CB391: 52                 push        edx
+  004CB392: E8 49 B8 FA FF     call        00476BE0
+  004CB397: 83 C4 04           add         esp,4
+  004CB39A: 8B 4D E8           mov         ecx,dword ptr [ebp-18h]
+  004CB39D: 8A 10              mov         dl,byte ptr [eax]
+  004CB39F: 88 51 0C           mov         byte ptr [ecx+0Ch],dl
+  004CB3A2: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  004CB3A5: 50                 push        eax
+  004CB3A6: E8 15 B8 FA FF     call        00476BC0
+  004CB3AB: 83 C4 04           add         esp,4
+  004CB3AE: 0F BE 08           movsx       ecx,byte ptr [eax]
+  004CB3B1: 85 C9              test        ecx,ecx
+  004CB3B3: 74 06              je          004CB3BB
+  004CB3B5: 8B 55 E8           mov         edx,dword ptr [ebp-18h]
+  004CB3B8: 89 55 E0           mov         dword ptr [ebp-20h],edx
+  004CB3BB: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  004CB3C2: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CB3C5: 50                 push        eax
+  004CB3C6: E8 05 AB F4 FF     call        00415ED0
+  004CB3CB: 83 C4 04           add         esp,4
+  004CB3CE: 89 45 DC           mov         dword ptr [ebp-24h],eax
+  004CB3D1: 0F B6 4D 10        movzx       ecx,byte ptr [ebp+10h]
+  004CB3D5: 51                 push        ecx
+  004CB3D6: 8B 55 E8           mov         edx,dword ptr [ebp-18h]
+  004CB3D9: 52                 push        edx
+  004CB3DA: 8B 45 DC           mov         eax,dword ptr [ebp-24h]
+  004CB3DD: 8B 08              mov         ecx,dword ptr [eax]
+  004CB3DF: 51                 push        ecx
+  004CB3E0: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  004CB3E3: E8 28 FF FF FF     call        004CB310
+  004CB3E8: 89 45 D4           mov         dword ptr [ebp-2Ch],eax
+  004CB3EB: 8B 55 E8           mov         edx,dword ptr [ebp-18h]
+  004CB3EE: 52                 push        edx
+  004CB3EF: E8 DC AA F4 FF     call        00415ED0
+  004CB3F4: 83 C4 04           add         esp,4
+  004CB3F7: 89 45 D8           mov         dword ptr [ebp-28h],eax
+  004CB3FA: 8B 45 D8           mov         eax,dword ptr [ebp-28h]
+  004CB3FD: 8B 4D D4           mov         ecx,dword ptr [ebp-2Ch]
+  004CB400: 89 08              mov         dword ptr [eax],ecx
+  004CB402: 8B 55 08           mov         edx,dword ptr [ebp+8]
+  004CB405: 52                 push        edx
+  004CB406: E8 75 B7 FA FF     call        00476B80
+  004CB40B: 83 C4 04           add         esp,4
+  004CB40E: 89 45 D0           mov         dword ptr [ebp-30h],eax
+  004CB411: 0F B6 45 10        movzx       eax,byte ptr [ebp+10h]
+  004CB415: 50                 push        eax
+  004CB416: 8B 4D E8           mov         ecx,dword ptr [ebp-18h]
+  004CB419: 51                 push        ecx
+  004CB41A: 8B 55 D0           mov         edx,dword ptr [ebp-30h]
+  004CB41D: 8B 02              mov         eax,dword ptr [edx]
+  004CB41F: 50                 push        eax
+  004CB420: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  004CB423: E8 E8 FE FF FF     call        004CB310
+  004CB428: 89 45 C8           mov         dword ptr [ebp-38h],eax
+  004CB42B: 8B 4D E8           mov         ecx,dword ptr [ebp-18h]
+  004CB42E: 51                 push        ecx
+  004CB42F: E8 4C B7 FA FF     call        00476B80
+  004CB434: 83 C4 04           add         esp,4
+  004CB437: 89 45 CC           mov         dword ptr [ebp-34h],eax
+  004CB43A: 8B 55 CC           mov         edx,dword ptr [ebp-34h]
+  004CB43D: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  004CB440: 89 02              mov         dword ptr [edx],eax
+  004CB442: EB 1B              jmp         004CB45F
+  004CB444: 8B 4D E0           mov         ecx,dword ptr [ebp-20h]
+  004CB447: 51                 push        ecx
+  004CB448: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  004CB44B: E8 30 C1 FA FF     call        00477580
+  004CB450: 6A 00              push        0
+  004CB452: 6A 00              push        0
+  004CB454: E8 71 3E 14 00     call        0060F2CA
+  004CB459: B8 68 B4 4C 00     mov         eax,4CB468h
+  004CB45E: C3                 ret
+  004CB45F: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004CB466: EB 07              jmp         004CB46F
+  004CB468: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004CB46F: 8B 45 E0           mov         eax,dword ptr [ebp-20h]
+  004CB472: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004CB475: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  004CB47C: 59                 pop         ecx
+  004CB47D: 5F                 pop         edi
+  004CB47E: 5E                 pop         esi
+  004CB47F: 5B                 pop         ebx
+  004CB480: 8B E5              mov         esp,ebp
+  004CB482: 5D                 pop         ebp
+  004CB483: C2 0C 00           ret         0Ch
+  004CB486: CC                 int         3
+  004CB487: CC                 int         3
+  004CB488: CC                 int         3
+  004CB489: CC                 int         3
+  004CB48A: CC                 int         3
+  004CB48B: CC                 int         3
+  004CB48C: CC                 int         3
+  004CB48D: CC                 int         3
+  004CB48E: CC                 int         3
+  004CB48F: CC                 int         3
+  004CB490: 55                 push        ebp
+  004CB491: 8B EC              mov         ebp,esp
+  004CB493: 51                 push        ecx
+  004CB494: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB497: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CB49A: 50                 push        eax
+  004CB49B: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB49E: E8 0D 00 00 00     call        004CB4B0
+  004CB4A3: 8B E5              mov         esp,ebp
+  004CB4A5: 5D                 pop         ebp
+  004CB4A6: C2 0C 00           ret         0Ch
+  004CB4A9: CC                 int         3
+  004CB4AA: CC                 int         3
+  004CB4AB: CC                 int         3
+  004CB4AC: CC                 int         3
+  004CB4AD: CC                 int         3
+  004CB4AE: CC                 int         3
+  004CB4AF: CC                 int         3
+  004CB4B0: 55                 push        ebp
+  004CB4B1: 8B EC              mov         ebp,esp
+  004CB4B3: 6A FF              push        0FFFFFFFFh
+  004CB4B5: 68 C0 7C 65 00     push        657CC0h
+  004CB4BA: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  004CB4C0: 50                 push        eax
+  004CB4C1: 51                 push        ecx
+  004CB4C2: 83 EC 0C           sub         esp,0Ch
+  004CB4C5: 53                 push        ebx
+  004CB4C6: 56                 push        esi
+  004CB4C7: 57                 push        edi
+  004CB4C8: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004CB4CD: 33 C5              xor         eax,ebp
+  004CB4CF: 50                 push        eax
+  004CB4D0: 8D 45 F4           lea         eax,[ebp-0Ch]
+  004CB4D3: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  004CB4D9: 89 65 F0           mov         dword ptr [ebp-10h],esp
+  004CB4DC: 89 4D E8           mov         dword ptr [ebp-18h],ecx
+  004CB4DF: 8B 4D E8           mov         ecx,dword ptr [ebp-18h]
+  004CB4E2: E8 D9 DA FA FF     call        00478FC0
+  004CB4E7: 89 45 EC           mov         dword ptr [ebp-14h],eax
+  004CB4EA: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  004CB4ED: 50                 push        eax
+  004CB4EE: E8 ED B6 FA FF     call        00476BE0
+  004CB4F3: 83 C4 04           add         esp,4
+  004CB4F6: C6 00 00           mov         byte ptr [eax],0
+  004CB4F9: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  004CB4FC: 51                 push        ecx
+  004CB4FD: E8 BE B6 FA FF     call        00476BC0
+  004CB502: 83 C4 04           add         esp,4
+  004CB505: C6 00 00           mov         byte ptr [eax],0
+  004CB508: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  004CB50F: 8B 55 EC           mov         edx,dword ptr [ebp-14h]
+  004CB512: 52                 push        edx
+  004CB513: E8 48 B6 FA FF     call        00476B60
+  004CB518: 83 C4 04           add         esp,4
+  004CB51B: 89 45 E4           mov         dword ptr [ebp-1Ch],eax
+  004CB51E: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CB521: 50                 push        eax
+  004CB522: E8 09 F5 F3 FF     call        0040AA30
+  004CB527: 83 C4 04           add         esp,4
+  004CB52A: 50                 push        eax
+  004CB52B: 8B 4D E4           mov         ecx,dword ptr [ebp-1Ch]
+  004CB52E: 51                 push        ecx
+  004CB52F: E8 FC F4 F3 FF     call        0040AA30
+  004CB534: 83 C4 04           add         esp,4
+  004CB537: 50                 push        eax
+  004CB538: 8B 4D E8           mov         ecx,dword ptr [ebp-18h]
+  004CB53B: E8 80 B5 FA FF     call        00476AC0
+  004CB540: 8B C8              mov         ecx,eax
+  004CB542: E8 49 00 00 00     call        004CB590
+  004CB547: EB 1B              jmp         004CB564
+  004CB549: 8B 55 EC           mov         edx,dword ptr [ebp-14h]
+  004CB54C: 52                 push        edx
+  004CB54D: 8B 4D E8           mov         ecx,dword ptr [ebp-18h]
+  004CB550: E8 4B B9 FA FF     call        00476EA0
+  004CB555: 6A 00              push        0
+  004CB557: 6A 00              push        0
+  004CB559: E8 6C 3D 14 00     call        0060F2CA
+  004CB55E: B8 6D B5 4C 00     mov         eax,4CB56Dh
+  004CB563: C3                 ret
+  004CB564: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004CB56B: EB 07              jmp         004CB574
+  004CB56D: C7 45 FC FF FF FF  mov         dword ptr [ebp-4],0FFFFFFFFh
+            FF
+  004CB574: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  004CB577: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004CB57A: 64 89 0D 00 00 00  mov         dword ptr fs:[00000000h],ecx
+            00
+  004CB581: 59                 pop         ecx
+  004CB582: 5F                 pop         edi
+  004CB583: 5E                 pop         esi
+  004CB584: 5B                 pop         ebx
+  004CB585: 8B E5              mov         esp,ebp
+  004CB587: 5D                 pop         ebp
+  004CB588: C2 04 00           ret         4
+  004CB58B: CC                 int         3
+  004CB58C: CC                 int         3
+  004CB58D: CC                 int         3
+  004CB58E: CC                 int         3
+  004CB58F: CC                 int         3
+  004CB590: 55                 push        ebp
+  004CB591: 8B EC              mov         ebp,esp
+  004CB593: 51                 push        ecx
+  004CB594: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CB597: 8B 45 0C           mov         eax,dword ptr [ebp+0Ch]
+  004CB59A: 50                 push        eax
+  004CB59B: E8 90 F4 F3 FF     call        0040AA30
+  004CB5A0: 83 C4 04           add         esp,4
+  004CB5A3: 50                 push        eax
+  004CB5A4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB5A7: 51                 push        ecx
+  004CB5A8: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CB5AB: 52                 push        edx
+  004CB5AC: E8 0F 00 00 00     call        004CB5C0
+  004CB5B1: 83 C4 0C           add         esp,0Ch
+  004CB5B4: 8B E5              mov         esp,ebp
+  004CB5B6: 5D                 pop         ebp
+  004CB5B7: C2 08 00           ret         8
+  004CB5BA: CC                 int         3
+  004CB5BB: CC                 int         3
+  004CB5BC: CC                 int         3
+  004CB5BD: CC                 int         3
+  004CB5BE: CC                 int         3
+  004CB5BF: CC                 int         3
+  004CB5C0: 55                 push        ebp
+  004CB5C1: 8B EC              mov         ebp,esp
+  004CB5C3: 8B 45 10           mov         eax,dword ptr [ebp+10h]
+  004CB5C6: 50                 push        eax
+  004CB5C7: E8 64 F4 F3 FF     call        0040AA30
+  004CB5CC: 83 C4 04           add         esp,4
+  004CB5CF: 50                 push        eax
+  004CB5D0: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  004CB5D3: 51                 push        ecx
+  004CB5D4: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004CB5D7: E8 04 00 00 00     call        004CB5E0
+  004CB5DC: 5D                 pop         ebp
+  004CB5DD: C3                 ret
+  004CB5DE: CC                 int         3
+  004CB5DF: CC                 int         3
+  004CB5E0: 55                 push        ebp
+  004CB5E1: 8B EC              mov         ebp,esp
+  004CB5E3: 83 EC 0C           sub         esp,0Ch
+  004CB5E6: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  004CB5E9: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004CB5EC: 50                 push        eax
+  004CB5ED: 6A 08              push        8
+  004CB5EF: E8 7C 19 F4 FF     call        0040CF70
+  004CB5F4: 83 C4 08           add         esp,8
+  004CB5F7: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004CB5FA: 83 7D FC 00        cmp         dword ptr [ebp-4],0
+  004CB5FE: 74 21              je          004CB621
+  004CB600: 8B 4D 0C           mov         ecx,dword ptr [ebp+0Ch]
+  004CB603: 51                 push        ecx
+  004CB604: E8 27 F4 F3 FF     call        0040AA30
+  004CB609: 83 C4 04           add         esp,4
+  004CB60C: 8B 10              mov         edx,dword ptr [eax]
+  004CB60E: 8B 40 04           mov         eax,dword ptr [eax+4]
+  004CB611: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB614: 89 11              mov         dword ptr [ecx],edx
+  004CB616: 89 41 04           mov         dword ptr [ecx+4],eax
+  004CB619: 8B 55 FC           mov         edx,dword ptr [ebp-4]
+  004CB61C: 89 55 F8           mov         dword ptr [ebp-8],edx
+  004CB61F: EB 07              jmp         004CB628
+  004CB621: C7 45 F8 00 00 00  mov         dword ptr [ebp-8],0
+            00
+  004CB628: 8B E5              mov         esp,ebp
+  004CB62A: 5D                 pop         ebp
+  004CB62B: C2 08 00           ret         8
+  004CB62E: CC                 int         3
+  004CB62F: CC                 int         3
+  004CB630: 56                 push        esi
+  004CB631: 57                 push        edi
+  004CB632: 8B F9              mov         edi,ecx
+  004CB634: 33 C0              xor         eax,eax
+  004CB636: 68 94 00 00 00     push        94h
+  004CB63B: 50                 push        eax
+  004CB63C: C7 07 00 00 00 00  mov         dword ptr [edi],0
+  004CB642: C7 47 1C 00 00 00  mov         dword ptr [edi+1Ch],0
+            00
+  004CB649: 66 89 47 20        mov         word ptr [edi+20h],ax
+  004CB64D: 89 47 0C           mov         dword ptr [edi+0Ch],eax
+  004CB650: 89 47 10           mov         dword ptr [edi+10h],eax
+  004CB653: 89 47 14           mov         dword ptr [edi+14h],eax
+  004CB656: 89 47 18           mov         dword ptr [edi+18h],eax
+  004CB659: 8D 87 28 02 00 00  lea         eax,[edi+00000228h]
+  004CB65F: 50                 push        eax
+  004CB660: E8 0B 3B 14 00     call        0060F170
+  004CB665: 8B 35 10 7C 66 00  mov         esi,dword ptr ds:[00667C10h]
+  004CB66B: 83 C4 0C           add         esp,0Ch
+  004CB66E: 6A 00              push        0
+  004CB670: 6A 00              push        0
+  004CB672: 6A 00              push        0
+  004CB674: 6A 00              push        0
+  004CB676: FF D6              call        esi
+  004CB678: 6A 00              push        0
+  004CB67A: 6A 00              push        0
+  004CB67C: 6A 00              push        0
+  004CB67E: 6A 00              push        0
+  004CB680: 89 87 BC 02 00 00  mov         dword ptr [edi+000002BCh],eax
+  004CB686: FF D6              call        esi
+  004CB688: 6A 00              push        0
+  004CB68A: 6A 00              push        0
+  004CB68C: 6A 00              push        0
+  004CB68E: 6A 00              push        0
+  004CB690: 89 87 C0 02 00 00  mov         dword ptr [edi+000002C0h],eax
+  004CB696: FF D6              call        esi
+  004CB698: 89 87 C4 02 00 00  mov         dword ptr [edi+000002C4h],eax
+  004CB69E: 8B C7              mov         eax,edi
+  004CB6A0: C7 87 C8 02 00 00  mov         dword ptr [edi+000002C8h],0
+            00 00 00 00
+  004CB6AA: C7 87 CC 02 00 00  mov         dword ptr [edi+000002CCh],0
+            00 00 00 00
+  004CB6B4: C7 87 D0 02 00 00  mov         dword ptr [edi+000002D0h],0
+            00 00 00 00
+  004CB6BE: 5F                 pop         edi
+  004CB6BF: 5E                 pop         esi
+  004CB6C0: C3                 ret
+  004CB6C1: CC                 int         3
+  004CB6C2: CC                 int         3
+  004CB6C3: CC                 int         3
+  004CB6C4: CC                 int         3
+  004CB6C5: CC                 int         3
+  004CB6C6: CC                 int         3
+  004CB6C7: CC                 int         3
+  004CB6C8: CC                 int         3
+  004CB6C9: CC                 int         3
+  004CB6CA: CC                 int         3
+  004CB6CB: CC                 int         3
+  004CB6CC: CC                 int         3
+  004CB6CD: CC                 int         3
+  004CB6CE: CC                 int         3
+  004CB6CF: CC                 int         3
+  004CB6D0: 55                 push        ebp
+  004CB6D1: 8B EC              mov         ebp,esp
+  004CB6D3: 83 EC 08           sub         esp,8
+  004CB6D6: 53                 push        ebx
+  004CB6D7: 56                 push        esi
+  004CB6D8: 8B F1              mov         esi,ecx
+  004CB6DA: 57                 push        edi
+  004CB6DB: 89 75 F8           mov         dword ptr [ebp-8],esi
+  004CB6DE: 83 BE C8 02 00 00  cmp         dword ptr [esi+000002C8h],0
+            00
+  004CB6E5: 75 09              jne         004CB6F0
+  004CB6E7: 83 BE CC 02 00 00  cmp         dword ptr [esi+000002CCh],0
+            00
+  004CB6EE: 74 0C              je          004CB6FC
+  004CB6F0: FF B6 C4 02 00 00  push        dword ptr [esi+000002C4h]
+  004CB6F6: FF 15 F8 7B 66 00  call        dword ptr ds:[00667BF8h]
+  004CB6FC: 8B CE              mov         ecx,esi
+  004CB6FE: E8 3D 0A 00 00     call        004CC140
+  004CB703: 8B 46 1C           mov         eax,dword ptr [esi+1Ch]
+  004CB706: 8B 3D A8 7B 66 00  mov         edi,dword ptr ds:[00667BA8h]
+  004CB70C: 85 C0              test        eax,eax
+  004CB70E: 74 0A              je          004CB71A
+  004CB710: 50                 push        eax
+  004CB711: FF D7              call        edi
+  004CB713: C7 46 1C 00 00 00  mov         dword ptr [esi+1Ch],0
+            00
+  004CB71A: 8B 1E              mov         ebx,dword ptr [esi]
+  004CB71C: 85 DB              test        ebx,ebx
+  004CB71E: 74 38              je          004CB758
+  004CB720: 8B 46 04           mov         eax,dword ptr [esi+4]
+  004CB723: 33 FF              xor         edi,edi
+  004CB725: 85 C0              test        eax,eax
+  004CB727: 7E 1A              jle         004CB743
+  004CB729: 8B F0              mov         esi,eax
+  004CB72B: 0F 1F 44 00 00     nop         dword ptr [eax+eax]
+  004CB730: FF 34 BB           push        dword ptr [ebx+edi*4]
+  004CB733: E8 49 66 14 00     call        00611D81
+  004CB738: 47                 inc         edi
+  004CB739: 83 C4 04           add         esp,4
+  004CB73C: 3B FE              cmp         edi,esi
+  004CB73E: 7C F0              jl          004CB730
+  004CB740: 8B 75 F8           mov         esi,dword ptr [ebp-8]
+  004CB743: 53                 push        ebx
+  004CB744: E8 38 66 14 00     call        00611D81
+  004CB749: 8B 3D A8 7B 66 00  mov         edi,dword ptr ds:[00667BA8h]
+  004CB74F: 83 C4 04           add         esp,4
+  004CB752: C7 06 00 00 00 00  mov         dword ptr [esi],0
+  004CB758: FF B6 BC 02 00 00  push        dword ptr [esi+000002BCh]
+  004CB75E: FF D7              call        edi
+  004CB760: FF B6 C0 02 00 00  push        dword ptr [esi+000002C0h]
+  004CB766: FF D7              call        edi
+  004CB768: FF B6 C4 02 00 00  push        dword ptr [esi+000002C4h]
+  004CB76E: FF D7              call        edi
+  004CB770: 5F                 pop         edi
+  004CB771: 5E                 pop         esi
+  004CB772: 5B                 pop         ebx
+  004CB773: 8B E5              mov         esp,ebp
+  004CB775: 5D                 pop         ebp
+  004CB776: C3                 ret
+  004CB777: CC                 int         3
+  004CB778: CC                 int         3
+  004CB779: CC                 int         3
+  004CB77A: CC                 int         3
+  004CB77B: CC                 int         3
+  004CB77C: CC                 int         3
+  004CB77D: CC                 int         3
+  004CB77E: CC                 int         3
+  004CB77F: CC                 int         3
+  004CB780: 55                 push        ebp
+  004CB781: 8B EC              mov         ebp,esp
+  004CB783: 83 EC 44           sub         esp,44h
+  004CB786: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004CB78B: 33 C5              xor         eax,ebp
+  004CB78D: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004CB790: 53                 push        ebx
+  004CB791: 8B 5D 0C           mov         ebx,dword ptr [ebp+0Ch]
+  004CB794: 8D 45 EC           lea         eax,[ebp-14h]
+  004CB797: 56                 push        esi
+  004CB798: 8B 75 08           mov         esi,dword ptr [ebp+8]
+  004CB79B: 57                 push        edi
+  004CB79C: 50                 push        eax
+  004CB79D: 89 75 C8           mov         dword ptr [ebp-38h],esi
+  004CB7A0: 89 5D CC           mov         dword ptr [ebp-34h],ebx
+  004CB7A3: C7 45 C4 00 00 00  mov         dword ptr [ebp-3Ch],0
+            00
+  004CB7AA: FF 15 74 79 66 00  call        dword ptr ds:[00667974h]
+  004CB7B0: 6A 12              push        12h
+  004CB7B2: 6A 00              push        0
+  004CB7B4: 6A 00              push        0
+  004CB7B6: 8D 45 EC           lea         eax,[ebp-14h]
+  004CB7B9: C7 06 00 00 00 00  mov         dword ptr [esi],0
+  004CB7BF: 50                 push        eax
+  004CB7C0: C7 03 00 00 00 00  mov         dword ptr [ebx],0
+  004CB7C6: FF 15 04 7D 66 00  call        dword ptr ds:[00667D04h]
+  004CB7CC: 8B CB              mov         ecx,ebx
+  004CB7CE: C7 45 D0 1C 00 00  mov         dword ptr [ebp-30h],1Ch
+            00
+  004CB7D5: 8B F0              mov         esi,eax
+  004CB7D7: 33 FF              xor         edi,edi
+  004CB7D9: 89 75 BC           mov         dword ptr [ebp-44h],esi
+  004CB7DC: C7 01 04 00 00 00  mov         dword ptr [ecx],4
+  004CB7E2: 8B 01              mov         eax,dword ptr [ecx]
+  004CB7E4: 8B 5D C8           mov         ebx,dword ptr [ebp-38h]
+  004CB7E7: 03 C0              add         eax,eax
+  004CB7E9: 89 01              mov         dword ptr [ecx],eax
+  004CB7EB: 8B 0B              mov         ecx,dword ptr [ebx]
+  004CB7ED: 85 C9              test        ecx,ecx
+  004CB7EF: 74 0C              je          004CB7FD
+  004CB7F1: C1 E0 02           shl         eax,2
+  004CB7F4: 50                 push        eax
+  004CB7F5: 51                 push        ecx
+  004CB7F6: E8 28 ED 14 00     call        0061A523
+  004CB7FB: EB 08              jmp         004CB805
+  004CB7FD: 6A 04              push        4
+  004CB7FF: 50                 push        eax
+  004CB800: E8 DB 8F 14 00     call        006147E0
+  004CB805: 83 C4 08           add         esp,8
+  004CB808: 85 C0              test        eax,eax
+  004CB80A: 0F 84 02 01 00 00  je          004CB912
+  004CB810: 8B 4D CC           mov         ecx,dword ptr [ebp-34h]
+  004CB813: 89 03              mov         dword ptr [ebx],eax
+  004CB815: 8D 1C B8           lea         ebx,[eax+edi*4]
+  004CB818: 89 5D C0           mov         dword ptr [ebp-40h],ebx
+  004CB81B: 3B 39              cmp         edi,dword ptr [ecx]
+  004CB81D: 73 C3              jae         004CB7E2
+  004CB81F: 90                 nop
+  004CB820: 8D 45 D0           lea         eax,[ebp-30h]
+  004CB823: 50                 push        eax
+  004CB824: 57                 push        edi
+  004CB825: 8D 45 EC           lea         eax,[ebp-14h]
+  004CB828: 50                 push        eax
+  004CB829: 6A 00              push        0
+  004CB82B: 56                 push        esi
+  004CB82C: FF 15 00 7D 66 00  call        dword ptr ds:[00667D00h]
+  004CB832: 85 C0              test        eax,eax
+  004CB834: 0F 84 A8 00 00 00  je          004CB8E2
+  004CB83A: 6A 00              push        0
+  004CB83C: 8D 45 C4           lea         eax,[ebp-3Ch]
+  004CB83F: 50                 push        eax
+  004CB840: 6A 00              push        0
+  004CB842: 6A 00              push        0
+  004CB844: 8D 45 D0           lea         eax,[ebp-30h]
+  004CB847: 50                 push        eax
+  004CB848: 56                 push        esi
+  004CB849: FF 15 FC 7C 66 00  call        dword ptr ds:[00667CFCh]
+  004CB84F: 8B 75 C4           mov         esi,dword ptr [ebp-3Ch]
+  004CB852: 56                 push        esi
+  004CB853: E8 94 07 15 00     call        0061BFEC
+  004CB858: 8B D8              mov         ebx,eax
+  004CB85A: 83 C4 04           add         esp,4
+  004CB85D: 85 DB              test        ebx,ebx
+  004CB85F: 0F 84 AA 00 00 00  je          004CB90F
+  004CB865: 6A 00              push        0
+  004CB867: 8D 45 C4           lea         eax,[ebp-3Ch]
+  004CB86A: C7 03 06 00 00 00  mov         dword ptr [ebx],6
+  004CB870: 50                 push        eax
+  004CB871: 56                 push        esi
+  004CB872: 53                 push        ebx
+  004CB873: 8D 45 D0           lea         eax,[ebp-30h]
+  004CB876: 50                 push        eax
+  004CB877: FF 75 BC           push        dword ptr [ebp-44h]
+  004CB87A: FF 15 FC 7C 66 00  call        dword ptr ds:[00667CFCh]
+  004CB880: 85 C0              test        eax,eax
+  004CB882: 0F 84 7E 00 00 00  je          004CB906
+  004CB888: 8D 73 04           lea         esi,[ebx+4]
+  004CB88B: 8B CE              mov         ecx,esi
+  004CB88D: 8D 51 02           lea         edx,[ecx+2]
+  004CB890: 66 8B 01           mov         ax,word ptr [ecx]
+  004CB893: 83 C1 02           add         ecx,2
+  004CB896: 66 85 C0           test        ax,ax
+  004CB899: 75 F5              jne         004CB890
+  004CB89B: 2B CA              sub         ecx,edx
+  004CB89D: D1 F9              sar         ecx,1
+  004CB89F: 8D 04 4D 02 00 00  lea         eax,[ecx*2+00000002h]
+            00
+  004CB8A6: 50                 push        eax
+  004CB8A7: E8 40 07 15 00     call        0061BFEC
+  004CB8AC: 8B 4D C0           mov         ecx,dword ptr [ebp-40h]
+  004CB8AF: 83 C4 04           add         esp,4
+  004CB8B2: 89 01              mov         dword ptr [ecx],eax
+  004CB8B4: 85 C0              test        eax,eax
+  004CB8B6: 74 57              je          004CB90F
+  004CB8B8: 0F 1F 84 00 00 00  nop         dword ptr [eax+eax+00000000h]
+            00 00
+  004CB8C0: 0F B7 0E           movzx       ecx,word ptr [esi]
+  004CB8C3: 8D 76 02           lea         esi,[esi+2]
+  004CB8C6: 66 89 08           mov         word ptr [eax],cx
+  004CB8C9: 8D 40 02           lea         eax,[eax+2]
+  004CB8CC: 66 85 C9           test        cx,cx
+  004CB8CF: 75 EF              jne         004CB8C0
+  004CB8D1: 53                 push        ebx
+  004CB8D2: E8 AA 64 14 00     call        00611D81
+  004CB8D7: 8B 5D C0           mov         ebx,dword ptr [ebp-40h]
+  004CB8DA: 83 C4 04           add         esp,4
+  004CB8DD: 8B 75 BC           mov         esi,dword ptr [ebp-44h]
+  004CB8E0: EB 0D              jmp         004CB8EF
+  004CB8E2: FF 15 C0 7B 66 00  call        dword ptr ds:[00667BC0h]
+  004CB8E8: 3D 03 01 00 00     cmp         eax,103h
+  004CB8ED: 74 68              je          004CB957
+  004CB8EF: 8B 4D CC           mov         ecx,dword ptr [ebp-34h]
+  004CB8F2: 47                 inc         edi
+  004CB8F3: 83 C3 04           add         ebx,4
+  004CB8F6: 89 5D C0           mov         dword ptr [ebp-40h],ebx
+  004CB8F9: 3B 39              cmp         edi,dword ptr [ecx]
+  004CB8FB: 0F 82 1F FF FF FF  jb          004CB820
+  004CB901: E9 DC FE FF FF     jmp         004CB7E2
+  004CB906: 53                 push        ebx
+  004CB907: E8 75 64 14 00     call        00611D81
+  004CB90C: 83 C4 04           add         esp,4
+  004CB90F: 8B 5D C8           mov         ebx,dword ptr [ebp-38h]
+  004CB912: 8B 1B              mov         ebx,dword ptr [ebx]
+  004CB914: 85 DB              test        ebx,ebx
+  004CB916: 74 21              je          004CB939
+  004CB918: 33 F6              xor         esi,esi
+  004CB91A: 85 FF              test        edi,edi
+  004CB91C: 7E 12              jle         004CB930
+  004CB91E: 66 90              nop
+  004CB920: FF 34 B3           push        dword ptr [ebx+esi*4]
+  004CB923: E8 59 64 14 00     call        00611D81
+  004CB928: 46                 inc         esi
+  004CB929: 83 C4 04           add         esp,4
+  004CB92C: 3B F7              cmp         esi,edi
+  004CB92E: 7C F0              jl          004CB920
+  004CB930: 53                 push        ebx
+  004CB931: E8 4B 64 14 00     call        00611D81
+  004CB936: 83 C4 04           add         esp,4
+  004CB939: FF 75 BC           push        dword ptr [ebp-44h]
+  004CB93C: FF 15 F8 7C 66 00  call        dword ptr ds:[00667CF8h]
+  004CB942: 5F                 pop         edi
+  004CB943: 5E                 pop         esi
+  004CB944: 33 C0              xor         eax,eax
+  004CB946: 5B                 pop         ebx
+  004CB947: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB94A: 33 CD              xor         ecx,ebp
+  004CB94C: E8 84 DC 13 00     call        006095D5
+  004CB951: 8B E5              mov         esp,ebp
+  004CB953: 5D                 pop         ebp
+  004CB954: C2 08 00           ret         8
+  004CB957: 8B 5D CC           mov         ebx,dword ptr [ebp-34h]
+  004CB95A: 56                 push        esi
+  004CB95B: 89 3B              mov         dword ptr [ebx],edi
+  004CB95D: FF 15 F8 7C 66 00  call        dword ptr ds:[00667CF8h]
+  004CB963: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004CB966: B8 01 00 00 00     mov         eax,1
+  004CB96B: 5F                 pop         edi
+  004CB96C: 5E                 pop         esi
+  004CB96D: 33 CD              xor         ecx,ebp
+  004CB96F: 5B                 pop         ebx
+  004CB970: E8 60 DC 13 00     call        006095D5
+  004CB975: 8B E5              mov         esp,ebp
+  004CB977: 5D                 pop         ebp
+  004CB978: C2 08 00           ret         8
+  004CB97B: CC                 int         3
+  004CB97C: CC                 int         3
+  004CB97D: CC                 int         3
+  004CB97E: CC                 int         3
+  004CB97F: CC                 int         3
+  004CB980: 55                 push        ebp
+  004CB981: 8B EC              mov         ebp,esp
+  004CB983: 83 EC 14           sub         esp,14h
+  004CB986: 57                 push        edi
+  004CB987: 8B F9              mov         edi,ecx
+  004CB989: 8B 47 1C           mov         eax,dword ptr [edi+1Ch]
+  004CB98C: 85 C0              test        eax,eax
+  004CB98E: 0F 84 9C 07 00 00  je          004CC130
+  004CB994: 83 F8 FF           cmp         eax,0FFFFFFFFh
+  004CB997: 0F 84 93 07 00 00  je          004CC130
+  004CB99D: 53                 push        ebx
+  004CB99E: 8D 9F 28 02 00 00  lea         ebx,[edi+00000228h]
+  004CB9A4: 53                 push        ebx
+  004CB9A5: 50                 push        eax
+  004CB9A6: FF 15 78 79 66 00  call        dword ptr ds:[00667978h]
+  004CB9AC: 84 C0              test        al,al
+  004CB9AE: 0F 84 74 07 00 00  je          004CC128
+  004CB9B4: 8D 87 6C 02 00 00  lea         eax,[edi+0000026Ch]
+  004CB9BA: 50                 push        eax
+  004CB9BB: FF 77 1C           push        dword ptr [edi+1Ch]
+  004CB9BE: FF 15 7C 79 66 00  call        dword ptr ds:[0066797Ch]
+  004CB9C4: 84 C0              test        al,al
+  004CB9C6: 0F 84 5C 07 00 00  je          004CC128
+  004CB9CC: 8D 87 2C 02 00 00  lea         eax,[edi+0000022Ch]
+  004CB9D2: 50                 push        eax
+  004CB9D3: FF 33              push        dword ptr [ebx]
+  004CB9D5: FF 15 80 79 66 00  call        dword ptr ds:[00667980h]
+  004CB9DB: 85 C0              test        eax,eax
+  004CB9DD: 0F 84 45 07 00 00  je          004CC128
+  004CB9E3: 0F B7 87 30 02 00  movzx       eax,word ptr [edi+00000230h]
+            00
+  004CB9EA: 56                 push        esi
+  004CB9EB: 6A 01              push        1
+  004CB9ED: 50                 push        eax
+  004CB9EE: E8 ED 8D 14 00     call        006147E0
+  004CB9F3: 89 87 78 02 00 00  mov         dword ptr [edi+00000278h],eax
+  004CB9F9: 0F B7 87 5A 02 00  movzx       eax,word ptr [edi+0000025Ah]
+            00
+  004CBA00: 6A 48              push        48h
+  004CBA02: 50                 push        eax
+  004CBA03: E8 D8 8D 14 00     call        006147E0
+  004CBA08: 0F B7 8F 5C 02 00  movzx       ecx,word ptr [edi+0000025Ch]
+            00
+  004CBA0F: 8B F0              mov         esi,eax
+  004CBA11: 6A 48              push        48h
+  004CBA13: 51                 push        ecx
+  004CBA14: 89 75 F0           mov         dword ptr [ebp-10h],esi
+  004CBA17: 89 B7 84 02 00 00  mov         dword ptr [edi+00000284h],esi
+  004CBA1D: E8 BE 8D 14 00     call        006147E0
+  004CBA22: 0F B7 8F 5A 02 00  movzx       ecx,word ptr [edi+0000025Ah]
+            00
+  004CBA29: 83 C4 18           add         esp,18h
+  004CBA2C: 8B D8              mov         ebx,eax
+  004CBA2E: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CBA31: 8D 45 FC           lea         eax,[ebp-4]
+  004CBA34: 89 9F 88 02 00 00  mov         dword ptr [edi+00000288h],ebx
+  004CBA3A: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBA40: 50                 push        eax
+  004CBA41: 56                 push        esi
+  004CBA42: 6A 00              push        0
+  004CBA44: 6A 00              push        0
+  004CBA46: 6A 00              push        0
+  004CBA48: 6A 00              push        0
+  004CBA4A: FF 15 84 79 66 00  call        dword ptr ds:[00667984h]
+  004CBA50: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBA56: 0F B7 87 5C 02 00  movzx       eax,word ptr [edi+0000025Ch]
+            00
+  004CBA5D: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004CBA60: 8D 45 FC           lea         eax,[ebp-4]
+  004CBA63: 50                 push        eax
+  004CBA64: 53                 push        ebx
+  004CBA65: 6A 00              push        0
+  004CBA67: 6A 00              push        0
+  004CBA69: 6A 00              push        0
+  004CBA6B: 6A 00              push        0
+  004CBA6D: FF 15 88 79 66 00  call        dword ptr ds:[00667988h]
+  004CBA73: 0F B7 B7 5C 02 00  movzx       esi,word ptr [edi+0000025Ch]
+            00
+  004CBA7A: 33 C0              xor         eax,eax
+  004CBA7C: 33 C9              xor         ecx,ecx
+  004CBA7E: 89 45 F8           mov         dword ptr [ebp-8],eax
+  004CBA81: 33 D2              xor         edx,edx
+  004CBA83: 66 3B CE           cmp         cx,si
+  004CBA86: 73 28              jae         004CBAB0
+  004CBA88: 8D 4B 3A           lea         ecx,[ebx+3Ah]
+  004CBA8B: 0F 1F 44 00 00     nop         dword ptr [eax+eax]
+  004CBA90: 80 79 D2 00        cmp         byte ptr [ecx-2Eh],0
+  004CBA94: 74 07              je          004CBA9D
+  004CBA96: 66 2B 41 FE        sub         ax,word ptr [ecx-2]
+  004CBA9A: 66 03 01           add         ax,word ptr [ecx]
+  004CBA9D: 0F B7 C0           movzx       eax,ax
+  004CBAA0: 42                 inc         edx
+  004CBAA1: 40                 inc         eax
+  004CBAA2: 83 C1 48           add         ecx,48h
+  004CBAA5: 0F B7 C0           movzx       eax,ax
+  004CBAA8: 66 3B D6           cmp         dx,si
+  004CBAAB: 72 E3              jb          004CBA90
+  004CBAAD: 89 45 F8           mov         dword ptr [ebp-8],eax
+  004CBAB0: 0F B7 8F 5A 02 00  movzx       ecx,word ptr [edi+0000025Ah]
+            00
+  004CBAB7: 8B 9F 88 02 00 00  mov         ebx,dword ptr [edi+00000288h]
+  004CBABD: 0F B7 C0           movzx       eax,ax
+  004CBAC0: 03 C1              add         eax,ecx
+  004CBAC2: 6A 20              push        20h
+  004CBAC4: 50                 push        eax
+  004CBAC5: 89 87 80 02 00 00  mov         dword ptr [edi+00000280h],eax
+  004CBACB: E8 10 8D 14 00     call        006147E0
+  004CBAD0: 8B F0              mov         esi,eax
+  004CBAD2: 33 C9              xor         ecx,ecx
+  004CBAD4: 33 C0              xor         eax,eax
+  004CBAD6: 89 B7 7C 02 00 00  mov         dword ptr [edi+0000027Ch],esi
+  004CBADC: 83 C4 08           add         esp,8
+  004CBADF: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  004CBAE2: 66 3B 87 5A 02 00  cmp         ax,word ptr [edi+0000025Ah]
+            00
+  004CBAE9: 0F 83 8E 00 00 00  jae         004CBB7D
+  004CBAEF: 8B 55 F0           mov         edx,dword ptr [ebp-10h]
+  004CBAF2: 83 C2 38           add         edx,38h
+  004CBAF5: 89 55 F0           mov         dword ptr [ebp-10h],edx
+  004CBAF8: 8B C1              mov         eax,ecx
+  004CBAFA: 41                 inc         ecx
+  004CBAFB: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  004CBAFE: 3B 87 80 02 00 00  cmp         eax,dword ptr [edi+00000280h]
+  004CBB04: 0F 83 DD 00 00 00  jae         004CBBE7
+  004CBB0A: C6 06 01           mov         byte ptr [esi],1
+  004CBB0D: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CBB14: 66 8B 42 C8        mov         ax,word ptr [edx-38h]
+  004CBB18: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CBB1C: 0F B7 02           movzx       eax,word ptr [edx]
+  004CBB1F: 80 7A D4 00        cmp         byte ptr [edx-2Ch],0
+  004CBB23: 89 46 10           mov         dword ptr [esi+10h],eax
+  004CBB26: 74 04              je          004CBB2C
+  004CBB28: 0F B7 42 02        movzx       eax,word ptr [edx+2]
+  004CBB2C: 89 46 14           mov         dword ptr [esi+14h],eax
+  004CBB2F: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBB35: 0F B7 42 C8        movzx       eax,word ptr [edx-38h]
+  004CBB39: 50                 push        eax
+  004CBB3A: 6A 00              push        0
+  004CBB3C: FF 15 8C 79 66 00  call        dword ptr ds:[0066798Ch]
+  004CBB42: 6A 02              push        2
+  004CBB44: 50                 push        eax
+  004CBB45: 89 46 18           mov         dword ptr [esi+18h],eax
+  004CBB48: E8 93 8C 14 00     call        006147E0
+  004CBB4D: 8B 55 F0           mov         edx,dword ptr [ebp-10h]
+  004CBB50: 83 C4 08           add         esp,8
+  004CBB53: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  004CBB56: 89 46 1C           mov         dword ptr [esi+1Ch],eax
+  004CBB59: 0F B6 42 CA        movzx       eax,byte ptr [edx-36h]
+  004CBB5D: 83 C2 48           add         edx,48h
+  004CBB60: 89 46 08           mov         dword ptr [esi+8],eax
+  004CBB63: 83 C6 20           add         esi,20h
+  004CBB66: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  004CBB69: 40                 inc         eax
+  004CBB6A: 89 55 F0           mov         dword ptr [ebp-10h],edx
+  004CBB6D: 89 45 F4           mov         dword ptr [ebp-0Ch],eax
+  004CBB70: 66 3B 87 5A 02 00  cmp         ax,word ptr [edi+0000025Ah]
+            00
+  004CBB77: 0F 82 7B FF FF FF  jb          004CBAF8
+  004CBB7D: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CBB80: 33 D2              xor         edx,edx
+  004CBB82: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CBB85: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  004CBB88: 66 3B D0           cmp         dx,ax
+  004CBB8B: 73 5A              jae         004CBBE7
+  004CBB8D: 0F 1F 00           nop         dword ptr [eax]
+  004CBB90: 80 7B 0C 00        cmp         byte ptr [ebx+0Ch],0
+  004CBB94: 0F 84 0F 01 00 00  je          004CBCA9
+  004CBB9A: 0F B7 53 38        movzx       edx,word ptr [ebx+38h]
+  004CBB9E: 66 3B 53 3A        cmp         dx,word ptr [ebx+3Ah]
+  004CBBA2: 77 34              ja          004CBBD8
+  004CBBA4: 8B C1              mov         eax,ecx
+  004CBBA6: 41                 inc         ecx
+  004CBBA7: 3B 87 80 02 00 00  cmp         eax,dword ptr [edi+00000280h]
+  004CBBAD: 73 38              jae         004CBBE7
+  004CBBAF: C6 06 00           mov         byte ptr [esi],0
+  004CBBB2: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CBBB9: 66 8B 03           mov         ax,word ptr [ebx]
+  004CBBBC: 66 89 56 10        mov         word ptr [esi+10h],dx
+  004CBBC0: 42                 inc         edx
+  004CBBC1: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CBBC5: 0F B6 43 02        movzx       eax,byte ptr [ebx+2]
+  004CBBC9: 89 46 08           mov         dword ptr [esi+8],eax
+  004CBBCC: 83 C6 20           add         esi,20h
+  004CBBCF: 66 3B 53 3A        cmp         dx,word ptr [ebx+3Ah]
+  004CBBD3: 76 CF              jbe         004CBBA4
+  004CBBD5: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CBBD8: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004CBBDB: 42                 inc         edx
+  004CBBDC: 83 C3 48           add         ebx,48h
+  004CBBDF: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CBBE2: 66 3B D0           cmp         dx,ax
+  004CBBE5: 72 A9              jb          004CBB90
+  004CBBE7: 0F B7 87 32 02 00  movzx       eax,word ptr [edi+00000232h]
+            00
+  004CBBEE: 6A 01              push        1
+  004CBBF0: 50                 push        eax
+  004CBBF1: E8 EA 8B 14 00     call        006147E0
+  004CBBF6: 89 87 8C 02 00 00  mov         dword ptr [edi+0000028Ch],eax
+  004CBBFC: 0F B7 87 60 02 00  movzx       eax,word ptr [edi+00000260h]
+            00
+  004CBC03: 6A 48              push        48h
+  004CBC05: 50                 push        eax
+  004CBC06: E8 D5 8B 14 00     call        006147E0
+  004CBC0B: 0F B7 8F 62 02 00  movzx       ecx,word ptr [edi+00000262h]
+            00
+  004CBC12: 8B F0              mov         esi,eax
+  004CBC14: 6A 48              push        48h
+  004CBC16: 51                 push        ecx
+  004CBC17: 89 75 F4           mov         dword ptr [ebp-0Ch],esi
+  004CBC1A: 89 B7 98 02 00 00  mov         dword ptr [edi+00000298h],esi
+  004CBC20: E8 BB 8B 14 00     call        006147E0
+  004CBC25: 0F B7 8F 60 02 00  movzx       ecx,word ptr [edi+00000260h]
+            00
+  004CBC2C: 83 C4 18           add         esp,18h
+  004CBC2F: 8B D8              mov         ebx,eax
+  004CBC31: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CBC34: 8D 45 FC           lea         eax,[ebp-4]
+  004CBC37: 89 5D EC           mov         dword ptr [ebp-14h],ebx
+  004CBC3A: 89 9F 9C 02 00 00  mov         dword ptr [edi+0000029Ch],ebx
+  004CBC40: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBC46: 50                 push        eax
+  004CBC47: 56                 push        esi
+  004CBC48: 6A 00              push        0
+  004CBC4A: 6A 00              push        0
+  004CBC4C: 6A 00              push        0
+  004CBC4E: 6A 01              push        1
+  004CBC50: FF 15 84 79 66 00  call        dword ptr ds:[00667984h]
+  004CBC56: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBC5C: 0F B7 87 62 02 00  movzx       eax,word ptr [edi+00000262h]
+            00
+  004CBC63: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004CBC66: 8D 45 FC           lea         eax,[ebp-4]
+  004CBC69: 50                 push        eax
+  004CBC6A: 53                 push        ebx
+  004CBC6B: 6A 00              push        0
+  004CBC6D: 6A 00              push        0
+  004CBC6F: 6A 00              push        0
+  004CBC71: 6A 01              push        1
+  004CBC73: FF 15 88 79 66 00  call        dword ptr ds:[00667988h]
+  004CBC79: 0F B7 B7 62 02 00  movzx       esi,word ptr [edi+00000262h]
+            00
+  004CBC80: 33 DB              xor         ebx,ebx
+  004CBC82: 33 C0              xor         eax,eax
+  004CBC84: 89 5D F8           mov         dword ptr [ebp-8],ebx
+  004CBC87: 33 D2              xor         edx,edx
+  004CBC89: 66 3B C6           cmp         ax,si
+  004CBC8C: 73 68              jae         004CBCF6
+  004CBC8E: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  004CBC91: 83 C1 3A           add         ecx,3Ah
+  004CBC94: 80 79 D2 00        cmp         byte ptr [ecx-2Eh],0
+  004CBC98: 74 49              je          004CBCE3
+  004CBC9A: 66 8B 01           mov         ax,word ptr [ecx]
+  004CBC9D: 66 2B 41 FE        sub         ax,word ptr [ecx-2]
+  004CBCA1: 66 03 C3           add         ax,bx
+  004CBCA4: 0F B7 C0           movzx       eax,ax
+  004CBCA7: EB 3D              jmp         004CBCE6
+  004CBCA9: 8B C1              mov         eax,ecx
+  004CBCAB: 41                 inc         ecx
+  004CBCAC: 3B 87 80 02 00 00  cmp         eax,dword ptr [edi+00000280h]
+  004CBCB2: 0F 83 2F FF FF FF  jae         004CBBE7
+  004CBCB8: C6 06 00           mov         byte ptr [esi],0
+  004CBCBB: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CBCC2: 0F B7 03           movzx       eax,word ptr [ebx]
+  004CBCC5: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CBCC9: 0F B7 43 38        movzx       eax,word ptr [ebx+38h]
+  004CBCCD: 66 89 46 10        mov         word ptr [esi+10h],ax
+  004CBCD1: 0F B6 43 02        movzx       eax,byte ptr [ebx+2]
+  004CBCD5: 89 46 08           mov         dword ptr [esi+8],eax
+  004CBCD8: 83 C6 20           add         esi,20h
+  004CBCDB: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CBCDE: E9 F8 FE FF FF     jmp         004CBBDB
+  004CBCE3: 0F B7 C3           movzx       eax,bx
+  004CBCE6: 42                 inc         edx
+  004CBCE7: 40                 inc         eax
+  004CBCE8: 83 C1 48           add         ecx,48h
+  004CBCEB: 0F B7 D8           movzx       ebx,ax
+  004CBCEE: 66 3B D6           cmp         dx,si
+  004CBCF1: 72 A1              jb          004CBC94
+  004CBCF3: 89 5D F8           mov         dword ptr [ebp-8],ebx
+  004CBCF6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CBCF9: 0F B7 8F 60 02 00  movzx       ecx,word ptr [edi+00000260h]
+            00
+  004CBD00: 8B 9F 9C 02 00 00  mov         ebx,dword ptr [edi+0000029Ch]
+  004CBD06: 0F B7 C0           movzx       eax,ax
+  004CBD09: 03 C1              add         eax,ecx
+  004CBD0B: 6A 20              push        20h
+  004CBD0D: 50                 push        eax
+  004CBD0E: 89 87 94 02 00 00  mov         dword ptr [edi+00000294h],eax
+  004CBD14: E8 C7 8A 14 00     call        006147E0
+  004CBD19: 8B F0              mov         esi,eax
+  004CBD1B: 33 C9              xor         ecx,ecx
+  004CBD1D: 33 C0              xor         eax,eax
+  004CBD1F: 89 B7 90 02 00 00  mov         dword ptr [edi+00000290h],esi
+  004CBD25: 83 C4 08           add         esp,8
+  004CBD28: 89 4D F0           mov         dword ptr [ebp-10h],ecx
+  004CBD2B: 66 3B 87 60 02 00  cmp         ax,word ptr [edi+00000260h]
+            00
+  004CBD32: 0F 83 8E 00 00 00  jae         004CBDC6
+  004CBD38: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004CBD3B: 83 C2 38           add         edx,38h
+  004CBD3E: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CBD41: 8B C1              mov         eax,ecx
+  004CBD43: 41                 inc         ecx
+  004CBD44: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  004CBD47: 3B 87 94 02 00 00  cmp         eax,dword ptr [edi+00000294h]
+  004CBD4D: 0F 83 E0 00 00 00  jae         004CBE33
+  004CBD53: C6 06 01           mov         byte ptr [esi],1
+  004CBD56: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CBD5D: 66 8B 42 C8        mov         ax,word ptr [edx-38h]
+  004CBD61: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CBD65: 0F B7 02           movzx       eax,word ptr [edx]
+  004CBD68: 80 7A D4 00        cmp         byte ptr [edx-2Ch],0
+  004CBD6C: 89 46 10           mov         dword ptr [esi+10h],eax
+  004CBD6F: 74 04              je          004CBD75
+  004CBD71: 0F B7 42 02        movzx       eax,word ptr [edx+2]
+  004CBD75: 89 46 14           mov         dword ptr [esi+14h],eax
+  004CBD78: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBD7E: 0F B7 42 C8        movzx       eax,word ptr [edx-38h]
+  004CBD82: 50                 push        eax
+  004CBD83: 6A 01              push        1
+  004CBD85: FF 15 8C 79 66 00  call        dword ptr ds:[0066798Ch]
+  004CBD8B: 6A 02              push        2
+  004CBD8D: 50                 push        eax
+  004CBD8E: 89 46 18           mov         dword ptr [esi+18h],eax
+  004CBD91: E8 4A 8A 14 00     call        006147E0
+  004CBD96: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004CBD99: 83 C4 08           add         esp,8
+  004CBD9C: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  004CBD9F: 89 46 1C           mov         dword ptr [esi+1Ch],eax
+  004CBDA2: 0F B6 42 CA        movzx       eax,byte ptr [edx-36h]
+  004CBDA6: 83 C2 48           add         edx,48h
+  004CBDA9: 89 46 08           mov         dword ptr [esi+8],eax
+  004CBDAC: 83 C6 20           add         esi,20h
+  004CBDAF: 8B 45 F0           mov         eax,dword ptr [ebp-10h]
+  004CBDB2: 40                 inc         eax
+  004CBDB3: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CBDB6: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  004CBDB9: 66 3B 87 60 02 00  cmp         ax,word ptr [edi+00000260h]
+            00
+  004CBDC0: 0F 82 7B FF FF FF  jb          004CBD41
+  004CBDC6: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CBDC9: 33 D2              xor         edx,edx
+  004CBDCB: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CBDCE: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  004CBDD1: 66 3B D0           cmp         dx,ax
+  004CBDD4: 73 5D              jae         004CBE33
+  004CBDD6: 80 7B 0C 00        cmp         byte ptr [ebx+0Ch],0
+  004CBDDA: 0F 84 15 01 00 00  je          004CBEF5
+  004CBDE0: 0F B7 53 38        movzx       edx,word ptr [ebx+38h]
+  004CBDE4: 66 3B 53 3A        cmp         dx,word ptr [ebx+3Ah]
+  004CBDE8: 77 3A              ja          004CBE24
+  004CBDEA: 66 0F 1F 44 00 00  nop         word ptr [eax+eax]
+  004CBDF0: 8B C1              mov         eax,ecx
+  004CBDF2: 41                 inc         ecx
+  004CBDF3: 3B 87 94 02 00 00  cmp         eax,dword ptr [edi+00000294h]
+  004CBDF9: 73 38              jae         004CBE33
+  004CBDFB: C6 06 00           mov         byte ptr [esi],0
+  004CBDFE: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CBE05: 66 8B 03           mov         ax,word ptr [ebx]
+  004CBE08: 66 89 56 10        mov         word ptr [esi+10h],dx
+  004CBE0C: 42                 inc         edx
+  004CBE0D: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CBE11: 0F B6 43 02        movzx       eax,byte ptr [ebx+2]
+  004CBE15: 89 46 08           mov         dword ptr [esi+8],eax
+  004CBE18: 83 C6 20           add         esi,20h
+  004CBE1B: 66 3B 53 3A        cmp         dx,word ptr [ebx+3Ah]
+  004CBE1F: 76 CF              jbe         004CBDF0
+  004CBE21: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CBE24: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004CBE27: 42                 inc         edx
+  004CBE28: 83 C3 48           add         ebx,48h
+  004CBE2B: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CBE2E: 66 3B D0           cmp         dx,ax
+  004CBE31: 72 A3              jb          004CBDD6
+  004CBE33: 0F B7 87 34 02 00  movzx       eax,word ptr [edi+00000234h]
+            00
+  004CBE3A: 6A 01              push        1
+  004CBE3C: 50                 push        eax
+  004CBE3D: E8 9E 89 14 00     call        006147E0
+  004CBE42: 89 87 A0 02 00 00  mov         dword ptr [edi+000002A0h],eax
+  004CBE48: 0F B7 87 66 02 00  movzx       eax,word ptr [edi+00000266h]
+            00
+  004CBE4F: 6A 48              push        48h
+  004CBE51: 50                 push        eax
+  004CBE52: E8 89 89 14 00     call        006147E0
+  004CBE57: 0F B7 8F 68 02 00  movzx       ecx,word ptr [edi+00000268h]
+            00
+  004CBE5E: 8B F0              mov         esi,eax
+  004CBE60: 6A 48              push        48h
+  004CBE62: 51                 push        ecx
+  004CBE63: 89 75 F4           mov         dword ptr [ebp-0Ch],esi
+  004CBE66: 89 B7 AC 02 00 00  mov         dword ptr [edi+000002ACh],esi
+  004CBE6C: E8 6F 89 14 00     call        006147E0
+  004CBE71: 0F B7 8F 66 02 00  movzx       ecx,word ptr [edi+00000266h]
+            00
+  004CBE78: 83 C4 18           add         esp,18h
+  004CBE7B: 8B D8              mov         ebx,eax
+  004CBE7D: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004CBE80: 8D 45 FC           lea         eax,[ebp-4]
+  004CBE83: 89 5D EC           mov         dword ptr [ebp-14h],ebx
+  004CBE86: 89 9F B0 02 00 00  mov         dword ptr [edi+000002B0h],ebx
+  004CBE8C: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBE92: 50                 push        eax
+  004CBE93: 56                 push        esi
+  004CBE94: 6A 00              push        0
+  004CBE96: 6A 00              push        0
+  004CBE98: 6A 00              push        0
+  004CBE9A: 6A 02              push        2
+  004CBE9C: FF 15 84 79 66 00  call        dword ptr ds:[00667984h]
+  004CBEA2: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBEA8: 0F B7 87 68 02 00  movzx       eax,word ptr [edi+00000268h]
+            00
+  004CBEAF: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004CBEB2: 8D 45 FC           lea         eax,[ebp-4]
+  004CBEB5: 50                 push        eax
+  004CBEB6: 53                 push        ebx
+  004CBEB7: 6A 00              push        0
+  004CBEB9: 6A 00              push        0
+  004CBEBB: 6A 00              push        0
+  004CBEBD: 6A 02              push        2
+  004CBEBF: FF 15 88 79 66 00  call        dword ptr ds:[00667988h]
+  004CBEC5: 0F B7 9F 68 02 00  movzx       ebx,word ptr [edi+00000268h]
+            00
+  004CBECC: 33 D2              xor         edx,edx
+  004CBECE: 33 C0              xor         eax,eax
+  004CBED0: 89 55 F8           mov         dword ptr [ebp-8],edx
+  004CBED3: 33 F6              xor         esi,esi
+  004CBED5: 66 3B C3           cmp         ax,bx
+  004CBED8: 73 68              jae         004CBF42
+  004CBEDA: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  004CBEDD: 83 C1 3A           add         ecx,3Ah
+  004CBEE0: 80 79 D2 00        cmp         byte ptr [ecx-2Eh],0
+  004CBEE4: 74 49              je          004CBF2F
+  004CBEE6: 66 8B 01           mov         ax,word ptr [ecx]
+  004CBEE9: 66 2B 41 FE        sub         ax,word ptr [ecx-2]
+  004CBEED: 66 03 C2           add         ax,dx
+  004CBEF0: 0F B7 C0           movzx       eax,ax
+  004CBEF3: EB 3D              jmp         004CBF32
+  004CBEF5: 8B C1              mov         eax,ecx
+  004CBEF7: 41                 inc         ecx
+  004CBEF8: 3B 87 94 02 00 00  cmp         eax,dword ptr [edi+00000294h]
+  004CBEFE: 0F 83 2F FF FF FF  jae         004CBE33
+  004CBF04: C6 06 00           mov         byte ptr [esi],0
+  004CBF07: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CBF0E: 0F B7 03           movzx       eax,word ptr [ebx]
+  004CBF11: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CBF15: 0F B7 43 38        movzx       eax,word ptr [ebx+38h]
+  004CBF19: 66 89 46 10        mov         word ptr [esi+10h],ax
+  004CBF1D: 0F B6 43 02        movzx       eax,byte ptr [ebx+2]
+  004CBF21: 89 46 08           mov         dword ptr [esi+8],eax
+  004CBF24: 83 C6 20           add         esi,20h
+  004CBF27: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CBF2A: E9 F8 FE FF FF     jmp         004CBE27
+  004CBF2F: 0F B7 C2           movzx       eax,dx
+  004CBF32: 46                 inc         esi
+  004CBF33: 40                 inc         eax
+  004CBF34: 83 C1 48           add         ecx,48h
+  004CBF37: 0F B7 D0           movzx       edx,ax
+  004CBF3A: 66 3B F3           cmp         si,bx
+  004CBF3D: 72 A1              jb          004CBEE0
+  004CBF3F: 89 55 F8           mov         dword ptr [ebp-8],edx
+  004CBF42: 0F B7 8F 66 02 00  movzx       ecx,word ptr [edi+00000266h]
+            00
+  004CBF49: 8B 9F B0 02 00 00  mov         ebx,dword ptr [edi+000002B0h]
+  004CBF4F: 0F B7 C2           movzx       eax,dx
+  004CBF52: 03 C1              add         eax,ecx
+  004CBF54: 6A 20              push        20h
+  004CBF56: 50                 push        eax
+  004CBF57: 89 87 A8 02 00 00  mov         dword ptr [edi+000002A8h],eax
+  004CBF5D: E8 7E 88 14 00     call        006147E0
+  004CBF62: 8B F0              mov         esi,eax
+  004CBF64: 33 C9              xor         ecx,ecx
+  004CBF66: 33 C0              xor         eax,eax
+  004CBF68: 89 B7 A4 02 00 00  mov         dword ptr [edi+000002A4h],esi
+  004CBF6E: 83 C4 08           add         esp,8
+  004CBF71: 89 4D F0           mov         dword ptr [ebp-10h],ecx
+  004CBF74: 66 3B 87 66 02 00  cmp         ax,word ptr [edi+00000266h]
+            00
+  004CBF7B: 0F 83 94 00 00 00  jae         004CC015
+  004CBF81: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004CBF84: 83 C2 38           add         edx,38h
+  004CBF87: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CBF8A: 66 0F 1F 44 00 00  nop         word ptr [eax+eax]
+  004CBF90: 8B C1              mov         eax,ecx
+  004CBF92: 41                 inc         ecx
+  004CBF93: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  004CBF96: 3B 87 A8 02 00 00  cmp         eax,dword ptr [edi+000002A8h]
+  004CBF9C: 0F 83 E1 00 00 00  jae         004CC083
+  004CBFA2: C6 06 01           mov         byte ptr [esi],1
+  004CBFA5: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CBFAC: 66 8B 42 C8        mov         ax,word ptr [edx-38h]
+  004CBFB0: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CBFB4: 0F B7 02           movzx       eax,word ptr [edx]
+  004CBFB7: 80 7A D4 00        cmp         byte ptr [edx-2Ch],0
+  004CBFBB: 89 46 10           mov         dword ptr [esi+10h],eax
+  004CBFBE: 74 04              je          004CBFC4
+  004CBFC0: 0F B7 42 02        movzx       eax,word ptr [edx+2]
+  004CBFC4: 89 46 14           mov         dword ptr [esi+14h],eax
+  004CBFC7: FF B7 28 02 00 00  push        dword ptr [edi+00000228h]
+  004CBFCD: 0F B7 42 C8        movzx       eax,word ptr [edx-38h]
+  004CBFD1: 50                 push        eax
+  004CBFD2: 6A 02              push        2
+  004CBFD4: FF 15 8C 79 66 00  call        dword ptr ds:[0066798Ch]
+  004CBFDA: 6A 02              push        2
+  004CBFDC: 50                 push        eax
+  004CBFDD: 89 46 18           mov         dword ptr [esi+18h],eax
+  004CBFE0: E8 FB 87 14 00     call        006147E0
+  004CBFE5: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004CBFE8: 83 C4 08           add         esp,8
+  004CBFEB: 8B 4D EC           mov         ecx,dword ptr [ebp-14h]
+  004CBFEE: 89 46 1C           mov         dword ptr [esi+1Ch],eax
+  004CBFF1: 0F B6 42 CA        movzx       eax,byte ptr [edx-36h]
+  004CBFF5: 83 C2 48           add         edx,48h
+  004CBFF8: 89 46 08           mov         dword ptr [esi+8],eax
+  004CBFFB: 83 C6 20           add         esi,20h
+  004CBFFE: 8B 45 F0           mov         eax,dword ptr [ebp-10h]
+  004CC001: 40                 inc         eax
+  004CC002: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CC005: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  004CC008: 66 3B 87 66 02 00  cmp         ax,word ptr [edi+00000266h]
+            00
+  004CC00F: 0F 82 7B FF FF FF  jb          004CBF90
+  004CC015: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CC018: 33 D2              xor         edx,edx
+  004CC01A: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CC01D: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  004CC020: 66 3B D0           cmp         dx,ax
+  004CC023: 73 5E              jae         004CC083
+  004CC025: 80 7B 0C 00        cmp         byte ptr [ebx+0Ch],0
+  004CC029: 0F 84 C3 00 00 00  je          004CC0F2
+  004CC02F: 0F B7 53 38        movzx       edx,word ptr [ebx+38h]
+  004CC033: 66 3B 53 3A        cmp         dx,word ptr [ebx+3Ah]
+  004CC037: 77 3B              ja          004CC074
+  004CC039: 0F 1F 80 00 00 00  nop         dword ptr [eax+00000000h]
+            00
+  004CC040: 8B C1              mov         eax,ecx
+  004CC042: 41                 inc         ecx
+  004CC043: 3B 87 A8 02 00 00  cmp         eax,dword ptr [edi+000002A8h]
+  004CC049: 73 38              jae         004CC083
+  004CC04B: C6 06 00           mov         byte ptr [esi],0
+  004CC04E: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CC055: 66 8B 03           mov         ax,word ptr [ebx]
+  004CC058: 66 89 56 10        mov         word ptr [esi+10h],dx
+  004CC05C: 42                 inc         edx
+  004CC05D: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CC061: 0F B6 43 02        movzx       eax,byte ptr [ebx+2]
+  004CC065: 89 46 08           mov         dword ptr [esi+8],eax
+  004CC068: 83 C6 20           add         esi,20h
+  004CC06B: 66 3B 53 3A        cmp         dx,word ptr [ebx+3Ah]
+  004CC06F: 76 CF              jbe         004CC040
+  004CC071: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CC074: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004CC077: 42                 inc         edx
+  004CC078: 83 C3 48           add         ebx,48h
+  004CC07B: 89 55 F4           mov         dword ptr [ebp-0Ch],edx
+  004CC07E: 66 3B D0           cmp         dx,ax
+  004CC081: 72 A2              jb          004CC025
+  004CC083: 68 78 D0 6C 00     push        6CD078h
+  004CC088: 8D 5F 20           lea         ebx,[edi+20h]
+  004CC08B: C7 87 B4 02 00 00  mov         dword ptr [edi+000002B4h],0
+            00 00 00 00
+  004CC095: 8D B7 B4 02 00 00  lea         esi,[edi+000002B4h]
+  004CC09B: 53                 push        ebx
+  004CC09C: FF 15 3C 7D 66 00  call        dword ptr ds:[00667D3Ch]
+  004CC0A2: 85 C0              test        eax,eax
+  004CC0A4: 74 12              je          004CC0B8
+  004CC0A6: 56                 push        esi
+  004CC0A7: 83 C0 08           add         eax,8
+  004CC0AA: 68 64 D0 6C 00     push        6CD064h
+  004CC0AF: 50                 push        eax
+  004CC0B0: E8 7B DF FA FF     call        0047A030
+  004CC0B5: 83 C4 0C           add         esp,0Ch
+  004CC0B8: 81 C7 B8 02 00 00  add         edi,2B8h
+  004CC0BE: 68 84 D0 6C 00     push        6CD084h
+  004CC0C3: 53                 push        ebx
+  004CC0C4: C7 07 00 00 00 00  mov         dword ptr [edi],0
+  004CC0CA: FF 15 3C 7D 66 00  call        dword ptr ds:[00667D3Ch]
+  004CC0D0: 5E                 pop         esi
+  004CC0D1: 85 C0              test        eax,eax
+  004CC0D3: 74 12              je          004CC0E7
+  004CC0D5: 57                 push        edi
+  004CC0D6: 83 C0 08           add         eax,8
+  004CC0D9: 68 64 D0 6C 00     push        6CD064h
+  004CC0DE: 50                 push        eax
+  004CC0DF: E8 4C DF FA FF     call        0047A030
+  004CC0E4: 83 C4 0C           add         esp,0Ch
+  004CC0E7: 5B                 pop         ebx
+  004CC0E8: B8 01 00 00 00     mov         eax,1
+  004CC0ED: 5F                 pop         edi
+  004CC0EE: 8B E5              mov         esp,ebp
+  004CC0F0: 5D                 pop         ebp
+  004CC0F1: C3                 ret
+  004CC0F2: 8B C1              mov         eax,ecx
+  004CC0F4: 41                 inc         ecx
+  004CC0F5: 3B 87 A8 02 00 00  cmp         eax,dword ptr [edi+000002A8h]
+  004CC0FB: 73 86              jae         004CC083
+  004CC0FD: C6 06 00           mov         byte ptr [esi],0
+  004CC100: C7 46 04 00 00 11  mov         dword ptr [esi+4],110000h
+            00
+  004CC107: 0F B7 03           movzx       eax,word ptr [ebx]
+  004CC10A: 66 89 46 02        mov         word ptr [esi+2],ax
+  004CC10E: 0F B7 43 38        movzx       eax,word ptr [ebx+38h]
+  004CC112: 66 89 46 10        mov         word ptr [esi+10h],ax
+  004CC116: 0F B6 43 02        movzx       eax,byte ptr [ebx+2]
+  004CC11A: 89 46 08           mov         dword ptr [esi+8],eax
+  004CC11D: 83 C6 20           add         esi,20h
+  004CC120: 8B 45 F8           mov         eax,dword ptr [ebp-8]
+  004CC123: E9 4F FF FF FF     jmp         004CC077
+  004CC128: 5B                 pop         ebx
+  004CC129: 33 C0              xor         eax,eax
+  004CC12B: 5F                 pop         edi
+  004CC12C: 8B E5              mov         esp,ebp
+  004CC12E: 5D                 pop         ebp
+  004CC12F: C3                 ret
+  004CC130: 33 C0              xor         eax,eax
+  004CC132: 5F                 pop         edi
+  004CC133: 8B E5              mov         esp,ebp
+  004CC135: 5D                 pop         ebp
+  004CC136: C3                 ret
+  004CC137: CC                 int         3
+  004CC138: CC                 int         3
+  004CC139: CC                 int         3
+  004CC13A: CC                 int         3
+  004CC13B: CC                 int         3
+  004CC13C: CC                 int         3
+  004CC13D: CC                 int         3
+  004CC13E: CC                 int         3
+  004CC13F: CC                 int         3
+  004CC140: 56                 push        esi
+  004CC141: 8B F1              mov         esi,ecx
+  004CC143: 8B 86 78 02 00 00  mov         eax,dword ptr [esi+00000278h]
+  004CC149: 85 C0              test        eax,eax
+  004CC14B: 74 13              je          004CC160
+  004CC14D: 50                 push        eax
+  004CC14E: E8 2E 5C 14 00     call        00611D81
+  004CC153: 83 C4 04           add         esp,4
+  004CC156: C7 86 78 02 00 00  mov         dword ptr [esi+00000278h],0
+            00 00 00 00
+  004CC160: 83 BE 7C 02 00 00  cmp         dword ptr [esi+0000027Ch],0
+            00
+  004CC167: 53                 push        ebx
+  004CC168: 57                 push        edi
+  004CC169: 74 4E              je          004CC1B9
+  004CC16B: 33 C0              xor         eax,eax
+  004CC16D: 33 DB              xor         ebx,ebx
+  004CC16F: 66 3B 86 5A 02 00  cmp         ax,word ptr [esi+0000025Ah]
+            00
+  004CC176: 73 29              jae         004CC1A1
+  004CC178: 33 FF              xor         edi,edi
+  004CC17A: 66 0F 1F 44 00 00  nop         word ptr [eax+eax]
+  004CC180: 8B 86 7C 02 00 00  mov         eax,dword ptr [esi+0000027Ch]
+  004CC186: FF 74 07 1C        push        dword ptr [edi+eax+1Ch]
+  004CC18A: E8 F2 5B 14 00     call        00611D81
+  004CC18F: 0F B7 86 5A 02 00  movzx       eax,word ptr [esi+0000025Ah]
+            00
+  004CC196: 8D 7F 20           lea         edi,[edi+20h]
+  004CC199: 43                 inc         ebx
+  004CC19A: 83 C4 04           add         esp,4
+  004CC19D: 3B D8              cmp         ebx,eax
+  004CC19F: 7C DF              jl          004CC180
+  004CC1A1: FF B6 7C 02 00 00  push        dword ptr [esi+0000027Ch]
+  004CC1A7: E8 D5 5B 14 00     call        00611D81
+  004CC1AC: 83 C4 04           add         esp,4
+  004CC1AF: C7 86 7C 02 00 00  mov         dword ptr [esi+0000027Ch],0
+            00 00 00 00
+  004CC1B9: 8B 86 84 02 00 00  mov         eax,dword ptr [esi+00000284h]
+  004CC1BF: 85 C0              test        eax,eax
+  004CC1C1: 74 13              je          004CC1D6
+  004CC1C3: 50                 push        eax
+  004CC1C4: E8 B8 5B 14 00     call        00611D81
+  004CC1C9: 83 C4 04           add         esp,4
+  004CC1CC: C7 86 84 02 00 00  mov         dword ptr [esi+00000284h],0
+            00 00 00 00
+  004CC1D6: 8B 86 88 02 00 00  mov         eax,dword ptr [esi+00000288h]
+  004CC1DC: 85 C0              test        eax,eax
+  004CC1DE: 74 13              je          004CC1F3
+  004CC1E0: 50                 push        eax
+  004CC1E1: E8 9B 5B 14 00     call        00611D81
+  004CC1E6: 83 C4 04           add         esp,4
+  004CC1E9: C7 86 88 02 00 00  mov         dword ptr [esi+00000288h],0
+            00 00 00 00
+  004CC1F3: 8B 86 8C 02 00 00  mov         eax,dword ptr [esi+0000028Ch]
+  004CC1F9: 85 C0              test        eax,eax
+  004CC1FB: 74 13              je          004CC210
+  004CC1FD: 50                 push        eax
+  004CC1FE: E8 7E 5B 14 00     call        00611D81
+  004CC203: 83 C4 04           add         esp,4
+  004CC206: C7 86 8C 02 00 00  mov         dword ptr [esi+0000028Ch],0
+            00 00 00 00
+  004CC210: 83 BE 90 02 00 00  cmp         dword ptr [esi+00000290h],0
+            00
+  004CC217: 74 50              je          004CC269
+  004CC219: 33 C0              xor         eax,eax
+  004CC21B: 33 DB              xor         ebx,ebx
+  004CC21D: 66 3B 86 60 02 00  cmp         ax,word ptr [esi+00000260h]
+            00
+  004CC224: 73 2B              jae         004CC251
+  004CC226: 33 FF              xor         edi,edi
+  004CC228: 0F 1F 84 00 00 00  nop         dword ptr [eax+eax+00000000h]
+            00 00
+  004CC230: 8B 86 90 02 00 00  mov         eax,dword ptr [esi+00000290h]
+  004CC236: FF 74 38 1C        push        dword ptr [eax+edi+1Ch]
+  004CC23A: E8 42 5B 14 00     call        00611D81
+  004CC23F: 0F B7 86 60 02 00  movzx       eax,word ptr [esi+00000260h]
+            00
+  004CC246: 8D 7F 20           lea         edi,[edi+20h]
+  004CC249: 43                 inc         ebx
+  004CC24A: 83 C4 04           add         esp,4
+  004CC24D: 3B D8              cmp         ebx,eax
+  004CC24F: 7C DF              jl          004CC230
+  004CC251: FF B6 90 02 00 00  push        dword ptr [esi+00000290h]
+  004CC257: E8 25 5B 14 00     call        00611D81
+  004CC25C: 83 C4 04           add         esp,4
+  004CC25F: C7 86 90 02 00 00  mov         dword ptr [esi+00000290h],0
+            00 00 00 00
+  004CC269: 8B 86 98 02 00 00  mov         eax,dword ptr [esi+00000298h]
+  004CC26F: 85 C0              test        eax,eax
+  004CC271: 74 13              je          004CC286
+  004CC273: 50                 push        eax
+  004CC274: E8 08 5B 14 00     call        00611D81
+  004CC279: 83 C4 04           add         esp,4
+  004CC27C: C7 86 98 02 00 00  mov         dword ptr [esi+00000298h],0
+            00 00 00 00
+  004CC286: 8B 86 9C 02 00 00  mov         eax,dword ptr [esi+0000029Ch]
+  004CC28C: 85 C0              test        eax,eax
+  004CC28E: 74 13              je          004CC2A3
+  004CC290: 50                 push        eax
+  004CC291: E8 EB 5A 14 00     call        00611D81
+  004CC296: 83 C4 04           add         esp,4
+  004CC299: C7 86 9C 02 00 00  mov         dword ptr [esi+0000029Ch],0
+            00 00 00 00
+  004CC2A3: 8B 86 A0 02 00 00  mov         eax,dword ptr [esi+000002A0h]
+  004CC2A9: 85 C0              test        eax,eax
+  004CC2AB: 74 13              je          004CC2C0
+  004CC2AD: 50                 push        eax
+  004CC2AE: E8 CE 5A 14 00     call        00611D81
+  004CC2B3: 83 C4 04           add         esp,4
+  004CC2B6: C7 86 A0 02 00 00  mov         dword ptr [esi+000002A0h],0
+            00 00 00 00
+  004CC2C0: 83 BE A4 02 00 00  cmp         dword ptr [esi+000002A4h],0
+            00
+  004CC2C7: 74 50              je          004CC319
+  004CC2C9: 33 C0              xor         eax,eax
+  004CC2CB: 33 DB              xor         ebx,ebx
+  004CC2CD: 66 3B 86 66 02 00  cmp         ax,word ptr [esi+00000266h]
+            00
+  004CC2D4: 73 2B              jae         004CC301
+  004CC2D6: 33 FF              xor         edi,edi
+  004CC2D8: 0F 1F 84 00 00 00  nop         dword ptr [eax+eax+00000000h]
+            00 00
+  004CC2E0: 8B 86 A4 02 00 00  mov         eax,dword ptr [esi+000002A4h]
+  004CC2E6: FF 74 07 1C        push        dword ptr [edi+eax+1Ch]
+  004CC2EA: E8 92 5A 14 00     call        00611D81
+  004CC2EF: 0F B7 86 66 02 00  movzx       eax,word ptr [esi+00000266h]
+            00
+  004CC2F6: 8D 7F 20           lea         edi,[edi+20h]
+  004CC2F9: 43                 inc         ebx
+  004CC2FA: 83 C4 04           add         esp,4
+  004CC2FD: 3B D8              cmp         ebx,eax
+  004CC2FF: 7C DF              jl          004CC2E0
+
+  Summary
+
+      266000 .text

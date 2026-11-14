@@ -1,0 +1,678 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  004A6220: 55                 push        ebp
+  004A6221: 8B EC              mov         ebp,esp
+  004A6223: 83 EC 18           sub         esp,18h
+  004A6226: 53                 push        ebx
+  004A6227: 56                 push        esi
+  004A6228: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  004A622B: 0F B6 45 0C        movzx       eax,byte ptr [ebp+0Ch]
+  004A622F: 85 C0              test        eax,eax
+  004A6231: 74 71              je          004A62A4
+  004A6233: 0F B6 4D 0C        movzx       ecx,byte ptr [ebp+0Ch]
+  004A6237: 85 C9              test        ecx,ecx
+  004A6239: 74 69              je          004A62A4
+  004A623B: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004A623F: EB 09              jmp         004A624A
+  004A6241: 8A 55 FF           mov         dl,byte ptr [ebp-1]
+  004A6244: 80 C2 01           add         dl,1
+  004A6247: 88 55 FF           mov         byte ptr [ebp-1],dl
+  004A624A: 0F B6 75 FF        movzx       esi,byte ptr [ebp-1]
+  004A624E: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A6251: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6257: E8 D4 7A FA FF     call        0044DD30
+  004A625C: 3B F0              cmp         esi,eax
+  004A625E: 73 44              jae         004A62A4
+  004A6260: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6264: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  004A6267: 81 7D F0 AA 00 00  cmp         dword ptr [ebp-10h],0AAh
+            00
+  004A626E: 73 02              jae         004A6272
+  004A6270: EB 05              jmp         004A6277
+  004A6272: E8 C2 3A 16 00     call        00609D39
+  004A6277: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004A627A: C6 81 E0 62 71 00  mov         byte ptr [ecx+007162E0h],0
+            00
+  004A6281: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6285: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  004A6288: 81 7D EC AA 00 00  cmp         dword ptr [ebp-14h],0AAh
+            00
+  004A628F: 73 02              jae         004A6293
+  004A6291: EB 05              jmp         004A6298
+  004A6293: E8 A1 3A 16 00     call        00609D39
+  004A6298: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  004A629B: C6 80 30 62 71 00  mov         byte ptr [eax+00716230h],0
+            00
+  004A62A2: EB 9D              jmp         004A6241
+  004A62A4: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004A62A8: EB 09              jmp         004A62B3
+  004A62AA: 8A 4D FF           mov         cl,byte ptr [ebp-1]
+  004A62AD: 80 C1 01           add         cl,1
+  004A62B0: 88 4D FF           mov         byte ptr [ebp-1],cl
+  004A62B3: 0F B6 75 FF        movzx       esi,byte ptr [ebp-1]
+  004A62B7: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A62BA: E8 E1 41 FA FF     call        0044A4A0
+  004A62BF: 3B F0              cmp         esi,eax
+  004A62C1: 0F 83 10 02 00 00  jae         004A64D7
+  004A62C7: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A62CB: 52                 push        edx
+  004A62CC: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A62CF: E8 AC 41 FA FF     call        0044A480
+  004A62D4: 0F B6 40 0A        movzx       eax,byte ptr [eax+0Ah]
+  004A62D8: 85 C0              test        eax,eax
+  004A62DA: 75 02              jne         004A62DE
+  004A62DC: EB CC              jmp         004A62AA
+  004A62DE: C6 45 FA 00        mov         byte ptr [ebp-6],0
+  004A62E2: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A62E6: 51                 push        ecx
+  004A62E7: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A62EA: E8 91 41 FA FF     call        0044A480
+  004A62EF: 0F B6 10           movzx       edx,byte ptr [eax]
+  004A62F2: 85 D2              test        edx,edx
+  004A62F4: 0F 85 D8 01 00 00  jne         004A64D2
+  004A62FA: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A62FE: 50                 push        eax
+  004A62FF: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A6302: E8 79 41 FA FF     call        0044A480
+  004A6307: 0F B6 48 04        movzx       ecx,byte ptr [eax+4]
+  004A630B: 85 C9              test        ecx,ecx
+  004A630D: 74 61              je          004A6370
+  004A630F: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6313: 0F B6 82 30 62 71  movzx       eax,byte ptr [edx+00716230h]
+            00
+  004A631A: 6B C8 03           imul        ecx,eax,3
+  004A631D: BA 01 00 00 00     mov         edx,1
+  004A6322: 6B C2 00           imul        eax,edx,0
+  004A6325: 8A 8C 01 18 2C 6B  mov         cl,byte ptr [ecx+eax+006B2C18h]
+            00
+  004A632C: 88 4D FD           mov         byte ptr [ebp-3],cl
+  004A632F: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6333: 0F B6 82 30 62 71  movzx       eax,byte ptr [edx+00716230h]
+            00
+  004A633A: 6B C8 03           imul        ecx,eax,3
+  004A633D: BA 01 00 00 00     mov         edx,1
+  004A6342: C1 E2 00           shl         edx,0
+  004A6345: 8A 84 11 18 2C 6B  mov         al,byte ptr [ecx+edx+006B2C18h]
+            00
+  004A634C: 88 45 FC           mov         byte ptr [ebp-4],al
+  004A634F: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6353: 0F B6 91 30 62 71  movzx       edx,byte ptr [ecx+00716230h]
+            00
+  004A635A: 6B C2 03           imul        eax,edx,3
+  004A635D: B9 01 00 00 00     mov         ecx,1
+  004A6362: D1 E1              shl         ecx,1
+  004A6364: 8A 94 08 18 2C 6B  mov         dl,byte ptr [eax+ecx+006B2C18h]
+            00
+  004A636B: 88 55 FB           mov         byte ptr [ebp-5],dl
+  004A636E: EB 39              jmp         004A63A9
+  004A6370: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6374: 50                 push        eax
+  004A6375: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A6378: E8 03 41 FA FF     call        0044A480
+  004A637D: 8A 48 05           mov         cl,byte ptr [eax+5]
+  004A6380: 88 4D FD           mov         byte ptr [ebp-3],cl
+  004A6383: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6387: 52                 push        edx
+  004A6388: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A638B: E8 F0 40 FA FF     call        0044A480
+  004A6390: 8A 40 06           mov         al,byte ptr [eax+6]
+  004A6393: 88 45 FC           mov         byte ptr [ebp-4],al
+  004A6396: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A639A: 51                 push        ecx
+  004A639B: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A639E: E8 DD 40 FA FF     call        0044A480
+  004A63A3: 8A 50 07           mov         dl,byte ptr [eax+7]
+  004A63A6: 88 55 FB           mov         byte ptr [ebp-5],dl
+  004A63A9: 8A 45 FF           mov         al,byte ptr [ebp-1]
+  004A63AC: 88 45 FE           mov         byte ptr [ebp-2],al
+  004A63AF: 0F B6 75 FF        movzx       esi,byte ptr [ebp-1]
+  004A63B3: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A63B7: 51                 push        ecx
+  004A63B8: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A63BB: E8 C0 40 FA FF     call        0044A480
+  004A63C0: 0F B6 50 02        movzx       edx,byte ptr [eax+2]
+  004A63C4: 0F B6 86 E0 62 71  movzx       eax,byte ptr [esi+007162E0h]
+            00
+  004A63CB: 8D 4C 10 04        lea         ecx,[eax+edx+4]
+  004A63CF: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A63D3: 88 8A E0 62 71 00  mov         byte ptr [edx+007162E0h],cl
+  004A63D9: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A63DD: 0F B6 88 E0 62 71  movzx       ecx,byte ptr [eax+007162E0h]
+            00
+  004A63E4: 81 F9 80 00 00 00  cmp         ecx,80h
+  004A63EA: 7C 56              jl          004A6442
+  004A63EC: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A63F0: 89 55 E8           mov         dword ptr [ebp-18h],edx
+  004A63F3: 81 7D E8 AA 00 00  cmp         dword ptr [ebp-18h],0AAh
+            00
+  004A63FA: 73 02              jae         004A63FE
+  004A63FC: EB 05              jmp         004A6403
+  004A63FE: E8 36 39 16 00     call        00609D39
+  004A6403: 8B 45 E8           mov         eax,dword ptr [ebp-18h]
+  004A6406: C6 80 E0 62 71 00  mov         byte ptr [eax+007162E0h],0
+            00
+  004A640D: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6411: 8A 91 30 62 71 00  mov         dl,byte ptr [ecx+00716230h]
+  004A6417: 80 C2 01           add         dl,1
+  004A641A: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A641E: 88 90 30 62 71 00  mov         byte ptr [eax+00716230h],dl
+  004A6424: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6428: 0F B6 91 30 62 71  movzx       edx,byte ptr [ecx+00716230h]
+            00
+  004A642F: 81 FA C0 00 00 00  cmp         edx,0C0h
+  004A6435: 7E 0B              jle         004A6442
+  004A6437: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A643B: C6 80 30 62 71 00  mov         byte ptr [eax+00716230h],0BFh
+            BF
+  004A6442: 0F B6 4D FE        movzx       ecx,byte ptr [ebp-2]
+  004A6446: 51                 push        ecx
+  004A6447: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A644A: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6450: E8 4B 81 F7 FF     call        0041E5A0
+  004A6455: 8A 55 FD           mov         dl,byte ptr [ebp-3]
+  004A6458: 88 10              mov         byte ptr [eax],dl
+  004A645A: 0F B6 45 FE        movzx       eax,byte ptr [ebp-2]
+  004A645E: 50                 push        eax
+  004A645F: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A6462: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6468: E8 33 81 F7 FF     call        0041E5A0
+  004A646D: 8A 4D FC           mov         cl,byte ptr [ebp-4]
+  004A6470: 88 48 01           mov         byte ptr [eax+1],cl
+  004A6473: 0F B6 55 FE        movzx       edx,byte ptr [ebp-2]
+  004A6477: 52                 push        edx
+  004A6478: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A647B: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6481: E8 1A 81 F7 FF     call        0041E5A0
+  004A6486: 8A 4D FB           mov         cl,byte ptr [ebp-5]
+  004A6489: 88 48 02           mov         byte ptr [eax+2],cl
+  004A648C: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6490: 0F B6 82 E0 62 71  movzx       eax,byte ptr [edx+007162E0h]
+            00
+  004A6497: 0F B6 98 28 31 6B  movzx       ebx,byte ptr [eax+006B3128h]
+            00
+  004A649E: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A64A2: 51                 push        ecx
+  004A64A3: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A64A6: E8 D5 3F FA FF     call        0044A480
+  004A64AB: 0F B6 50 01        movzx       edx,byte ptr [eax+1]
+  004A64AF: 0F B6 82 F8 3D 6B  movzx       eax,byte ptr [edx+006B3DF8h]
+            00
+  004A64B6: 0F AF D8           imul        ebx,eax
+  004A64B9: C1 FB 08           sar         ebx,8
+  004A64BC: 0F B6 4D FE        movzx       ecx,byte ptr [ebp-2]
+  004A64C0: 51                 push        ecx
+  004A64C1: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A64C4: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A64CA: E8 D1 80 F7 FF     call        0041E5A0
+  004A64CF: 88 58 03           mov         byte ptr [eax+3],bl
+  004A64D2: E9 D3 FD FF FF     jmp         004A62AA
+  004A64D7: 5E                 pop         esi
+  004A64D8: 5B                 pop         ebx
+  004A64D9: 8B E5              mov         esp,ebp
+  004A64DB: 5D                 pop         ebp
+  004A64DC: C2 08 00           ret         8
+  004A64DF: CC                 int         3
+  004A64E0: 55                 push        ebp
+  004A64E1: 8B EC              mov         ebp,esp
+  004A64E3: 83 EC 1C           sub         esp,1Ch
+  004A64E6: 56                 push        esi
+  004A64E7: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  004A64EA: 0F B6 45 0C        movzx       eax,byte ptr [ebp+0Ch]
+  004A64EE: 85 C0              test        eax,eax
+  004A64F0: 0F 84 AA 00 00 00  je          004A65A0
+  004A64F6: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004A64FA: EB 09              jmp         004A6505
+  004A64FC: 8A 4D FF           mov         cl,byte ptr [ebp-1]
+  004A64FF: 80 C1 01           add         cl,1
+  004A6502: 88 4D FF           mov         byte ptr [ebp-1],cl
+  004A6505: 0F B6 75 FF        movzx       esi,byte ptr [ebp-1]
+  004A6509: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A650C: E8 8F 3F FA FF     call        0044A4A0
+  004A6511: 3B F0              cmp         esi,eax
+  004A6513: 0F 83 87 00 00 00  jae         004A65A0
+  004A6519: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A651D: C7 04 95 88 5F 71  mov         dword ptr [edx*4+00715F88h],0
+            00 00 00 00 00
+  004A6528: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A652C: 89 45 F0           mov         dword ptr [ebp-10h],eax
+  004A652F: 81 7D F0 AA 00 00  cmp         dword ptr [ebp-10h],0AAh
+            00
+  004A6536: 73 02              jae         004A653A
+  004A6538: EB 05              jmp         004A653F
+  004A653A: E8 FA 37 16 00     call        00609D39
+  004A653F: 8B 4D F0           mov         ecx,dword ptr [ebp-10h]
+  004A6542: C6 81 D8 5E 71 00  mov         byte ptr [ecx+00715ED8h],0
+            00
+  004A6549: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A654D: 89 55 EC           mov         dword ptr [ebp-14h],edx
+  004A6550: 81 7D EC AA 00 00  cmp         dword ptr [ebp-14h],0AAh
+            00
+  004A6557: 73 02              jae         004A655B
+  004A6559: EB 05              jmp         004A6560
+  004A655B: E8 D9 37 16 00     call        00609D39
+  004A6560: 8B 45 EC           mov         eax,dword ptr [ebp-14h]
+  004A6563: C6 80 28 5E 71 00  mov         byte ptr [eax+00715E28h],0
+            00
+  004A656A: B9 0F 00 00 00     mov         ecx,0Fh
+  004A656F: 6B F1 00           imul        esi,ecx,0
+  004A6572: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6576: 52                 push        edx
+  004A6577: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A657A: E8 01 3F FA FF     call        0044A480
+  004A657F: 0F B6 40 02        movzx       eax,byte ptr [eax+2]
+  004A6583: 0F B6 8C 06 18 39  movzx       ecx,byte ptr [esi+eax+006B3918h]
+            6B 00
+  004A658B: D1 E1              shl         ecx,1
+  004A658D: 6B D1 64           imul        edx,ecx,64h
+  004A6590: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6594: 89 14 85 80 5B 71  mov         dword ptr [eax*4+00715B80h],edx
+            00
+  004A659B: E9 5C FF FF FF     jmp         004A64FC
+  004A65A0: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004A65A4: EB 09              jmp         004A65AF
+  004A65A6: 8A 4D FF           mov         cl,byte ptr [ebp-1]
+  004A65A9: 80 C1 01           add         cl,1
+  004A65AC: 88 4D FF           mov         byte ptr [ebp-1],cl
+  004A65AF: 0F B6 75 FF        movzx       esi,byte ptr [ebp-1]
+  004A65B3: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A65B6: E8 E5 3E FA FF     call        0044A4A0
+  004A65BB: 3B F0              cmp         esi,eax
+  004A65BD: 0F 83 64 02 00 00  jae         004A6827
+  004A65C3: FF 15 D0 7B 66 00  call        dword ptr ds:[00667BD0h]
+  004A65C9: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A65CD: 2B 04 95 88 5F 71  sub         eax,dword ptr [edx*4+00715F88h]
+            00
+  004A65D4: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A65D8: 3B 04 8D 80 5B 71  cmp         eax,dword ptr [ecx*4+00715B80h]
+            00
+  004A65DF: 0F 82 88 00 00 00  jb          004A666D
+  004A65E5: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A65E9: 0F B6 82 28 5E 71  movzx       eax,byte ptr [edx+00715E28h]
+            00
+  004A65F0: 85 C0              test        eax,eax
+  004A65F2: 75 09              jne         004A65FD
+  004A65F4: C7 45 E8 01 00 00  mov         dword ptr [ebp-18h],1
+            00
+  004A65FB: EB 07              jmp         004A6604
+  004A65FD: C7 45 E8 00 00 00  mov         dword ptr [ebp-18h],0
+            00
+  004A6604: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6608: 8A 55 E8           mov         dl,byte ptr [ebp-18h]
+  004A660B: 88 91 28 5E 71 00  mov         byte ptr [ecx+00715E28h],dl
+  004A6611: FF 15 D0 7B 66 00  call        dword ptr ds:[00667BD0h]
+  004A6617: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A661B: 89 04 8D 88 5F 71  mov         dword ptr [ecx*4+00715F88h],eax
+            00
+  004A6622: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6626: 0F B6 82 D8 5E 71  movzx       eax,byte ptr [edx+00715ED8h]
+            00
+  004A662D: 83 C0 0E           add         eax,0Eh
+  004A6630: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6634: 88 81 D8 5E 71 00  mov         byte ptr [ecx+00715ED8h],al
+  004A663A: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A663E: 0F B6 82 D8 5E 71  movzx       eax,byte ptr [edx+00715ED8h]
+            00
+  004A6645: 3D C0 00 00 00     cmp         eax,0C0h
+  004A664A: 7C 21              jl          004A666D
+  004A664C: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6650: 89 4D E4           mov         dword ptr [ebp-1Ch],ecx
+  004A6653: 81 7D E4 AA 00 00  cmp         dword ptr [ebp-1Ch],0AAh
+            00
+  004A665A: 73 02              jae         004A665E
+  004A665C: EB 05              jmp         004A6663
+  004A665E: E8 D6 36 16 00     call        00609D39
+  004A6663: 8B 55 E4           mov         edx,dword ptr [ebp-1Ch]
+  004A6666: C6 82 D8 5E 71 00  mov         byte ptr [edx+00715ED8h],0
+            00
+  004A666D: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6671: 50                 push        eax
+  004A6672: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A6675: E8 06 3E FA FF     call        0044A480
+  004A667A: 0F B6 08           movzx       ecx,byte ptr [eax]
+  004A667D: 83 F9 02           cmp         ecx,2
+  004A6680: 74 05              je          004A6687
+  004A6682: E9 1F FF FF FF     jmp         004A65A6
+  004A6687: 8A 55 FF           mov         dl,byte ptr [ebp-1]
+  004A668A: 88 55 FE           mov         byte ptr [ebp-2],dl
+  004A668D: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6691: 0F B6 88 28 5E 71  movzx       ecx,byte ptr [eax+00715E28h]
+            00
+  004A6698: 85 C9              test        ecx,ecx
+  004A669A: 75 60              jne         004A66FC
+  004A669C: 0F B6 55 FE        movzx       edx,byte ptr [ebp-2]
+  004A66A0: 52                 push        edx
+  004A66A1: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A66A4: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A66AA: E8 F1 7E F7 FF     call        0041E5A0
+  004A66AF: C6 00 00           mov         byte ptr [eax],0
+  004A66B2: 0F B6 45 FE        movzx       eax,byte ptr [ebp-2]
+  004A66B6: 50                 push        eax
+  004A66B7: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A66BA: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A66C0: E8 DB 7E F7 FF     call        0041E5A0
+  004A66C5: C6 40 01 00        mov         byte ptr [eax+1],0
+  004A66C9: 0F B6 4D FE        movzx       ecx,byte ptr [ebp-2]
+  004A66CD: 51                 push        ecx
+  004A66CE: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A66D1: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A66D7: E8 C4 7E F7 FF     call        0041E5A0
+  004A66DC: C6 40 02 00        mov         byte ptr [eax+2],0
+  004A66E0: 0F B6 55 FE        movzx       edx,byte ptr [ebp-2]
+  004A66E4: 52                 push        edx
+  004A66E5: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A66E8: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A66EE: E8 AD 7E F7 FF     call        0041E5A0
+  004A66F3: C6 40 03 00        mov         byte ptr [eax+3],0
+  004A66F7: E9 26 01 00 00     jmp         004A6822
+  004A66FC: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6700: 50                 push        eax
+  004A6701: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A6704: E8 77 3D FA FF     call        0044A480
+  004A6709: 0F B6 48 04        movzx       ecx,byte ptr [eax+4]
+  004A670D: 85 C9              test        ecx,ecx
+  004A670F: 74 61              je          004A6772
+  004A6711: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6715: 0F B6 82 D8 5E 71  movzx       eax,byte ptr [edx+00715ED8h]
+            00
+  004A671C: 6B C8 03           imul        ecx,eax,3
+  004A671F: BA 01 00 00 00     mov         edx,1
+  004A6724: 6B C2 00           imul        eax,edx,0
+  004A6727: 8A 8C 01 18 2C 6B  mov         cl,byte ptr [ecx+eax+006B2C18h]
+            00
+  004A672E: 88 4D FD           mov         byte ptr [ebp-3],cl
+  004A6731: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6735: 0F B6 82 D8 5E 71  movzx       eax,byte ptr [edx+00715ED8h]
+            00
+  004A673C: 6B C8 03           imul        ecx,eax,3
+  004A673F: BA 01 00 00 00     mov         edx,1
+  004A6744: C1 E2 00           shl         edx,0
+  004A6747: 8A 84 11 18 2C 6B  mov         al,byte ptr [ecx+edx+006B2C18h]
+            00
+  004A674E: 88 45 FC           mov         byte ptr [ebp-4],al
+  004A6751: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6755: 0F B6 91 D8 5E 71  movzx       edx,byte ptr [ecx+00715ED8h]
+            00
+  004A675C: 6B C2 03           imul        eax,edx,3
+  004A675F: B9 01 00 00 00     mov         ecx,1
+  004A6764: D1 E1              shl         ecx,1
+  004A6766: 8A 94 08 18 2C 6B  mov         dl,byte ptr [eax+ecx+006B2C18h]
+            00
+  004A676D: 88 55 FB           mov         byte ptr [ebp-5],dl
+  004A6770: EB 39              jmp         004A67AB
+  004A6772: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6776: 50                 push        eax
+  004A6777: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A677A: E8 01 3D FA FF     call        0044A480
+  004A677F: 8A 48 05           mov         cl,byte ptr [eax+5]
+  004A6782: 88 4D FD           mov         byte ptr [ebp-3],cl
+  004A6785: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6789: 52                 push        edx
+  004A678A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A678D: E8 EE 3C FA FF     call        0044A480
+  004A6792: 8A 40 06           mov         al,byte ptr [eax+6]
+  004A6795: 88 45 FC           mov         byte ptr [ebp-4],al
+  004A6798: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A679C: 51                 push        ecx
+  004A679D: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A67A0: E8 DB 3C FA FF     call        0044A480
+  004A67A5: 8A 50 07           mov         dl,byte ptr [eax+7]
+  004A67A8: 88 55 FB           mov         byte ptr [ebp-5],dl
+  004A67AB: 0F B6 45 FE        movzx       eax,byte ptr [ebp-2]
+  004A67AF: 50                 push        eax
+  004A67B0: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A67B3: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A67B9: E8 E2 7D F7 FF     call        0041E5A0
+  004A67BE: 8A 4D FD           mov         cl,byte ptr [ebp-3]
+  004A67C1: 88 08              mov         byte ptr [eax],cl
+  004A67C3: 0F B6 55 FE        movzx       edx,byte ptr [ebp-2]
+  004A67C7: 52                 push        edx
+  004A67C8: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A67CB: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A67D1: E8 CA 7D F7 FF     call        0041E5A0
+  004A67D6: 8A 4D FC           mov         cl,byte ptr [ebp-4]
+  004A67D9: 88 48 01           mov         byte ptr [eax+1],cl
+  004A67DC: 0F B6 55 FE        movzx       edx,byte ptr [ebp-2]
+  004A67E0: 52                 push        edx
+  004A67E1: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A67E4: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A67EA: E8 B1 7D F7 FF     call        0041E5A0
+  004A67EF: 8A 4D FB           mov         cl,byte ptr [ebp-5]
+  004A67F2: 88 48 02           mov         byte ptr [eax+2],cl
+  004A67F5: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A67F9: 52                 push        edx
+  004A67FA: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A67FD: E8 7E 3C FA FF     call        0044A480
+  004A6802: 0F B6 70 01        movzx       esi,byte ptr [eax+1]
+  004A6806: 0F B6 45 FE        movzx       eax,byte ptr [ebp-2]
+  004A680A: 50                 push        eax
+  004A680B: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A680E: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6814: E8 87 7D F7 FF     call        0041E5A0
+  004A6819: 8A 8E F8 3D 6B 00  mov         cl,byte ptr [esi+006B3DF8h]
+  004A681F: 88 48 03           mov         byte ptr [eax+3],cl
+  004A6822: E9 7F FD FF FF     jmp         004A65A6
+  004A6827: 5E                 pop         esi
+  004A6828: 8B E5              mov         esp,ebp
+  004A682A: 5D                 pop         ebp
+  004A682B: C2 08 00           ret         8
+  004A682E: CC                 int         3
+  004A682F: CC                 int         3
+  004A6830: 55                 push        ebp
+  004A6831: 8B EC              mov         ebp,esp
+  004A6833: 83 EC 1C           sub         esp,1Ch
+  004A6836: 56                 push        esi
+  004A6837: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  004A683A: 0F B6 45 0C        movzx       eax,byte ptr [ebp+0Ch]
+  004A683E: 85 C0              test        eax,eax
+  004A6840: 0F 84 B6 00 00 00  je          004A68FC
+  004A6846: 0F B6 4D 0C        movzx       ecx,byte ptr [ebp+0Ch]
+  004A684A: 85 C9              test        ecx,ecx
+  004A684C: 0F 84 AA 00 00 00  je          004A68FC
+  004A6852: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004A6856: EB 09              jmp         004A6861
+  004A6858: 8A 55 FF           mov         dl,byte ptr [ebp-1]
+  004A685B: 80 C2 01           add         dl,1
+  004A685E: 88 55 FF           mov         byte ptr [ebp-1],dl
+  004A6861: 0F B6 75 FF        movzx       esi,byte ptr [ebp-1]
+  004A6865: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A6868: E8 33 3C FA FF     call        0044A4A0
+  004A686D: 3B F0              cmp         esi,eax
+  004A686F: 0F 83 87 00 00 00  jae         004A68FC
+  004A6875: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6879: 50                 push        eax
+  004A687A: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A687D: E8 FE 3B FA FF     call        0044A480
+  004A6882: 0F B6 48 0A        movzx       ecx,byte ptr [eax+0Ah]
+  004A6886: 85 C9              test        ecx,ecx
+  004A6888: 75 02              jne         004A688C
+  004A688A: EB CC              jmp         004A6858
+  004A688C: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6890: 89 55 F0           mov         dword ptr [ebp-10h],edx
+  004A6893: 81 7D F0 AA 00 00  cmp         dword ptr [ebp-10h],0AAh
+            00
+  004A689A: 73 02              jae         004A689E
+  004A689C: EB 05              jmp         004A68A3
+  004A689E: E8 96 34 16 00     call        00609D39
+  004A68A3: 8B 45 F0           mov         eax,dword ptr [ebp-10h]
+  004A68A6: C6 80 D0 5A 71 00  mov         byte ptr [eax+00715AD0h],0
+            00
+  004A68AD: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A68B1: 89 4D EC           mov         dword ptr [ebp-14h],ecx
+  004A68B4: 81 7D EC AA 00 00  cmp         dword ptr [ebp-14h],0AAh
+            00
+  004A68BB: 73 02              jae         004A68BF
+  004A68BD: EB 05              jmp         004A68C4
+  004A68BF: E8 75 34 16 00     call        00609D39
+  004A68C4: 8B 55 EC           mov         edx,dword ptr [ebp-14h]
+  004A68C7: C6 82 20 5A 71 00  mov         byte ptr [edx+00715A20h],0
+            00
+  004A68CE: BE 0F 00 00 00     mov         esi,0Fh
+  004A68D3: D1 E6              shl         esi,1
+  004A68D5: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A68D9: 50                 push        eax
+  004A68DA: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A68DD: E8 9E 3B FA FF     call        0044A480
+  004A68E2: 0F B6 48 02        movzx       ecx,byte ptr [eax+2]
+  004A68E6: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A68EA: 8A 84 0E 18 39 6B  mov         al,byte ptr [esi+ecx+006B3918h]
+            00
+  004A68F1: 88 82 70 59 71 00  mov         byte ptr [edx+00715970h],al
+  004A68F7: E9 5C FF FF FF     jmp         004A6858
+  004A68FC: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004A6900: EB 09              jmp         004A690B
+  004A6902: 8A 4D FF           mov         cl,byte ptr [ebp-1]
+  004A6905: 80 C1 01           add         cl,1
+  004A6908: 88 4D FF           mov         byte ptr [ebp-1],cl
+  004A690B: 0F B6 75 FF        movzx       esi,byte ptr [ebp-1]
+  004A690F: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A6912: E8 89 3B FA FF     call        0044A4A0
+  004A6917: 3B F0              cmp         esi,eax
+  004A6919: 0F 83 AF 01 00 00  jae         004A6ACE
+  004A691F: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6923: 52                 push        edx
+  004A6924: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A6927: E8 54 3B FA FF     call        0044A480
+  004A692C: 0F B6 40 0A        movzx       eax,byte ptr [eax+0Ah]
+  004A6930: 85 C0              test        eax,eax
+  004A6932: 75 02              jne         004A6936
+  004A6934: EB CC              jmp         004A6902
+  004A6936: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A693A: 51                 push        ecx
+  004A693B: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A693E: E8 3D 3B FA FF     call        0044A480
+  004A6943: 0F B6 10           movzx       edx,byte ptr [eax]
+  004A6946: 83 FA 03           cmp         edx,3
+  004A6949: 0F 85 7A 01 00 00  jne         004A6AC9
+  004A694F: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6953: 8A 88 20 5A 71 00  mov         cl,byte ptr [eax+00715A20h]
+  004A6959: 80 C1 01           add         cl,1
+  004A695C: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6960: 88 8A 20 5A 71 00  mov         byte ptr [edx+00715A20h],cl
+  004A6966: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A696A: 0F B6 88 20 5A 71  movzx       ecx,byte ptr [eax+00715A20h]
+            00
+  004A6971: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6975: 0F B6 82 70 59 71  movzx       eax,byte ptr [edx+00715970h]
+            00
+  004A697C: 3B C8              cmp         ecx,eax
+  004A697E: 7C 6D              jl          004A69ED
+  004A6980: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6984: 89 4D E8           mov         dword ptr [ebp-18h],ecx
+  004A6987: 81 7D E8 AA 00 00  cmp         dword ptr [ebp-18h],0AAh
+            00
+  004A698E: 73 02              jae         004A6992
+  004A6990: EB 05              jmp         004A6997
+  004A6992: E8 A2 33 16 00     call        00609D39
+  004A6997: 8B 55 E8           mov         edx,dword ptr [ebp-18h]
+  004A699A: C6 82 20 5A 71 00  mov         byte ptr [edx+00715A20h],0
+            00
+  004A69A1: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A69A5: 0F B6 88 D0 5A 71  movzx       ecx,byte ptr [eax+00715AD0h]
+            00
+  004A69AC: 83 C1 01           add         ecx,1
+  004A69AF: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A69B3: 88 8A D0 5A 71 00  mov         byte ptr [edx+00715AD0h],cl
+  004A69B9: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A69BD: 0F B6 88 D0 5A 71  movzx       ecx,byte ptr [eax+00715AD0h]
+            00
+  004A69C4: 81 F9 C0 00 00 00  cmp         ecx,0C0h
+  004A69CA: 7C 21              jl          004A69ED
+  004A69CC: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A69D0: 89 55 E4           mov         dword ptr [ebp-1Ch],edx
+  004A69D3: 81 7D E4 AA 00 00  cmp         dword ptr [ebp-1Ch],0AAh
+            00
+  004A69DA: 73 02              jae         004A69DE
+  004A69DC: EB 05              jmp         004A69E3
+  004A69DE: E8 56 33 16 00     call        00609D39
+  004A69E3: 8B 45 E4           mov         eax,dword ptr [ebp-1Ch]
+  004A69E6: C6 80 D0 5A 71 00  mov         byte ptr [eax+00715AD0h],0
+            00
+  004A69ED: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A69F1: 0F B6 91 D0 5A 71  movzx       edx,byte ptr [ecx+00715AD0h]
+            00
+  004A69F8: 6B C2 03           imul        eax,edx,3
+  004A69FB: B9 01 00 00 00     mov         ecx,1
+  004A6A00: 6B D1 00           imul        edx,ecx,0
+  004A6A03: 8A 84 10 18 2C 6B  mov         al,byte ptr [eax+edx+006B2C18h]
+            00
+  004A6A0A: 88 45 FD           mov         byte ptr [ebp-3],al
+  004A6A0D: 0F B6 4D FF        movzx       ecx,byte ptr [ebp-1]
+  004A6A11: 0F B6 91 D0 5A 71  movzx       edx,byte ptr [ecx+00715AD0h]
+            00
+  004A6A18: 6B C2 03           imul        eax,edx,3
+  004A6A1B: B9 01 00 00 00     mov         ecx,1
+  004A6A20: C1 E1 00           shl         ecx,0
+  004A6A23: 8A 94 08 18 2C 6B  mov         dl,byte ptr [eax+ecx+006B2C18h]
+            00
+  004A6A2A: 88 55 FC           mov         byte ptr [ebp-4],dl
+  004A6A2D: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004A6A31: 0F B6 88 D0 5A 71  movzx       ecx,byte ptr [eax+00715AD0h]
+            00
+  004A6A38: 6B D1 03           imul        edx,ecx,3
+  004A6A3B: B8 01 00 00 00     mov         eax,1
+  004A6A40: D1 E0              shl         eax,1
+  004A6A42: 8A 8C 02 18 2C 6B  mov         cl,byte ptr [edx+eax+006B2C18h]
+            00
+  004A6A49: 88 4D FB           mov         byte ptr [ebp-5],cl
+  004A6A4C: 8A 55 FF           mov         dl,byte ptr [ebp-1]
+  004A6A4F: 88 55 FE           mov         byte ptr [ebp-2],dl
+  004A6A52: 0F B6 45 FE        movzx       eax,byte ptr [ebp-2]
+  004A6A56: 50                 push        eax
+  004A6A57: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A6A5A: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6A60: E8 3B 7B F7 FF     call        0041E5A0
+  004A6A65: 8A 4D FD           mov         cl,byte ptr [ebp-3]
+  004A6A68: 88 08              mov         byte ptr [eax],cl
+  004A6A6A: 0F B6 55 FE        movzx       edx,byte ptr [ebp-2]
+  004A6A6E: 52                 push        edx
+  004A6A6F: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A6A72: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6A78: E8 23 7B F7 FF     call        0041E5A0
+  004A6A7D: 8A 4D FC           mov         cl,byte ptr [ebp-4]
+  004A6A80: 88 48 01           mov         byte ptr [eax+1],cl
+  004A6A83: 0F B6 55 FE        movzx       edx,byte ptr [ebp-2]
+  004A6A87: 52                 push        edx
+  004A6A88: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A6A8B: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6A91: E8 0A 7B F7 FF     call        0041E5A0
+  004A6A96: 8A 4D FB           mov         cl,byte ptr [ebp-5]
+  004A6A99: 88 48 02           mov         byte ptr [eax+2],cl
+  004A6A9C: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004A6AA0: 52                 push        edx
+  004A6AA1: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004A6AA4: E8 D7 39 FA FF     call        0044A480
+  004A6AA9: 0F B6 70 01        movzx       esi,byte ptr [eax+1]
+  004A6AAD: 0F B6 45 FE        movzx       eax,byte ptr [ebp-2]
+  004A6AB1: 50                 push        eax
+  004A6AB2: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004A6AB5: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004A6ABB: E8 E0 7A F7 FF     call        0041E5A0
+  004A6AC0: 8A 8E F8 3D 6B 00  mov         cl,byte ptr [esi+006B3DF8h]
+  004A6AC6: 88 48 03           mov         byte ptr [eax+3],cl
+  004A6AC9: E9 34 FE FF FF     jmp         004A6902
+  004A6ACE: 5E                 pop         esi
+  004A6ACF: 8B E5              mov         esp,ebp
+  004A6AD1: 5D                 pop         ebp
+  004A6AD2: C2 08 00           ret         8
+  004A6AD5: CC                 int         3
+  004A6AD6: CC                 int         3
+  004A6AD7: CC                 int         3
+  004A6AD8: CC                 int         3
+  004A6AD9: CC                 int         3
+  004A6ADA: CC                 int         3
+  004A6ADB: CC                 int         3
+  004A6ADC: CC                 int         3
+  004A6ADD: CC                 int         3
+  004A6ADE: CC                 int         3
+  004A6ADF: CC                 int         3
+  004A6AE0: 55                 push        ebp
+
+  Summary
+
+      266000 .text

@@ -185,7 +185,12 @@ export class Gmk87HidDriver {
    * Always prioritizes verified usagePage 0xFF1C (LCD) and 0xFF60 (VIA) before interface fallbacks.
    */
   public discoverInterfaces(): { lcd: HID.Device | null; via: HID.Device | null } {
-    const devices = HID.devices();
+    let devices: HID.Device[] = [];
+    try {
+      devices = HID.devices();
+    } catch {
+      devices = [];
+    }
     const gmkDevices = devices.filter(
       (d) => d.vendorId === GMK87_VENDOR_ID && d.productId === GMK87_PRODUCT_ID
     );
@@ -395,32 +400,63 @@ export class Gmk87HidDriver {
     return null;
   }
 
-  private async readLcdConfigInternal(device: HID.HID, releaseHint = 0x0104): Promise<Uint8Array> {
+  private async readLcdConfigInternal(device: HID.HID, _releaseHint = 0x0104): Promise<Uint8Array> {
     this.drainDevice(device);
 
-    // ClassA sequence (confirmed by disassembly at 0x49C0F0):
-    // Cmd01 → Cmd05(len=48, pos=0) — NO Cmd03 PREPARE_READ before reads.
-    // The firmware returns config bytes starting at pkt[8] when it acknowledges.
+    // ClassA sequence (confirmed by disassembly at 0x0049C0F0 & 0x00481090):
+    // Cmd01 -> Cmd05(len=0x30 [48], pos=0)
     const initAck = await this.sendWithPosition(device, LcdCommand.INIT, Buffer.alloc(0), 0);
     if (!initAck) {
       throw new Error('GMK87 did not acknowledge INIT (0x01) while reading config');
     }
 
-    // Ask for 48 bytes: data payload = [0x30] = 48, pos = 0
-    const readReq = Buffer.from([0x30]);
-    const resp = await this.sendWithPosition(device, LcdCommand.READ_CONFIG, readReq, 0, 3000);
-    if (!resp || resp.length < 1) {
-      throw new Error('GMK87 did not return config data for READ_CONFIG (0x05)');
+    const pkt05 = buildLcdPacketBytes(LcdCommand.READ_CONFIG, undefined, 0);
+    pkt05[4] = 0x30; // Request 48 bytes in header length field (00481090: pkt[4] = 48)
+    let sum = 0;
+    for (let i = 3; i < 64; i++) sum = (sum + (pkt05[i] & 0xff)) & 0xffff;
+    pkt05[1] = sum & 0xff;
+    pkt05[2] = (sum >> 8) & 0xff;
+
+    await this.safeWrite(device, toNodeBuffer(pkt05));
+
+    const raw48 = new Uint8Array(48);
+    let gotSingleShot = false;
+    const start = Date.now();
+    while (Date.now() - start < 2500) {
+      try {
+        const resp = device.readTimeout(40);
+        if (resp && resp.length >= 8 && resp[3] === LcdCommand.READ_CONFIG) {
+          const payload = Buffer.from(resp).subarray(8, Math.min(resp.length, 8 + 48));
+          if (payload.some((b) => b !== 0)) {
+            raw48.set(payload, 0);
+            gotSingleShot = true;
+          }
+          break;
+        }
+      } catch {
+        break;
+      }
     }
 
-    // Response: resp[0]=len_returned, resp[1..48]=data (sendWithPosition strips the first 4 bytes of raw packet)
-    // Raw packet: [reportId][chk_lo][chk_hi][cmd=0x05][len][pos_lo][pos_hi][pos_hi2][data...]
-    // sendWithPosition returns pkt.subarray(4) → [len, pos_lo, pos_hi, pos_hi2, data[0], data[1], ...]
-    const dataStart = 4; // skip [len, pos_lo, pos_hi, pos_hi2]
-    const raw48 = new Uint8Array(48);
-    if (resp.length > dataStart) {
-      const dataBytes = resp.length - dataStart;
-      raw48.set(Buffer.from(resp).subarray(dataStart, dataStart + Math.min(48, dataBytes)), 0);
+    // Fallback to 4-byte chunked read (00480E70) if firmware did not populate single-shot payload
+    if (!gotSingleShot) {
+      for (let i = 0; i < 9; i++) {
+        await this.sendWithPosition(device, LcdCommand.PREPARE_READ, Buffer.alloc(4, 0), i * 4, 800);
+      }
+      await this.sendWithPosition(device, LcdCommand.PREPARE_READ, Buffer.alloc(1, 0), 36, 800);
+      await this.sendWithPosition(device, LcdCommand.COMMIT, Buffer.alloc(0), 0, 800);
+      for (let i = 0; i < 12; i++) {
+        const chunk = await this.sendWithPosition(
+          device,
+          LcdCommand.READ_CONFIG,
+          Buffer.alloc(4, 0),
+          i * 4,
+          800
+        );
+        if (chunk && chunk.length >= 8) {
+          raw48.set(Buffer.from(chunk).subarray(4, 8), i * 4);
+        }
+      }
     }
 
     this.lastRawConfig = raw48;
@@ -671,7 +707,10 @@ export class Gmk87HidDriver {
     error?: string;
   }> {
     try {
-      const res = await this.writeConfigPatch({ clockTimestampMs: Date.now() }, true);
+      const res = await this.writeConfigPatch(
+        { clockTimestampMs: Date.now(), activeScreenMode: 0 },
+        true
+      );
       return {
         success: true,
         time: res.config.clockIso,
@@ -732,7 +771,9 @@ export class Gmk87HidDriver {
       this.cachedSlotFrames[0] = targetBuffers;
       this.saveSlotCacheToDisk(0, targetBuffers);
 
-      const slot1Suffix = this.cachedSlotFrames[1] || [Buffer.alloc(PADDED_FRAME_BYTES, 0x00)];
+      // Only append cached Slot 1 frames if the user actually uploaded a Slot 1 GIF previously.
+      // Avoiding a dummy 64KB frame cuts 1-frame Slot 0 upload time in half (from 36s to ~18s)!
+      const slot1Suffix = this.cachedSlotFrames[1] || [];
       const maxS1 = Math.max(0, MAX_TOTAL_FRAMES - targetBuffers.length);
       const usableS1 = slot1Suffix.slice(0, maxS1);
       if (usableS1.length > 0 && this.cachedSlotFrames[1]) {
@@ -923,24 +964,38 @@ export class Gmk87HidDriver {
     try {
       const dev = await this.ensureViaOpen(via);
       const viaProtocol = await this.readViaProtocolVersionInternal(dev);
+      this.drainDevice(dev, 12);
       const CHUNK = 28;
       const raw = new Uint8Array(VIA_KEYMAP_BYTES);
 
       for (let offset = 0; offset < VIA_KEYMAP_BYTES; offset += CHUNK) {
         const size = Math.min(CHUNK, VIA_KEYMAP_BYTES - offset);
+        const hi = (offset >> 8) & 0xff;
+        const lo = offset & 0xff;
         const req = Buffer.alloc(33, 0);
         req[0] = 0x00;
         req[1] = 0x12; // DYNAMIC_KEYMAP_GET_BUFFER
-        req[2] = (offset >> 8) & 0xff;
-        req[3] = offset & 0xff;
+        req[2] = hi;
+        req[3] = lo;
         req[4] = size;
 
-        await this.safeWrite(dev, req);
-        const resp = dev.readTimeout(1000);
-        if (!resp || resp[0] !== 0x12) {
+        let matchedResp: number[] | null = null;
+        for (let attempt = 0; attempt < 3 && !matchedResp; attempt++) {
+          await this.safeWrite(dev, req);
+          for (let readTry = 0; readTry < 4; readTry++) {
+            const resp = dev.readTimeout(450);
+            if (!resp || resp.length === 0) break;
+            if (resp[0] === 0x12 && resp[1] === hi && resp[2] === lo) {
+              matchedResp = resp;
+              break;
+            }
+          }
+        }
+
+        if (!matchedResp) {
           throw new Error(`Failed reading keymap chunk at offset ${offset}`);
         }
-        raw.set(Uint8Array.from(resp).subarray(4, 4 + size), offset);
+        raw.set(Uint8Array.from(matchedResp).subarray(4, 4 + size), offset);
       }
 
       return {
@@ -973,6 +1028,7 @@ export class Gmk87HidDriver {
     const { via } = this.discoverInterfaces();
     try {
       const dev = await this.ensureViaOpen(via);
+      this.drainDevice(dev, 6);
       const l = Number(layer) & 0x03;
       const r = Number(row) & 0x07;
       const c = Number(col) & 0x0f;
@@ -1017,7 +1073,7 @@ export class Gmk87HidDriver {
     const { via } = this.discoverInterfaces();
     try {
       const dev = await this.ensureViaOpen(via);
-      this.drainDevice(dev, 8);
+      this.drainDevice(dev, 12);
 
       let appliedCount = 0;
       let lastPacketHex = '';
@@ -1036,9 +1092,19 @@ export class Gmk87HidDriver {
         packet[5] = (k >> 8) & 0xff;
         packet[6] = k & 0xff;
 
-        await this.safeWrite(dev, packet);
-        const resp = dev.readTimeout(800);
-        if (!resp || resp[0] !== 0x05) {
+        let acked = false;
+        for (let attempt = 0; attempt < 2 && !acked; attempt++) {
+          await this.safeWrite(dev, packet);
+          for (let readTry = 0; readTry < 3; readTry++) {
+            const resp = dev.readTimeout(600);
+            if (!resp || resp.length === 0) break;
+            if (resp[0] === 0x05 && resp[1] === l && resp[2] === r && resp[3] === c) {
+              acked = true;
+              break;
+            }
+          }
+        }
+        if (!acked) {
           throw new Error(`VIA batch setKeycode failed at [${l},${r},${c}]`);
         }
         appliedCount++;

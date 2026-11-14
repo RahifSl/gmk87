@@ -1,0 +1,257 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  00402100: 55                 push        ebp
+  00402101: 8B EC              mov         ebp,esp
+  00402103: 68 34 49 6B 00     push        6B4934h
+  00402108: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  0040210E: A3 E0 2C 71 00     mov         dword ptr ds:[00712CE0h],eax
+  00402113: 5D                 pop         ebp
+  00402114: C3                 ret
+  00402115: CC                 int         3
+  00402116: CC                 int         3
+  00402117: CC                 int         3
+  00402118: CC                 int         3
+  00402119: CC                 int         3
+  0040211A: CC                 int         3
+  0040211B: CC                 int         3
+  0040211C: CC                 int         3
+  0040211D: CC                 int         3
+  0040211E: CC                 int         3
+  0040211F: CC                 int         3
+  00402120: 55                 push        ebp
+  00402121: 8B EC              mov         ebp,esp
+  00402123: 68 B0 49 6B 00     push        6B49B0h
+  00402128: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  0040212E: A3 E4 2C 71 00     mov         dword ptr ds:[00712CE4h],eax
+  00402133: 5D                 pop         ebp
+  00402134: C3                 ret
+  00402135: CC                 int         3
+  00402136: CC                 int         3
+  00402137: CC                 int         3
+  00402138: CC                 int         3
+  00402139: CC                 int         3
+  0040213A: CC                 int         3
+  0040213B: CC                 int         3
+  0040213C: CC                 int         3
+  0040213D: CC                 int         3
+  0040213E: CC                 int         3
+  0040213F: CC                 int         3
+  00402140: 55                 push        ebp
+  00402141: 8B EC              mov         ebp,esp
+  00402143: 68 EC 49 6B 00     push        6B49ECh
+  00402148: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  0040214E: A3 E8 2C 71 00     mov         dword ptr ds:[00712CE8h],eax
+  00402153: 5D                 pop         ebp
+  00402154: C3                 ret
+  00402155: CC                 int         3
+  00402156: CC                 int         3
+  00402157: CC                 int         3
+  00402158: CC                 int         3
+  00402159: CC                 int         3
+  0040215A: CC                 int         3
+  0040215B: CC                 int         3
+  0040215C: CC                 int         3
+  0040215D: CC                 int         3
+  0040215E: CC                 int         3
+  0040215F: CC                 int         3
+  00402160: 55                 push        ebp
+  00402161: 8B EC              mov         ebp,esp
+  00402163: 68 24 4A 6B 00     push        6B4A24h
+  00402168: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  0040216E: A3 EC 2C 71 00     mov         dword ptr ds:[00712CECh],eax
+  00402173: 5D                 pop         ebp
+  00402174: C3                 ret
+  00402175: CC                 int         3
+  00402176: CC                 int         3
+  00402177: CC                 int         3
+  00402178: CC                 int         3
+  00402179: CC                 int         3
+  0040217A: CC                 int         3
+  0040217B: CC                 int         3
+  0040217C: CC                 int         3
+  0040217D: CC                 int         3
+  0040217E: CC                 int         3
+  0040217F: CC                 int         3
+  00402180: 55                 push        ebp
+  00402181: 8B EC              mov         ebp,esp
+  00402183: 68 60 4A 6B 00     push        6B4A60h
+  00402188: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  0040218E: A3 F0 2C 71 00     mov         dword ptr ds:[00712CF0h],eax
+  00402193: 5D                 pop         ebp
+  00402194: C3                 ret
+  00402195: CC                 int         3
+  00402196: CC                 int         3
+  00402197: CC                 int         3
+  00402198: CC                 int         3
+  00402199: CC                 int         3
+  0040219A: CC                 int         3
+  0040219B: CC                 int         3
+  0040219C: CC                 int         3
+  0040219D: CC                 int         3
+  0040219E: CC                 int         3
+  0040219F: CC                 int         3
+  004021A0: 55                 push        ebp
+  004021A1: 8B EC              mov         ebp,esp
+  004021A3: 68 98 4A 6B 00     push        6B4A98h
+  004021A8: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  004021AE: A3 F4 2C 71 00     mov         dword ptr ds:[00712CF4h],eax
+  004021B3: 5D                 pop         ebp
+  004021B4: C3                 ret
+  004021B5: CC                 int         3
+  004021B6: CC                 int         3
+  004021B7: CC                 int         3
+  004021B8: CC                 int         3
+  004021B9: CC                 int         3
+  004021BA: CC                 int         3
+  004021BB: CC                 int         3
+  004021BC: CC                 int         3
+  004021BD: CC                 int         3
+  004021BE: CC                 int         3
+  004021BF: CC                 int         3
+  004021C0: 55                 push        ebp
+  004021C1: 8B EC              mov         ebp,esp
+  004021C3: 68 D4 4A 6B 00     push        6B4AD4h
+  004021C8: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  004021CE: A3 F8 2C 71 00     mov         dword ptr ds:[00712CF8h],eax
+  004021D3: 5D                 pop         ebp
+  004021D4: C3                 ret
+  004021D5: CC                 int         3
+  004021D6: CC                 int         3
+  004021D7: CC                 int         3
+  004021D8: CC                 int         3
+  004021D9: CC                 int         3
+  004021DA: CC                 int         3
+  004021DB: CC                 int         3
+  004021DC: CC                 int         3
+  004021DD: CC                 int         3
+  004021DE: CC                 int         3
+  004021DF: CC                 int         3
+  004021E0: 55                 push        ebp
+  004021E1: 8B EC              mov         ebp,esp
+  004021E3: 68 08 4B 6B 00     push        6B4B08h
+  004021E8: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  004021EE: A3 FC 2C 71 00     mov         dword ptr ds:[00712CFCh],eax
+  004021F3: 5D                 pop         ebp
+  004021F4: C3                 ret
+  004021F5: CC                 int         3
+  004021F6: CC                 int         3
+  004021F7: CC                 int         3
+  004021F8: CC                 int         3
+  004021F9: CC                 int         3
+  004021FA: CC                 int         3
+  004021FB: CC                 int         3
+  004021FC: CC                 int         3
+  004021FD: CC                 int         3
+  004021FE: CC                 int         3
+  004021FF: CC                 int         3
+  00402200: 55                 push        ebp
+  00402201: 8B EC              mov         ebp,esp
+  00402203: 68 20 4B 6B 00     push        6B4B20h
+  00402208: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  0040220E: A3 00 2D 71 00     mov         dword ptr ds:[00712D00h],eax
+  00402213: 5D                 pop         ebp
+  00402214: C3                 ret
+  00402215: CC                 int         3
+  00402216: CC                 int         3
+  00402217: CC                 int         3
+  00402218: CC                 int         3
+  00402219: CC                 int         3
+  0040221A: CC                 int         3
+  0040221B: CC                 int         3
+  0040221C: CC                 int         3
+  0040221D: CC                 int         3
+  0040221E: CC                 int         3
+  0040221F: CC                 int         3
+  00402220: 55                 push        ebp
+  00402221: 8B EC              mov         ebp,esp
+  00402223: 68 34 4B 6B 00     push        6B4B34h
+  00402228: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  0040222E: A3 04 2D 71 00     mov         dword ptr ds:[00712D04h],eax
+  00402233: 5D                 pop         ebp
+  00402234: C3                 ret
+  00402235: CC                 int         3
+  00402236: CC                 int         3
+  00402237: CC                 int         3
+  00402238: CC                 int         3
+  00402239: CC                 int         3
+  0040223A: CC                 int         3
+  0040223B: CC                 int         3
+  0040223C: CC                 int         3
+  0040223D: CC                 int         3
+  0040223E: CC                 int         3
+  0040223F: CC                 int         3
+  00402240: 55                 push        ebp
+  00402241: 8B EC              mov         ebp,esp
+  00402243: 68 48 4B 6B 00     push        6B4B48h
+  00402248: FF 15 B4 7E 66 00  call        dword ptr ds:[00667EB4h]
+  0040224E: A3 08 2D 71 00     mov         dword ptr ds:[00712D08h],eax
+  00402253: 5D                 pop         ebp
+  00402254: C3                 ret
+  00402255: CC                 int         3
+  00402256: CC                 int         3
+  00402257: CC                 int         3
+  00402258: CC                 int         3
+  00402259: CC                 int         3
+  0040225A: CC                 int         3
+  0040225B: CC                 int         3
+  0040225C: CC                 int         3
+  0040225D: CC                 int         3
+  0040225E: CC                 int         3
+  0040225F: CC                 int         3
+  00402260: 55                 push        ebp
+  00402261: 8B EC              mov         ebp,esp
+  00402263: 6A FF              push        0FFFFFFFFh
+  00402265: 68 C2 27 65 00     push        6527C2h
+  0040226A: 64 A1 00 00 00 00  mov         eax,dword ptr fs:[00000000h]
+  00402270: 50                 push        eax
+  00402271: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  00402276: 33 C5              xor         eax,ebp
+  00402278: 50                 push        eax
+  00402279: 8D 45 F4           lea         eax,[ebp-0Ch]
+  0040227C: 64 A3 00 00 00 00  mov         dword ptr fs:[00000000h],eax
+  00402282: 6A FF              push        0FFFFFFFFh
+  00402284: 68 60 4B 6B 00     push        6B4B60h
+  00402289: B9 10 2D 71 00     mov         ecx,712D10h
+  0040228E: FF 15 54 71 66 00  call        dword ptr ds:[00667154h]
+  00402294: C7 45 FC 00 00 00  mov         dword ptr [ebp-4],0
+            00
+  0040229B: 6A FF              push        0FFFFFFFFh
+  0040229D: 68 AC 4B 6B 00     push        6B4BACh
+  004022A2: B9 94 2D 71 00     mov         ecx,712D94h
+  004022A7: FF 15 54 71 66 00  call        dword ptr ds:[00667154h]
+  004022AD: C6 45 FC 01        mov         byte ptr [ebp-4],1
+  004022B1: 6A FF              push        0FFFFFFFFh
+  004022B3: 68 D0 4B 6B 00     push        6B4BD0h
+  004022B8: B9 18 2E 71 00     mov         ecx,712E18h
+  004022BD: FF 15 54 71 66 00  call        dword ptr ds:[00667154h]
+  004022C3: C6 45 FC 02        mov         byte ptr [ebp-4],2
+  004022C7: 6A FF              push        0FFFFFFFFh
+  004022C9: 68 F8 4B 6B 00     push        6B4BF8h
+  004022CE: B9 9C 2E 71 00     mov         ecx,712E9Ch
+  004022D3: FF 15 54 71 66 00  call        dword ptr ds:[00667154h]
+  004022D9: C7 05 20 2F 71 00  mov         dword ptr ds:[00712F20h],0
+            00 00 00 00
+  004022E3: C7 05 24 2F 71 00  mov         dword ptr ds:[00712F24h],0
+            00 00 00 00
+  004022ED: C7 05 28 2F 71 00  mov         dword ptr ds:[00712F28h],0
+            00 00 00 00
+  004022F7: C7 05 2C 2F 71 00  mov         dword ptr ds:[00712F2Ch],1
+            01 00 00 00
+  00402301: C7 05 30 2F 71 00  mov         dword ptr ds:[00712F30h],320Fh
+            0F 32 00 00
+  0040230B: C7 05 34 2F 71 00  mov         dword ptr ds:[00712F34h],221Ch
+            1C 22 00 00
+  00402315: C7 05 38 2F 71 00  mov         dword ptr ds:[00712F38h],2
+            02 00 00 00
+  0040231F: C7
+  00402320: 05
+
+  Summary
+
+      266000 .text

@@ -1,0 +1,376 @@
+Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+  004C4FE0: 55                 push        ebp
+  004C4FE1: 8B EC              mov         ebp,esp
+  004C4FE3: 83 EC 3C           sub         esp,3Ch
+  004C4FE6: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004C4FEB: 33 C5              xor         eax,ebp
+  004C4FED: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004C4FF0: 56                 push        esi
+  004C4FF1: 89 4D C8           mov         dword ptr [ebp-38h],ecx
+  004C4FF4: C6 45 CC 00        mov         byte ptr [ebp-34h],0
+  004C4FF8: 6A 2F              push        2Fh
+  004C4FFA: 6A 00              push        0
+  004C4FFC: 8D 45 CD           lea         eax,[ebp-33h]
+  004C4FFF: 50                 push        eax
+  004C5000: E8 6B A1 14 00     call        0060F170
+  004C5005: 83 C4 0C           add         esp,0Ch
+  004C5008: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C500B: C7 81 94 08 00 00  mov         dword ptr [ecx+00000894h],0
+            00 00 00 00
+  004C5015: 8B 55 C8           mov         edx,dword ptr [ebp-38h]
+  004C5018: 81 C2 78 21 00 00  add         edx,2178h
+  004C501E: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  004C5021: 05 C0 1C 00 00     add         eax,1CC0h
+  004C5026: 8B 0A              mov         ecx,dword ptr [edx]
+  004C5028: 89 08              mov         dword ptr [eax],ecx
+  004C502A: 8B 4A 04           mov         ecx,dword ptr [edx+4]
+  004C502D: 89 48 04           mov         dword ptr [eax+4],ecx
+  004C5030: 8B 4A 08           mov         ecx,dword ptr [edx+8]
+  004C5033: 89 48 08           mov         dword ptr [eax+8],ecx
+  004C5036: 8B 4A 0C           mov         ecx,dword ptr [edx+0Ch]
+  004C5039: 89 48 0C           mov         dword ptr [eax+0Ch],ecx
+  004C503C: 8B 4A 10           mov         ecx,dword ptr [edx+10h]
+  004C503F: 89 48 10           mov         dword ptr [eax+10h],ecx
+  004C5042: 8A 52 14           mov         dl,byte ptr [edx+14h]
+  004C5045: 88 50 14           mov         byte ptr [eax+14h],dl
+  004C5048: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C504B: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004C5051: E8 6A 72 F4 FF     call        0040C2C0
+  004C5056: 85 C0              test        eax,eax
+  004C5058: 74 4D              je          004C50A7
+  004C505A: 6A 00              push        0
+  004C505C: 6A 01              push        1
+  004C505E: 8D 45 CC           lea         eax,[ebp-34h]
+  004C5061: 50                 push        eax
+  004C5062: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C5065: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004C506B: E8 20 C0 FB FF     call        00481090
+  004C5070: B9 01 00 00 00     mov         ecx,1
+  004C5075: 6B D1 00           imul        edx,ecx,0
+  004C5078: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  004C507B: 8A 4C 15 CC        mov         cl,byte ptr [ebp+edx-34h]
+  004C507F: 88 88 78 21 00 00  mov         byte ptr [eax+00002178h],cl
+  004C5085: 8B 55 C8           mov         edx,dword ptr [ebp-38h]
+  004C5088: 0F B6 82 78 21 00  movzx       eax,byte ptr [edx+00002178h]
+            00
+  004C508F: 6B C8 31           imul        ecx,eax,31h
+  004C5092: 51                 push        ecx
+  004C5093: 6A 30              push        30h
+  004C5095: 8D 55 CC           lea         edx,[ebp-34h]
+  004C5098: 52                 push        edx
+  004C5099: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C509C: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004C50A2: E8 E9 BF FB FF     call        00481090
+  004C50A7: B8 01 00 00 00     mov         eax,1
+  004C50AC: 6B C8 00           imul        ecx,eax,0
+  004C50AF: 8B 55 C8           mov         edx,dword ptr [ebp-38h]
+  004C50B2: 8A 82 78 21 00 00  mov         al,byte ptr [edx+00002178h]
+  004C50B8: 88 44 0D CC        mov         byte ptr [ebp+ecx-34h],al
+  004C50BC: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C50BF: 0F B6 91 78 21 00  movzx       edx,byte ptr [ecx+00002178h]
+            00
+  004C50C6: 8B 45 08           mov         eax,dword ptr [ebp+8]
+  004C50C9: 89 10              mov         dword ptr [eax],edx
+  004C50CB: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C50CE: 81 C1 78 21 00 00  add         ecx,2178h
+  004C50D4: 8B 55 CC           mov         edx,dword ptr [ebp-34h]
+  004C50D7: 89 11              mov         dword ptr [ecx],edx
+  004C50D9: 8B 45 D0           mov         eax,dword ptr [ebp-30h]
+  004C50DC: 89 41 04           mov         dword ptr [ecx+4],eax
+  004C50DF: 8B 55 D4           mov         edx,dword ptr [ebp-2Ch]
+  004C50E2: 89 51 08           mov         dword ptr [ecx+8],edx
+  004C50E5: 8B 45 D8           mov         eax,dword ptr [ebp-28h]
+  004C50E8: 89 41 0C           mov         dword ptr [ecx+0Ch],eax
+  004C50EB: 8B 55 DC           mov         edx,dword ptr [ebp-24h]
+  004C50EE: 89 51 10           mov         dword ptr [ecx+10h],edx
+  004C50F1: 8A 45 E0           mov         al,byte ptr [ebp-20h]
+  004C50F4: 88 41 14           mov         byte ptr [ecx+14h],al
+  004C50F7: C7 45 C4 00 00 00  mov         dword ptr [ebp-3Ch],0
+            00
+  004C50FE: EB 09              jmp         004C5109
+  004C5100: 8B 4D C4           mov         ecx,dword ptr [ebp-3Ch]
+  004C5103: 83 C1 01           add         ecx,1
+  004C5106: 89 4D C4           mov         dword ptr [ebp-3Ch],ecx
+  004C5109: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C510C: 81 C1 58 1A 00 00  add         ecx,1A58h
+  004C5112: E8 19 8C F8 FF     call        0044DD30
+  004C5117: 39 45 C4           cmp         dword ptr [ebp-3Ch],eax
+  004C511A: 73 30              jae         004C514C
+  004C511C: 8B 55 C8           mov         edx,dword ptr [ebp-38h]
+  004C511F: 0F B6 B2 79 21 00  movzx       esi,byte ptr [edx+00002179h]
+            00
+  004C5126: 8B 45 C4           mov         eax,dword ptr [ebp-3Ch]
+  004C5129: 50                 push        eax
+  004C512A: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C512D: 81 C1 58 1A 00 00  add         ecx,1A58h
+  004C5133: E8 68 94 F5 FF     call        0041E5A0
+  004C5138: 3B 30              cmp         esi,dword ptr [eax]
+  004C513A: 75 0E              jne         004C514A
+  004C513C: 8B 4D C8           mov         ecx,dword ptr [ebp-38h]
+  004C513F: 8A 55 C4           mov         dl,byte ptr [ebp-3Ch]
+  004C5142: 88 91 79 21 00 00  mov         byte ptr [ecx+00002179h],dl
+  004C5148: EB 02              jmp         004C514C
+  004C514A: EB B4              jmp         004C5100
+  004C514C: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  004C514F: 0F B6 88 7B 21 00  movzx       ecx,byte ptr [eax+0000217Bh]
+            00
+  004C5156: BA 04 00 00 00     mov         edx,4
+  004C515B: 2B D1              sub         edx,ecx
+  004C515D: 8B 45 C8           mov         eax,dword ptr [ebp-38h]
+  004C5160: 88 90 7B 21 00 00  mov         byte ptr [eax+0000217Bh],dl
+  004C5166: B8 01 00 00 00     mov         eax,1
+  004C516B: 5E                 pop         esi
+  004C516C: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004C516F: 33 CD              xor         ecx,ebp
+  004C5171: E8 5F 44 14 00     call        006095D5
+  004C5176: 8B E5              mov         esp,ebp
+  004C5178: 5D                 pop         ebp
+  004C5179: C2 08 00           ret         8
+  004C517C: CC                 int         3
+  004C517D: CC                 int         3
+  004C517E: CC                 int         3
+  004C517F: CC                 int         3
+  004C5180: 55                 push        ebp
+  004C5181: 8B EC              mov         ebp,esp
+  004C5183: 83 EC 50           sub         esp,50h
+  004C5186: A1 64 2F 70 00     mov         eax,dword ptr ds:[00702F64h]
+  004C518B: 33 C5              xor         eax,ebp
+  004C518D: 89 45 FC           mov         dword ptr [ebp-4],eax
+  004C5190: 89 4D B4           mov         dword ptr [ebp-4Ch],ecx
+  004C5193: C6 45 C8 00        mov         byte ptr [ebp-38h],0
+  004C5197: 6A 30              push        30h
+  004C5199: 6A 00              push        0
+  004C519B: 8D 45 C9           lea         eax,[ebp-37h]
+  004C519E: 50                 push        eax
+  004C519F: E8 CC 9F 14 00     call        0060F170
+  004C51A4: 83 C4 0C           add         esp,0Ch
+  004C51A7: C7 45 B0 00 00 00  mov         dword ptr [ebp-50h],0
+            00
+  004C51AE: 8D 4D B8           lea         ecx,[ebp-48h]
+  004C51B1: 51                 push        ecx
+  004C51B2: 8B 4D B4           mov         ecx,dword ptr [ebp-4Ch]
+  004C51B5: 81 C1 00 1D 00 00  add         ecx,1D00h
+  004C51BB: E8 20 27 F8 FF     call        004478E0
+  004C51C0: 8A 55 B8           mov         dl,byte ptr [ebp-48h]
+  004C51C3: 88 55 B8           mov         byte ptr [ebp-48h],dl
+  004C51C6: 0F B6 45 B8        movzx       eax,byte ptr [ebp-48h]
+  004C51CA: 83 F8 09           cmp         eax,9
+  004C51CD: 7C 04              jl          004C51D3
+  004C51CF: C6 45 B8 00        mov         byte ptr [ebp-48h],0
+  004C51D3: 8B 4D B4           mov         ecx,dword ptr [ebp-4Ch]
+  004C51D6: 0F B6 91 79 21 00  movzx       edx,byte ptr [ecx+00002179h]
+            00
+  004C51DD: 52                 push        edx
+  004C51DE: 8B 4D B4           mov         ecx,dword ptr [ebp-4Ch]
+  004C51E1: 81 C1 58 1A 00 00  add         ecx,1A58h
+  004C51E7: E8 B4 93 F5 FF     call        0041E5A0
+  004C51EC: 8B 4D B4           mov         ecx,dword ptr [ebp-4Ch]
+  004C51EF: 8A 10              mov         dl,byte ptr [eax]
+  004C51F1: 88 91 79 21 00 00  mov         byte ptr [ecx+00002179h],dl
+  004C51F7: 8B 45 B4           mov         eax,dword ptr [ebp-4Ch]
+  004C51FA: 0F B6 88 7B 21 00  movzx       ecx,byte ptr [eax+0000217Bh]
+            00
+  004C5201: BA 04 00 00 00     mov         edx,4
+  004C5206: 2B D1              sub         edx,ecx
+  004C5208: 8B 45 B4           mov         eax,dword ptr [ebp-4Ch]
+  004C520B: 88 90 7B 21 00 00  mov         byte ptr [eax+0000217Bh],dl
+  004C5211: 8B 4D B4           mov         ecx,dword ptr [ebp-4Ch]
+  004C5214: 81 C1 78 21 00 00  add         ecx,2178h
+  004C521A: BA 01 00 00 00     mov         edx,1
+  004C521F: 6B C2 00           imul        eax,edx,0
+  004C5222: 8D 54 05 C8        lea         edx,[ebp+eax-38h]
+  004C5226: 8B 01              mov         eax,dword ptr [ecx]
+  004C5228: 89 02              mov         dword ptr [edx],eax
+  004C522A: 8B 41 04           mov         eax,dword ptr [ecx+4]
+  004C522D: 89 42 04           mov         dword ptr [edx+4],eax
+  004C5230: 8B 41 08           mov         eax,dword ptr [ecx+8]
+  004C5233: 89 42 08           mov         dword ptr [edx+8],eax
+  004C5236: 8B 41 0C           mov         eax,dword ptr [ecx+0Ch]
+  004C5239: 89 42 0C           mov         dword ptr [edx+0Ch],eax
+  004C523C: 8B 41 10           mov         eax,dword ptr [ecx+10h]
+  004C523F: 89 42 10           mov         dword ptr [edx+10h],eax
+  004C5242: 8A 49 14           mov         cl,byte ptr [ecx+14h]
+  004C5245: 88 4A 14           mov         byte ptr [edx+14h],cl
+  004C5248: 8B 55 B4           mov         edx,dword ptr [ebp-4Ch]
+  004C524B: 0F B6 82 7B 21 00  movzx       eax,byte ptr [edx+0000217Bh]
+            00
+  004C5252: B9 04 00 00 00     mov         ecx,4
+  004C5257: 2B C8              sub         ecx,eax
+  004C5259: 8B 55 B4           mov         edx,dword ptr [ebp-4Ch]
+  004C525C: 88 8A 7B 21 00 00  mov         byte ptr [edx+0000217Bh],cl
+  004C5262: 8B 45 B4           mov         eax,dword ptr [ebp-4Ch]
+  004C5265: 83 B8 90 08 00 00  cmp         dword ptr [eax+00000890h],0
+            00
+  004C526C: 74 0E              je          004C527C
+  004C526E: 8B 4D B4           mov         ecx,dword ptr [ebp-4Ch]
+  004C5271: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004C5277: E8 94 96 FB FF     call        0047E910
+  004C527C: 8B 4D 08           mov         ecx,dword ptr [ebp+8]
+  004C527F: C1 E1 06           shl         ecx,6
+  004C5282: 51                 push        ecx
+  004C5283: 6A 15              push        15h
+  004C5285: BA 01 00 00 00     mov         edx,1
+  004C528A: 6B C2 00           imul        eax,edx,0
+  004C528D: 8D 4C 05 C8        lea         ecx,[ebp+eax-38h]
+  004C5291: 51                 push        ecx
+  004C5292: 8B 4D B4           mov         ecx,dword ptr [ebp-4Ch]
+  004C5295: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004C529B: E8 50 B9 FB FF     call        00480BF0
+  004C52A0: 6A 01              push        1
+  004C52A2: 8B 4D B4           mov         ecx,dword ptr [ebp-4Ch]
+  004C52A5: 81 C1 7C 08 00 00  add         ecx,87Ch
+  004C52AB: E8 70 98 FB FF     call        0047EB20
+  004C52B0: B8 01 00 00 00     mov         eax,1
+  004C52B5: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004C52B8: 33 CD              xor         ecx,ebp
+  004C52BA: E8 16 43 14 00     call        006095D5
+  004C52BF: 8B E5              mov         esp,ebp
+  004C52C1: 5D                 pop         ebp
+  004C52C2: C2 14 00           ret         14h
+  004C52C5: CC                 int         3
+  004C52C6: CC                 int         3
+  004C52C7: CC                 int         3
+  004C52C8: CC                 int         3
+  004C52C9: CC                 int         3
+  004C52CA: CC                 int         3
+  004C52CB: CC                 int         3
+  004C52CC: CC                 int         3
+  004C52CD: CC                 int         3
+  004C52CE: CC                 int         3
+  004C52CF: CC                 int         3
+  004C52D0: 55                 push        ebp
+  004C52D1: 8B EC              mov         ebp,esp
+  004C52D3: 51                 push        ecx
+  004C52D4: 89 4D FC           mov         dword ptr [ebp-4],ecx
+  004C52D7: 8B 4D FC           mov         ecx,dword ptr [ebp-4]
+  004C52DA: E8 F1 4C 00 00     call        004C9FD0
+  004C52DF: 8B E5              mov         esp,ebp
+  004C52E1: 5D                 pop         ebp
+  004C52E2: C3                 ret
+  004C52E3: CC                 int         3
+  004C52E4: CC                 int         3
+  004C52E5: CC                 int         3
+  004C52E6: CC                 int         3
+  004C52E7: CC                 int         3
+  004C52E8: CC                 int         3
+  004C52E9: CC                 int         3
+  004C52EA: CC                 int         3
+  004C52EB: CC                 int         3
+  004C52EC: CC                 int         3
+  004C52ED: CC                 int         3
+  004C52EE: CC                 int         3
+  004C52EF: CC                 int         3
+  004C52F0: 55                 push        ebp
+  004C52F1: 8B EC              mov         ebp,esp
+  004C52F3: 83 EC 0C           sub         esp,0Ch
+  004C52F6: 56                 push        esi
+  004C52F7: 89 4D F4           mov         dword ptr [ebp-0Ch],ecx
+  004C52FA: C6 45 FF 00        mov         byte ptr [ebp-1],0
+  004C52FE: 8B 45 F4           mov         eax,dword ptr [ebp-0Ch]
+  004C5301: 0F B6 88 E8 17 00  movzx       ecx,byte ptr [eax+000017E8h]
+            00
+  004C5308: 85 C9              test        ecx,ecx
+  004C530A: 0F 84 59 01 00 00  je          004C5469
+  004C5310: 6A 01              push        1
+  004C5312: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004C5315: 0F B6 82 A8 18 00  movzx       eax,byte ptr [edx+000018A8h]
+            00
+  004C531C: 50                 push        eax
+  004C531D: 68 C0 00 00 00     push        0C0h
+  004C5322: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C5325: 0F B6 91 E7 17 00  movzx       edx,byte ptr [ecx+000017E7h]
+            00
+  004C532C: 52                 push        edx
+  004C532D: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C5330: E8 2B 55 00 00     call        004CA860
+  004C5335: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C5338: 88 81 A8 18 00 00  mov         byte ptr [ecx+000018A8h],al
+  004C533E: 8B 55 F4           mov         edx,dword ptr [ebp-0Ch]
+  004C5341: 0F B6 82 A8 18 00  movzx       eax,byte ptr [edx+000018A8h]
+            00
+  004C5348: 83 C0 01           add         eax,1
+  004C534B: 88 45 FF           mov         byte ptr [ebp-1],al
+  004C534E: C6 45 FE 00        mov         byte ptr [ebp-2],0
+  004C5352: EB 09              jmp         004C535D
+  004C5354: 8A 4D FE           mov         cl,byte ptr [ebp-2]
+  004C5357: 80 C1 01           add         cl,1
+  004C535A: 88 4D FE           mov         byte ptr [ebp-2],cl
+  004C535D: 0F B6 75 FE        movzx       esi,byte ptr [ebp-2]
+  004C5361: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C5364: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004C536A: E8 C1 89 F8 FF     call        0044DD30
+  004C536F: 3B F0              cmp         esi,eax
+  004C5371: 0F 83 ED 00 00 00  jae         004C5464
+  004C5377: 8A 55 FE           mov         dl,byte ptr [ebp-2]
+  004C537A: 88 55 FD           mov         byte ptr [ebp-3],dl
+  004C537D: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004C5381: 6B C8 03           imul        ecx,eax,3
+  004C5384: BA 01 00 00 00     mov         edx,1
+  004C5389: 6B C2 00           imul        eax,edx,0
+  004C538C: 8A 8C 01 18 2C 6B  mov         cl,byte ptr [ecx+eax+006B2C18h]
+            00
+  004C5393: 88 4D FC           mov         byte ptr [ebp-4],cl
+  004C5396: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004C539A: 6B C2 03           imul        eax,edx,3
+  004C539D: B9 01 00 00 00     mov         ecx,1
+  004C53A2: C1 E1 00           shl         ecx,0
+  004C53A5: 8A 94 08 18 2C 6B  mov         dl,byte ptr [eax+ecx+006B2C18h]
+            00
+  004C53AC: 88 55 FB           mov         byte ptr [ebp-5],dl
+  004C53AF: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004C53B3: 6B C8 03           imul        ecx,eax,3
+  004C53B6: BA 01 00 00 00     mov         edx,1
+  004C53BB: D1 E2              shl         edx,1
+  004C53BD: 8A 84 11 18 2C 6B  mov         al,byte ptr [ecx+edx+006B2C18h]
+            00
+  004C53C4: 88 45 FA           mov         byte ptr [ebp-6],al
+  004C53C7: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C53CA: 0F B6 91 E5 17 00  movzx       edx,byte ptr [ecx+000017E5h]
+            00
+  004C53D1: 8A 82 F8 3D 6B 00  mov         al,byte ptr [edx+006B3DF8h]
+  004C53D7: 88 45 F9           mov         byte ptr [ebp-7],al
+  004C53DA: 0F B6 4D FD        movzx       ecx,byte ptr [ebp-3]
+  004C53DE: 51                 push        ecx
+  004C53DF: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C53E2: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004C53E8: E8 B3 91 F5 FF     call        0041E5A0
+  004C53ED: 8A 55 FC           mov         dl,byte ptr [ebp-4]
+  004C53F0: 88 10              mov         byte ptr [eax],dl
+  004C53F2: 0F B6 45 FD        movzx       eax,byte ptr [ebp-3]
+  004C53F6: 50                 push        eax
+  004C53F7: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C53FA: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004C5400: E8 9B 91 F5 FF     call        0041E5A0
+  004C5405: 8A 4D FB           mov         cl,byte ptr [ebp-5]
+  004C5408: 88 48 01           mov         byte ptr [eax+1],cl
+  004C540B: 0F B6 55 FD        movzx       edx,byte ptr [ebp-3]
+  004C540F: 52                 push        edx
+  004C5410: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C5413: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004C5419: E8 82 91 F5 FF     call        0041E5A0
+  004C541E: 8A 4D FA           mov         cl,byte ptr [ebp-6]
+  004C5421: 88 48 02           mov         byte ptr [eax+2],cl
+  004C5424: 0F B6 55 FD        movzx       edx,byte ptr [ebp-3]
+  004C5428: 52                 push        edx
+  004C5429: 8B 4D F4           mov         ecx,dword ptr [ebp-0Ch]
+  004C542C: 81 C1 D8 17 00 00  add         ecx,17D8h
+  004C5432: E8 69 91 F5 FF     call        0041E5A0
+  004C5437: 8A 4D F9           mov         cl,byte ptr [ebp-7]
+  004C543A: 88 48 03           mov         byte ptr [eax+3],cl
+  004C543D: 0F B6 55 FF        movzx       edx,byte ptr [ebp-1]
+  004C5441: 83 C2 07           add         edx,7
+  004C5444: 88 55 FF           mov         byte ptr [ebp-1],dl
+  004C5447: 0F B6 45 FF        movzx       eax,byte ptr [ebp-1]
+  004C544B: 3D C0 00 00 00     cmp         eax,0C0h
+  004C5450: 7C
+
+  Summary
+
+      266000 .text

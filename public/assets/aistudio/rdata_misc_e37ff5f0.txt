@@ -1,0 +1,110 @@
+﻿Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+RAW DATA #2
+  006B5040: 2E 00 30 00 00 00 00 00 00 00 00 00 00 00 00 00  ..0.............
+  006B5050: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  006B5060: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+  006B5070: 00 00 00 00 00 00 00 00 00 00 00 00 BF 7E 0B 7A  ............�~.z
+  006B5080: BE 8B 9A 5B 4B 6D D5 8B 00 90 FA 51 00 00 00 00  �..[Km�...�Q....
+  006B5090: BF 7E 0B 7A BE 8B 9A 5B 4B 6D D5 8B 00 00 00 00  �~.z�..[Km�.....
+  006B50A0: 73 00 68 00 65 00 6C 00 6C 00 33 00 32 00 2E 00  s.h.e.l.l.3.2...
+  006B50B0: 64 00 6C 00 6C 00 2C 00 43 00 6F 00 6E 00 74 00  d.l.l.,.C.o.n.t.
+  006B50C0: 72 00 6F 00 6C 00 5F 00 52 00 75 00 6E 00 44 00  r.o.l._.R.u.n.D.
+  006B50D0: 4C 00 4C 00 20 00 6D 00 61 00 69 00 6E 00 2E 00  L.L. .m.a.i.n...
+  006B50E0: 63                                               c
+
+  Summary
+
+       9B000 .rdata
+Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+RAW DATA #2
+  006B3DF0: 00 00 00 00 00 00 00 00 1E 50 87 C3 FF 00 00 00  .........P.��...
+  006B3E00: 53 74 61 67 65 44 50 49 73 00 00 00 53 74 61 67  StageDPIs...Stag
+  006B3E10: 65 41 63 74 69 76 65 00 44 50 49 53 74 61 67 65  eActive.DPIStage
+  006B3E20: 73                                               s
+
+  Summary
+
+       9B000 .rdata
+Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+RAW DATA #2
+  006C5420: 74 49 6E 66 6F 00 00 00 4D 61 63 72 6F 49 6E 66  tInfo...MacroInf
+  006C5430: 6F 00 00 00 4C 69 67 68 74 4E 61 6D 65 00 00 00  o...LightName...
+  006C5440: 4D 61 63 72 6F 49 6E 66 6F 00 00 00 4D 61 63 72  MacroInfo...Macr
+  006C5450: 6F 49 6E 66 6F 00 00 00 2E 00 6D 00 61 00 63 00  oInfo.....m.a.c.
+  006C5460: 00 00 00 00 47 75 69 64 00 00 00 00 4D 61 63 72  ....Guid....Macr
+  006C5470: 6F 49 6E 66 6F 00 00 00 45 76 65 6E 74 73 00 00  oInfo...Events..
+  006C5480: 2E 00 6D 00 61 00 63 00 00 00 00 00 47 75 69 64  ..m.a.c.....Guid
+  006C5490: 00 00 00 00 45 76 65 6E 74 73 00 00 45 76 65 6E  ....Events..Even
+  006C54A0: 74 73 00 00 BF 7E 0B 7A 00 90 FA 51 1A FF 1A FF  ts..�~.z..�Q.�.�
+  006C54B0: F9 5B 61 8C 04 59 8E 4E 5E 97 C0 6F D1 53 B6 72  �[a..Y.N^.�o�S�r
+  006C54C0: 01 60 0C FF 85 8D F6 65 0A 00 00 00 BF 7E 0B 7A  .`.�..�e....�~.z
+  006C54D0: 00 90 FA 51 1A FF 1A FF F9 5B 61 8C 04 59 8E 4E  ..�Q.�.��[a..Y.N
+  006C54E0: C0                                               �
+
+  Summary
+
+       9B000 .rdata
+Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+RAW DATA #2
+  006B2C10: FF FF 1F 5E FF FF FF FF FF 01 00 FF 03 00 FF 05  ��.^�����..�..�.
+  006B2C20: 00 FF 07 00 FF 0A 00 FF 0E 00 FF 12 00 FF 16 00  .�..�..�..�..�..
+  006B2C30: FF 1A 00 FF 20 00 FF 26 00 FF 2C 00 FF 32 00 FF  �..� .�&.�,.�2.�
+  006B2C40: 39 00 FF 41 00 FF 49 00 FF 51 00 FF 59 00 FF 63  9.�A.�I.�Q.�Y.�c
+  006B2C50: 00 FF 6D 00 FF 77 00 FF 81 00 FF 8C 00 FF 98 00  .�m.�w.�..�..�..
+  006B2C60: FF A4 00 FF B0 00 FF BC 00 FF C8 00 FF D5 00 FF  ��.��.��.��.��.�
+  006B2C70: E3 00 FF F1 00 FF FF 00 F8 FF 00 EA FF 00 DC FF  �.��.��.��.��.��
+  006B2C80: 00 CE FF 00 C2 FF 00 B6 FF 00 AA FF 00 9E FF 00  .��.��.��.��..�.
+  006B2C90: 92                                               .
+
+  Summary
+
+       9B000 .rdata
+Microsoft (R) COFF/PE Dumper Version 14.51.36260.0
+Copyright (C) Microsoft Corporation.  All rights reserved.
+
+
+Dump of file C:\Program Files (x86)\Image Custom Tool\Image Custom Tool.exe
+
+File Type: EXECUTABLE IMAGE
+
+RAW DATA #2
+  006C3FE0: 6C 00 6F 00 61 00 64 00 69 00 6E 00 67 00 5F 00  l.o.a.d.i.n.g._.
+  006C3FF0: 74 00 69 00 70 00 00 00 20 00 00 00 00 00 00 00  t.i.p... .......
+  006C4000: 29 00 00 00 20 00 00 00 00 00 00 00 3A 00 00 00  )... .......:...
+  006C4010: 20 00 00 00 00 00 00 00 3B 00 00 00 20 00 00 00   .......;... ...
+  006C4020: 00 00 00 00 3C 00 00 00 20 00 00 00 00 00 00 00  ....<... .......
+  006C4030: 3D 00 00 00 20 00 00 00 00 00 00 00 3E 00 00 00  =... .......>...
+  006C4040: 20 00 00 00 00 00 00 00 3F 00 00 00 20 00 00 00   .......?... ...
+  006C4050: 00                                               .
+
+  Summary
+
+       9B000 .rdata

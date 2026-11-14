@@ -19,8 +19,16 @@ import {
   Tv,
   Binary,
   Mic,
-  Play,
-  Square,
+  Sun,
+  Flame,
+  Search,
+  RotateCcw,
+  Upload,
+  Download,
+  Eye,
+  SlidersHorizontal,
+  ChevronRight,
+  Layers,
 } from 'lucide-react';
 import {
   Gmk87ConfigState,
@@ -28,7 +36,7 @@ import {
   LCD_HEIGHT,
   serializeConfigBuffer,
 } from '../services/gmk87Hid';
-import { GMK87_PHYSICAL_KEYS } from '../data/gmk87KeymapData';
+import { GMK87_PHYSICAL_KEYS, KeyDefinition } from '../data/gmk87KeymapData';
 import {
   GMK87_ALL_19_RGB_MODES,
   CURATED_RGB_PRESETS,
@@ -37,7 +45,6 @@ import {
   GMK87_LOGO_COLORS,
   RgbEffectCategory,
   RgbColorwayPreset,
-  FnLightingShortcutItem,
   KeyRippleEvent,
   computePerKeyShader,
   computeChassisUnderglowVisuals,
@@ -66,9 +73,12 @@ export interface SavedUserRgbScene {
   b: number;
   linkedLcdAnim: ProceduralAnimId;
   createdAt: string;
+  customBacklightMap?: Record<string, string>;
 }
 
+type StudioViewTab = 'effects' | 'backlight-editor' | 'reactive' | 'presets' | 'diagnostics';
 type ReactiveEngineMode = 'off' | 'audio' | 'thermal' | 'wpm' | 'cycle' | 'schedule';
+type BacklightPresetZone = 'all' | 'wasd' | 'arrows' | 'alphas' | 'modifiers' | 'f-row' | 'nav';
 
 interface RgbUnderglowStudioProps {
   configState: Gmk87ConfigState;
@@ -89,36 +99,21 @@ interface RgbUnderglowStudioProps {
 }
 
 const STORAGE_KEY_SCENES = 'gmk87_saved_rgb_scenes_v1';
+const STORAGE_KEY_BACKLIGHT = 'gmk87_custom_backlight_editor_v1';
 
-const DEFAULT_SAVED_SCENES: SavedUserRgbScene[] = [
-  {
-    id: 'user_night_city',
-    name: 'My Night City Setup',
-    effect: 1,
-    brightness: 4,
-    speed: 3,
-    effectDirection: 0,
-    rainbowMode: 0,
-    r: 6,
-    g: 182,
-    b: 212,
-    linkedLcdAnim: 'sandevistan-cyber',
-    createdAt: 'Preset',
-  },
-  {
-    id: 'user_stealth_code',
-    name: 'Late Night Coding',
-    effect: 6,
-    brightness: 3,
-    speed: 2,
-    effectDirection: 0,
-    rainbowMode: 0,
-    r: 139,
-    g: 92,
-    b: 246,
-    linkedLcdAnim: 'lofi-rain',
-    createdAt: 'Preset',
-  },
+const COLOR_PALETTE_SWATCHES = [
+  { name: 'Cyan Neon', hex: '#06B6D4', r: 6, g: 182, b: 212 },
+  { name: 'Violet', hex: '#8B5CF6', r: 139, g: 92, b: 246 },
+  { name: 'Hot Pink', hex: '#EC4899', r: 236, g: 72, b: 153 },
+  { name: 'Matrix Emerald', hex: '#10B981', r: 16, g: 185, b: 129 },
+  { name: 'Amber Gold', hex: '#F59E0B', r: 245, g: 158, b: 11 },
+  { name: 'Crimson', hex: '#EF4444', r: 239, g: 68, b: 68 },
+  { name: 'Glacier Blue', hex: '#38BDF8', r: 56, g: 189, b: 248 },
+  { name: 'Lime Electric', hex: '#84CC16', r: 132, g: 204, b: 22 },
+  { name: 'Pure White', hex: '#F8FAFC', r: 248, g: 250, b: 252 },
+  { name: 'Warm White', hex: '#FEF08A', r: 254, g: 240, b: 138 },
+  { name: 'Deep Purple', hex: '#6366F1', r: 99, g: 102, b: 241 },
+  { name: 'Black (Off)', hex: '#000000', r: 0, g: 0, b: 0 },
 ];
 
 export default function RgbUnderglowStudio({
@@ -134,17 +129,34 @@ export default function RgbUnderglowStudio({
   targetSlot,
   onStatusLog,
 }: RgbUnderglowStudioProps) {
-  // Animation clock for 60 FPS per-key & 360-degree underglow visualizer
+  // Navigation sub-tabs within RGB Lighting Suite
+  const [activeStudioTab, setActiveStudioTab] = useState<StudioViewTab>('effects');
+
+  // Animation ticker for 60 FPS deck shader
   const [animTimeSec, setAnimTimeSec] = useState<number>(0);
   const [ripples, setRipples] = useState<KeyRippleEvent[]>([]);
   const miniLcdCanvasRef = useRef<HTMLCanvasElement | null>(null);
   const spectrumPickerCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
-  // Mode category filter
-  const [selectedCategory, setSelectedCategory] = useState<RgbEffectCategory>('All');
-  const [autoSyncLcdOnPreset, setAutoSyncLcdOnPreset] = useState<boolean>(true);
+  // Search and Category filtering for 19 hardware effects
+  const [effectCategory, setEffectCategory] = useState<RgbEffectCategory>('All');
+  const [searchQuery, setSearchQuery] = useState<string>('');
 
-  // Reactive & Automation Engine state
+  // Per-Key Backlight Custom Studio state
+  const [activePaintColor, setActivePaintColor] = useState<string>('#06B6D4');
+  const [paintModeEnabled, setPaintModeEnabled] = useState<boolean>(false);
+  const [isMouseDownOnKeys, setIsMouseDownOnKeys] = useState<boolean>(false);
+  const [customKeyColors, setCustomKeyColors] = useState<Record<string, string>>(() => {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY_BACKLIGHT);
+      if (stored) return JSON.parse(stored);
+    } catch {
+      // ignore
+    }
+    return {};
+  });
+
+  // Reactive engine states
   const [reactiveMode, setReactiveMode] = useState<ReactiveEngineMode>('off');
   const [streamReactiveToHardware, setStreamReactiveToHardware] = useState<boolean>(false);
   const [audioMicActive, setAudioMicActive] = useState<boolean>(false);
@@ -157,13 +169,13 @@ export default function RgbUnderglowStudio({
   const [dayPresetId, setDayPresetId] = useState<string>('nordic-frost');
   const [nightPresetId, setNightPresetId] = useState<string>('edgerunner');
 
-  // Web Audio API refs for Audio-Reactive RGB
+  // Audio refs
   const audioCtxRef = useRef<AudioContext | null>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
   const micStreamRef = useRef<MediaStream | null>(null);
   const lastHardwarePushRef = useRef<number>(0);
 
-  // Saved Custom Scenes
+  // Saved scenes
   const [savedScenes, setSavedScenes] = useState<SavedUserRgbScene[]>(() => {
     try {
       const raw = localStorage.getItem(STORAGE_KEY_SCENES);
@@ -172,23 +184,64 @@ export default function RgbUnderglowStudio({
         if (Array.isArray(parsed) && parsed.length > 0) return parsed;
       }
     } catch {
-      // ignore storage errors
+      // ignore
     }
-    return DEFAULT_SAVED_SCENES;
+    return [
+      {
+        id: 'user_night_city',
+        name: 'Night City Cyberpunk',
+        effect: 1,
+        brightness: 4,
+        speed: 3,
+        effectDirection: 0,
+        rainbowMode: 0,
+        r: 6,
+        g: 182,
+        b: 212,
+        linkedLcdAnim: 'sandevistan-cyber',
+        createdAt: 'Default',
+      },
+      {
+        id: 'user_laser_glow',
+        name: 'Retro Laser Wave',
+        effect: 13,
+        brightness: 4,
+        speed: 2,
+        effectDirection: 0,
+        rainbowMode: 0,
+        r: 236,
+        g: 72,
+        b: 153,
+        linkedLcdAnim: 'synthwave-grid',
+        createdAt: 'Default',
+      },
+    ];
   });
   const [newSceneName, setNewSceneName] = useState<string>('');
 
-  // Raw 48B/64B Hex Inspector baseline & copy state
+  // Raw EEPROM hex inspector baseline
   const [baselineBytes, setBaselineBytes] = useState<Uint8Array>(() => new Uint8Array(rawHardwareConfig));
   const userSnapshottedBaselineRef = useRef<boolean>(false);
   const [copiedHex, setCopiedHex] = useState<boolean>(false);
   const [hexInputText, setHexInputText] = useState<string>('');
 
+  // Persist custom backlight colors
   useEffect(() => {
-    if (!userSnapshottedBaselineRef.current && rawHardwareConfig && rawHardwareConfig.length >= 48) {
-      setBaselineBytes(new Uint8Array(rawHardwareConfig));
+    try {
+      localStorage.setItem(STORAGE_KEY_BACKLIGHT, JSON.stringify(customKeyColors));
+    } catch {
+      // ignore
     }
-  }, [rawHardwareConfig]);
+  }, [customKeyColors]);
+
+  // Persist scenes
+  useEffect(() => {
+    try {
+      localStorage.setItem(STORAGE_KEY_SCENES, JSON.stringify(savedScenes));
+    } catch {
+      // ignore
+    }
+  }, [savedScenes]);
 
   const effectDirection = configState.effectDirection ?? 0;
   const rainbowMode = configState.rainbowMode ?? 0;
@@ -220,16 +273,20 @@ export default function RgbUnderglowStudio({
     [configState.lightingEffect]
   );
 
-  // Persist user scenes
-  useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY_SCENES, JSON.stringify(savedScenes));
-    } catch {
-      // ignore storage error
-    }
-  }, [savedScenes]);
+  // Filter 19 hardware effects with category and search
+  const filteredModes = useMemo(() => {
+    return GMK87_ALL_19_RGB_MODES.filter((m) => {
+      const matchCat = effectCategory === 'All' || m.category === effectCategory;
+      const matchQuery =
+        !searchQuery.trim() ||
+        m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        m.desc.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        m.hex.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchCat && matchQuery;
+    });
+  }, [effectCategory, searchQuery]);
 
-  // Register physical keystrokes into the reactive ripple queue
+  // Physical key ripple listener
   useEffect(() => {
     if (pressedKeyIds.size === 0) return;
     const now = performance.now();
@@ -251,7 +308,7 @@ export default function RgbUnderglowStudio({
     }
   }, [pressedKeyIds]);
 
-  // 25 FPS smooth animation ticker for the 87-key + 360-degree underglow visualizer (paused when hidden)
+  // 25 FPS Animation loop
   useEffect(() => {
     const start = performance.now();
     let frameCount = 0;
@@ -261,7 +318,6 @@ export default function RgbUnderglowStudio({
       setAnimTimeSec((now - start) / 1000);
       frameCount++;
 
-      // Also draw the embedded 240x135 LCD preview inside the visualizer chassis
       const lcdCanvas = miniLcdCanvasRef.current;
       if (lcdCanvas && frameCount % 2 === 0) {
         const ctx = lcdCanvas.getContext('2d');
@@ -280,7 +336,7 @@ export default function RgbUnderglowStudio({
     return () => clearInterval(id);
   }, [activePreviewAnim, telemetry, lcdCustom]);
 
-  // Draw the 2D HSV Hue/Saturation Spectrum Canvas
+  // 2D HSV Spectrum Canvas
   useEffect(() => {
     const canvas = spectrumPickerCanvasRef.current;
     if (!canvas) return;
@@ -304,7 +360,6 @@ export default function RgbUnderglowStudio({
     }
     ctx.putImageData(img, 0, 0);
 
-    // Draw crosshair at current [hueDeg, satPct]
     const cx = Math.round((hueDeg / 360) * w);
     const cy = Math.round(((100 - satPct) / 100) * h);
     ctx.strokeStyle = '#ffffff';
@@ -319,77 +374,25 @@ export default function RgbUnderglowStudio({
     ctx.stroke();
   }, [hueDeg, satPct]);
 
-  const lastPushedReactiveRef = useRef<{
-    lightingEffect?: number;
-    brightness?: number;
-    speed?: number;
-    effectDirection?: number;
-    rainbowMode?: number;
-    rgbHueR: number;
-    rgbHueG: number;
-    rgbHueB: number;
-  } | null>(null);
-
-  // Update studio preview immediately; write USB EEPROM at most every 750ms on material change (reduces EEPROM flash wear)
+  // Push reactive updates to hardware safely
   const pushReactiveRgbUpdate = useCallback(
     (partial: Partial<Gmk87ConfigState>) => {
       if (!streamReactiveToHardware) {
         onUpdateRgbConfig(partial, true);
         return;
       }
-
-      const prevSnap = lastPushedReactiveRef.current;
-      const nextR = partial.rgbHueR ?? configState.rgbHueR;
-      const nextG = partial.rgbHueG ?? configState.rgbHueG;
-      const nextB = partial.rgbHueB ?? configState.rgbHueB;
-
-      const settingChanged =
-        !prevSnap ||
-        (partial.lightingEffect !== undefined && partial.lightingEffect !== prevSnap.lightingEffect) ||
-        (partial.brightness !== undefined && partial.brightness !== prevSnap.brightness) ||
-        (partial.speed !== undefined && partial.speed !== prevSnap.speed) ||
-        (partial.effectDirection !== undefined && partial.effectDirection !== prevSnap.effectDirection) ||
-        (partial.rainbowMode !== undefined && partial.rainbowMode !== prevSnap.rainbowMode);
-
-      const rgbDelta = prevSnap
-        ? Math.abs(nextR - prevSnap.rgbHueR) +
-          Math.abs(nextG - prevSnap.rgbHueG) +
-          Math.abs(nextB - prevSnap.rgbHueB)
-        : 999;
-
       const now = Date.now();
-      if (now - lastHardwarePushRef.current >= 750 && (settingChanged || rgbDelta >= 12)) {
+      if (now - lastHardwarePushRef.current >= 750) {
         lastHardwarePushRef.current = now;
-        lastPushedReactiveRef.current = {
-          lightingEffect: partial.lightingEffect ?? configState.lightingEffect,
-          brightness: partial.brightness ?? configState.brightness,
-          speed: partial.speed ?? configState.speed,
-          effectDirection: partial.effectDirection ?? configState.effectDirection,
-          rainbowMode: partial.rainbowMode ?? configState.rainbowMode,
-          rgbHueR: nextR,
-          rgbHueG: nextG,
-          rgbHueB: nextB,
-        };
         onUpdateRgbConfig(partial, false);
       } else {
         onUpdateRgbConfig(partial, true);
       }
     },
-    [
-      onUpdateRgbConfig,
-      streamReactiveToHardware,
-      configState.lightingEffect,
-      configState.brightness,
-      configState.speed,
-      configState.effectDirection,
-      configState.rainbowMode,
-      configState.rgbHueR,
-      configState.rgbHueG,
-      configState.rgbHueB,
-    ]
+    [onUpdateRgbConfig, streamReactiveToHardware]
   );
 
-  // Toggle Web Audio Microphone for Audio-Reactive RGB
+  // Audio mic toggle
   const handleToggleAudioMic = async () => {
     if (audioMicActive) {
       micStreamRef.current?.getTracks().forEach((t) => t.stop());
@@ -398,10 +401,9 @@ export default function RgbUnderglowStudio({
       audioCtxRef.current = null;
       analyserRef.current = null;
       setAudioMicActive(false);
-      onStatusLog('Audio-Reactive RGB switched to Built-in Synth Beat Generator.');
+      onStatusLog('Audio-Reactive RGB reverted to Synth Beat Generator.');
       return;
     }
-
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       const audioCtx = new AudioContext();
@@ -417,13 +419,10 @@ export default function RgbUnderglowStudio({
       setReactiveMode('audio');
       onStatusLog('Microphone connected to Audio-Reactive RGB Beat Engine.');
     } catch (err: any) {
-      onStatusLog(
-        `Microphone access unavailable (${err?.message || 'permission denied'}). Using Demo Beat Generator.`
-      );
+      onStatusLog(`Microphone access unavailable (${err?.message || 'permission denied'}). Using Synth Beat.`);
     }
   };
 
-  // Cleanup mic on unmount
   useEffect(() => {
     return () => {
       micStreamRef.current?.getTracks().forEach((t) => t.stop());
@@ -431,21 +430,15 @@ export default function RgbUnderglowStudio({
     };
   }, []);
 
-  // Smart Reactive Lighting Engine Loop (Audio Beat / Thermal CPU / WPM Velocity / Colour Cycle / Schedule)
+  // Reactive engine loop
   useEffect(() => {
     if (reactiveMode === 'off') return;
 
-    const intervalMs =
-      reactiveMode === 'audio'
-        ? 180
-        : reactiveMode === 'cycle'
-        ? Math.max(500, cycleIntervalSec * 250)
-        : 450;
-
+    const intervalMs = reactiveMode === 'audio' ? 180 : reactiveMode === 'cycle' ? Math.max(500, cycleIntervalSec * 250) : 450;
     let stepCounter = 0;
+
     const timer = setInterval(() => {
       stepCounter++;
-
       if (reactiveMode === 'audio') {
         let bands: number[] = [];
         if (audioMicActive && analyserRef.current) {
@@ -455,22 +448,18 @@ export default function RgbUnderglowStudio({
             bands.push(Math.min(1, ((buf[i] || 0) / 255) * (audioSensitivity / 65)));
           }
         } else {
-          // Synth beat generator
           const t = performance.now() / 1000;
           const kick = Math.pow(0.5 + 0.5 * Math.sin(t * 6.5), 4);
           for (let i = 0; i < 16; i++) {
-            const wave =
-              0.2 +
-              0.5 * Math.abs(Math.sin(t * 4.2 + i * 0.45)) +
-              (i < 4 ? kick * 0.45 : 0);
+            const wave = 0.2 + 0.5 * Math.abs(Math.sin(t * 4.2 + i * 0.45)) + (i < 4 ? kick * 0.45 : 0);
             bands.push(Math.min(1, wave * (audioSensitivity / 75)));
           }
         }
         setAudioBands(bands);
 
         const bassAvg = (bands[0] + bands[1] + bands[2] + bands[3]) / 4;
-        const targetBri = Math.max(2, Math.min(9, Math.round(bassAvg * 9)));
-        const beatHue = ( Math.round(bassAvg * 260 + stepCounter * 14) ) % 360;
+        const targetBri = Math.max(2, Math.min(4, Math.round(bassAvg * 4)));
+        const beatHue = (Math.round(bassAvg * 260 + stepCounter * 14)) % 360;
         const [r, g, b] = hslToRgb(beatHue, 96, 54);
 
         if (stepCounter % 2 === 0) {
@@ -484,51 +473,29 @@ export default function RgbUnderglowStudio({
         }
       } else if (reactiveMode === 'thermal') {
         const load = simulatedCpuLoad !== null ? simulatedCpuLoad : telemetry.cpuPercent;
-        // Cool Cyan (190 deg) at 15% -> Emerald (140 deg) at 45% -> Amber (38 deg) at 75% -> Crimson (0 deg) at 95%
         const clamped = Math.max(10, Math.min(100, load));
         const hue = Math.max(0, Math.round(195 - ((clamped - 10) / 90) * 195));
         const [r, g, b] = hslToRgb(hue, 96, 52);
         const speed = clamped >= 80 ? 4 : clamped >= 55 ? 3 : clamped >= 35 ? 2 : 1;
-        pushReactiveRgbUpdate({
-          rgbHueR: r,
-          rgbHueG: g,
-          rgbHueB: b,
-          speed,
-          rainbowMode: 0,
-        });
+        pushReactiveRgbUpdate({ rgbHueR: r, rgbHueG: g, rgbHueB: b, speed, rainbowMode: 0 });
       } else if (reactiveMode === 'wpm') {
-        // WPM Velocity Overdrive: 0 WPM = Deep Blue (230 deg), 50 WPM = Cyan (180), 90 WPM = Magenta (300), 120+ WPM = Crimson/Gold (15)
         const clampedWpm = Math.max(0, Math.min(130, liveWpm));
         const hue = (230 - Math.round((clampedWpm / 130) * 215) + 360) % 360;
         const [r, g, b] = hslToRgb(hue, 95, 55);
         const speed = clampedWpm >= 90 ? 4 : clampedWpm >= 60 ? 3 : clampedWpm >= 30 ? 2 : 1;
-        const bri = clampedWpm > 5 ? 9 : 6;
-        pushReactiveRgbUpdate({
-          rgbHueR: r,
-          rgbHueG: g,
-          rgbHueB: b,
-          speed,
-          brightness: bri,
-          rainbowMode: 0,
-        });
+        const bri = clampedWpm > 5 ? 4 : 2;
+        pushReactiveRgbUpdate({ rgbHueR: r, rgbHueG: g, rgbHueB: b, speed, brightness: bri, rainbowMode: 0 });
       } else if (reactiveMode === 'cycle') {
         const nextHue = (hueDeg + 18) % 360;
         const [r, g, b] = hsvToRgb(nextHue, Math.max(80, satPct), Math.max(85, valPct));
-        pushReactiveRgbUpdate({
-          rgbHueR: r,
-          rgbHueG: g,
-          rgbHueB: b,
-          rainbowMode: 0,
-        });
+        pushReactiveRgbUpdate({ rgbHueR: r, rgbHueG: g, rgbHueB: b, rainbowMode: 0 });
       } else if (reactiveMode === 'schedule') {
         const currentHour = new Date().getHours();
-        const isDaytime =
-          dayStartHour < nightStartHour
-            ? currentHour >= dayStartHour && currentHour < nightStartHour
-            : currentHour >= dayStartHour || currentHour < nightStartHour;
+        const isDaytime = dayStartHour < nightStartHour
+          ? currentHour >= dayStartHour && currentHour < nightStartHour
+          : currentHour >= dayStartHour || currentHour < nightStartHour;
         const targetId = isDaytime ? dayPresetId : nightPresetId;
-        const preset =
-          CURATED_RGB_PRESETS.find((p) => p.id === targetId) || CURATED_RGB_PRESETS[0];
+        const preset = CURATED_RGB_PRESETS.find((p) => p.id === targetId) || CURATED_RGB_PRESETS[0];
         if (
           configState.lightingEffect !== preset.effect ||
           configState.rgbHueR !== preset.r ||
@@ -572,7 +539,39 @@ export default function RgbUnderglowStudio({
     pushReactiveRgbUpdate,
   ]);
 
-  // Apply Curated Preset
+  // Backlight Zone selection helper
+  const handleApplyZoneColor = (zone: BacklightPresetZone, hex: string) => {
+    setCustomKeyColors((prev) => {
+      const next = { ...prev };
+      GMK87_PHYSICAL_KEYS.forEach((k) => {
+        if (k.isKnob) return;
+        let match = false;
+        if (zone === 'all') match = true;
+        else if (zone === 'wasd') match = ['W', 'A', 'S', 'D'].includes(k.label.toUpperCase());
+        else if (zone === 'arrows') match = ['UP', 'DOWN', 'LEFT', 'RIGHT'].includes(k.label.toUpperCase());
+        else if (zone === 'f-row') match = k.row === 0 && k.col >= 1 && k.col <= 12;
+        else if (zone === 'nav') match = ['INS', 'DEL', 'PGUP', 'PGDN', 'HOME', 'END', 'PRTSC'].includes(k.label.toUpperCase());
+        else if (zone === 'alphas') {
+          match = /^[A-Z0-9]$/i.test(k.label) || ['~ `', '- _', '= +', '[ {', '] }', '\\ |', '; :', '\' "', ', <', '. >', '/ ?'].includes(k.label);
+        } else if (zone === 'modifiers') {
+          match = ['CTRL', 'ALT', 'SHIFT', 'WIN', 'FN', 'SPACE', 'ENTER', 'BKSP', 'TAB', 'CAPS'].some((m) => k.label.toUpperCase().includes(m));
+        }
+        if (match) {
+          next[k.id] = hex;
+        }
+      });
+      return next;
+    });
+    onStatusLog(`Backlight Editor: Applied ${hex} to zone "${zone.toUpperCase()}"`);
+  };
+
+  const handlePaintKey = (keyId: string) => {
+    setCustomKeyColors((prev) => ({
+      ...prev,
+      [keyId]: activePaintColor,
+    }));
+  };
+
   const handleApplyPreset = (preset: RgbColorwayPreset, flashLcd = false) => {
     setReactiveMode('off');
     onUpdateRgbConfig({
@@ -585,20 +584,13 @@ export default function RgbUnderglowStudio({
       rgbHueG: preset.g,
       rgbHueB: preset.b,
     });
-    const hex = `#${preset.r.toString(16).padStart(2, '0')}${preset.g
-      .toString(16)
-      .padStart(2, '0')}${preset.b.toString(16).padStart(2, '0')}`;
-    if (autoSyncLcdOnPreset || flashLcd) {
-      onSyncLcdTheme(preset.linkedLcdAnim, hex, flashLcd);
-    } else {
-      onStatusLog(`Applied RGB Preset "${preset.name}" (Mode 0x${preset.effect.toString(16).padStart(2, '0')}, ${hex.toUpperCase()})`);
-    }
+    const hex = `#${preset.r.toString(16).padStart(2, '0')}${preset.g.toString(16).padStart(2, '0')}${preset.b.toString(16).padStart(2, '0')}`;
+    onSyncLcdTheme(preset.linkedLcdAnim, hex, flashLcd);
   };
 
-  // Save current RGB state as a custom user scene
   const handleSaveCurrentScene = (e: React.FormEvent) => {
     e.preventDefault();
-    const title = newSceneName.trim() || `Custom Scene #${savedScenes.length + 1}`;
+    const title = newSceneName.trim() || `Custom Setup #${savedScenes.length + 1}`;
     const newScene: SavedUserRgbScene = {
       id: `scene_${Date.now()}`,
       name: title,
@@ -612,77 +604,13 @@ export default function RgbUnderglowStudio({
       b: configState.rgbHueB,
       linkedLcdAnim: activePreviewAnim,
       createdAt: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
+      customBacklightMap: Object.keys(customKeyColors).length > 0 ? customKeyColors : undefined,
     };
     setSavedScenes((prev) => [newScene, ...prev]);
     setNewSceneName('');
-    onStatusLog(`Saved custom RGB + LCD scene "${title}" to studio memory.`);
+    onStatusLog(`Saved custom RGB scene "${title}".`);
   };
 
-  // Execute hardware Fn Lighting Shortcut simulation
-  const handleTriggerFnShortcut = (item: FnLightingShortcutItem) => {
-    setReactiveMode('off');
-    switch (item.actionType) {
-      case 'next-effect': {
-        const nextEff = (configState.lightingEffect % 18) + 1;
-        onUpdateRgbConfig({ lightingEffect: nextEff });
-        onStatusLog(`Simulated ${item.combo}: Cycled cfg[1] Lighting Effect → 0x${nextEff.toString(16).padStart(2, '0')}`);
-        break;
-      }
-      case 'next-hue': {
-        if (!rainbowMode) {
-          onUpdateRgbConfig({ rainbowMode: 1 });
-          onStatusLog(`Simulated ${item.combo}: Enabled Full-Spectrum Rainbow Mode (cfg[5] = 1)`);
-        } else {
-          const [r, g, b] = hslToRgb((hueDeg + 45) % 360, 95, 54);
-          onUpdateRgbConfig({ rainbowMode: 0, rgbHueR: r, rgbHueG: g, rgbHueB: b });
-          onStatusLog(`Simulated ${item.combo}: Cycled Single Hue R:${r} G:${g} B:${b} (cfg[5] = 0)`);
-        }
-        break;
-      }
-      case 'toggle-led': {
-        const nextMode = configState.lightingEffect === 0 ? 1 : 0;
-        onUpdateRgbConfig({ lightingEffect: nextMode });
-        onStatusLog(
-          `Simulated ${item.combo}: ${nextMode === 0 ? 'Turned LEDs OFF (0x00)' : 'Restored Wave LEDs (0x01)'}`
-        );
-        break;
-      }
-      case 'bri-up': {
-        const nextBri = Math.min(4, configState.brightness + 1);
-        onUpdateRgbConfig({ brightness: nextBri });
-        onStatusLog(`Simulated ${item.combo}: Brightness cfg[2] → ${nextBri}/4`);
-        break;
-      }
-      case 'bri-down': {
-        const nextBri = Math.max(0, configState.brightness - 1);
-        onUpdateRgbConfig({ brightness: nextBri });
-        onStatusLog(`Simulated ${item.combo}: Brightness cfg[2] → ${nextBri}/4`);
-        break;
-      }
-      case 'spd-up': {
-        const nextSpd = Math.min(4, configState.speed + 1);
-        onUpdateRgbConfig({ speed: nextSpd });
-        onStatusLog(`Simulated ${item.combo}: Speed cfg[3] → ${nextSpd}/4`);
-        break;
-      }
-      case 'spd-down': {
-        const nextSpd = Math.max(0, configState.speed - 1);
-        onUpdateRgbConfig({ speed: nextSpd });
-        onStatusLog(`Simulated ${item.combo}: Speed cfg[3] → ${nextSpd}/4`);
-        break;
-      }
-      case 'toggle-dir': {
-        const nextDir = effectDirection ? 0 : 1;
-        onUpdateRgbConfig({ effectDirection: nextDir });
-        onStatusLog(
-          `Simulated ${item.combo}: Reversed Effect Direction cfg[4] → ${nextDir} (${nextDir ? 'Reverse ◄/▲' : 'Forward ►/▼'})`
-        );
-        break;
-      }
-    }
-  };
-
-  // Click on 2D HSV Spectrum Canvas
   const handleSpectrumCanvasPick = (e: React.MouseEvent<HTMLCanvasElement>) => {
     const canvas = spectrumPickerCanvasRef.current;
     if (!canvas) return;
@@ -701,26 +629,6 @@ export default function RgbUnderglowStudio({
     });
   };
 
-  // Current serialized 48B/64B EEPROM buffer for the live Hex Inspector
-  const liveSerializedBytes = useMemo(
-    () => serializeConfigBuffer(configState, rawHardwareConfig),
-    [configState, rawHardwareConfig]
-  );
-
-  const modifiedByteIndices = useMemo(() => {
-    const diffs = new Set<number>();
-    const len = Math.min(liveSerializedBytes.length, baselineBytes.length);
-    for (let i = 0; i < len; i++) {
-      // Ignore ticking RTC clock registers [35..41] so diff count matches highlighted config diffs
-      if (i >= 35 && i <= 41) continue;
-      if (liveSerializedBytes[i] !== baselineBytes[i]) {
-        diffs.add(i);
-      }
-    }
-    return diffs;
-  }, [liveSerializedBytes, baselineBytes]);
-
-  // Compute 360-degree perimeter underglow halo + 4 edge diffuser bars + logo light bar synchronously from hardware shader
   const chassisUnderglow = useMemo(
     () =>
       computeChassisUnderglowVisuals({
@@ -761,67 +669,82 @@ export default function RgbUnderglowStudio({
     [logoMode, logoBrightness, logoRainbow, logoColor, animTimeSec]
   );
 
-  const filteredModes = useMemo(() => {
-    if (selectedCategory === 'All') return GMK87_ALL_19_RGB_MODES;
-    return GMK87_ALL_19_RGB_MODES.filter((m) => m.category === selectedCategory);
-  }, [selectedCategory]);
+  const liveSerializedBytes = useMemo(
+    () => serializeConfigBuffer(configState, rawHardwareConfig),
+    [configState, rawHardwareConfig]
+  );
+
+  const modifiedByteIndices = useMemo(() => {
+    const diffs = new Set<number>();
+    const len = Math.min(liveSerializedBytes.length, baselineBytes.length);
+    for (let i = 0; i < len; i++) {
+      if (i >= 35 && i <= 41) continue;
+      if (liveSerializedBytes[i] !== baselineBytes[i]) {
+        diffs.add(i);
+      }
+    }
+    return diffs;
+  }, [liveSerializedBytes, baselineBytes]);
 
   return (
     <div className="space-y-6">
       {/* =====================================================================
-          1. HERO STAGE: FULL 87-KEY TKL + 360° SIDE UNDERGLOW HALO VISUALIZER
+          1. HERO KEYBOARD STAGE (Uncluttered, High-Resolution Visualizer)
          ===================================================================== */}
-      <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-5">
-        <div className="flex flex-col xl:flex-row xl:items-center justify-between gap-4">
+      <div className="bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-4 shadow-xl">
+        {/* Stage Header & Sub-Nav */}
+        <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <div className="flex flex-wrap items-center gap-2.5">
-              <h2 className="text-base font-bold text-white flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-[#06b6d4]" />
-                Live 87-Key South-Facing RGB + 360° Side Underglow Halo Visualizer
+            <div className="flex items-center gap-2">
+              <h2 className="text-sm font-bold text-white tracking-wide uppercase flex items-center gap-2">
+                <Sparkles className="w-4 h-4 text-[#06b6d4]" />
+                GMK87 Keyboard Lights Studio
               </h2>
-              <span className="px-2.5 py-0.5 text-[11px] font-mono font-semibold rounded-md bg-[#06b6d4]/15 border border-[#06b6d4]/40 text-[#06b6d4]">
+              <span className="text-xs font-mono text-[#06b6d4] bg-[#06b6d4]/10 border border-[#06b6d4]/30 px-2 py-0.5 rounded">
                 MODE {activeModeDef.hex}: {activeModeDef.name.toUpperCase()}
               </span>
-              {reactiveMode !== 'off' && (
-                <span className="px-2.5 py-0.5 text-[11px] font-mono font-semibold rounded-md bg-[#10b981]/20 border border-[#10b981] text-[#10b981]">
-                  REACTIVE ENGINE: {reactiveMode.toUpperCase()}
-                </span>
-              )}
             </div>
             <p className="text-xs text-slate-400 mt-1">
-              Real-time hardware shader previewing all 87 south-facing switch LEDs, 360° perimeter
-              diffuser strips, and nav-cluster Logo LED bar. Click any keycap or type on your physical
-              keyboard to test reactive modes (Slowly Off `0x07`, Stone Ripple `0x08`, Laser `0x09`).
+              Real-time south-facing RGB LED matrix, 360° halo diffuser strips, and rotary knob OSD.
             </p>
           </div>
 
-          {/* 1-Click LCD + RGB Ambilight Cross-Sync Controls */}
-          <div className="flex flex-wrap items-center gap-2.5">
-            <button
-              type="button"
-              onClick={() =>
-                onSyncLcdTheme(activeModeDef.recommendedLcdAnim, rgbHexColor, false)
-              }
-              className="px-3.5 py-2 text-xs font-semibold rounded-lg bg-[#0b0f19] border border-[#06b6d4]/60 text-[#06b6d4] hover:bg-[#06b6d4]/15 transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <Tv className="w-3.5 h-3.5" />
-              Sync 240×135 LCD Preview ({activeModeDef.recommendedLcdAnim})
-            </button>
-            <button
-              type="button"
-              onClick={() =>
-                onSyncLcdTheme(activeModeDef.recommendedLcdAnim, rgbHexColor, true)
-              }
-              className="px-3.5 py-2 text-xs font-semibold rounded-lg bg-[#06b6d4] text-slate-950 hover:bg-cyan-400 transition-colors flex items-center gap-1.5 cursor-pointer"
-            >
-              <Zap className="w-3.5 h-3.5" />
-              Flash Synced Ambilight LCD to Slot {targetSlot}
-            </button>
+          {/* Quick Tab Segmented Control */}
+          <div className="flex items-center gap-1 p-1 bg-[#070a12] border border-[#1b263b] rounded-lg">
+            {[
+              { id: 'effects' as StudioViewTab, label: 'Lighting Effects', icon: Sparkles },
+              { id: 'backlight-editor' as StudioViewTab, label: 'Backlight Editor', icon: Palette },
+              { id: 'presets' as StudioViewTab, label: 'Colorways & Presets', icon: Layers },
+              { id: 'reactive' as StudioViewTab, label: 'Reactive Engines', icon: Zap },
+              { id: 'diagnostics' as StudioViewTab, label: 'Registers & Hex', icon: Binary },
+            ].map((tab) => {
+              const active = activeStudioTab === tab.id;
+              const Icon = tab.icon;
+              return (
+                <button
+                  key={tab.id}
+                  type="button"
+                  onClick={() => setActiveStudioTab(tab.id)}
+                  className={`px-3 py-1.5 text-xs font-medium rounded-md transition-all flex items-center gap-1.5 whitespace-nowrap cursor-pointer ${
+                    active
+                      ? 'bg-[#06b6d4] text-slate-950 font-bold shadow-sm'
+                      : 'text-slate-300 hover:text-white hover:bg-[#121a2c]'
+                  }`}
+                >
+                  <Icon className="w-3.5 h-3.5" />
+                  <span>{tab.label}</span>
+                </button>
+              );
+            })}
           </div>
         </div>
 
-        {/* 87-Key TKL Deck inside 360-Degree Underglow Halo Stage */}
-        <div className="w-full overflow-x-auto py-10 px-8 flex justify-center bg-[#070a12] rounded-2xl border border-[#1e293b]">
+        {/* The 87-Key Visualizer Stage */}
+        <div
+          className="w-full overflow-x-auto py-8 px-6 flex justify-center bg-[#070a12] rounded-xl border border-[#162032]"
+          onMouseDown={() => setIsMouseDownOnKeys(true)}
+          onMouseUp={() => setIsMouseDownOnKeys(false)}
+        >
           <div
             className="relative shrink-0 rounded-2xl p-4 bg-gradient-to-b from-[#0a0e18] via-[#070910] to-[#04060b] border-2 transition-[border-color] duration-150 select-none"
             style={{
@@ -831,52 +754,19 @@ export default function RgbUnderglowStudio({
               boxShadow: chassisUnderglow.boxShadow,
             }}
           >
-            {/* 4 CNC Gasket Mounting Hex Bolts in Plate Corners */}
-            <div className="absolute top-2.5 left-2.5 w-4 h-4 rounded-full bg-[#182030] gasket-screw border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono select-none" title="Anodized Gasket Mount Bolt">⬡</div>
-            <div className="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-[#182030] gasket-screw border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono select-none" title="Anodized Gasket Mount Bolt">⬡</div>
-            <div className="absolute bottom-2.5 left-2.5 w-4 h-4 rounded-full bg-[#182030] gasket-screw border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono select-none" title="Anodized Gasket Mount Bolt">⬡</div>
-            <div className="absolute bottom-2.5 right-2.5 w-4 h-4 rounded-full bg-[#182030] gasket-screw border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono select-none" title="Anodized Gasket Mount Bolt">⬡</div>
+            {/* Hex Bolt Screws */}
+            <div className="absolute top-2.5 left-2.5 w-4 h-4 rounded-full bg-[#182030] border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono">⬡</div>
+            <div className="absolute top-2.5 right-2.5 w-4 h-4 rounded-full bg-[#182030] border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono">⬡</div>
+            <div className="absolute bottom-2.5 left-2.5 w-4 h-4 rounded-full bg-[#182030] border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono">⬡</div>
+            <div className="absolute bottom-2.5 right-2.5 w-4 h-4 rounded-full bg-[#182030] border border-[#2b3952] flex items-center justify-center text-[7px] text-slate-500 font-mono">⬡</div>
 
-            {/* Technical Plate Engraving */}
-            <div className="absolute bottom-2.5 right-12 text-[8px] font-mono tracking-widest text-slate-600 select-none uppercase pointer-events-none">
-              GMK87 360° HALO // 19 HW MODES // REALTIME SHADER
-            </div>
+            {/* 360° Underglow strips */}
+            <div className="absolute -top-1.5 left-10 right-10 h-1.5 rounded-full pointer-events-none" style={{ background: chassisUnderglow.topGradient, opacity: chassisUnderglow.stripOpacity, filter: 'blur(2px)' }} />
+            <div className="absolute -bottom-1.5 left-10 right-10 h-1.5 rounded-full pointer-events-none" style={{ background: chassisUnderglow.bottomGradient, opacity: chassisUnderglow.stripOpacity, filter: 'blur(2px)' }} />
+            <div className="absolute top-8 bottom-8 -left-1.5 w-1.5 rounded-full pointer-events-none" style={{ background: chassisUnderglow.leftGradient, opacity: chassisUnderglow.stripOpacity, filter: 'blur(2px)' }} />
+            <div className="absolute top-8 bottom-8 -right-1.5 w-1.5 rounded-full pointer-events-none" style={{ background: chassisUnderglow.rightGradient, opacity: chassisUnderglow.stripOpacity, filter: 'blur(2px)' }} />
 
-            {/* 360° Perimeter Side Underglow Diffuser Light Strips */}
-            <div
-              className="absolute -top-1.5 left-10 right-10 h-1.5 rounded-full pointer-events-none"
-              style={{
-                background: chassisUnderglow.topGradient,
-                opacity: chassisUnderglow.stripOpacity,
-                filter: 'blur(2px)',
-              }}
-            />
-            <div
-              className="absolute -bottom-1.5 left-10 right-10 h-1.5 rounded-full pointer-events-none"
-              style={{
-                background: chassisUnderglow.bottomGradient,
-                opacity: chassisUnderglow.stripOpacity,
-                filter: 'blur(2px)',
-              }}
-            />
-            <div
-              className="absolute top-8 bottom-8 -left-1.5 w-1.5 rounded-full pointer-events-none"
-              style={{
-                background: chassisUnderglow.leftGradient,
-                opacity: chassisUnderglow.stripOpacity,
-                filter: 'blur(2px)',
-              }}
-            />
-            <div
-              className="absolute top-8 bottom-8 -right-1.5 w-1.5 rounded-full pointer-events-none"
-              style={{
-                background: chassisUnderglow.rightGradient,
-                opacity: chassisUnderglow.stripOpacity,
-                filter: 'blur(2px)',
-              }}
-            />
-
-            {/* Embedded 240x135 TFT Screen Module at Top-Right of GMK87 Deck */}
+            {/* Embedded Mini TFT Screen */}
             <div
               style={{
                 left: `${16 + 15.8 * 54}px`,
@@ -903,7 +793,7 @@ export default function RgbUnderglowStudio({
               </div>
             </div>
 
-            {/* GMK87 Signature Hardware Logo LED Bar in Nav Cluster (cfg[28..32]) */}
+            {/* Logo LED Bar */}
             <div
               className="absolute flex items-center justify-center select-none pointer-events-none"
               style={{
@@ -924,52 +814,72 @@ export default function RgbUnderglowStudio({
               />
             </div>
 
-            {/* 87 Physical Keys with Real-Time Per-Key RGB Shader (Knob rendered via dedicated CNC encoder) */}
+            {/* 87 Physical Keycaps with Per-Key Shader or Custom Backlight Paint */}
             {GMK87_PHYSICAL_KEYS.map((k) => {
               if (k.isKnob) return null;
               const unitPx = 54;
               const gapPx = 5;
               const isPressed = pressedKeyIds.has(k.id);
 
-              const shade = computePerKeyShader({
-                keyX: k.x + k.w / 2,
-                keyY: k.y + (k.h ?? 1) / 2,
-                row: k.row,
-                col: k.col,
-                effect: configState.lightingEffect,
-                brightness: configState.brightness,
-                speed: configState.speed,
-                direction: effectDirection,
-                rainbow: rainbowMode,
-                baseR: configState.rgbHueR,
-                baseG: configState.rgbHueG,
-                baseB: configState.rgbHueB,
-                timeSec: animTimeSec,
-                ripples,
-              });
+              const customOverrideHex = customKeyColors[k.id];
 
-              const keyRgbCss = `rgb(${shade.r}, ${shade.g}, ${shade.b})`;
-              const keyGlowCss = `rgba(${shade.r}, ${shade.g}, ${shade.b}, ${Math.min(
-                0.9,
-                shade.alpha * 0.75
-              )})`;
+              let keyRgbCss = '';
+              let keyGlowCss = '';
+              let shadeAlpha = 0.8;
+              let isUnlit = configState.lightingEffect === 0 || configState.brightness === 0;
+
+              if (activeStudioTab === 'backlight-editor' && customOverrideHex) {
+                keyRgbCss = customOverrideHex;
+                keyGlowCss = `${customOverrideHex}99`;
+                shadeAlpha = 0.9;
+                isUnlit = false;
+              } else {
+                const shade = computePerKeyShader({
+                  keyX: k.x + k.w / 2,
+                  keyY: k.y + (k.h ?? 1) / 2,
+                  row: k.row,
+                  col: k.col,
+                  effect: configState.lightingEffect,
+                  brightness: configState.brightness,
+                  speed: configState.speed,
+                  direction: effectDirection,
+                  rainbow: rainbowMode,
+                  baseR: configState.rgbHueR,
+                  baseG: configState.rgbHueG,
+                  baseB: configState.rgbHueB,
+                  timeSec: animTimeSec,
+                  ripples,
+                });
+                keyRgbCss = `rgb(${shade.r}, ${shade.g}, ${shade.b})`;
+                keyGlowCss = `rgba(${shade.r}, ${shade.g}, ${shade.b}, ${Math.min(0.9, shade.alpha * 0.75)})`;
+                shadeAlpha = shade.alpha;
+              }
 
               return (
                 <button
                   key={k.id}
                   type="button"
+                  onMouseEnter={() => {
+                    if (activeStudioTab === 'backlight-editor' && isMouseDownOnKeys) {
+                      handlePaintKey(k.id);
+                    }
+                  }}
                   onClick={() => {
-                    const now = performance.now();
-                    setRipples((prev) => [
-                      ...prev.filter((r) => now - r.timestamp < 1600),
-                      {
-                        x: k.x + k.w / 2,
-                        y: k.y + (k.h ?? 1) / 2,
-                        row: k.row,
-                        col: k.col,
-                        timestamp: now,
-                      },
-                    ]);
+                    if (activeStudioTab === 'backlight-editor') {
+                      handlePaintKey(k.id);
+                    } else {
+                      const now = performance.now();
+                      setRipples((prev) => [
+                        ...prev.filter((r) => now - r.timestamp < 1600),
+                        {
+                          x: k.x + k.w / 2,
+                          y: k.y + (k.h ?? 1) / 2,
+                          row: k.row,
+                          col: k.col,
+                          timestamp: now,
+                        },
+                      ]);
+                    }
                   }}
                   style={{
                     left: `${16 + k.x * unitPx}px`,
@@ -977,34 +887,22 @@ export default function RgbUnderglowStudio({
                     width: `${k.w * unitPx - gapPx}px`,
                     height: `${(k.h ?? 1) * unitPx - gapPx}px`,
                     borderColor: isPressed ? '#10b981' : keyRgbCss,
-                    boxShadow:
-                      configState.lightingEffect === 0 || configState.brightness === 0
-                        ? 'none'
-                        : `0 2px 10px ${keyGlowCss}, inset 0 -3px 8px ${keyGlowCss}`,
+                    boxShadow: isUnlit ? 'none' : `0 2px 10px ${keyGlowCss}, inset 0 -3px 8px ${keyGlowCss}`,
                     background: isPressed
                       ? 'rgba(16, 185, 129, 0.35)'
-                      : `linear-gradient(180deg, rgba(19, 27, 46, 0.92) 0%, rgba(${shade.r}, ${
-                          shade.g
-                        }, ${shade.b}, ${Math.min(0.42, shade.alpha * 0.38)}) 100%)`,
+                      : `linear-gradient(180deg, rgba(19, 27, 46, 0.92) 0%, ${keyGlowCss} 100%)`,
                   }}
-                  className={`absolute rounded-[6px] p-1.5 flex flex-col justify-between text-left border border-b-2 transition-transform duration-75 cursor-pointer select-none ${
+                  className={`absolute rounded-[6px] p-1.5 flex flex-col justify-between text-left border border-b-2 transition-transform duration-75 select-none ${
                     isPressed ? 'keycap-dish-pressed' : 'keycap-dish-3d'
-                  }`}
+                  } ${activeStudioTab === 'backlight-editor' ? 'cursor-cell hover:ring-2 hover:ring-white/40' : 'cursor-pointer'}`}
                 >
                   <div className="flex items-center justify-between w-full text-[8px] font-mono text-slate-400 leading-none">
                     <span className="truncate">{k.label}</span>
-                    <span className="opacity-60">
-                      {k.row},{k.col}
-                    </span>
+                    <span className="opacity-60">{k.row},{k.col}</span>
                   </div>
                   <div
                     className="text-[10px] font-mono font-bold truncate leading-tight"
-                    style={{
-                      color:
-                        configState.lightingEffect === 0 || configState.brightness === 0
-                          ? '#64748b'
-                          : '#f8fafc',
-                    }}
+                    style={{ color: isUnlit ? '#64748b' : '#f8fafc' }}
                   >
                     {k.label}
                   </div>
@@ -1014,125 +912,136 @@ export default function RgbUnderglowStudio({
           </div>
         </div>
 
-        {/* Bottom Status Bar inside Hero Stage */}
-        <div className="flex flex-wrap items-center justify-between gap-3 pt-1 text-xs font-mono text-slate-400">
-          <div className="flex flex-wrap items-center gap-4">
-            <span>
-              REGISTER <code className="text-[#06b6d4]">cfg[1]</code> ={' '}
-              <strong className="text-white">
-                {configState.lightingEffect} ({activeModeDef.hex})
-              </strong>
-            </span>
-            <span>
-              BRI <code className="text-[#06b6d4]">cfg[2]</code> ={' '}
-              <strong className="text-white">{configState.brightness}/4</strong>
-            </span>
-            <span>
-              SPD <code className="text-[#06b6d4]">cfg[3]</code> ={' '}
-              <strong className="text-white">
-                {configState.speed}/4 (raw 0x0{4 - Math.min(4, Math.max(0, configState.speed))})
-              </strong>
-            </span>
-            <span>
-              DIR <code className="text-[#06b6d4]">cfg[4]</code> ={' '}
-              <strong className="text-white">
-                {effectDirection ? '1 (Reverse ◄/▲)' : '0 (Forward ►/▼)'}
-              </strong>
-            </span>
-            <span>
-              RAINBOW <code className="text-[#06b6d4]">cfg[5]</code> ={' '}
-              <strong className="text-white">
-                {rainbowMode || activeModeDef.colorSupport === 'built-in-rainbow'
-                  ? activeModeDef.colorSupport === 'built-in-rainbow'
-                    ? 'Built-In Rainbow'
-                    : '0xFF (Rainbow)'
-                  : '0x00 (Single Hue)'}
-              </strong>
-            </span>
-          </div>
-          <div className="flex items-center gap-2">
-            <span
-              className="w-3 h-3 rounded-full border border-white/40 inline-block"
-              style={{ backgroundColor: rgbHexColor }}
+        {/* Global Controls Toolbar (Brightness, Speed, Direction, Color, Power) */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 pt-2">
+          {/* Brightness */}
+          <div className="p-3 bg-[#070a12] border border-[#1b263b] rounded-lg">
+            <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
+              <span className="flex items-center gap-1.5">
+                <Sun className="w-3.5 h-3.5 text-[#06b6d4]" /> Brightness
+              </span>
+              <span className="text-white font-bold">{configState.brightness} / 4</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={4}
+              value={configState.brightness}
+              onChange={(e) => onUpdateRgbConfig({ brightness: Number(e.target.value) })}
+              className="w-full accent-[#06b6d4] h-1.5"
             />
-            <span className="text-white font-bold">{rgbHexColor}</span>
-            <span>
-              (R:{configState.rgbHueR} G:{configState.rgbHueG} B:{configState.rgbHueB})
-            </span>
           </div>
+
+          {/* Speed */}
+          <div className="p-3 bg-[#070a12] border border-[#1b263b] rounded-lg">
+            <div className="flex items-center justify-between text-xs font-mono text-slate-400 mb-1">
+              <span className="flex items-center gap-1.5">
+                <Flame className="w-3.5 h-3.5 text-[#8b5cf6]" /> Speed
+              </span>
+              <span className="text-white font-bold">{configState.speed} / 4</span>
+            </div>
+            <input
+              type="range"
+              min={0}
+              max={4}
+              value={configState.speed}
+              onChange={(e) => onUpdateRgbConfig({ speed: Number(e.target.value) })}
+              className="w-full accent-[#8b5cf6] h-1.5"
+            />
+          </div>
+
+          {/* Direction */}
+          <button
+            type="button"
+            onClick={() => onUpdateRgbConfig({ effectDirection: effectDirection ? 0 : 1 })}
+            className="p-3 bg-[#070a12] border border-[#1b263b] hover:border-[#8b5cf6] rounded-lg text-left flex items-center justify-between cursor-pointer transition-colors"
+          >
+            <div>
+              <div className="text-[10px] font-mono text-slate-400">Direction</div>
+              <div className="text-xs font-bold text-white mt-0.5">
+                {effectDirection ? 'Reverse ◄/▲' : 'Forward ►/▼'}
+              </div>
+            </div>
+            <ArrowLeftRight className="w-4 h-4 text-[#8b5cf6]" />
+          </button>
+
+          {/* Rainbow vs Solid */}
+          <button
+            type="button"
+            onClick={() => onUpdateRgbConfig({ rainbowMode: rainbowMode ? 0 : 1 })}
+            className="p-3 bg-[#070a12] border border-[#1b263b] hover:border-[#10b981] rounded-lg text-left flex items-center justify-between cursor-pointer transition-colors"
+          >
+            <div>
+              <div className="text-[10px] font-mono text-slate-400">Spectrum Mode</div>
+              <div className="text-xs font-bold text-white mt-0.5">
+                {rainbowMode ? '🌈 Rainbow Wave' : '🎨 Calibrated Hue'}
+              </div>
+            </div>
+            <Palette className="w-4 h-4 text-[#10b981]" />
+          </button>
+
+          {/* Quick LCD Ambilight Sync */}
+          <button
+            type="button"
+            onClick={() => onSyncLcdTheme(activeModeDef.recommendedLcdAnim, rgbHexColor, false)}
+            className="p-3 bg-[#070a12] border border-[#06b6d4]/50 hover:bg-[#06b6d4]/10 rounded-lg text-left flex items-center justify-between cursor-pointer transition-colors"
+          >
+            <div>
+              <div className="text-[10px] font-mono text-[#06b6d4]">LCD Ambilight Sync</div>
+              <div className="text-xs font-bold text-white mt-0.5 truncate max-w-[120px]">
+                {activeModeDef.recommendedLcdAnim}
+              </div>
+            </div>
+            <Tv className="w-4 h-4 text-[#06b6d4]" />
+          </button>
         </div>
       </div>
 
       {/* =====================================================================
-          2. PRECISION COLOUR STUDIO, REGISTER DECK (cfg[1..8]) & 19-MODE MATRIX
+          2. TAB CONTENT VIEWPORT: CHOOSE BETWEEN CLEAN WORKSPACES
          ===================================================================== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left 5 Cols: Hardware Registers cfg[1..8] + HSV Spectrum + RGB/HEX Sliders */}
-        <div className="lg:col-span-5 bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-5">
-          <div className="flex items-center justify-between">
+
+      {/* SUB-TAB 1: 19 HARDWARE LIGHTING EFFECTS & COLOR TUNER */}
+      {activeStudioTab === 'effects' && (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Left 4 Cols: Precision HSV Wheel & Register Calibration */}
+          <div className="lg:col-span-4 bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-4">
             <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Sliders className="w-4 h-4 text-[#06b6d4]" />
-                Hardware Register Deck (`cfg[1..8]`)
+              <h3 className="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
+                <Palette className="w-4 h-4 text-[#06b6d4]" />
+                Color Calibration
               </h3>
               <p className="text-xs text-slate-400">
-                Direct 24-bit RGB colour calibration, PWM brightness, speed, wave direction, and
-                rainbow spectrum flags.
+                Calibrate 24-bit RGB values directly written to hardware registers cfg[6..8].
               </p>
             </div>
-          </div>
 
-          {/* 2D HSV Hue/Saturation Spectrum Canvas + Quick Swatches */}
-          {(activeModeDef.colorSupport === 'built-in-rainbow' ||
-            activeModeDef.colorSupport === 'palette' ||
-            rainbowMode === 1) && (
-            <div className="px-3 py-2 rounded-lg bg-[#0b0f19] border border-[#10b981]/40 text-[11px] font-mono text-emerald-300">
-              {activeModeDef.colorSupport === 'built-in-rainbow'
-                ? `Mode ${activeModeDef.hex} (${activeModeDef.name}) uses firmware built-in rainbow spectrum (single RGB hue in cfg[6..8] is ignored by hardware).`
-                : activeModeDef.colorSupport === 'palette'
-                  ? `Mode ${activeModeDef.hex} (${activeModeDef.name}) cycles a built-in 4-colour palette on hardware unless Rainbow is enabled.`
-                  : 'Rainbow Override (cfg[5] = 0xFF) is active — single RGB colour is overridden by multi-colour spectrum. Picking a hue below switches back to Single Hue.'}
+            {/* 2D Canvas */}
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs font-mono text-slate-400">
+                <span>HSV Spectrum</span>
+                <span className="text-[#06b6d4]">{hueDeg}° · {satPct}%</span>
+              </div>
+              <canvas
+                ref={spectrumPickerCanvasRef}
+                width={320}
+                height={100}
+                onClick={handleSpectrumCanvasPick}
+                onMouseMove={(e) => {
+                  if (e.buttons === 1) handleSpectrumCanvasPick(e);
+                }}
+                className="w-full h-[100px] rounded-lg border border-[#1b263b] cursor-crosshair block"
+              />
             </div>
-          )}
 
-          <div className="space-y-2.5">
-            <div className="flex items-center justify-between text-xs font-mono">
-              <span className="text-slate-400">2D HSV SPECTRUM (`cfg[6..8]`)</span>
-              <span className="text-cyan-300">
-                H:{hueDeg}° S:{satPct}% V:{valPct}%
-              </span>
-            </div>
-            <canvas
-              ref={spectrumPickerCanvasRef}
-              width={320}
-              height={110}
-              onClick={handleSpectrumCanvasPick}
-              onMouseMove={(e) => {
-                if (e.buttons === 1) handleSpectrumCanvasPick(e);
-              }}
-              className="w-full h-[110px] rounded-xl border border-[#1e293b] cursor-crosshair block"
-            />
-
-            {/* Quick Neon Swatches */}
-            <div className="flex flex-wrap items-center gap-2 pt-1">
-              {[
-                { label: 'Cyan', r: 6, g: 182, b: 212 },
-                { label: 'Purple', r: 139, g: 92, b: 246 },
-                { label: 'Laser Pink', r: 236, g: 72, b: 153 },
-                { label: 'Matrix Green', r: 16, g: 185, b: 129 },
-                { label: 'Amber Gold', r: 245, g: 158, b: 11 },
-                { label: 'Redline', r: 239, g: 68, b: 68 },
-                { label: 'Ice White', r: 226, g: 232, b: 240 },
-                { label: 'Royal Blue', r: 59, g: 130, b: 246 },
-              ].map((sw) => {
-                const hex = `#${sw.r.toString(16).padStart(2, '0')}${sw.g
-                  .toString(16)
-                  .padStart(2, '0')}${sw.b.toString(16).padStart(2, '0')}`;
-                return (
+            {/* Quick Swatches */}
+            <div className="space-y-1.5">
+              <span className="text-[11px] font-mono text-slate-400">Curated Neon Swatches</span>
+              <div className="grid grid-cols-4 gap-2">
+                {COLOR_PALETTE_SWATCHES.slice(0, 8).map((sw) => (
                   <button
-                    key={sw.label}
+                    key={sw.name}
                     type="button"
-                    title={sw.label}
                     onClick={() => {
                       setReactiveMode('off');
                       onUpdateRgbConfig({
@@ -1142,854 +1051,413 @@ export default function RgbUnderglowStudio({
                         rainbowMode: 0,
                       });
                     }}
-                    className="px-2.5 py-1 rounded-lg bg-[#0b0f19] border border-[#1e293b] hover:border-white/60 text-[11px] font-mono text-slate-200 flex items-center gap-1.5 cursor-pointer transition-colors"
+                    className="flex items-center gap-1.5 p-1.5 rounded bg-[#070a12] border border-[#1b263b] hover:border-slate-400 text-[10px] font-mono text-slate-300 cursor-pointer"
                   >
-                    <span
-                      className="w-2.5 h-2.5 rounded-full inline-block"
-                      style={{ backgroundColor: hex }}
-                    />
-                    {sw.label}
+                    <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: sw.hex }} />
+                    <span className="truncate">{sw.name.split(' ')[0]}</span>
                   </button>
-                );
-              })}
+                ))}
+              </div>
             </div>
-          </div>
 
-          {/* HEX Input + Native Picker + Individual R / G / B Sliders */}
-          <div className="p-4 rounded-xl bg-[#0b0f19] border border-[#1e293b] space-y-3.5">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex items-center gap-2.5">
-                <input
-                  type="color"
-                  value={rgbHexColor}
-                  onChange={(e) => {
-                    const hex = e.target.value.replace('#', '');
-                    const r = parseInt(hex.substring(0, 2), 16) || 0;
-                    const g = parseInt(hex.substring(2, 4), 16) || 0;
-                    const b = parseInt(hex.substring(4, 6), 16) || 0;
-                    setReactiveMode('off');
-                    onUpdateRgbConfig({ rgbHueR: r, rgbHueG: g, rgbHueB: b, rainbowMode: 0 });
+            {/* Hex & R/G/B Channels */}
+            <div className="p-3 bg-[#070a12] border border-[#1b263b] rounded-lg space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-mono text-slate-400">HEX Code</span>
+                <form
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const clean = hexInputText.trim().replace(/^#/, '');
+                    if (/^[0-9A-Fa-f]{6}$/.test(clean)) {
+                      const r = parseInt(clean.slice(0, 2), 16);
+                      const g = parseInt(clean.slice(2, 4), 16);
+                      const b = parseInt(clean.slice(4, 6), 16);
+                      onUpdateRgbConfig({ rgbHueR: r, rgbHueG: g, rgbHueB: b, rainbowMode: 0 });
+                    }
                   }}
-                  className="w-10 h-9 rounded bg-[#131b2e] border border-[#1e293b] cursor-pointer"
-                />
-                <div>
-                  <div className="text-[11px] font-mono text-slate-400">HEX CODE</div>
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      const clean = hexInputText.trim().replace(/^#/, '');
-                      if (/^[0-9A-Fa-f]{6}$/.test(clean)) {
-                        const r = parseInt(clean.slice(0, 2), 16);
-                        const g = parseInt(clean.slice(2, 4), 16);
-                        const b = parseInt(clean.slice(4, 6), 16);
-                        setReactiveMode('off');
-                        onUpdateRgbConfig({ rgbHueR: r, rgbHueG: g, rgbHueB: b, rainbowMode: 0 });
-                      }
-                    }}
-                    className="flex items-center gap-1.5"
+                  className="flex items-center gap-1.5"
+                >
+                  <input
+                    type="text"
+                    value={hexInputText}
+                    onChange={(e) => setHexInputText(e.target.value)}
+                    className="w-24 bg-[#0e1422] border border-[#1b263b] rounded px-2 py-1 text-xs font-mono text-white text-right focus:border-[#06b6d4] focus:outline-none"
+                  />
+                  <button
+                    type="submit"
+                    className="px-2 py-1 text-xs font-mono bg-[#1b263b] hover:bg-[#06b6d4] hover:text-slate-950 text-slate-200 rounded cursor-pointer"
                   >
-                    <input
-                      type="text"
-                      value={hexInputText}
-                      onChange={(e) => setHexInputText(e.target.value)}
-                      className="w-24 bg-[#131b2e] border border-[#1e293b] rounded px-2 py-1 text-xs font-mono text-white focus:outline-none focus:border-[#06b6d4]"
-                    />
-                    <button
-                      type="submit"
-                      className="px-2 py-1 text-[11px] font-mono rounded bg-[#131b2e] border border-[#1e293b] text-[#06b6d4] hover:border-[#06b6d4] cursor-pointer"
-                    >
-                      Set
-                    </button>
-                  </form>
-                </div>
+                    Set
+                  </button>
+                </form>
               </div>
 
-              <div className="text-right font-mono text-xs">
-                <div className="text-slate-400 text-[10px]">REGISTERS `cfg[6..8]`</div>
-                <div className="text-white font-bold">
-                  [{configState.rgbHueR}, {configState.rgbHueG}, {configState.rgbHueB}]
+              {/* R, G, B slider channels */}
+              {[
+                { label: 'R', val: configState.rgbHueR, color: '#ef4444', ch: 'rgbHueR' },
+                { label: 'G', val: configState.rgbHueG, color: '#10b981', ch: 'rgbHueG' },
+                { label: 'B', val: configState.rgbHueB, color: '#06b6d4', ch: 'rgbHueB' },
+              ].map((c) => (
+                <div key={c.label} className="flex items-center gap-2 text-xs font-mono">
+                  <span className="w-4 text-slate-400 font-bold" style={{ color: c.color }}>{c.label}</span>
+                  <input
+                    type="range"
+                    min={0}
+                    max={255}
+                    value={c.val}
+                    onChange={(e) => onUpdateRgbConfig({ [c.ch]: Number(e.target.value), rainbowMode: 0 })}
+                    className="flex-1 h-1.5"
+                    style={{ accentColor: c.color }}
+                  />
+                  <span className="w-8 text-right text-slate-300">{c.val}</span>
                 </div>
-              </div>
+              ))}
             </div>
 
-            {/* R, G, B 0-255 Fine Sliders */}
-            {[
-              {
-                label: 'RED (`cfg[6]`)',
-                val: configState.rgbHueR,
-                color: '#ef4444',
-                onChange: (v: number) =>
-                  onUpdateRgbConfig({ rgbHueR: v, rainbowMode: 0 }),
-              },
-              {
-                label: 'GREEN (`cfg[7]`)',
-                val: configState.rgbHueG,
-                color: '#10b981',
-                onChange: (v: number) =>
-                  onUpdateRgbConfig({ rgbHueG: v, rainbowMode: 0 }),
-              },
-              {
-                label: 'BLUE (`cfg[8]`)',
-                val: configState.rgbHueB,
-                color: '#06b6d4',
-                onChange: (v: number) =>
-                  onUpdateRgbConfig({ rgbHueB: v, rainbowMode: 0 }),
-              },
-            ].map((ch) => (
-              <div key={ch.label}>
-                <div className="flex justify-between text-[11px] font-mono mb-1">
-                  <span className="text-slate-400">{ch.label}</span>
-                  <span className="text-white font-bold">
-                    {ch.val} (0x{ch.val.toString(16).toUpperCase().padStart(2, '0')})
-                  </span>
-                </div>
-                <input
-                  type="range"
-                  min={0}
-                  max={255}
-                  value={ch.val}
-                  onChange={(e) => {
-                    setReactiveMode('off');
-                    ch.onChange(Number(e.target.value));
-                  }}
-                  style={{ accentColor: ch.color }}
-                  className="w-full"
-                />
+            {/* Logo Bar Controls */}
+            <div className="p-3 bg-[#070a12] border border-[#1b263b] rounded-lg space-y-2">
+              <div className="flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-300 font-bold">Logo Light Strip (cfg[28..32])</span>
+                <span className="text-slate-500">{logoRainbow ? 'Rainbow' : 'Solid'}</span>
               </div>
-            ))}
-          </div>
-
-          {/* Hardware Brightness (`cfg[2]`) & Effect Speed (`cfg[3]`) */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="p-3.5 rounded-xl bg-[#0b0f19] border border-[#1e293b]">
-              <div className="flex justify-between text-xs font-mono mb-1.5">
-                <span className="text-slate-400">BRIGHTNESS (`cfg[2]`)</span>
-                <span className="text-[#06b6d4] font-bold">{configState.brightness} / 4</span>
-              </div>
-              <input
-                type="range"
-                min={0}
-                max={4}
-                value={Math.min(4, Math.max(0, configState.brightness))}
-                onChange={(e) =>
-                  onUpdateRgbConfig({ brightness: Number(e.target.value) })
-                }
-                className="w-full accent-[#06b6d4]"
-              />
-            </div>
-
-            <div className="p-3.5 rounded-xl bg-[#0b0f19] border border-[#1e293b]">
-              <div className="flex justify-between text-xs font-mono mb-1.5">
-                <span className="text-slate-400">SPEED (`cfg[3]`)</span>
-                <span className="text-[#8b5cf6] font-bold">
-                  {configState.speed} / 4 {configState.speed === 4 ? '(Fastest)' : configState.speed === 0 ? '(Slowest)' : ''}
-                </span>
-              </div>
-              <input
-                type="range"
-                min={0}
-                max={4}
-                value={Math.min(4, Math.max(0, configState.speed))}
-                onChange={(e) =>
-                  onUpdateRgbConfig({ speed: Number(e.target.value) })
-                }
-                className="w-full accent-[#8b5cf6]"
-              />
-            </div>
-          </div>
-
-          {/* Low-Level Direction (`cfg[4]`) & Rainbow Spectrum (`cfg[5]`) Toggles */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            <button
-              type="button"
-              onClick={() =>
-                onUpdateRgbConfig({ effectDirection: effectDirection ? 0 : 1 })
-              }
-              className={`p-3.5 rounded-xl border text-left transition-colors cursor-pointer flex items-center justify-between ${
-                effectDirection
-                  ? 'bg-[#8b5cf6]/20 border-[#8b5cf6] text-white'
-                  : 'bg-[#0b0f19] border-[#1e293b] text-slate-200 hover:border-[#8b5cf6]/60'
-              }`}
-            >
-              <div>
-                <div className="text-[10px] font-mono text-slate-400">DIRECTION (`cfg[4]`)</div>
-                <div className="text-xs font-bold mt-0.5">
-                  {effectDirection ? '◄ Reverse / Up (0x01)' : '► Forward / Down (0x00)'}
-                </div>
-              </div>
-              <ArrowLeftRight className="w-4 h-4 text-[#8b5cf6] shrink-0" />
-            </button>
-
-            <button
-              type="button"
-              onClick={() =>
-                onUpdateRgbConfig({ rainbowMode: rainbowMode ? 0 : 1 })
-              }
-              className={`p-3.5 rounded-xl border text-left transition-colors cursor-pointer flex items-center justify-between ${
-                rainbowMode
-                  ? 'bg-[#10b981]/20 border-[#10b981] text-white'
-                  : 'bg-[#0b0f19] border-[#1e293b] text-slate-200 hover:border-[#10b981]/60'
-              }`}
-            >
-              <div>
-                <div className="text-[10px] font-mono text-slate-400">SPECTRUM (`cfg[5]`)</div>
-                <div className="text-xs font-bold mt-0.5">
-                  {rainbowMode ? '🌈 Rainbow Override ON' : '🎨 Single Calibrated Hue'}
-                </div>
-              </div>
-              <Palette className="w-4 h-4 text-[#10b981] shrink-0" />
-            </button>
-          </div>
-
-          {/* Signature Logo / Accent Light Bar (`cfg[28..32]`) */}
-          <div className="p-4 rounded-xl bg-[#0b0f19] border border-[#1e293b] space-y-3">
-            <div className="flex items-center justify-between">
-              <div>
-                <div className="text-xs font-bold text-white">
-                  Signature Logo Light Bar (`cfg[28..32]`)
-                </div>
-                <div className="text-[11px] text-slate-400">
-                  Independent RGB accent strip above the arrow cluster
-                </div>
-              </div>
-              <button
-                type="button"
-                onClick={() => onUpdateRgbConfig({ logoRainbow: logoRainbow ? 0 : 1 })}
-                className={`px-2.5 py-1 text-[11px] font-mono rounded-lg border cursor-pointer ${
-                  logoRainbow
-                    ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981]'
-                    : 'bg-[#131b2e] border-[#1e293b] text-slate-300'
-                }`}
-              >
-                {logoRainbow ? 'Logo Rainbow ON' : 'Logo Single Color'}
-              </button>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-              <div>
-                <div className="text-[10px] font-mono text-slate-400 mb-1">
-                  LOGO MODE (`cfg[28]`)
-                </div>
+              <div className="flex items-center gap-2">
                 <select
                   value={logoMode}
                   onChange={(e) => onUpdateRgbConfig({ logoMode: Number(e.target.value) })}
-                  className="w-full bg-[#131b2e] border border-[#1e293b] rounded-lg px-2.5 py-1.5 text-xs text-white focus:outline-none focus:border-[#06b6d4]"
+                  className="flex-1 bg-[#0e1422] border border-[#1b263b] text-xs font-mono rounded px-2 py-1 text-slate-200 focus:outline-none"
                 >
                   {GMK87_LOGO_MODES.map((lm) => (
-                    <option key={lm.id} value={lm.id}>
-                      {lm.id}: {lm.name}
-                    </option>
+                    <option key={lm.id} value={lm.id}>{lm.name}</option>
                   ))}
                 </select>
+                <button
+                  type="button"
+                  onClick={() => onUpdateRgbConfig({ logoRainbow: logoRainbow ? 0 : 1 })}
+                  className={`px-2 py-1 text-xs font-mono rounded border cursor-pointer ${
+                    logoRainbow ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981]' : 'bg-[#0e1422] border-[#1b263b] text-slate-400'
+                  }`}
+                >
+                  Rainbow
+                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Right 8 Cols: All 19 Hardware Modes with Filter Bar */}
+          <div className="lg:col-span-8 bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-4">
+            <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+              <div>
+                <h3 className="text-sm font-bold text-white uppercase tracking-wide">
+                  19 Hardware Lighting Modes (Firmware cfg[1])
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Select an effect to flash directly to your GMK87 microcontroller.
+                </p>
               </div>
 
-              <div>
-                <div className="flex justify-between text-[10px] font-mono text-slate-400 mb-1">
-                  <span>LOGO BRI (`cfg[29]`)</span>
-                  <span className="text-[#06b6d4] font-bold">{logoBrightness}/4</span>
-                </div>
+              {/* Search Bar */}
+              <div className="relative">
+                <Search className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5" />
                 <input
-                  type="range"
-                  min={0}
-                  max={4}
-                  value={logoBrightness}
-                  onChange={(e) =>
-                    onUpdateRgbConfig({ logoBrightness: Number(e.target.value) })
-                  }
-                  className="w-full accent-[#06b6d4]"
+                  type="text"
+                  placeholder="Search 19 modes..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="bg-[#070a12] border border-[#1b263b] rounded-lg pl-8 pr-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#06b6d4] w-48"
                 />
               </div>
             </div>
 
+            {/* Filter Tabs */}
             <div className="flex flex-wrap items-center gap-1.5">
-              {GMK87_LOGO_COLORS.map((lc) => {
-                const active = !logoRainbow && logoColor === lc.id;
+              {(['All', 'Ambient Waves', 'Static & Breathing', 'Reactive Keystroke', 'Particle & Matrix', 'Power Saver'] as RgbEffectCategory[]).map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setEffectCategory(cat)}
+                  className={`px-3 py-1 text-xs rounded-lg transition-colors cursor-pointer ${
+                    effectCategory === cat
+                      ? 'bg-[#06b6d4] text-slate-950 font-bold'
+                      : 'bg-[#070a12] border border-[#1b263b] text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            {/* 19 Modes Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3 max-h-[520px] overflow-y-auto pr-1">
+              {filteredModes.map((m) => {
+                const isActive = configState.lightingEffect === m.id;
                 return (
                   <button
-                    key={lc.id}
+                    key={m.id}
                     type="button"
-                    onClick={() =>
-                      onUpdateRgbConfig({
-                        logoColor: lc.id,
-                        logoRainbow: 0,
-                      })
-                    }
-                    className={`px-2 py-1 text-[10px] font-mono rounded-md border flex items-center gap-1 cursor-pointer transition-colors ${
-                      active
-                        ? 'bg-[#131b2e] border-[#06b6d4] text-white font-bold'
-                        : 'bg-[#131b2e]/60 border-[#1e293b] text-slate-300 hover:border-slate-500'
+                    onClick={() => onUpdateRgbConfig({ lightingEffect: m.id })}
+                    className={`p-3 rounded-lg border text-left transition-all cursor-pointer flex flex-col justify-between gap-2 ${
+                      isActive
+                        ? 'bg-[#06b6d4]/10 border-[#06b6d4] text-white shadow-[0_0_12px_rgba(6,182,212,0.2)]'
+                        : 'bg-[#070a12] border-[#1b263b] text-slate-300 hover:border-slate-500'
                     }`}
                   >
-                    <span
-                      className="w-2.5 h-2.5 rounded-full border border-white/30 inline-block"
-                      style={{ backgroundColor: lc.hex }}
-                    />
-                    {lc.name}
+                    <div>
+                      <div className="flex items-center justify-between text-xs font-bold">
+                        <span className="text-white">{m.name}</span>
+                        <span className="font-mono text-[10px] text-[#06b6d4]">{m.hex}</span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                        {m.desc}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between text-[10px] font-mono text-slate-500 pt-1 border-t border-[#1b263b]">
+                      <span>{m.category}</span>
+                      {m.supportsDirection && <span className="text-purple-300">DIR</span>}
+                    </div>
                   </button>
                 );
               })}
             </div>
           </div>
         </div>
+      )}
 
-        {/* Right 7 Cols: All 19 Hardware Lighting Modes (0x00..0x12) with Category Filters */}
-        <div className="lg:col-span-7 bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-4">
-          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+      {/* SUB-TAB 2: KEYBOARD BACKLIGHT EDITOR (Interactive Per-Key & Zone Painter) */}
+      {activeStudioTab === 'backlight-editor' && (
+        <div className="bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-3 border-b border-[#1b263b]">
             <div>
-              <h3 className="text-base font-bold text-white">
-                All 19 GMK87 Firmware Lighting Modes (`cfg[1]: 0x00–0x12`)
+              <h3 className="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
+                <Palette className="w-4 h-4 text-[#06b6d4]" />
+                Interactive Keyboard Backlight Editor
               </h3>
-              <p className="text-xs text-slate-400">
-                Complete hardware effect table including ambient waves, reactive keystroke ripples,
-                crosshairs, and particle shaders.
+              <p className="text-xs text-slate-400 mt-0.5">
+                Click or drag across keys on the keyboard stage above to paint individual key colors, or apply colors by zone below.
               </p>
             </div>
-            <span className="text-xs font-mono text-[#06b6d4] shrink-0">
-              Showing {filteredModes.length} of 19 modes
+
+            <div className="flex items-center gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setCustomKeyColors({});
+                  onStatusLog('Cleared all custom backlight colors.');
+                }}
+                className="px-3 py-1.5 text-xs font-mono rounded bg-[#070a12] border border-[#1b263b] text-slate-400 hover:text-white cursor-pointer"
+              >
+                Clear Backlight
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  // Apply Solid mode (0x06) to hardware
+                  const cleanHex = activePaintColor.replace('#', '');
+                  const r = parseInt(cleanHex.substring(0, 2), 16) || 0;
+                  const g = parseInt(cleanHex.substring(2, 4), 16) || 0;
+                  const b = parseInt(cleanHex.substring(4, 6), 16) || 0;
+                  onUpdateRgbConfig({
+                    lightingEffect: 6, // Solid Light
+                    rgbHueR: r,
+                    rgbHueG: g,
+                    rgbHueB: b,
+                    rainbowMode: 0,
+                  });
+                  onStatusLog(`Flashed Solid Backlight (${activePaintColor}) to GMK87 EEPROM.`);
+                }}
+                className="px-3.5 py-1.5 text-xs font-bold rounded bg-[#06b6d4] text-slate-950 hover:bg-cyan-300 cursor-pointer shadow-sm"
+              >
+                Flash Solid Color
+              </button>
+            </div>
+          </div>
+
+          {/* Color Palette Selector */}
+          <div className="space-y-2">
+            <span className="text-xs font-mono text-slate-400">1. Select Paint Color:</span>
+            <div className="flex flex-wrap items-center gap-2">
+              {COLOR_PALETTE_SWATCHES.map((sw) => {
+                const isSelected = activePaintColor.toUpperCase() === sw.hex.toUpperCase();
+                return (
+                  <button
+                    key={sw.name}
+                    type="button"
+                    onClick={() => setActivePaintColor(sw.hex)}
+                    className={`px-2.5 py-1.5 rounded-lg border flex items-center gap-2 text-xs font-mono cursor-pointer transition-all ${
+                      isSelected
+                        ? 'bg-[#1b263b] border-white text-white font-bold shadow-[0_0_8px_rgba(255,255,255,0.2)]'
+                        : 'bg-[#070a12] border-[#1b263b] text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    <span className="w-3 h-3 rounded-full border border-white/20" style={{ backgroundColor: sw.hex }} />
+                    <span>{sw.name}</span>
+                  </button>
+                );
+              })}
+
+              {/* Custom Hex input */}
+              <div className="flex items-center gap-1.5 bg-[#070a12] border border-[#1b263b] rounded-lg px-2 py-1">
+                <input
+                  type="color"
+                  value={activePaintColor}
+                  onChange={(e) => setActivePaintColor(e.target.value)}
+                  className="w-5 h-5 rounded cursor-pointer bg-transparent border-0"
+                />
+                <span className="text-xs font-mono text-slate-200 uppercase">{activePaintColor}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Quick Zone Presets */}
+          <div className="space-y-2 pt-2 border-t border-[#1b263b]">
+            <span className="text-xs font-mono text-slate-400">2. Quick Apply by Keyboard Zone:</span>
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
+              {[
+                { id: 'wasd' as BacklightPresetZone, label: 'WASD Gamer' },
+                { id: 'arrows' as BacklightPresetZone, label: 'Arrow Keys' },
+                { id: 'alphas' as BacklightPresetZone, label: 'All Alphas' },
+                { id: 'modifiers' as BacklightPresetZone, label: 'Modifiers' },
+                { id: 'f-row' as BacklightPresetZone, label: 'Function F1-F12' },
+                { id: 'nav' as BacklightPresetZone, label: 'Navigation Cluster' },
+                { id: 'all' as BacklightPresetZone, label: 'Fill Entire Board' },
+              ].map((zone) => (
+                <button
+                  key={zone.id}
+                  type="button"
+                  onClick={() => handleApplyZoneColor(zone.id, activePaintColor)}
+                  className="p-2.5 rounded-lg bg-[#070a12] border border-[#1b263b] hover:border-[#06b6d4] text-xs font-mono text-slate-200 hover:text-white cursor-pointer transition-colors text-center"
+                >
+                  {zone.label}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="p-3 bg-[#070a12] border border-[#1b263b] rounded-lg text-xs font-mono text-slate-400 flex items-center justify-between">
+            <span>
+              Keys Painted: <strong className="text-[#06b6d4]">{Object.keys(customKeyColors).length}</strong> of 87 keys
+            </span>
+            <span>
+              Tip: Click any key on the visualizer above to apply <strong className="text-white">{activePaintColor}</strong>
             </span>
           </div>
+        </div>
+      )}
 
-          {/* Category Filter Pills */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            {(
-              [
-                'All',
-                'Ambient Waves',
-                'Static & Breathing',
-                'Reactive Keystroke',
-                'Particle & Matrix',
-                'Power Saver',
-              ] as RgbEffectCategory[]
-            ).map((cat) => {
-              const active = selectedCategory === cat;
-              return (
-                <button
-                  key={cat}
-                  type="button"
-                  onClick={() => setSelectedCategory(cat)}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg border transition-colors cursor-pointer ${
-                    active
-                      ? 'bg-[#06b6d4] text-slate-950 border-[#06b6d4]'
-                      : 'bg-[#0b0f19] text-slate-300 border-[#1e293b] hover:border-[#06b6d4]/60'
-                  }`}
-                >
-                  {cat}
-                </button>
-              );
-            })}
-          </div>
+      {/* SUB-TAB 3: CURATED COLORWAYS & USER SCENES */}
+      {activeStudioTab === 'presets' && (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Left 8 Cols: Curated Designer Presets */}
+          <div className="lg:col-span-8 bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-4">
+            <div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
+                <Layers className="w-4 h-4 text-[#06b6d4]" />
+                12 Curated Desk-Setup Colorways
+              </h3>
+              <p className="text-xs text-slate-400">
+                Crafted colorways tuned for GMK keycap sets and automatically paired with matching 240×135 TFT animations.
+              </p>
+            </div>
 
-          {/* Grid of 19 Hardware Modes */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[540px] overflow-y-auto pr-1">
-            {filteredModes.map((mode) => {
-              const active = configState.lightingEffect === mode.id;
-              return (
-                <div
-                  key={mode.id}
-                  onClick={() => onUpdateRgbConfig({ lightingEffect: mode.id })}
-                  className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-2.5 ${
-                    active
-                      ? 'bg-[#06b6d4]/15 border-2 border-[#06b6d4] text-white'
-                      : 'bg-[#0b0f19] border border-[#1e293b] text-slate-300 hover:border-slate-600'
-                  }`}
-                >
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between gap-2">
-                      <span className="text-sm font-bold text-white flex items-center gap-2">
-                        {mode.name}
-                      </span>
-                      <span className="px-2 py-0.5 text-[10px] font-mono rounded bg-[#131b2e] border border-[#1e293b] text-[#06b6d4]">
-                        {mode.hex}
-                      </span>
-                    </div>
-
-                    <p className="text-xs text-slate-400 leading-relaxed">{mode.desc}</p>
-                  </div>
-
-                  {/* Mini 8-LED Bar Preview + Capability Badges + LCD Sync */}
-                  <div className="pt-2 border-t border-[#1e293b]/80 flex items-center justify-between gap-2">
-                    <div className="flex items-center gap-1">
-                      {Array.from({ length: 8 }).map((_, idx) => {
-                        const miniShade = computePerKeyShader({
-                          keyX: idx * 2,
-                          keyY: 2,
-                          row: 2,
-                          col: idx * 2,
-                          effect: mode.id,
-                          brightness: Math.max(5, configState.brightness),
-                          speed: configState.speed,
-                          direction: effectDirection,
-                          rainbow: rainbowMode,
-                          baseR: configState.rgbHueR,
-                          baseG: configState.rgbHueG,
-                          baseB: configState.rgbHueB,
-                          timeSec: animTimeSec,
-                          ripples,
-                        });
-                        return (
+            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
+              {CURATED_RGB_PRESETS.map((p) => {
+                const hex = `#${p.r.toString(16).padStart(2, '0')}${p.g.toString(16).padStart(2, '0')}${p.b.toString(16).padStart(2, '0')}`;
+                return (
+                  <div
+                    key={p.id}
+                    className="p-3.5 bg-[#070a12] border border-[#1b263b] hover:border-[#06b6d4]/60 rounded-xl flex flex-col justify-between gap-3 transition-colors"
+                  >
+                    <div>
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
                           <span
-                            key={idx}
-                            className="w-2.5 h-2 rounded-xs inline-block"
-                            style={{
-                              backgroundColor: `rgb(${miniShade.r}, ${miniShade.g}, ${miniShade.b})`,
-                            }}
+                            className="w-3.5 h-3.5 rounded-full border border-white/20 shrink-0"
+                            style={{ background: `linear-gradient(135deg, ${hex}, ${p.secondaryHex})` }}
                           />
-                        );
-                      })}
+                          <span className="text-xs font-bold text-white truncate">{p.name}</span>
+                        </div>
+                        <span className="text-[10px] font-mono text-cyan-300 bg-[#0e1422] px-1.5 py-0.5 rounded">
+                          {p.tag}
+                        </span>
+                      </div>
+                      <p className="text-[11px] text-slate-400 mt-1 line-clamp-2 leading-relaxed">
+                        {p.subtitle}
+                      </p>
                     </div>
 
-                    <div className="flex items-center gap-1.5 text-[10px] font-mono">
-                      {mode.supportsDirection && (
-                        <span className="px-1.5 py-0.5 rounded bg-[#131b2e] text-purple-300">
-                          DIR
-                        </span>
-                      )}
-                      {mode.supportsRainbowToggle && (
-                        <span className="px-1.5 py-0.5 rounded bg-[#131b2e] text-emerald-300">
-                          RNBW
-                        </span>
-                      )}
+                    <div className="flex items-center gap-2 pt-2 border-t border-[#1b263b]">
                       <button
                         type="button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          onUpdateRgbConfig({ lightingEffect: mode.id });
-                          onSyncLcdTheme(mode.recommendedLcdAnim, rgbHexColor, false);
-                        }}
-                        className="px-2 py-0.5 rounded bg-[#131b2e] border border-[#1e293b] text-[#06b6d4] hover:border-[#06b6d4] cursor-pointer"
+                        onClick={() => handleApplyPreset(p, false)}
+                        className="flex-1 py-1 px-2 text-xs font-semibold rounded bg-[#1b263b] hover:bg-[#06b6d4] hover:text-slate-950 text-slate-200 transition-colors cursor-pointer"
+                      >
+                        Apply RGB
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => handleApplyPreset(p, true)}
+                        className="py-1 px-2.5 text-xs font-semibold rounded bg-[#06b6d4] text-slate-950 hover:bg-cyan-300 transition-colors cursor-pointer"
+                        title="Flash paired 240x135 animation to LCD"
                       >
                         +LCD
                       </button>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </div>
-
-      {/* =====================================================================
-          3. SMART REACTIVE & CROSS-DEVICE LIGHTING ENGINES
-         ===================================================================== */}
-      <div className="bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-5">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-4">
-          <div>
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Zap className="w-5 h-5 text-[#10b981]" />
-              Smart Reactive & Automated Lighting Engines (Audio Beat · CPU Thermal · WPM · Schedule)
-            </h3>
-            <p className="text-xs text-slate-400">
-              Drive your GMK87 LEDs dynamically from real-time music beats, Windows CPU/GPU thermal
-              load, typing velocity (WPM), or a timed day/night schedule.
-            </p>
-          </div>
-
-          <button
-            type="button"
-            onClick={() => setStreamReactiveToHardware((v) => !v)}
-            className={`px-3.5 py-2 text-xs font-mono font-semibold rounded-lg border transition-colors cursor-pointer shrink-0 ${
-              streamReactiveToHardware
-                ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981]'
-                : 'bg-[#0b0f19] border-[#1e293b] text-slate-300 hover:border-[#06b6d4]'
-            }`}
-          >
-            Hardware Live USB Stream (EEPROM · 750ms Safe): {streamReactiveToHardware ? 'ENABLED' : 'PREVIEW'}
-          </button>
-        </div>
-
-        {/* 6 Engine Selector Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
-          {[
-            {
-              id: 'off' as ReactiveEngineMode,
-              title: 'Hardware Autonomous',
-              sub: 'Standard on-board GMK87 MCU lighting',
-              icon: Keyboard,
-              accent: '#64748b',
-            },
-            {
-              id: 'audio' as ReactiveEngineMode,
-              title: 'Audio Beat Pulse',
-              sub: 'Pulses hue & brightness to mic or synth beat',
-              icon: Music,
-              accent: '#06b6d4',
-            },
-            {
-              id: 'thermal' as ReactiveEngineMode,
-              title: 'CPU Thermal Shift',
-              sub: 'Cyan (Cool) → Emerald → Amber → Crimson',
-              icon: Cpu,
-              accent: '#f59e0b',
-            },
-            {
-              id: 'wpm' as ReactiveEngineMode,
-              title: 'WPM Overdrive',
-              sub: `Shifts colour with typing speed (${liveWpm} WPM)`,
-              icon: Gauge,
-              accent: '#10b981',
-            },
-            {
-              id: 'cycle' as ReactiveEngineMode,
-              title: 'HSV Colour Cycler',
-              sub: 'Smooth automated 360° spectrum rotation',
-              icon: RefreshCw,
-              accent: '#8b5cf6',
-            },
-            {
-              id: 'schedule' as ReactiveEngineMode,
-              title: 'Day / Night Schedule',
-              sub: 'Auto-switches presets by system hour',
-              icon: Clock,
-              accent: '#ec4899',
-            },
-          ].map((eng) => {
-            const Icon = eng.icon;
-            const active = reactiveMode === eng.id;
-            return (
-              <button
-                key={eng.id}
-                type="button"
-                onClick={() => {
-                  setReactiveMode(eng.id);
-                  onStatusLog(`Reactive RGB Engine switched to: ${eng.title}`);
-                }}
-                className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-2 ${
-                  active
-                    ? 'bg-[#0b0f19] border-2 border-[#06b6d4] text-white'
-                    : 'bg-[#0b0f19] border border-[#1e293b] text-slate-300 hover:border-slate-600'
-                }`}
-              >
-                <div className="flex items-center justify-between">
-                  <Icon className="w-4 h-4" style={{ color: eng.accent }} />
-                  {active && (
-                    <span className="text-[10px] font-mono text-[#10b981] font-bold">ACTIVE</span>
-                  )}
-                </div>
-                <div>
-                  <div className="text-xs font-bold text-white">{eng.title}</div>
-                  <div className="text-[11px] text-slate-400 mt-0.5 leading-snug">{eng.sub}</div>
-                </div>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Contextual Controls for Active Reactive Engine */}
-        {reactiveMode === 'audio' && (
-          <div className="p-4 rounded-xl bg-[#0b0f19] border border-[#1e293b] flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="space-y-2 w-full md:w-auto">
-              <div className="text-xs font-bold text-white flex items-center gap-2">
-                🎵 Audio-Reactive RGB Beat Analyzer ({audioMicActive ? 'Live Microphone' : 'Synth Beat Demo'})
-              </div>
-              <div className="flex flex-wrap items-center gap-3">
-                <button
-                  type="button"
-                  onClick={handleToggleAudioMic}
-                  className={`px-3 py-1.5 text-xs font-semibold rounded-lg border flex items-center gap-1.5 cursor-pointer ${
-                    audioMicActive
-                      ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981]'
-                      : 'bg-[#131b2e] border-[#1e293b] text-slate-200 hover:border-[#06b6d4]'
-                  }`}
-                >
-                  <Mic className="w-3.5 h-3.5" />
-                  {audioMicActive ? 'Stop Microphone (Use Synth Beat)' : 'Enable Live Microphone Input'}
-                </button>
-                <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
-                  <span>Beat Gain ({audioSensitivity}%):</span>
-                  <input
-                    type="range"
-                    min={30}
-                    max={150}
-                    value={audioSensitivity}
-                    onChange={(e) => setAudioSensitivity(Number(e.target.value))}
-                    className="w-28 accent-[#06b6d4]"
-                  />
-                </div>
-              </div>
-            </div>
-
-            {/* 16-Band Live Audio Beat Meter */}
-            <div className="flex items-end gap-1 h-12 px-3 py-1.5 rounded-lg bg-[#131b2e] border border-[#1e293b]">
-              {audioBands.map((v, i) => (
-                <div
-                  key={i}
-                  className="w-2 rounded-t transition-all duration-75"
-                  style={{
-                    height: `${Math.max(12, Math.round(v * 100))}%`,
-                    backgroundColor: i < 4 ? '#06b6d4' : i < 10 ? '#8b5cf6' : '#10b981',
-                  }}
-                />
-              ))}
+                );
+              })}
             </div>
           </div>
-        )}
 
-        {reactiveMode === 'thermal' && (
-          <div className="p-4 rounded-xl bg-[#0b0f19] border border-[#1e293b] flex flex-col md:flex-row items-center justify-between gap-4">
-            <div className="space-y-1">
-              <div className="text-xs font-bold text-white">
-                🌡️ CPU Load & Thermal Colour Interpolator (Current:{' '}
-                <span className="text-[#06b6d4] font-mono">
-                  {simulatedCpuLoad !== null ? simulatedCpuLoad : telemetry.cpuPercent}%
-                </span>
-                )
-              </div>
-              <p className="text-xs text-slate-400">
-                Automatically transitions keyboard LEDs from Cyan (&lt;35%) → Emerald (50%) → Amber
-                (75%) → Crimson Overdrive (&gt;85%).
-              </p>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs font-mono text-slate-400">Test Load Override:</span>
-              <input
-                type="range"
-                min={10}
-                max={100}
-                value={simulatedCpuLoad !== null ? simulatedCpuLoad : telemetry.cpuPercent}
-                onChange={(e) => setSimulatedCpuLoad(Number(e.target.value))}
-                className="w-36 accent-[#f59e0b]"
-              />
-              {simulatedCpuLoad !== null && (
-                <button
-                  type="button"
-                  onClick={() => setSimulatedCpuLoad(null)}
-                  className="px-2.5 py-1 text-xs font-mono rounded bg-[#131b2e] border border-[#1e293b] text-slate-300 hover:border-[#06b6d4] cursor-pointer"
-                >
-                  Use Live PC CPU
-                </button>
-              )}
-            </div>
-          </div>
-        )}
-
-        {reactiveMode === 'cycle' && (
-          <div className="p-4 rounded-xl bg-[#0b0f19] border border-[#1e293b] flex flex-wrap items-center justify-between gap-4">
-            <div className="text-xs text-slate-300">
-              <strong className="text-white">Automated HSV Spectrum Rotator:</strong> Smoothly
-              advances `cfg[6..8]` around the 360° colour wheel every{' '}
-              <span className="text-[#06b6d4] font-mono font-bold">{cycleIntervalSec}s</span>.
-            </div>
-            <div className="flex items-center gap-2 text-xs font-mono text-slate-300">
-              <span>Step Interval ({cycleIntervalSec}s):</span>
-              <input
-                type="range"
-                min={1}
-                max={15}
-                value={cycleIntervalSec}
-                onChange={(e) => setCycleIntervalSec(Number(e.target.value))}
-                className="w-36 accent-[#8b5cf6]"
-              />
-            </div>
-          </div>
-        )}
-
-        {reactiveMode === 'schedule' && (
-          <div className="p-4 rounded-xl bg-[#0b0f19] border border-[#1e293b] grid grid-cols-1 md:grid-cols-2 gap-4">
-            <div className="flex items-center justify-between gap-3 bg-[#131b2e] p-3 rounded-lg border border-[#1e293b]">
-              <div>
-                <div className="text-xs font-bold text-amber-300">☀️ Daytime Profile ({dayStartHour}:00)</div>
-                <div className="text-[11px] text-slate-400">Active during daylight work hours</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  min={0}
-                  max={23}
-                  value={dayStartHour}
-                  onChange={(e) => setDayStartHour(Number(e.target.value))}
-                  className="w-14 bg-[#0b0f19] border border-[#1e293b] rounded px-2 py-1 text-xs font-mono text-white"
-                />
-                <select
-                  value={dayPresetId}
-                  onChange={(e) => setDayPresetId(e.target.value)}
-                  className="bg-[#0b0f19] border border-[#1e293b] rounded px-2.5 py-1 text-xs font-mono text-white"
-                >
-                  {CURATED_RGB_PRESETS.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-
-            <div className="flex items-center justify-between gap-3 bg-[#131b2e] p-3 rounded-lg border border-[#1e293b]">
-              <div>
-                <div className="text-xs font-bold text-cyan-300">🌙 Nighttime Profile ({nightStartHour}:00)</div>
-                <div className="text-[11px] text-slate-400">Active during evening gaming sessions</div>
-              </div>
-              <div className="flex items-center gap-2">
-                <input
-                  type="number"
-                  min={0}
-                  max={23}
-                  value={nightStartHour}
-                  onChange={(e) => setNightStartHour(Number(e.target.value))}
-                  className="w-14 bg-[#0b0f19] border border-[#1e293b] rounded px-2 py-1 text-xs font-mono text-white"
-                />
-                <select
-                  value={nightPresetId}
-                  onChange={(e) => setNightPresetId(e.target.value)}
-                  className="bg-[#0b0f19] border border-[#1e293b] rounded px-2.5 py-1 text-xs font-mono text-white"
-                >
-                  {CURATED_RGB_PRESETS.map((p) => (
-                    <option key={p.id} value={p.id}>
-                      {p.name}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          </div>
-        )}
-      </div>
-
-      {/* =====================================================================
-          4. CURATED DESIGNER COLORWAY PRESETS & SAVED USER SCENES
-         ===================================================================== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left 8 Cols: 12 Curated Designer Presets */}
-        <div className="lg:col-span-8 bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-3">
+          {/* Right 4 Cols: Saved User Scenes */}
+          <div className="lg:col-span-4 bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-4">
             <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Palette className="w-4 h-4 text-[#06b6d4]" />
-                12 Curated Desk-Setup Colorways (RGB + 240×135 LCD Ambilight)
-              </h3>
-              <p className="text-xs text-slate-400">
-                One-click themes tuned for GMK keycap sets and paired with matching 240×135 TFT
-                animations.
-              </p>
-            </div>
-
-            <button
-              type="button"
-              onClick={() => setAutoSyncLcdOnPreset((v) => !v)}
-              className={`px-3 py-1.5 text-xs font-mono rounded-lg border cursor-pointer transition-colors ${
-                autoSyncLcdOnPreset
-                  ? 'bg-[#06b6d4]/20 border-[#06b6d4] text-[#06b6d4] font-semibold'
-                  : 'bg-[#0b0f19] border-[#1e293b] text-slate-400'
-              }`}
-            >
-              Auto-Sync LCD Preview on Preset Click: {autoSyncLcdOnPreset ? 'ON' : 'OFF'}
-            </button>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-3">
-            {CURATED_RGB_PRESETS.map((preset) => {
-              const primaryHex = `#${preset.r.toString(16).padStart(2, '0')}${preset.g
-                .toString(16)
-                .padStart(2, '0')}${preset.b.toString(16).padStart(2, '0')}`;
-              return (
-                <div
-                  key={preset.id}
-                  className="p-3.5 rounded-xl bg-[#0b0f19] border border-[#1e293b] hover:border-[#06b6d4]/70 transition-all flex flex-col justify-between gap-3"
-                >
-                  <div className="space-y-1.5">
-                    <div className="flex items-center justify-between gap-2">
-                      <div className="flex items-center gap-2">
-                        <span
-                          className="w-3.5 h-3.5 rounded-full border border-white/30 shrink-0"
-                          style={{
-                            background: `linear-gradient(135deg, ${primaryHex}, ${preset.secondaryHex})`,
-                          }}
-                        />
-                        <span className="text-xs font-bold text-white truncate">{preset.name}</span>
-                      </div>
-                      <span className="text-[10px] font-mono px-1.5 py-0.5 rounded bg-[#131b2e] text-cyan-300">
-                        {preset.tag}
-                      </span>
-                    </div>
-                    <p className="text-[11px] text-slate-400 leading-snug">{preset.subtitle}</p>
-                    <div className="text-[10px] font-mono text-slate-500 flex items-center justify-between pt-0.5">
-                      <span>Mode 0x{preset.effect.toString(16).padStart(2, '0')}</span>
-                      <span>LCD: {preset.linkedLcdAnim}</span>
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => handleApplyPreset(preset, false)}
-                      className="flex-1 py-1.5 px-2.5 text-xs font-semibold rounded-lg bg-[#131b2e] border border-[#1e293b] text-slate-200 hover:border-[#06b6d4] transition-colors cursor-pointer"
-                    >
-                      Apply RGB
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => handleApplyPreset(preset, true)}
-                      className="py-1.5 px-2.5 text-xs font-semibold rounded-lg bg-[#06b6d4] text-slate-950 hover:bg-cyan-400 transition-colors cursor-pointer"
-                      title="Apply RGB and Flash paired animation to GMK87 LCD"
-                    >
-                      +Flash LCD
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-
-        {/* Right 4 Cols: Saved User Custom Scenes */}
-        <div className="lg:col-span-4 bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 flex flex-col justify-between gap-4">
-          <div className="space-y-4">
-            <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <h3 className="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
                 <Bookmark className="w-4 h-4 text-[#8b5cf6]" />
                 Saved Custom Scenes
               </h3>
               <p className="text-xs text-slate-400">
-                Store your favourite RGB + LCD combinations to local studio memory.
+                Save your active lighting, brightness, and LCD pairing to browser memory.
               </p>
             </div>
 
             <form onSubmit={handleSaveCurrentScene} className="flex items-center gap-2">
               <input
                 type="text"
+                placeholder="Name current setup..."
                 value={newSceneName}
                 onChange={(e) => setNewSceneName(e.target.value)}
-                placeholder="Name current setup (e.g. Late Night)..."
-                className="flex-1 bg-[#0b0f19] border border-[#1e293b] rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#8b5cf6]"
+                className="flex-1 bg-[#070a12] border border-[#1b263b] rounded-lg px-3 py-1.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#8b5cf6]"
               />
               <button
                 type="submit"
-                className="px-3 py-2 text-xs font-semibold rounded-lg bg-[#8b5cf6] text-white hover:bg-purple-500 transition-colors flex items-center gap-1 cursor-pointer shrink-0"
+                className="px-3 py-1.5 text-xs font-bold rounded-lg bg-[#8b5cf6] text-white hover:bg-purple-500 cursor-pointer"
               >
-                <Plus className="w-3.5 h-3.5" />
                 Save
               </button>
             </form>
 
-            <div className="space-y-2.5 max-h-[360px] overflow-y-auto pr-1">
+            <div className="space-y-2 max-h-[380px] overflow-y-auto pr-1">
               {savedScenes.map((sc) => {
-                const hex = `#${sc.r.toString(16).padStart(2, '0')}${sc.g
-                  .toString(16)
-                  .padStart(2, '0')}${sc.b.toString(16).padStart(2, '0')}`;
+                const hex = `#${sc.r.toString(16).padStart(2, '0')}${sc.g.toString(16).padStart(2, '0')}${sc.b.toString(16).padStart(2, '0')}`;
                 return (
                   <div
                     key={sc.id}
-                    className="p-3 rounded-xl bg-[#0b0f19] border border-[#1e293b] flex items-center justify-between gap-2"
+                    className="p-3 bg-[#070a12] border border-[#1b263b] rounded-lg flex items-center justify-between gap-2"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <span
-                        className="w-4 h-4 rounded-full border border-white/30 shrink-0"
-                        style={{ backgroundColor: hex }}
-                      />
+                      <span className="w-3.5 h-3.5 rounded-full shrink-0" style={{ backgroundColor: hex }} />
                       <div className="min-w-0">
                         <div className="text-xs font-bold text-white truncate">{sc.name}</div>
-                        <div className="text-[10px] font-mono text-slate-400">
-                          Mode 0x{sc.effect.toString(16).padStart(2, '0')} · Bri {sc.brightness}/4 ·{' '}
-                          {sc.linkedLcdAnim}
+                        <div className="text-[10px] font-mono text-slate-500">
+                          Mode 0x{sc.effect.toString(16).padStart(2, '0')} · {sc.createdAt}
                         </div>
                       </div>
                     </div>
 
-                    <div className="flex items-center gap-1.5 shrink-0">
+                    <div className="flex items-center gap-1.5">
                       <button
                         type="button"
                         onClick={() => {
-                          setReactiveMode('off');
                           onUpdateRgbConfig({
                             lightingEffect: sc.effect,
                             brightness: sc.brightness,
@@ -2000,19 +1468,19 @@ export default function RgbUnderglowStudio({
                             rgbHueG: sc.g,
                             rgbHueB: sc.b,
                           });
+                          if (sc.customBacklightMap) {
+                            setCustomKeyColors(sc.customBacklightMap);
+                          }
                           onSyncLcdTheme(sc.linkedLcdAnim, hex, false);
                         }}
-                        className="px-2.5 py-1 text-xs font-semibold rounded bg-[#131b2e] border border-[#1e293b] text-[#06b6d4] hover:border-[#06b6d4] cursor-pointer"
+                        className="px-2.5 py-1 text-xs font-mono rounded bg-[#1b263b] hover:bg-[#06b6d4] hover:text-slate-950 text-slate-200 cursor-pointer"
                       >
                         Load
                       </button>
                       <button
                         type="button"
-                        onClick={() =>
-                          setSavedScenes((prev) => prev.filter((item) => item.id !== sc.id))
-                        }
+                        onClick={() => setSavedScenes((prev) => prev.filter((item) => item.id !== sc.id))}
                         className="p-1 text-slate-500 hover:text-rose-400 cursor-pointer"
-                        title="Delete saved scene"
                       >
                         <Trash2 className="w-3.5 h-3.5" />
                       </button>
@@ -2022,100 +1490,227 @@ export default function RgbUnderglowStudio({
               })}
             </div>
           </div>
-
-          <div className="pt-3 border-t border-[#1e293b] text-[11px] font-mono text-slate-400 flex items-center justify-between">
-            <span>{savedScenes.length} scene(s) stored</span>
-            <button
-              type="button"
-              onClick={() => {
-                setSavedScenes(DEFAULT_SAVED_SCENES);
-                onStatusLog('Restored default RGB studio scenes.');
-              }}
-              className="text-slate-400 hover:text-white cursor-pointer"
-            >
-              Reset Defaults
-            </button>
-          </div>
         </div>
-      </div>
+      )}
 
-      {/* =====================================================================
-          5. QUICK-ACCESS FN LIGHTING SHORTCUT CHEATSHEET & LIVE TESTER
-             + RAW 48-BYTE / 64-BYTE EEPROM HEX INSPECTOR & DIFF VIEWER
-         ===================================================================== */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-        {/* Left 6 Cols: Quick-Access Fn Lighting Shortcut Cheatsheet & Tester */}
-        <div className="lg:col-span-6 bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-4">
-          <div>
-            <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Keyboard className="w-4 h-4 text-[#06b6d4]" />
-              Hardware `Fn` Lighting Shortcuts & One-Click Simulator
-            </h3>
-            <p className="text-xs text-slate-400">
-              Reference for on-board GMK87 Layer 1 RGB keycodes (`0x5CC2`–`0x5CCC`), or click{' '}
-              <strong className="text-white">Trigger</strong> to execute the exact register action
-              now.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-            {FN_LIGHTING_SHORTCUTS.map((sc) => (
-              <div
-                key={sc.id}
-                className="p-3.5 rounded-xl bg-[#0b0f19] border border-[#1e293b] flex flex-col justify-between gap-2.5"
-              >
-                <div className="space-y-1">
-                  <div className="flex items-center justify-between gap-2">
-                    <kbd className="px-2 py-0.5 text-xs font-mono font-bold rounded bg-[#131b2e] border border-[#06b6d4]/50 text-[#06b6d4]">
-                      {sc.combo}
-                    </kbd>
-                    <span className="text-[10px] font-mono text-slate-500">{sc.matrixPos}</span>
-                  </div>
-                  <div className="text-xs font-bold text-white pt-0.5">{sc.title}</div>
-                  <p className="text-[11px] text-slate-400 leading-snug">{sc.desc}</p>
-                </div>
-
-                <div className="flex items-center justify-between pt-2 border-t border-[#1e293b]/80">
-                  <span className="text-[10px] font-mono text-purple-300">{sc.registerNote}</span>
-                  <button
-                    type="button"
-                    onClick={() => handleTriggerFnShortcut(sc)}
-                    className="px-2.5 py-1 text-[11px] font-mono font-semibold rounded bg-[#131b2e] border border-[#1e293b] text-slate-200 hover:border-[#06b6d4] hover:text-[#06b6d4] cursor-pointer transition-colors"
-                  >
-                    Trigger →
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right 6 Cols: Raw 48-Byte / 64-Byte EEPROM RGB Config Hex Inspector & Diff Viewer */}
-        <div className="lg:col-span-6 bg-[#131b2e] border border-[#1e293b] rounded-xl p-6 space-y-4">
-          <div className="flex flex-wrap items-center justify-between gap-2">
+      {/* SUB-TAB 4: SMART REACTIVE ENGINES (Audio, CPU Thermal, WPM, Schedule) */}
+      {activeStudioTab === 'reactive' && (
+        <div className="bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-5">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 pb-3 border-b border-[#1b263b]">
             <div>
-              <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Binary className="w-4 h-4 text-[#10b981]" />
-                Raw {liveSerializedBytes.length}-Byte EEPROM Config Hex Inspector (`0x06`)
+              <h3 className="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
+                <Zap className="w-4 h-4 text-[#10b981]" />
+                Smart Reactive & Automated Lighting Engines
               </h3>
-              <p className="text-xs text-slate-400">
-                Live byte map of `cfg[0..{liveSerializedBytes.length - 1}]` highlighting RGB
-                registers (`cfg[1..8]`), LCD mode (`cfg[33]`), and modified bytes (`DIFF`).
+              <p className="text-xs text-slate-400 mt-0.5">
+                Automatically pulse or modulate keyboard lighting from live audio beats, PC thermal metrics, or typing velocity.
               </p>
             </div>
 
-            <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => {
-                  userSnapshottedBaselineRef.current = true;
-                  setBaselineBytes(new Uint8Array(liveSerializedBytes));
-                  onStatusLog('Snapshotted current EEPROM config buffer as diff baseline.');
-                }}
-                className="px-2.5 py-1.5 text-[11px] font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-slate-300 hover:border-[#06b6d4] cursor-pointer"
-              >
-                Snapshot Baseline ({modifiedByteIndices.size} diffs)
-              </button>
+            <button
+              type="button"
+              onClick={() => setStreamReactiveToHardware((v) => !v)}
+              className={`px-3 py-1.5 text-xs font-mono font-semibold rounded-lg border transition-colors cursor-pointer ${
+                streamReactiveToHardware
+                  ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981]'
+                  : 'bg-[#070a12] border-[#1b263b] text-slate-400 hover:text-white'
+              }`}
+            >
+              Hardware USB Stream: {streamReactiveToHardware ? 'ENABLED (750ms)' : 'PREVIEW ONLY'}
+            </button>
+          </div>
+
+          {/* Engine Cards */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3">
+            {[
+              { id: 'off' as ReactiveEngineMode, title: 'Autonomous', sub: 'Standard MCU effects', icon: Keyboard, color: '#64748b' },
+              { id: 'audio' as ReactiveEngineMode, title: 'Audio Beat', sub: 'Microphone & Synth beat', icon: Music, color: '#06b6d4' },
+              { id: 'thermal' as ReactiveEngineMode, title: 'CPU Thermal', sub: 'Cyan → Amber → Crimson', icon: Cpu, color: '#f59e0b' },
+              { id: 'wpm' as ReactiveEngineMode, title: 'WPM Overdrive', sub: `${liveWpm} WPM velocity`, icon: Gauge, color: '#10b981' },
+              { id: 'cycle' as ReactiveEngineMode, title: 'Color Cycler', sub: 'Rotates 360° spectrum', icon: RefreshCw, color: '#8b5cf6' },
+              { id: 'schedule' as ReactiveEngineMode, title: 'Day / Night', sub: 'Timed lighting schedule', icon: Clock, color: '#ec4899' },
+            ].map((eng) => {
+              const Icon = eng.icon;
+              const active = reactiveMode === eng.id;
+              return (
+                <button
+                  key={eng.id}
+                  type="button"
+                  onClick={() => setReactiveMode(eng.id)}
+                  className={`p-3.5 rounded-xl border text-left transition-all cursor-pointer flex flex-col justify-between gap-2 ${
+                    active
+                      ? 'bg-[#06b6d4]/10 border-[#06b6d4] text-white shadow-sm'
+                      : 'bg-[#070a12] border-[#1b263b] text-slate-400 hover:text-white hover:border-slate-500'
+                  }`}
+                >
+                  <div className="flex items-center justify-between">
+                    <Icon className="w-4 h-4" style={{ color: eng.color }} />
+                    {active && <span className="text-[10px] font-mono text-[#10b981] font-bold">ACTIVE</span>}
+                  </div>
+                  <div>
+                    <div className="text-xs font-bold text-white">{eng.title}</div>
+                    <div className="text-[10px] text-slate-400 mt-0.5">{eng.sub}</div>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Contextual Settings for Selected Engine */}
+          {reactiveMode === 'audio' && (
+            <div className="p-4 bg-[#070a12] border border-[#1b263b] rounded-lg flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="space-y-2">
+                <div className="text-xs font-bold text-white flex items-center gap-2">
+                  <Music className="w-4 h-4 text-[#06b6d4]" /> Audio Beat Pulse ({audioMicActive ? 'Microphone' : 'Synth Demo'})
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={handleToggleAudioMic}
+                    className={`px-3 py-1.5 text-xs font-mono rounded border cursor-pointer ${
+                      audioMicActive ? 'bg-[#10b981]/20 border-[#10b981] text-[#10b981]' : 'bg-[#1b263b] text-slate-200'
+                    }`}
+                  >
+                    <Mic className="w-3.5 h-3.5 inline mr-1" />
+                    {audioMicActive ? 'Stop Mic' : 'Enable Microphone'}
+                  </button>
+                  <div className="flex items-center gap-2 text-xs font-mono text-slate-400">
+                    <span>Gain:</span>
+                    <input
+                      type="range"
+                      min={30}
+                      max={150}
+                      value={audioSensitivity}
+                      onChange={(e) => setAudioSensitivity(Number(e.target.value))}
+                      className="w-24 accent-[#06b6d4]"
+                    />
+                  </div>
+                </div>
+              </div>
+
+              {/* Band Meter */}
+              <div className="flex items-end gap-1 h-10 px-3 py-1 bg-[#0e1422] border border-[#1b263b] rounded">
+                {audioBands.map((v, i) => (
+                  <div
+                    key={i}
+                    className="w-2 rounded-t transition-all duration-75"
+                    style={{
+                      height: `${Math.max(15, Math.round(v * 100))}%`,
+                      backgroundColor: i < 4 ? '#06b6d4' : i < 10 ? '#8b5cf6' : '#10b981',
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+
+          {reactiveMode === 'thermal' && (
+            <div className="p-4 bg-[#070a12] border border-[#1b263b] rounded-lg flex items-center justify-between gap-4 text-xs font-mono">
+              <div className="text-slate-300">
+                Current CPU Load:{' '}
+                <strong className="text-[#f59e0b]">
+                  {simulatedCpuLoad !== null ? simulatedCpuLoad : telemetry.cpuPercent}%
+                </strong>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>Test Override:</span>
+                <input
+                  type="range"
+                  min={10}
+                  max={100}
+                  value={simulatedCpuLoad !== null ? simulatedCpuLoad : telemetry.cpuPercent}
+                  onChange={(e) => setSimulatedCpuLoad(Number(e.target.value))}
+                  className="w-32 accent-[#f59e0b]"
+                />
+              </div>
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* SUB-TAB 5: EEPROM REGISTERS & HARDWARE SHORTCUTS */}
+      {activeStudioTab === 'diagnostics' && (
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+          {/* Left 6 Cols: Hardware Shortcuts */}
+          <div className="lg:col-span-6 bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-4">
+            <div>
+              <h3 className="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
+                <Keyboard className="w-4 h-4 text-[#06b6d4]" />
+                Hardware Fn Lighting Shortcuts
+              </h3>
+              <p className="text-xs text-slate-400">
+                Trigger onboard GMK87 Layer 1 firmware lighting shortcuts directly.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
+              {FN_LIGHTING_SHORTCUTS.map((sc) => (
+                <div
+                  key={sc.id}
+                  className="p-3 bg-[#070a12] border border-[#1b263b] rounded-lg flex flex-col justify-between gap-2"
+                >
+                  <div>
+                    <div className="flex items-center justify-between">
+                      <kbd className="px-1.5 py-0.5 text-xs font-mono font-bold bg-[#1b263b] text-[#06b6d4] rounded">
+                        {sc.combo}
+                      </kbd>
+                      <span className="text-[10px] font-mono text-purple-300">{sc.registerNote}</span>
+                    </div>
+                    <div className="text-xs font-bold text-white mt-1">{sc.title}</div>
+                    <p className="text-[11px] text-slate-400 leading-snug">{sc.desc}</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      switch (sc.actionType) {
+                        case 'next-effect':
+                          onUpdateRgbConfig({ lightingEffect: (configState.lightingEffect % 18) + 1 });
+                          break;
+                        case 'next-hue':
+                          onUpdateRgbConfig({ rainbowMode: rainbowMode ? 0 : 1 });
+                          break;
+                        case 'toggle-led':
+                          onUpdateRgbConfig({ lightingEffect: configState.lightingEffect === 0 ? 1 : 0 });
+                          break;
+                        case 'bri-up':
+                          onUpdateRgbConfig({ brightness: Math.min(4, configState.brightness + 1) });
+                          break;
+                        case 'bri-down':
+                          onUpdateRgbConfig({ brightness: Math.max(0, configState.brightness - 1) });
+                          break;
+                        case 'spd-up':
+                          onUpdateRgbConfig({ speed: Math.min(4, configState.speed + 1) });
+                          break;
+                        case 'spd-down':
+                          onUpdateRgbConfig({ speed: Math.max(0, configState.speed - 1) });
+                          break;
+                        case 'toggle-dir':
+                          onUpdateRgbConfig({ effectDirection: effectDirection ? 0 : 1 });
+                          break;
+                      }
+                    }}
+                    className="w-full py-1 text-xs font-mono rounded bg-[#1b263b] hover:bg-[#06b6d4] hover:text-slate-950 text-slate-200 cursor-pointer"
+                  >
+                    Simulate Action →
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Right 6 Cols: Hex Inspector */}
+          <div className="lg:col-span-6 bg-[#0e1422] border border-[#1b263b] rounded-xl p-5 space-y-4">
+            <div className="flex items-center justify-between">
+              <div>
+                <h3 className="text-sm font-bold text-white uppercase tracking-wide flex items-center gap-2">
+                  <Binary className="w-4 h-4 text-[#10b981]" />
+                  Raw EEPROM Register Map (cfg[0..47])
+                </h3>
+                <p className="text-xs text-slate-400">
+                  Exact 48-byte hardware state written via HID command 0x06.
+                </p>
+              </div>
+
               <button
                 type="button"
                 onClick={() => {
@@ -2126,102 +1721,37 @@ export default function RgbUnderglowStudio({
                   setCopiedHex(true);
                   setTimeout(() => setCopiedHex(false), 1800);
                 }}
-                className="px-2.5 py-1.5 text-[11px] font-mono rounded-lg bg-[#0b0f19] border border-[#1e293b] text-[#06b6d4] hover:border-[#06b6d4] flex items-center gap-1 cursor-pointer"
+                className="px-2.5 py-1 text-xs font-mono rounded bg-[#070a12] border border-[#1b263b] text-[#06b6d4] cursor-pointer"
               >
-                {copiedHex ? <Check className="w-3.5 h-3.5" /> : <Copy className="w-3.5 h-3.5" />}
                 {copiedHex ? 'Copied' : 'Copy Hex'}
               </button>
             </div>
-          </div>
 
-          {/* Legend */}
-          <div className="flex flex-wrap items-center gap-3 text-[10px] font-mono">
-            <span className="px-2 py-0.5 rounded bg-[#06b6d4]/20 border border-[#06b6d4] text-[#06b6d4]">
-              [01..08] RGB Registers
-            </span>
-            <span className="px-2 py-0.5 rounded bg-[#8b5cf6]/20 border border-[#8b5cf6] text-purple-300">
-              [33..34, 43..46] LCD Screen
-            </span>
-            <span className="px-2 py-0.5 rounded bg-[#10b981]/20 border border-[#10b981] text-[#10b981]">
-              [35..41] BCD RTC Clock
-            </span>
-            <span className="px-2 py-0.5 rounded bg-[#f59e0b]/25 border border-[#f59e0b] text-amber-300">
-              Changed vs Baseline
-            </span>
-          </div>
-
-          {/* 8-Column Byte Grid */}
-          <div className="grid grid-cols-8 gap-1.5 p-3 rounded-xl bg-[#0b0f19] border border-[#1e293b] font-mono text-[11px]">
-            {Array.from(liveSerializedBytes).map((byteVal, idx) => {
-              const isRgbReg = idx >= 1 && idx <= 8;
-              const isLogoReg = idx === 28 || idx === 29 || idx === 31 || idx === 32;
-              const isLcdReg = idx === 33 || idx === 34 || idx === 43 || idx === 44 || idx === 46;
-              const isClockReg = idx >= 35 && idx <= 41;
-              const isDiff = modifiedByteIndices.has(idx) && !isClockReg;
-
-              const regLabelMap: Record<number, string> = {
-                0: 'HDR',
-                1: 'MODE',
-                2: 'BRI',
-                3: 'SPD',
-                4: 'DIR',
-                5: 'RNBW',
-                6: 'RED',
-                7: 'GRN',
-                8: 'BLU',
-                28: 'LGO_M',
-                29: 'LGO_B',
-                31: 'LGO_R',
-                32: 'LGO_C',
-                33: 'SCR',
-                34: 'S0_F',
-                35: 'SEC',
-                36: 'MIN',
-                37: 'HOUR',
-                38: 'DOW',
-                39: 'DATE',
-                40: 'MON',
-                41: 'YEAR',
-                43: 'DLY_L',
-                44: 'DLY_H',
-                46: 'S1_F',
-                49: 'VIA_P',
-              };
-
-              let cellStyle = 'bg-[#131b2e]/70 border-[#1e293b] text-slate-400';
-              if (isDiff) {
-                cellStyle = 'bg-[#f59e0b]/25 border-[#f59e0b] text-amber-200 font-bold';
-              } else if (isRgbReg || isLogoReg) {
-                cellStyle = 'bg-[#06b6d4]/15 border-[#06b6d4]/60 text-cyan-200 font-bold';
-              } else if (isLcdReg) {
-                cellStyle = 'bg-[#8b5cf6]/15 border-[#8b5cf6]/60 text-purple-200';
-              } else if (isClockReg) {
-                cellStyle = 'bg-[#10b981]/15 border-[#10b981]/50 text-emerald-200';
-              }
-
-              return (
-                <div
-                  key={idx}
-                  title={`cfg[${idx}] (0x${idx.toString(16).toUpperCase().padStart(2, '0')}): 0x${byteVal
-                    .toString(16)
-                    .toUpperCase()
-                    .padStart(2, '0')} (${byteVal})${
-                    regLabelMap[idx] ? ` — ${regLabelMap[idx]}` : ''
-                  }`}
-                  className={`p-1.5 rounded border text-center flex flex-col items-center justify-center ${cellStyle}`}
-                >
-                  <span className="text-[8px] opacity-70 leading-none">
-                    {regLabelMap[idx] || `[${String(idx).padStart(2, '0')}]`}
-                  </span>
-                  <span className="text-xs leading-tight mt-0.5">
-                    {byteVal.toString(16).toUpperCase().padStart(2, '0')}
-                  </span>
-                </div>
-              );
-            })}
+            {/* 8-col byte grid */}
+            <div className="grid grid-cols-8 gap-1.5 p-3 bg-[#070a12] border border-[#1b263b] rounded-lg font-mono text-[11px]">
+              {Array.from(liveSerializedBytes).slice(0, 48).map((byteVal, idx) => {
+                const isRgb = idx >= 1 && idx <= 8;
+                const isLogo = idx >= 28 && idx <= 32;
+                return (
+                  <div
+                    key={idx}
+                    className={`p-1.5 rounded border text-center ${
+                      isRgb
+                        ? 'bg-[#06b6d4]/15 border-[#06b6d4]/60 text-cyan-200 font-bold'
+                        : isLogo
+                        ? 'bg-[#8b5cf6]/15 border-[#8b5cf6]/60 text-purple-200'
+                        : 'bg-[#0e1422] border-[#1b263b] text-slate-400'
+                    }`}
+                  >
+                    <div className="text-[8px] opacity-60">[{idx}]</div>
+                    <div className="text-xs">{byteVal.toString(16).toUpperCase().padStart(2, '0')}</div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 }
